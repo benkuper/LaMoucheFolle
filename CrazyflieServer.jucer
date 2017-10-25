@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="xMMPVq" name="CrazyflieServer" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.CrazyflieServer" includeBinaryInAppConfig="1"
+              cppLanguageStandard="11" jucerVersion="5.1.2">
+  <MAINGROUP id="S3Pdmt" name="CrazyflieServer">
+    <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
+      <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
+      <FILE id="rveCtC" name="out.png" compile="0" resource="1" file="Resources/out.png"/>
+    </GROUP>
+    <GROUP id="{3CD3B0F3-7DF3-7A2A-99FB-EBEB655CF279}" name="Source">
+      <GROUP id="{A8BE1CB2-75F5-2B6E-ECAC-7D5DB8BAFD0C}" name="UI">
+        <FILE id="AkJ8y6" name="CFAssetManager.cpp" compile="1" resource="0"
+              file="Source/CFAssetManager.cpp"/>
+        <FILE id="r0bRKf" name="CFAssetManager.h" compile="0" resource="0"
+              file="Source/CFAssetManager.h"/>
+      </GROUP>
+      <GROUP id="{A888B81A-01E6-1B7F-1AA7-48DECC0BCB59}" name="Output">
+        <GROUP id="{783AB4AC-A40D-D057-CB86-3EA37968E337}" name="OSCOutput">
+          <FILE id="WViXTX" name="OSCOutput.cpp" compile="1" resource="0" file="Source/OSCOutput.cpp"/>
+          <FILE id="uPT4SA" name="OSCOutput.h" compile="0" resource="0" file="Source/OSCOutput.h"/>
+        </GROUP>
+        <FILE id="QsQrH2" name="OutputManager.cpp" compile="1" resource="0"
+              file="Source/OutputManager.cpp"/>
+        <FILE id="cwVvy5" name="OutputManager.h" compile="0" resource="0" file="Source/OutputManager.h"/>
+      </GROUP>
+      <GROUP id="{B1CBDCEA-C85C-7885-5378-8EEDB639D416}" name="Radio">
+        <FILE id="MK56E1" name="RadioManager.cpp" compile="1" resource="0"
+              file="Source/RadioManager.cpp"/>
+        <FILE id="G6OrY0" name="RadioManager.h" compile="0" resource="0" file="Source/RadioManager.h"/>
+      </GROUP>
+      <GROUP id="{75C9A9BA-C218-9773-C3F8-D548D3A71D6A}" name="Drone">
+        <GROUP id="{330CD881-2887-6CDC-E85C-FF2A4A5A57FC}" name="lib">
+          <FILE id="zbXdBv" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
+          <FILE id="JJgW4A" name="CrazyflieUSB.cpp" compile="1" resource="0"
+                file="External/crazyflie_cpp/src/CrazyflieUSB.cpp"/>
+          <FILE id="dE9IXJ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
+          <FILE id="J9lIB9" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
+        </GROUP>
+        <GROUP id="{C84648B2-96C6-5450-6DEB-C0930E840EA9}" name="ui">
+          <FILE id="no5dla" name="DroneManagerUI.cpp" compile="1" resource="0"
+                file="Source/DroneManagerUI.cpp"/>
+          <FILE id="thCe0A" name="DroneManagerUI.h" compile="0" resource="0"
+                file="Source/DroneManagerUI.h"/>
+          <FILE id="rDBRGS" name="DroneUI.cpp" compile="1" resource="0" file="Source/DroneUI.cpp"/>
+          <FILE id="YRiCse" name="DroneUI.h" compile="0" resource="0" file="Source/DroneUI.h"/>
+        </GROUP>
+        <FILE id="NSo4WJ" name="Drone.cpp" compile="1" resource="0" file="Source/Drone.cpp"/>
+        <FILE id="fIRSKg" name="Drone.h" compile="0" resource="0" file="Source/Drone.h"/>
+        <FILE id="zEx8SH" name="DroneManager.cpp" compile="1" resource="0"
+              file="Source/DroneManager.cpp"/>
+        <FILE id="S5P6BY" name="DroneManager.h" compile="0" resource="0" file="Source/DroneManager.h"/>
+      </GROUP>
+      <FILE id="Tz6prv" name="CFEngine.cpp" compile="1" resource="0" file="Source/CFEngine.cpp"/>
+      <FILE id="OatsKs" name="CFEngine.h" compile="0" resource="0" file="Source/CFEngine.h"/>
+      <FILE id="NCQFXy" name="Main.h" compile="0" resource="0" file="Source/Main.h"/>
+      <FILE id="U9bppq" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="ixZ7D1" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="HCWHV1" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="kpfbZR" name="MainComponentCommands.cpp" compile="1" resource="0"
+            file="Source/MainComponentCommands.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="libusb-1.0.lib">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="1" optimisation="1" targetName="CrazyflieServer" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       libraryPath="../../External/libusb/lib"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="CrazyflieServer"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_organicui" path="../../JUCE Modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../Softwares/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_organicui" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
