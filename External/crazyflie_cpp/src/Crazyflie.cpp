@@ -80,8 +80,6 @@ Crazyflie::Crazyflie(int radioIndex, int channel, Crazyradio::Datarate baudRate,
     throw std::runtime_error("Uri is not valid!");
   }
 
-  DBG("Success " << m_channel << " / " << m_devId << "/" << String::toHexString(m_address) );
-
 }
 
 void Crazyflie::logReset()
@@ -98,7 +96,7 @@ void Crazyflie::sendSetpoint(
   float yawrate,
   uint16_t thrust)
 {
-  crtpSetpointRequest request(roll, pitch, yawrate, thrust);
+	crtpSetpointRequest request(roll, pitch, yawrate, thrust);
   sendPacket((const uint8_t*)&request, sizeof(request));
 }
 
@@ -598,6 +596,7 @@ void Crazyflie::sendPacket(
     if (m_radio->getDatarate() != m_datarate) {
       m_radio->setDatarate(m_datarate);
     }
+	
     m_radio->sendPacket(data, length, ack);
   } else {
     std::unique_lock<std::mutex> mlock(g_crazyflieusbMutex[m_devId]);

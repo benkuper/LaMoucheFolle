@@ -4,6 +4,7 @@
 
 #if _WIN32
 #define __attribute__(x) 
+#pragma pack(push,1)
 #endif
 
 // Header
@@ -450,3 +451,8 @@ struct crtpPlatformRSSIAck
     uint8_t rssi;
 };
 
+
+
+#ifdef _WIN32
+#pragma pack(pop,1)
+#endif

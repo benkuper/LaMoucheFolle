@@ -3,7 +3,7 @@
 <JUCERPROJECT id="xMMPVq" name="CrazyflieServer" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.CrazyflieServer" includeBinaryInAppConfig="1"
-              cppLanguageStandard="11" jucerVersion="5.1.2">
+              cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="CrazyflieServer">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
@@ -68,9 +68,11 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" optimisation="1" targetName="CrazyflieServer" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="../../External/libusb/lib"/>
+                       libraryPath="../../External/libusb/lib" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="CrazyflieServer"/>
+                       isDebug="0" optimisation="3" targetName="CrazyflieServer" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../../../../Softwares/JUCE/modules"/>

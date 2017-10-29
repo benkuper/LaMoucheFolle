@@ -124,12 +124,18 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	{
 		if (cf != nullptr)
 		{
-			LOG("Disable thrust");
 			try
 			{
-				for (int i = 0; i<10; i++) cf->sendSetpoint(0, 0, 0, 0); //disable thrust lock, send more to be sure
-				cf->setParam<int>(cf->getParamTocEntry("flightmode", "posSet")->id, 1);
-				cf->sendExternalPositionUpdate(realPosition->x, realPosition->z * 1000, realPosition->y * 1000);
+				//cf->trySysOff();
+
+				
+				LOG("Disable thrust");
+				for (int i = 0; i<1; i++) cf->sendSetpoint(0, 0, 0, 0); //disable thrust lock, send more to be sure
+				
+				LOG("Disable fly with thrust 1000");
+				for (int i = 0; i<1; i++) cf->sendSetpoint(0, 0, 0,1000); //disable thrust lock, send more to be sure
+																		 //cf->setParam<int>(cf->getParamTocEntry("flightmode", "posSet")->id, 1);
+				//cf->sendExternalPositionUpdate(realPosition->x, realPosition->z * 1000, realPosition->y * 1000);
 
 				outTrigger->trigger();
 			} catch (std::runtime_error)
