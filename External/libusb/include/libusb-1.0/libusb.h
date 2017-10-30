@@ -146,6 +146,9 @@ typedef unsigned __int32  uint32_t;
 /* The following is kept for compatibility, but will be deprecated in the future */
 #define LIBUSBX_API_VERSION LIBUSB_API_VERSION
 
+#pragma warning(push)
+#pragma warning(disable:4200 4201 4456 4267)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -2004,5 +2007,7 @@ void LIBUSB_CALL libusb_hotplug_deregister_callback(libusb_context *ctx,
 #ifdef __cplusplus
 }
 #endif
+
+#pragma warning(pop)
 
 #endif

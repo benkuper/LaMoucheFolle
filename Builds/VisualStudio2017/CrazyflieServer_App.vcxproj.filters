@@ -8,14 +8,14 @@
     <Filter Include="CrazyflieServer\Source\UI">
       <UniqueIdentifier>{A868CD50-23A3-DF8F-43A7-6AA2E19D441E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Output\OSCOutput">
-      <UniqueIdentifier>{63E9E9E9-220E-C7F8-2FF3-395BBD020027}</UniqueIdentifier>
+    <Filter Include="CrazyflieServer\Source\Controller\ui">
+      <UniqueIdentifier>{3937035B-2834-D2AF-D0BE-FF90905F4BC6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Output">
-      <UniqueIdentifier>{330BD51F-DF8A-ADCB-DD64-2C80E1E007D4}</UniqueIdentifier>
+    <Filter Include="CrazyflieServer\Source\Controller\OSCController">
+      <UniqueIdentifier>{DBB216FA-25DC-9F62-A8D9-7FB58B91B4EE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Radio">
-      <UniqueIdentifier>{744096BA-4CE5-140F-8184-44451687A4DE}</UniqueIdentifier>
+    <Filter Include="CrazyflieServer\Source\Controller">
+      <UniqueIdentifier>{F36BBD00-90DE-25C7-94E7-6F43623D8801}</UniqueIdentifier>
     </Filter>
     <Filter Include="CrazyflieServer\Source\Drone\lib">
       <UniqueIdentifier>{BA096AF3-D0EE-A142-18A6-27020212447A}</UniqueIdentifier>
@@ -469,14 +469,20 @@
     <ClCompile Include="..\..\Source\CFAssetManager.cpp">
       <Filter>CrazyflieServer\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OSCOutput.cpp">
-      <Filter>CrazyflieServer\Source\Output\OSCOutput</Filter>
+    <ClCompile Include="..\..\Source\ControllerManagerUI.cpp">
+      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OutputManager.cpp">
-      <Filter>CrazyflieServer\Source\Output</Filter>
+    <ClCompile Include="..\..\Source\ControllerUI.cpp">
+      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\RadioManager.cpp">
-      <Filter>CrazyflieServer\Source\Radio</Filter>
+    <ClCompile Include="..\..\Source\OSCController.cpp">
+      <Filter>CrazyflieServer\Source\Controller\OSCController</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Controller.cpp">
+      <Filter>CrazyflieServer\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ControllerManager.cpp">
+      <Filter>CrazyflieServer\Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp">
       <Filter>CrazyflieServer\Source\Drone\lib</Filter>
@@ -2571,14 +2577,20 @@
     <ClInclude Include="..\..\Source\CFAssetManager.h">
       <Filter>CrazyflieServer\Source\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OSCOutput.h">
-      <Filter>CrazyflieServer\Source\Output\OSCOutput</Filter>
+    <ClInclude Include="..\..\Source\ControllerManagerUI.h">
+      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OutputManager.h">
-      <Filter>CrazyflieServer\Source\Output</Filter>
+    <ClInclude Include="..\..\Source\ControllerUI.h">
+      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\RadioManager.h">
-      <Filter>CrazyflieServer\Source\Radio</Filter>
+    <ClInclude Include="..\..\Source\OSCController.h">
+      <Filter>CrazyflieServer\Source\Controller\OSCController</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller.h">
+      <Filter>CrazyflieServer\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ControllerManager.h">
+      <Filter>CrazyflieServer\Source\Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneManagerUI.h">
       <Filter>CrazyflieServer\Source\Drone\ui</Filter>

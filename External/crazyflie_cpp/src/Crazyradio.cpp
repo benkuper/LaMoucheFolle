@@ -1,3 +1,6 @@
+#pragma warning(push)
+#pragma warning(disable:4200 4201 4244 4456 4267 4189 4389)
+
 #include "Crazyradio.h"
 
 #include <sstream>
@@ -204,3 +207,5 @@ void Crazyradio::sendPacketNoAck(
         throw std::runtime_error(sstr.str());
     }
 }
+
+#pragma warning(pop)

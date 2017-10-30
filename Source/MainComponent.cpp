@@ -7,7 +7,9 @@ This file was auto-generated!
 */
 
 #include "MainComponent.h"
+
 #include "DroneManagerUI.h"
+#include "ControllerManagerUI.h"
 
 //==============================================================================
 MainContentComponent::MainContentComponent()
@@ -21,7 +23,8 @@ MainContentComponent::MainContentComponent()
 	LookAndFeel::setDefaultLookAndFeel(lookAndFeelOO);
 
 	
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones",&DroneManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones", &DroneManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Controllers",&ControllerManagerUI::create));
 	
 	/*
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("State Machine", &StateMachineView::create));

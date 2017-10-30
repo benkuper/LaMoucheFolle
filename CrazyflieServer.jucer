@@ -16,19 +16,27 @@
         <FILE id="r0bRKf" name="CFAssetManager.h" compile="0" resource="0"
               file="Source/CFAssetManager.h"/>
       </GROUP>
-      <GROUP id="{A888B81A-01E6-1B7F-1AA7-48DECC0BCB59}" name="Output">
-        <GROUP id="{783AB4AC-A40D-D057-CB86-3EA37968E337}" name="OSCOutput">
-          <FILE id="WViXTX" name="OSCOutput.cpp" compile="1" resource="0" file="Source/OSCOutput.cpp"/>
-          <FILE id="uPT4SA" name="OSCOutput.h" compile="0" resource="0" file="Source/OSCOutput.h"/>
+      <GROUP id="{A888B81A-01E6-1B7F-1AA7-48DECC0BCB59}" name="Controller">
+        <GROUP id="{F2A21364-CE85-9D67-B2AF-B1DD92469D27}" name="ui">
+          <FILE id="luwJze" name="ControllerManagerUI.cpp" compile="1" resource="0"
+                file="Source/ControllerManagerUI.cpp"/>
+          <FILE id="OGYx6k" name="ControllerManagerUI.h" compile="0" resource="0"
+                file="Source/ControllerManagerUI.h"/>
+          <FILE id="JtAo3c" name="ControllerUI.cpp" compile="1" resource="0"
+                file="Source/ControllerUI.cpp"/>
+          <FILE id="xNAUTJ" name="ControllerUI.h" compile="0" resource="0" file="Source/ControllerUI.h"/>
         </GROUP>
-        <FILE id="QsQrH2" name="OutputManager.cpp" compile="1" resource="0"
-              file="Source/OutputManager.cpp"/>
-        <FILE id="cwVvy5" name="OutputManager.h" compile="0" resource="0" file="Source/OutputManager.h"/>
-      </GROUP>
-      <GROUP id="{B1CBDCEA-C85C-7885-5378-8EEDB639D416}" name="Radio">
-        <FILE id="MK56E1" name="RadioManager.cpp" compile="1" resource="0"
-              file="Source/RadioManager.cpp"/>
-        <FILE id="G6OrY0" name="RadioManager.h" compile="0" resource="0" file="Source/RadioManager.h"/>
+        <GROUP id="{783AB4AC-A40D-D057-CB86-3EA37968E337}" name="OSCController">
+          <FILE id="WViXTX" name="OSCController.cpp" compile="1" resource="0"
+                file="Source/OSCController.cpp"/>
+          <FILE id="uPT4SA" name="OSCController.h" compile="0" resource="0" file="Source/OSCController.h"/>
+        </GROUP>
+        <FILE id="jENlgQ" name="Controller.cpp" compile="1" resource="0" file="Source/Controller.cpp"/>
+        <FILE id="emiLqX" name="Controller.h" compile="0" resource="0" file="Source/Controller.h"/>
+        <FILE id="QsQrH2" name="ControllerManager.cpp" compile="1" resource="0"
+              file="Source/ControllerManager.cpp"/>
+        <FILE id="cwVvy5" name="ControllerManager.h" compile="0" resource="0"
+              file="Source/ControllerManager.h"/>
       </GROUP>
       <GROUP id="{75C9A9BA-C218-9773-C3F8-D548D3A71D6A}" name="Drone">
         <GROUP id="{330CD881-2887-6CDC-E85C-FF2A4A5A57FC}" name="lib">

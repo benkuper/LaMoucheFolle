@@ -1,3 +1,6 @@
+#pragma warning(push)
+#pragma warning(disable:4200 4201 4456 4267 4389 4244)
+
 #include "CrazyflieUSB.h"
 
 #include <sstream>
@@ -113,3 +116,6 @@ void CrazyflieUSB::setCrtpToUsb(bool crtpToUsb)
 {
     sendVendorSetup(0x01, 0x01, crtpToUsb, NULL, 0);
 }
+
+
+#pragma warning(pop)

@@ -1,11 +1,20 @@
 /*
   ==============================================================================
 
-    RadioManager.h
-    Created: 19 Oct 2017 7:33:48pm
+    ControllerUI.cpp
+    Created: 30 Oct 2017 9:21:53am
     Author:  Ben
 
   ==============================================================================
 */
 
-#pragma once
+#include "ControllerUI.h"
+
+ControllerUI::ControllerUI(Controller * c) :
+	BaseItemUI(c)
+{
+}
+
+ControllerUI::~ControllerUI()
+{
+}

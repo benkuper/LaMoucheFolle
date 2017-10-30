@@ -1,4 +1,9 @@
 //#include <regex>
+
+#pragma warning(push)
+#pragma warning(disable:4200 4201 4456 4267)
+
+
 #include <mutex>
 
 #include "Crazyflie.h"
@@ -13,6 +18,12 @@
 #include <stdexcept>
 #include <thread>
 #include <cmath>
+
+#if _WIN32
+#define __attribute__(x) 
+#pragma pack(push,1)
+#endif
+
 
 #define MAX_RADIOS 16
 #define MAX_USB     4
@@ -240,6 +251,7 @@ void Crazyflie::writeFlash(
   }
   // std::cout << "numPages: " << numPages << std::endl;
 
+  
   // write flash
   size_t offset = 0;
   uint16_t usedBuffers = 0;
@@ -403,12 +415,13 @@ void Crazyflie::readFlash(
   data.resize(size);
   size_t i = 0;
   offset = 0;
+
   for (uint16_t page = flashStart; page < numPages + flashStart; ++page) {
     for (uint16_t address = 0; address < pageSize; address += 25) {
-      const bootloaderReadFlashResponse* response = getRequestResult<bootloaderReadFlashResponse>(i++);
+      const bootloaderReadFlashResponse* response2 = getRequestResult<bootloaderReadFlashResponse>(i++);
       size_t requestedSize = std::fmin(25, pageSize - address);
       // std::cout << "offset: " << offset << " reqS: " << requestedSize;
-      memcpy(&data[offset], response->data, std::fmin(size - offset, requestedSize));
+      memcpy(&data[offset], response2->data, std::fmin(size - offset, requestedSize));
       offset += requestedSize;
       if (offset > size) {
         break;
@@ -708,6 +721,8 @@ uint8_t Crazyflie::registerLogBlock(
       return id;
     }
   }
+
+  return 0;
 }
 
 bool Crazyflie::unregisterLogBlock(
@@ -810,3 +825,9 @@ void Crazyflie::handleBatchAck(
   }
 }
 
+#pragma warning(pop)
+
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif

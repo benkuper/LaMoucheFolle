@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "JuceHeader.h"
 
 #include <cstring>
@@ -594,3 +595,4 @@ private:
   uint8_t m_id;
   std::vector<Crazyflie::LogType> m_types;
 };
+

@@ -157,9 +157,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CFAssetManager.cpp"/>
-    <ClCompile Include="..\..\Source\OSCOutput.cpp"/>
-    <ClCompile Include="..\..\Source\OutputManager.cpp"/>
-    <ClCompile Include="..\..\Source\RadioManager.cpp"/>
+    <ClCompile Include="..\..\Source\ControllerManagerUI.cpp"/>
+    <ClCompile Include="..\..\Source\ControllerUI.cpp"/>
+    <ClCompile Include="..\..\Source\OSCController.cpp"/>
+    <ClCompile Include="..\..\Source\Controller.cpp"/>
+    <ClCompile Include="..\..\Source\ControllerManager.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
@@ -2087,9 +2089,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\CFAssetManager.h"/>
-    <ClInclude Include="..\..\Source\OSCOutput.h"/>
-    <ClInclude Include="..\..\Source\OutputManager.h"/>
-    <ClInclude Include="..\..\Source\RadioManager.h"/>
+    <ClInclude Include="..\..\Source\ControllerManagerUI.h"/>
+    <ClInclude Include="..\..\Source\ControllerUI.h"/>
+    <ClInclude Include="..\..\Source\OSCController.h"/>
+    <ClInclude Include="..\..\Source\Controller.h"/>
+    <ClInclude Include="..\..\Source\ControllerManager.h"/>
     <ClInclude Include="..\..\Source\DroneManagerUI.h"/>
     <ClInclude Include="..\..\Source\DroneUI.h"/>
     <ClInclude Include="..\..\Source\Drone.h"/>

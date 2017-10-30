@@ -138,9 +138,9 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 				//cf->sendExternalPositionUpdate(realPosition->x, realPosition->z * 1000, realPosition->y * 1000);
 
 				outTrigger->trigger();
-			} catch (std::runtime_error)
+			} catch (std::runtime_error e)
 			{
-				LOG("Error sending :", e.what());
+				NLOG("Error sending :", e.what());
 			}
 			
 		}

@@ -37,10 +37,10 @@ struct crtp
 typedef struct {
   uint8_t size;
   union {
-    struct {
+    struct headerData_t {
       uint8_t header;
       uint8_t data[CRTP_MAX_DATA_SIZE];
-    };
+	}; 
     uint8_t raw[CRTP_MAX_DATA_SIZE+1];
   };
 } crtpPacket_t;
@@ -451,8 +451,6 @@ struct crtpPlatformRSSIAck
     uint8_t rssi;
 };
 
-
-
 #ifdef _WIN32
-#pragma pack(pop,1)
+#pragma pack(pop)
 #endif

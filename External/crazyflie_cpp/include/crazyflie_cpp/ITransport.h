@@ -3,7 +3,8 @@
 #include <stdint.h>
 
 #if _WIN32
-#define __attribute__(x)
+#define __attribute__(x) 
+#pragma pack(push,1)
 #endif
 
 class ITransport
@@ -36,3 +37,7 @@ public:
     const uint8_t* data,
     uint32_t length) = 0;
 };
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif

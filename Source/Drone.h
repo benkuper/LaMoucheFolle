@@ -11,8 +11,6 @@
 #pragma once
 
 #include "JuceHeader.h"
-
-#pragma warning(disable:4200 4201)
 #include "Crazyflie.h"
 
 class Drone :

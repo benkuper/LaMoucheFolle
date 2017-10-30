@@ -1,11 +1,22 @@
 /*
   ==============================================================================
 
-    OutputManager.h
-    Created: 19 Oct 2017 7:35:51pm
+    Controller.cpp
+    Created: 30 Oct 2017 9:21:36am
     Author:  Ben
 
   ==============================================================================
 */
 
-#pragma once
+#include "Controller.h"
+
+Controller::Controller(const String &name) :
+	BaseItem(name)
+{
+
+}
+
+Controller::~Controller()
+{
+
+}

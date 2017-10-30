@@ -1,6 +1,11 @@
 #pragma once
 #include <cstdint>
 
+#if _WIN32
+#define __attribute__(x) 
+#pragma pack(push,1)
+#endif
+
 // Header
 struct bootloader
 {
@@ -260,3 +265,7 @@ struct bootloaderGetVBatResponse
   bootloaderGetVBatRequest request;
   float vbat;
 } __attribute__((packed));
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif

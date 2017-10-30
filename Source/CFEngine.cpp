@@ -9,6 +9,7 @@ Author:  Martin Hermant
 */
 #include "CFEngine.h"
 #include "DroneManager.h"
+#include "ControllerManager.h"
 
 CFEngine::CFEngine(ApplicationProperties * appProperties, const String &appVersion) :
 	Engine("CrazyflieServer", ".crazyflie", appProperties, appVersion)
@@ -17,6 +18,7 @@ CFEngine::CFEngine(ApplicationProperties * appProperties, const String &appVersi
 	Engine::mainEngine = this;
 	
 	addChildControllableContainer(DroneManager::getInstance());
+	addChildControllableContainer(ControllerManager::getInstance());
 }
 
 
@@ -26,25 +28,8 @@ CFEngine::~CFEngine()
 
 	//delete singletons here
 	
+	ControllerManager::deleteInstance();
 	DroneManager::deleteInstance();
-
-	/*
-	ModuleRouterManager::deleteInstance();
-
-	SequenceManager::deleteInstance();
-	StateManager::deleteInstance();
-	ModuleManager::deleteInstance();
-
-	MappingFilterFactory::deleteInstance();
-	ConditionFactory::deleteInstance();
-	ProcessorFactory::deleteInstance();
-
-	MIDIManager::deleteInstance();
-	DMXManager::deleteInstance();
-	SerialManager::deleteInstance();
-	GamepadManager::deleteInstance();
-	WiimoteManager::deleteInstance();
-	*/
 
 }
 
@@ -52,15 +37,9 @@ void CFEngine::clearInternal()
 {
 	//clear
 
+	ControllerManager::getInstance()->clear();
 	DroneManager::getInstance()->clear();
 
-	/*
-	StateManager::getInstance()->clear();
-	SequenceManager::getInstance()->clear();
-
-	ModuleRouterManager::getInstance()->clear();
-	ModuleManager::getInstance()->clear();
-	*/
 
 }
 
@@ -69,14 +48,8 @@ var CFEngine::getJSONData()
 	var data = Engine::getJSONData();
 
 	//save here
-	
 	data.getDynamicObject()->setProperty("droneManager", DroneManager::getInstance()->getJSONData());
-	
-	/*
-	data.getDynamicObject()->setProperty("stateManager", StateManager::getInstance()->getJSONData());
-	data.getDynamicObject()->setProperty("sequenceManager", SequenceManager::getInstance()->getJSONData());
-	data.getDynamicObject()->setProperty("routerManager", ModuleRouterManager::getInstance()->getJSONData());
-	*/
+	data.getDynamicObject()->setProperty("controllerManager", ControllerManager::getInstance()->getJSONData());
 
 	return data;
 }
@@ -84,33 +57,20 @@ var CFEngine::getJSONData()
 void CFEngine::loadJSONDataInternalEngine(var data, ProgressTask * loadingTask)
 {
 	ProgressTask * droneTask = loadingTask->addTask("Drones");
-
+	ProgressTask * controllerTask = loadingTask->addTask("Controllers");
 
 	//load here
-	
 	droneTask->start();
 	DroneManager::getInstance()->loadJSONData(data.getProperty("droneManager", var()));
 	droneTask->setProgress(1);
 	droneTask->end();
 
-	/*
-	stateTask->start();
-	StateManager::getInstance()->loadJSONData(data.getProperty("stateManager", var()));
-	stateTask->setProgress(1);
-	stateTask->end();
-
-	sequenceTask->start();
-	SequenceManager::getInstance()->loadJSONData(data.getProperty("sequenceManager", var()));
-	sequenceTask->setProgress(1);
-	sequenceTask->end();
-
-	routerTask->start();
-	ModuleRouterManager::getInstance()->loadJSONData(data.getProperty("routerManager", var()));
-	routerTask->setProgress(1);
-	routerTask->end();
-	*/
-
+	controllerTask->start();
+	ControllerManager::getInstance()->loadJSONData(data.getProperty("controllerManager", var()));
+	controllerTask->setProgress(1);
+	controllerTask->end();
 }
+
 
 String CFEngine::getMinimumRequiredFileVersion()
 {
