@@ -35,6 +35,8 @@ public:
 
 	ScopedPointer<TriggerImageUI> inTriggerUI;
 	ScopedPointer<TriggerImageUI> outTriggerUI;
+	ScopedPointer<BoolImageToggleUI> chargingUI;
+	ScopedPointer<BoolImageToggleUI> lowBatUI;
 
 	Label addressLabel;
 	DroneStatusFeedback stateFeedback;

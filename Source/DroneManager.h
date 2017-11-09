@@ -21,5 +21,10 @@ public:
 	DroneManager();
 	~DroneManager();
 
+	Trigger * connectAllTrigger;
+	Trigger * resetAllKalman;
+
+	void onContainerTriggerTriggered(Trigger *) override;
+
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DroneManager)
 };

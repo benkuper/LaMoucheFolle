@@ -19,4 +19,9 @@ public:
 	ControllerUI(Controller * c);
 	~ControllerUI();
 
+	ScopedPointer<TriggerImageUI> inActivityUI;
+	ScopedPointer<TriggerImageUI> outActivityUI;
+
+	void resizedInternalHeader(Rectangle<int> &r) override;
+
 };

@@ -12,7 +12,11 @@
 
 #include "JuceHeader.h"
 #include "Crazyflie.h"
-#
+
+#if _WIN32
+#define __attribute__(x) 
+#pragma pack(push,1)
+#endif
 
 class Drone :
 	public BaseItem,
@@ -41,14 +45,16 @@ public:
 	ColorParameter * color;
 	BoolParameter * headlight;
 
-	BoolParameter * autoConnect;
-	BoolParameter * autoReboot;
+	BoolParameter * autoReconnect;
 
 	Point3DParameter * targetPosition;
 	Point3DParameter * realPosition;
 
+
 	FloatParameter * linkQuality;
-	FloatParameter * battery;
+	FloatParameter * voltage;
+	BoolParameter * charging;
+	BoolParameter * lowBattery;
 
 	ScopedPointer<Crazyflie> cf;
 
@@ -68,10 +74,11 @@ public:
 	struct dataLog
 	{
 		float battery;
+		uint8 charging;
 		float x;
 		float y;
 		float z;
-	};
+	} __attribute__((packed));
 
 	ScopedPointer<LogBlock<dataLog>> dataLogBlock;
 
@@ -82,7 +89,8 @@ public:
 	void onContainerTriggerTriggered(Trigger * t) override;
 
 	bool setupCF();
-	
+	void selfTestCheck();
+
 	template<class T>
 	bool setParam(String group, String paramID, T value);
 	bool setTargetPosition(float x, float y, float z, bool showTrigger = true);
@@ -101,8 +109,11 @@ public:
 	String getRadioString() const { return "radio://" + String(targetRadio->intValue()) + "/" + String(channel->intValue()) + "/" + speed->getValueData().toString() + "/" + address->stringValue(); }
 	String getTypeString() const override { return "Drone"; }
 
-	void loadJSONDataInternal(var data) override;
 
 private:
 	SpinLock cfLock;
 };
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif

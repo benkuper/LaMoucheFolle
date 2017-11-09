@@ -6,8 +6,11 @@
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="CrazyflieServer">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
+      <FILE id="s77xKn" name="charging.png" compile="0" resource="1" file="Resources/charging.png"/>
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
+      <FILE id="v0o1BC" name="lowbattery.png" compile="0" resource="1" file="Resources/lowbattery.png"/>
       <FILE id="rveCtC" name="out.png" compile="0" resource="1" file="Resources/out.png"/>
+      <FILE id="exWlAN" name="transparent.png" compile="0" resource="1" file="Resources/transparent.png"/>
     </GROUP>
     <GROUP id="{3CD3B0F3-7DF3-7A2A-99FB-EBEB655CF279}" name="Source">
       <GROUP id="{A8BE1CB2-75F5-2B6E-ECAC-7D5DB8BAFD0C}" name="UI">

@@ -18,8 +18,13 @@ DroneUI::DroneUI(Drone * drone) :
 {
 	inTriggerUI = item->inTrigger->createImageUI(CFAssetManager::getInstance()->getInImage());
 	outTriggerUI = item->outTrigger->createImageUI(CFAssetManager::getInstance()->getOutImage());
+	lowBatUI = item->lowBattery->createImageToggle(CFAssetManager::getInstance()->getToggleBTImage(CFAssetManager::getInstance()->getLowBatteryImage()));
+	chargingUI = item->charging->createImageToggle(CFAssetManager::getInstance()->getToggleBTImage(CFAssetManager::getInstance()->getChargingImage()));
+
 	addAndMakeVisible(inTriggerUI);
 	addAndMakeVisible(outTriggerUI);
+	addAndMakeVisible(lowBatUI);
+	addAndMakeVisible(chargingUI);
 
 	addressLabel.setText(drone->getRadioString(),dontSendNotification);
 	addAndMakeVisible(&addressLabel);
@@ -34,6 +39,8 @@ DroneUI::~DroneUI()
 void DroneUI::resizedInternalHeader(Rectangle<int>& r)
 {
 	stateFeedback.setBounds(r.removeFromRight(r.getHeight()));
+	lowBatUI->setBounds(r.removeFromRight(r.getHeight()));
+	chargingUI->setBounds(r.removeFromRight(r.getHeight()));
 	r.removeFromRight(10);
 
 	outTriggerUI->setBounds(r.removeFromRight(r.getHeight()));

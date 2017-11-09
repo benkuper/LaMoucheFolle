@@ -11,6 +11,7 @@
 #pragma once
 
 #include "Controller.h"
+#include "DroneManager.h"
 
 class ControllerManager :
 	public BaseManager<Controller>
@@ -20,6 +21,11 @@ public:
 
 	ControllerManager();
 	~ControllerManager();
+
+	void sendDroneFeedback(Drone *, Controllable * c);
+
+	void onExternalParameterChanged(Parameter * p) override;
+	void controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c) override;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ControllerManager)
 };

@@ -33,6 +33,16 @@ Image CFAssetManager::getOutImage()
 	return ImageCache::getFromMemory(BinaryData::out_png, BinaryData::out_pngSize);
 }
 
+Image CFAssetManager::getLowBatteryImage()
+{
+	return ImageCache::getFromMemory(BinaryData::lowbattery_png, BinaryData::lowbattery_pngSize);
+}
+
+Image CFAssetManager::getChargingImage()
+{
+	return ImageCache::getFromMemory(BinaryData::charging_png, BinaryData::charging_pngSize);
+}
+
 ImageButton * CFAssetManager::getSetupBTImage(const Image & image)
 {
 	ImageButton * bt = new ImageButton();
@@ -42,6 +52,8 @@ ImageButton * CFAssetManager::getSetupBTImage(const Image & image)
 		image, 1.0f, Colours::white.withAlpha(.7f), 0);
 	return bt;
 }
+
+
 
 ImageButton * CFAssetManager::getToggleBTImage(const Image & image)
 {

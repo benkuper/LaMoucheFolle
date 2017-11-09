@@ -19,5 +19,10 @@ public:
 	DroneManagerUI(const String &name, DroneManager * manager);
 	~DroneManagerUI();
 
+	ScopedPointer<TriggerButtonUI> connectAllBT;
+	ScopedPointer<TriggerButtonUI> resetKalmanBT;
+
+	void resizedInternalHeader(Rectangle<int> &r) override;
+
 	static DroneManagerUI * create(const String &name) { return new DroneManagerUI(name, DroneManager::getInstance()); }
 };

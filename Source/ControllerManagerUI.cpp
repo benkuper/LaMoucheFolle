@@ -13,6 +13,7 @@
 ControllerManagerUI::ControllerManagerUI(const String &name, ControllerManager * manager) :
 	BaseManagerShapeShifterUI(name,manager)
 {
+	addExistingItems();
 }
 
 ControllerManagerUI::~ControllerManagerUI()

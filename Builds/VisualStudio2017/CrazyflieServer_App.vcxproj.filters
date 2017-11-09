@@ -4790,10 +4790,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\charging.png">
+      <Filter>CrazyflieServer\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\in.png">
       <Filter>CrazyflieServer\Resources</Filter>
     </None>
+    <None Include="..\..\Resources\lowbattery.png">
+      <Filter>CrazyflieServer\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\out.png">
+      <Filter>CrazyflieServer\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\transparent.png">
       <Filter>CrazyflieServer\Resources</Filter>
     </None>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">

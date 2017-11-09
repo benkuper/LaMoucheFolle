@@ -21,6 +21,8 @@ public:
 
 	Image getInImage();
 	Image getOutImage();
+	Image getLowBatteryImage();
+	Image getChargingImage();
 
 	ImageButton * getSetupBTImage(const Image & image);
 	ImageButton * getToggleBTImage(const Image &image);

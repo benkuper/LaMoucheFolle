@@ -2828,8 +2828,11 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\charging.png"/>
     <None Include="..\..\Resources\in.png"/>
+    <None Include="..\..\Resources\lowbattery.png"/>
     <None Include="..\..\Resources\out.png"/>
+    <None Include="..\..\Resources\transparent.png"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>

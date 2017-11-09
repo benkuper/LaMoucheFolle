@@ -35,6 +35,7 @@ Drone::Drone() :
 	droneState->isSavable = false;
 
 	connectTrigger = addTrigger("Connect", "Init the connection to the radio");
+
 	logParams = addTrigger("Log Params", "Log all params from the drone");
 	logLogs = addTrigger("Log Logs", "Log logs entries from the drone");
 
@@ -53,13 +54,20 @@ Drone::Drone() :
 
 	headlight = addBoolParameter("Headlight", "Headlight", false);
 
-	autoConnect = addBoolParameter("Auto Connect", "Auto Connect drone if disconnected", false);
-	autoReboot = addBoolParameter("Auto Reboot", "Auto Reboot drone if connected but in bad state", false);
+	autoReconnect = addBoolParameter("Auto Reconnect", "Auto Reboot drone if connected but in bad state", false);
 
 	linkQuality = addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 	linkQuality->isEditable = false;
-	battery = addFloatParameter("Battery", "Battery of the drone", 0, 0, 1);
-	battery->isEditable = false;
+	voltage = addFloatParameter("Voltage", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 4.2f);
+	voltage->isEditable = false;
+	
+	charging = addBoolParameter("Is Charging", "Is the drone connected to a power source", false);
+	charging->isEditable = false;
+	charging->isSavable = false;
+
+	lowBattery = addBoolParameter("Low Battery", "Low battery (measured when not flying)", false);
+	lowBattery->isEditable = false;
+	lowBattery->isSavable = false;
 
 	inTrigger = addTrigger("Activity IN", "If received any communication from the drone");
 	outTrigger = addTrigger("Activity OUT", "If any data has been sent to the drone");
@@ -67,12 +75,6 @@ Drone::Drone() :
 	inTrigger->isEditable = false;
 	outTrigger->isEditable = false;
 	outTrigger->hideInEditor = true;
-
-	/*
-	startTimer(0, 1000); //try to connect to the drone each 1s if it's not already connected, or in a bad state, otherwise ask for battery
-	startTimer(1, 100); //if drone is connected, send empty packets
-	startTimer(2, 500); //send position each 500ms
-	*/
 
 }
 
@@ -102,7 +104,6 @@ void Drone::stopCFThread()
 
 void Drone::onContainerParameterChangedInternal(Parameter * p)
 {
-
 	if (cf == nullptr) return;
 	if (!enabled->boolValue()) return;
 
@@ -115,11 +116,20 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		setParam("ring", "solidRed", color->getColor().getRed());
 		setParam("ring", "solidGreen", color->getColor().getGreen());
 		setParam("ring", "solidBlue", color->getColor().getBlue());
-	}else if (p == targetPosition)
-	{
-		setTargetPosition(realPosition->x, realPosition->y, realPosition->z);
-	}
+	}else if (p == targetPosition) setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z);
 
+	if (p == voltage)
+	{
+		if (voltage->floatValue() > 0 && !charging->boolValue()) //ensure voltage has been set and drone is not charging
+		{
+			if(targetPosition->y == 0) lowBattery->setValue(voltage->floatValue() < 3.1f); //drone is not flying, min battery is 3.1V
+			else lowBattery->setValue(voltage->floatValue() < 2.7f); //drone is flying, min battery is 2.7V
+		}
+		else
+		{
+			lowBattery->setValue(false);
+		}
+	}
 }
 
 void Drone::onContainerTriggerTriggered(Trigger * t)
@@ -144,7 +154,7 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 //CONNECTION
 bool Drone::setupCF()
 {
-	NLOG(getRadioString(), "Connect " << getRadioString() << "...");
+	NLOG(address->stringValue(), "Connect " << getRadioString() << "...");
 	droneState->setValueWithData(CONNECTING);
 
 	try
@@ -175,54 +185,68 @@ bool Drone::setupCF()
 			sleep(10);
 		}
 
-		NLOG(getRadioString(), "Init finished, setup params and logs");
+		NLOG(address->stringValue(), "Init finished, setup params and logs");
 		cf->requestParamToc();
 
 		uint8 selfTest = cf->getParam<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
 
 		if (!selfTest)
 		{
-			NLOG(getRadioString(), "SelfTest failed.");
+			NLOG(address->stringValue(), "SelfTest failed.");
 			droneState->setValueWithData(ERROR);
 			return false;
 		}
 
-		NLOG(getRadioString(), "SelfTest check passed");
+		NLOG(address->stringValue(), "SelfTest check passed");
 
 		cf->logReset();
 		cf->requestLogToc();
 
 		std::function<void(uint32_t, dataLog *)> cb = std::bind(&Drone::dataLogCallback, this, std::placeholders::_1, std::placeholders::_2);
-		dataLogBlock = new LogBlock<dataLog>(cf, { { "pm","vbat" },{ "kalman","stateX" },{ "kalman","stateY" },{ "kalman","stateZ" } }, cb);
-		dataLogBlock->start(20); //200ms
+		dataLogBlock = new LogBlock<dataLog>(cf, { { "pm","vbat" },{"pm","state"},{ "kalman","stateX" },{ "kalman","stateY" },{ "kalman","stateZ" } }, cb);
+		dataLogBlock->start(5); // 50ms - 20fps
 
-
-		NLOG(getRadioString(), "Set absolute position mode");
-		cf->setParam(cf->getParamTocEntry("flightmode", "posSet")->id, 1);
-
-		NLOG(getRadioString(), "Disable thrust lock.");
-		for (int i = 0; i < 10; i++) cf->sendSetpoint(0, 0, 0, 0); // disable thrust lock, put in autoArm param ?
-
+		
 		realPosition->setVector(0, 0, 0);
 		targetPosition->setVector(0, 0, 0);
 		
 		lightMode->setValueWithKey("Off");
 
-		NLOG(getRadioString(), "Shut off ring lights");
+		NLOG(address->stringValue(), "Shut off ring lights");
 		cf->setParam(cf->getParamTocEntry("ring", "effect")->id,0);
 
-		NLOG(getRadioString(), "Connected.");
+		NLOG(address->stringValue(), "Set absolute position mode");
+		cf->setParam(cf->getParamTocEntry("flightmode", "posSet")->id, 1);
+
+		NLOG(address->stringValue(), "Disable thrust lock.");
+		for (int i = 0; i < 10; i++) cf->sendSetpoint(0, 0, 0, 0); // disable thrust lock, put in autoArm param ?
+
+		NLOG(address->stringValue(), "Connected.");
 		droneState->setValueWithData(READY);
 
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(getRadioString(), "Could not connect : " << e.what());
+		NLOG(address->stringValue(), "Could not connect : " << e.what());
 		droneState->setValueWithData(DISCONNECTED);
 		return false;
 	}
 
 	return true;
+}
+
+void Drone::selfTestCheck()
+{
+	uint8 selfTest = true;
+	const SpinLock::ScopedLockType lock(cfLock);
+	selfTest = cf->requestParamValue<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
+	outTrigger->trigger();
+
+	if (!selfTest)
+	{
+		NLOG(address->stringValue(), "SelfTest failed.");
+		droneState->setValueWithData(ERROR);
+	}
 }
 
 
@@ -241,7 +265,7 @@ bool Drone::setParam(String group, String paramID, T value)
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(getRadioString(), "Error setting param " << group << "." << paramID <<" : " << e.what());
+		NLOG(address->stringValue(), "Error setting param " << group << "." << paramID <<" : " << e.what());
 		return false;
 	}
 
@@ -256,12 +280,13 @@ bool Drone::setTargetPosition(float x, float y, float z, bool showTrigger)
 
 	try
 	{
-		cf->sendExternalPositionUpdate(realPosition->x, realPosition->z, realPosition->y); //z is height for the drones, height is y for me.
+		DBG("Set target position " << x << ", " << y << ", " << z);
+		cf->sendSetpoint(z, x, 0,(uint16_t)(y*1000)); //z is height for the drones, height is y for me.
 		outTrigger->trigger();
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(getRadioString(),"Error setting target Position : " << e.what());
+		NLOG(address->stringValue(),"Error setting target Position : " << e.what());
 		return false;
 	}
 	
@@ -274,7 +299,7 @@ bool Drone::setAnchors(Array<Point3DParameter*> positions)
 
 	if (cf == nullptr || droneState->getValueDataAsEnum<DroneState>() != READY) return false;
 	
-	NLOG(getRadioString(), "Set anchors : " << positions.size() << " values");
+	NLOG(address->stringValue(), "Set anchors : " << positions.size() << " values");
 	SpinLock::ScopedLockType lock(cfLock);
 	try
 	{
@@ -287,7 +312,7 @@ bool Drone::setAnchors(Array<Point3DParameter*> positions)
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(getRadioString(), "Error setting anchors : " << e.what());
+		NLOG(address->stringValue(), "Error setting anchors : " << e.what());
 		return false;
 	}
 
@@ -385,10 +410,12 @@ void Drone::linkQualityCallback(float val)
 	linkQuality->setValue(val);
 }
 
+
 void Drone::dataLogCallback(uint32_t, dataLog * data)
 {
-	battery->setValue(jmap<float>(data->battery, 3, 4.23f, 0, 1));
+	voltage->setValue(data->battery);
 	realPosition->setVector(data->x, data->z, data->y); //z is height for the drones, height is y for me.
+	charging->setValue(data->charging == 1);
 }
 
 
@@ -405,14 +432,13 @@ void Drone::run()
 		//If connected, loop while drone is OK
 		if (result)
 		{
-			DBG("Init routine");
 			uint32 lastSelfTestCheck = Time::getApproximateMillisecondCounter();
+			uint32 lastPosSend = Time::getApproximateMillisecondCounter();
+			
 			while (enabled->boolValue() && !threadShouldExit() && droneState->getValueDataAsEnum<DroneState>() != ERROR)
 			{
 				
-				DBG("Drone routine");
 				sleep(100);
-
 				//ping, and stuff here
 				try
 				{
@@ -424,42 +450,29 @@ void Drone::run()
 					uint32 time = Time::getApproximateMillisecondCounter();
 					if (time > lastSelfTestCheck + 3000)
 					{
-						uint8 selfTest = true;
-						{
-							const SpinLock::ScopedLockType lock(cfLock);
-							selfTest = cf->requestParamValue<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
-							outTrigger->trigger();
-						}
-
-						if (!selfTest)
-						{
-							NLOG(getRadioString(), "SelfTest failed.");
-							droneState->setValueWithData(ERROR); 
-						}
-
+						selfTestCheck();
 						lastSelfTestCheck = time;
 					}
 
-
+					if (time > lastPosSend + 200) // send pos every 200ms
+					{
+						setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z);
+						lastPosSend = time;
+					}
 				}
 				catch (std::runtime_error &e)
 				{
-					DBG("Routine failed : " << e.what());
+					NLOG(address->stringValue(), "Routine failed : " << e.what());
+					droneState->setValueWithData(ERROR);
 				}
 
 			}
 		}
 
-		//If drone is in error mode or could not connect, if autoReboot, will wait 1 second and try reconnecting, else it will end the thread
-		if (!autoReboot->boolValue() || threadShouldExit() || !enabled->boolValue()) return;
+		//If drone is in error mode or could not connect, if autoReconnect, will wait 1 second and try reconnecting, else it will end the thread
+		if (!autoReconnect->boolValue() || threadShouldExit() || !enabled->boolValue()) return;
 		sleep(3000);
 	}
 
 	DBG("Drone Thread finish");
-}
-
-void Drone::loadJSONDataInternal(var data)
-{
-	BaseItem::loadJSONDataInternal(data);
-	if (enabled->boolValue() && autoConnect->boolValue()) launchCFThread();
 }

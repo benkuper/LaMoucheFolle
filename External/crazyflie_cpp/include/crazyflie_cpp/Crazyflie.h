@@ -449,7 +449,7 @@ private:
       m_callback(time_in_ms, t);
     }
     else {
-      throw std::runtime_error("Size doesn't match!");
+      throw std::runtime_error(String("Size doesn't match ! " + String(size) + " < > " + String(sizeof(T))).toStdString());
     }
   }
 
