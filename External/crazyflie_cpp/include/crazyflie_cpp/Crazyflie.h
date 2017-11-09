@@ -114,6 +114,7 @@ public:
 
   void requestParamToc();
 
+
   std::vector<ParamTocEntry>::const_iterator paramsBegin() const {
     return m_paramTocEntries.begin();
   }
@@ -140,6 +141,27 @@ public:
     ParamValue v = getParam(id);
     return *(reinterpret_cast<T*>(&v));
   }
+
+  template <class T>
+  T requestParamValue(uint8_t id)
+  {
+	  startBatchRequest();
+	  crtpParamTocGetItemRequest itemRequest(id);
+	  addRequest(itemRequest, 2);
+	  crtpParamReadRequest readRequest(id);
+	  addRequest(readRequest, 1);
+	  handleRequests();
+
+	  //auto r = getRequestResult<crtpParamTocGetItemResponse>(0);
+	  auto val = getRequestResult<crtpParamValueResponse>(1);
+
+	  //ParamTocEntry& entry = m_paramTocEntries[id];
+	  ParamValue v;
+	  std::memcpy(&v, &val->valueFloat, 4);
+	  return *(reinterpret_cast<T*>(&v));
+  }
+
+
 
   const ParamTocEntry* getParamTocEntry(
     const std::string& group,
@@ -392,12 +414,18 @@ public:
   ~LogBlock()
   {
     stop();
-    m_cf->unregisterLogBlock(m_id);
+    if(m_cf != nullptr) m_cf->unregisterLogBlock(m_id);
+  }
+
+  void clearCF()
+  {
+	  m_cf = nullptr;
   }
 
 
   void start(uint8_t period)
   {
+	if (m_cf == nullptr) return;
     crtpLogStartRequest request(m_id, period);
     m_cf->startBatchRequest();
     m_cf->addRequest(request, 2);
@@ -406,6 +434,7 @@ public:
 
   void stop()
   {
+	  if (m_cf == nullptr) return;
     crtpLogStopRequest request(m_id);
     m_cf->startBatchRequest();
     m_cf->addRequest(request, 2);

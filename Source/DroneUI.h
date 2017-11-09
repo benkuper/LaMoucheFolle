@@ -12,6 +12,20 @@
 
 #include "Drone.h"
 
+class DroneStatusFeedback :
+	public Component
+{
+public:
+	DroneStatusFeedback(Drone *drone);
+	~DroneStatusFeedback();
+
+	Drone * drone;
+
+	void paint(Graphics &g) override;
+
+};
+
+
 class DroneUI :
 	public BaseItemUI<Drone>
 {
@@ -22,5 +36,10 @@ public:
 	ScopedPointer<TriggerImageUI> inTriggerUI;
 	ScopedPointer<TriggerImageUI> outTriggerUI;
 
+	Label addressLabel;
+	DroneStatusFeedback stateFeedback;
+
 	void resizedInternalHeader(Rectangle<int> &r) override;
+
+	void controllableFeedbackUpdateInternal(Controllable * c) override;
 };
