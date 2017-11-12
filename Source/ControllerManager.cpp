@@ -8,12 +8,13 @@
   ==============================================================================
 */
 
+
+#include "OSCController.h"
+#include "NodeManager.h"
 #include "ControllerManager.h"
 
 juce_ImplementSingleton(ControllerManager)
 juce_ImplementSingleton(ControllerFactory);
-
-#include "OSCController.h"
 
 ControllerManager::ControllerManager() :
 	BaseManager("Controllers")
@@ -28,25 +29,43 @@ ControllerManager::~ControllerManager()
 	ControllerFactory::deleteInstance();
 }
 
-void ControllerManager::sendDroneFeedback(Drone * d, Controllable * c)
+void ControllerManager::sendFullSetup()
 {
-	for (Controller * i : items) i->sendFeedback(d, c);
+	for (Controller * i : items) i->sendFullSetup();
 }
 
-void ControllerManager::onExternalParameterChanged(Parameter * p)
+void ControllerManager::sendDroneFeedback(Drone * d, Controllable * c)
 {
-	DBG("External parameter changed");
+	for (Controller * i : items) i->sendDroneFeedback(d, c);
 }
+
+void ControllerManager::sendNodeFeedback(Node * n, Controllable * c)
+{
+	for (Controller * i : items) i->sendNodeFeedback(n, c);
+}
+
 
 void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c)
 {
-	Drone * d = reinterpret_cast<Drone *>(cc);
+ 	Drone * d = dynamic_cast<Drone *>(c->parentContainer);
 	if (d != nullptr)
 	{
-		if (c == d->realPosition || c == d->lowBattery || c == d->charging || c == d->droneState)
+		//if(c != d->realPosition && c != d->inTrigger && c != d->outTrigger) LOG("Feedback : " << c->shortName);
+		if (c == d->realPosition || c == d->voltage || c == d->lowBattery || c == d->charging || c == d->droneState || c == d->headlight || c == d->color || c == d->lightMode)
 		{
 			sendDroneFeedback(d, c);
 		}
+		return;
+	}
+
+	Node * n = dynamic_cast<Node *>(c->parentContainer);
+	if (n != nullptr)
+	{
+		if (c == n->id || c == n->position)
+		{
+			sendNodeFeedback(n, c);
+		}
+		return;
 	}
 }
 

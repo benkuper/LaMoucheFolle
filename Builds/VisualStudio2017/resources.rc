@@ -13,9 +13,9 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "FileDescription",  "CrazyflieServer\0"
+      VALUE "FileDescription",  "LaMoucheFolle\0"
       VALUE "FileVersion",  "1.0.0\0"
-      VALUE "ProductName",  "CrazyflieServer\0"
+      VALUE "ProductName",  "LaMoucheFolle\0"
       VALUE "ProductVersion",  "1.0.0\0"
     END
   END
@@ -27,3 +27,6 @@ BEGIN
 END
 
 #endif
+
+IDI_ICON1 ICON DISCARDABLE "icon.ico"
+IDI_ICON2 ICON DISCARDABLE "icon.ico"

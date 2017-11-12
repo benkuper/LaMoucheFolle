@@ -8,7 +8,7 @@ inline void CFApplication::initialise(const String & commandLine)
 
 
 	PropertiesFile::Options options;
-	options.applicationName = "CrazyflieServer";
+	options.applicationName = "LaMoucheFolle";
 	options.filenameSuffix = "settings";
 	options.osxLibrarySubFolder = "Preferences";
 

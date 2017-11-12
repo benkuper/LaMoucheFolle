@@ -413,7 +413,15 @@ public:
 
   ~LogBlock()
   {
-    stop();
+	  try
+	  {
+		  //stop();
+	  }
+	  catch (std::runtime_error e)
+	  {
+		  DBG("ERROR here !");
+	  }
+    
     if(m_cf != nullptr) m_cf->unregisterLogBlock(m_id);
   }
 

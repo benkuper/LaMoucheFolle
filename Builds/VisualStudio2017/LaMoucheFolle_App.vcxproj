@@ -170,6 +170,9 @@
     <ClCompile Include="..\..\Source\DroneUI.cpp"/>
     <ClCompile Include="..\..\Source\Drone.cpp"/>
     <ClCompile Include="..\..\Source\DroneManager.cpp"/>
+    <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
+    <ClCompile Include="..\..\Source\Node.cpp"/>
+    <ClCompile Include="..\..\Source\NodeManager.cpp"/>
     <ClCompile Include="..\..\Source\CFEngine.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
@@ -2098,6 +2101,9 @@
     <ClInclude Include="..\..\Source\DroneUI.h"/>
     <ClInclude Include="..\..\Source\Drone.h"/>
     <ClInclude Include="..\..\Source\DroneManager.h"/>
+    <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
+    <ClInclude Include="..\..\Source\Node.h"/>
+    <ClInclude Include="..\..\Source\NodeManager.h"/>
     <ClInclude Include="..\..\Source\CFEngine.h"/>
     <ClInclude Include="..\..\Source\Main.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
@@ -2829,6 +2835,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Resources\charging.png"/>
+    <None Include="..\..\Resources\icon.png"/>
     <None Include="..\..\Resources\in.png"/>
     <None Include="..\..\Resources\lowbattery.png"/>
     <None Include="..\..\Resources\out.png"/>
@@ -2838,6 +2845,7 @@
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
     <None Include="..\..\..\..\JUCE Modules\juce_organicui\README.md"/>
+    <None Include=".\icon.ico"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\resources.rc"/>

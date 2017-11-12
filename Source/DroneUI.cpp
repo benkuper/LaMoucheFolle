@@ -85,6 +85,7 @@ void DroneStatusFeedback::paint(Graphics & g)
 	{
 	case Drone::DISCONNECTED: c = BG_COLOR.brighter(.3f); break;
 	case Drone::CONNECTING: c = BLUE_COLOR; break;
+	case Drone::STABILIZING: c = Colours::purple.brighter(.3f); break;
 	case Drone::READY: c = GREEN_COLOR; break;
 	case Drone::ERROR: c = RED_COLOR; break;
 	}

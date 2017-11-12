@@ -22,9 +22,10 @@ public:
 	ControllerManager();
 	~ControllerManager();
 
+	void sendFullSetup();
 	void sendDroneFeedback(Drone *, Controllable * c);
+	void sendNodeFeedback(Node *, Controllable * c);
 
-	void onExternalParameterChanged(Parameter * p) override;
 	void controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c) override;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ControllerManager)

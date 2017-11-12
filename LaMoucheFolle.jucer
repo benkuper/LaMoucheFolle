@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="xMMPVq" name="CrazyflieServer" displaySplashScreen="1" reportAppUsage="1"
+<JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.CrazyflieServer" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
-  <MAINGROUP id="S3Pdmt" name="CrazyflieServer">
+  <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
       <FILE id="s77xKn" name="charging.png" compile="0" resource="1" file="Resources/charging.png"/>
+      <FILE id="gOf6w2" name="icon.png" compile="0" resource="1" file="Resources/icon.png"/>
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
       <FILE id="v0o1BC" name="lowbattery.png" compile="0" resource="1" file="Resources/lowbattery.png"/>
       <FILE id="rveCtC" name="out.png" compile="0" resource="1" file="Resources/out.png"/>
@@ -63,6 +64,17 @@
               file="Source/DroneManager.cpp"/>
         <FILE id="S5P6BY" name="DroneManager.h" compile="0" resource="0" file="Source/DroneManager.h"/>
       </GROUP>
+      <GROUP id="{438C71F0-02C7-A1BD-7144-AEBB1A7809C1}" name="Node">
+        <GROUP id="{E37156EE-F364-6FD5-1440-3A333CA5260C}" name="ui">
+          <FILE id="qE0Ykf" name="NodeManagerUI.cpp" compile="1" resource="0"
+                file="Source/NodeManagerUI.cpp"/>
+          <FILE id="rwbGN6" name="NodeManagerUI.h" compile="0" resource="0" file="Source/NodeManagerUI.h"/>
+        </GROUP>
+        <FILE id="NtqQG6" name="Node.cpp" compile="1" resource="0" file="Source/Node.cpp"/>
+        <FILE id="h3o7Hp" name="Node.h" compile="0" resource="0" file="Source/Node.h"/>
+        <FILE id="wN00ee" name="NodeManager.cpp" compile="1" resource="0" file="Source/NodeManager.cpp"/>
+        <FILE id="fRQWps" name="NodeManager.h" compile="0" resource="0" file="Source/NodeManager.h"/>
+      </GROUP>
       <FILE id="Tz6prv" name="CFEngine.cpp" compile="1" resource="0" file="Source/CFEngine.cpp"/>
       <FILE id="OatsKs" name="CFEngine.h" compile="0" resource="0" file="Source/CFEngine.h"/>
       <FILE id="NCQFXy" name="Main.h" compile="0" resource="0" file="Source/Main.h"/>
@@ -75,7 +87,9 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="libusb-1.0.lib">
+    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="libusb-1.0.lib"
+            windowsTargetPlatformVersion="10.0.16299.0" smallIcon="gOf6w2"
+            bigIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" optimisation="1" targetName="CrazyflieServer" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"

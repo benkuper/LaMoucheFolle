@@ -2,35 +2,41 @@
 
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="CrazyflieServer\Resources">
-      <UniqueIdentifier>{8296F674-0FE6-2C5C-B4A3-EBFA6229426C}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Resources">
+      <UniqueIdentifier>{9AAA5D1D-443E-6A1E-D93A-52631601B4D1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\UI">
-      <UniqueIdentifier>{A868CD50-23A3-DF8F-43A7-6AA2E19D441E}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\UI">
+      <UniqueIdentifier>{7666CA69-6836-31A9-C5BC-2A17E17A544B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Controller\ui">
-      <UniqueIdentifier>{3937035B-2834-D2AF-D0BE-FF90905F4BC6}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Controller\ui">
+      <UniqueIdentifier>{4CDA688A-AE10-0B0D-48FB-C9C3EE276D7A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Controller\OSCController">
-      <UniqueIdentifier>{DBB216FA-25DC-9F62-A8D9-7FB58B91B4EE}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Controller\OSCController">
+      <UniqueIdentifier>{1045BD0F-0861-6887-D932-818F2E623EA1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Controller">
-      <UniqueIdentifier>{F36BBD00-90DE-25C7-94E7-6F43623D8801}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Controller">
+      <UniqueIdentifier>{0827AADF-B6E5-2A73-7751-AEF88B69FA9A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Drone\lib">
-      <UniqueIdentifier>{BA096AF3-D0EE-A142-18A6-27020212447A}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Drone\lib">
+      <UniqueIdentifier>{65F0665A-7C6E-C6D1-7CCD-3D2B2DF7C56C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Drone\ui">
-      <UniqueIdentifier>{CEBA1831-AA65-A9D8-C096-1B14B6E7C668}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Drone\ui">
+      <UniqueIdentifier>{6C87EFF4-B427-26ED-5ECF-432AAA994D57}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source\Drone">
-      <UniqueIdentifier>{8B8403F3-7D77-07BF-062B-76599FB506BB}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Drone">
+      <UniqueIdentifier>{6C7D0C96-4B1B-BFF7-0F86-4426B3252305}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer\Source">
-      <UniqueIdentifier>{F4241800-44CF-D630-48D0-CB6E61611FDA}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Node\ui">
+      <UniqueIdentifier>{2ECB842F-6A19-4481-C2A6-DF35363CBAD4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CrazyflieServer">
-      <UniqueIdentifier>{9088B9D4-739B-729A-FC4F-F96608FE86F5}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Node">
+      <UniqueIdentifier>{92ABD2BB-D2CE-D3A0-0373-BBB863E02F1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LaMoucheFolle\Source">
+      <UniqueIdentifier>{B3EFACE3-7D53-2728-B244-CF3B3E2D8D73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LaMoucheFolle">
+      <UniqueIdentifier>{C550FB55-EA2D-170B-8A70-C67CC9E7622D}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{52045BA8-DF89-5074-688D-A0977F25B09C}</UniqueIdentifier>
@@ -467,58 +473,67 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CFAssetManager.cpp">
-      <Filter>CrazyflieServer\Source\UI</Filter>
+      <Filter>LaMoucheFolle\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ControllerManagerUI.cpp">
-      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ControllerUI.cpp">
-      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\OSCController.cpp">
-      <Filter>CrazyflieServer\Source\Controller\OSCController</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\OSCController</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Controller.cpp">
-      <Filter>CrazyflieServer\Source\Controller</Filter>
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ControllerManager.cpp">
-      <Filter>CrazyflieServer\Source\Controller</Filter>
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp">
-      <Filter>CrazyflieServer\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp">
-      <Filter>CrazyflieServer\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
-      <Filter>CrazyflieServer\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp">
-      <Filter>CrazyflieServer\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneManagerUI.cpp">
-      <Filter>CrazyflieServer\Source\Drone\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneUI.cpp">
-      <Filter>CrazyflieServer\Source\Drone\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Drone.cpp">
-      <Filter>CrazyflieServer\Source\Drone</Filter>
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneManager.cpp">
-      <Filter>CrazyflieServer\Source\Drone</Filter>
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\NodeManagerUI.cpp">
+      <Filter>LaMoucheFolle\Source\Node\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Node.cpp">
+      <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\NodeManager.cpp">
+      <Filter>LaMoucheFolle\Source\Node</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\CFEngine.cpp">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MainComponentCommands.cpp">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -2575,43 +2590,52 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\CFAssetManager.h">
-      <Filter>CrazyflieServer\Source\UI</Filter>
+      <Filter>LaMoucheFolle\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ControllerManagerUI.h">
-      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ControllerUI.h">
-      <Filter>CrazyflieServer\Source\Controller\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\OSCController.h">
-      <Filter>CrazyflieServer\Source\Controller\OSCController</Filter>
+      <Filter>LaMoucheFolle\Source\Controller\OSCController</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Controller.h">
-      <Filter>CrazyflieServer\Source\Controller</Filter>
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ControllerManager.h">
-      <Filter>CrazyflieServer\Source\Controller</Filter>
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneManagerUI.h">
-      <Filter>CrazyflieServer\Source\Drone\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneUI.h">
-      <Filter>CrazyflieServer\Source\Drone\ui</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Drone.h">
-      <Filter>CrazyflieServer\Source\Drone</Filter>
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneManager.h">
-      <Filter>CrazyflieServer\Source\Drone</Filter>
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\NodeManagerUI.h">
+      <Filter>LaMoucheFolle\Source\Node\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Node.h">
+      <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\NodeManager.h">
+      <Filter>LaMoucheFolle\Source\Node</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CFEngine.h">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Main.h">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
-      <Filter>CrazyflieServer\Source</Filter>
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>Juce Modules\juce_audio_basics\audio_play_head</Filter>
@@ -4791,19 +4815,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Resources\charging.png">
-      <Filter>CrazyflieServer\Resources</Filter>
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\icon.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\in.png">
-      <Filter>CrazyflieServer\Resources</Filter>
+      <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\lowbattery.png">
-      <Filter>CrazyflieServer\Resources</Filter>
+      <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\out.png">
-      <Filter>CrazyflieServer\Resources</Filter>
+      <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\transparent.png">
-      <Filter>CrazyflieServer\Resources</Filter>
+      <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>Juce Modules\juce_audio_formats\codecs\flac</Filter>
@@ -4819,6 +4846,9 @@
     </None>
     <None Include="..\..\..\..\JUCE Modules\juce_organicui\README.md">
       <Filter>Juce Modules\juce_organicui</Filter>
+    </None>
+    <None Include=".\icon.ico">
+      <Filter>Juce Library Code</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

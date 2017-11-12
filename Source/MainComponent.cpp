@@ -10,6 +10,7 @@ This file was auto-generated!
 
 #include "DroneManagerUI.h"
 #include "ControllerManagerUI.h"
+#include "NodeManagerUI.h"
 
 //==============================================================================
 MainContentComponent::MainContentComponent()
@@ -24,20 +25,13 @@ MainContentComponent::MainContentComponent()
 
 	
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones", &DroneManagerUI::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Controllers",&ControllerManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Controllers", &ControllerManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Nodes",&NodeManagerUI::create));
 	
-	/*
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("State Machine", &StateMachineView::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Time Machine", &TimeMachineView::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("OSC Command Models", &UserOSCCommandModelManagerWindow::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Module Router", &ModuleRouterPanelView::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("States", &StateManagerUI::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Sequences", &SequenceManagerUI::create));
-	*/
 
-	//ShapeShifterManager::getInstance()->setDefaultFileData(BinaryData::default_chalayout);
+	//ShapeShifterManager::getInstance()->setDefaultFileData(BinaryData::default_cflayout);
 
-	ShapeShifterManager::getInstance()->setLayoutInformations("cflayout", "CrazyflieServer/layouts");
+	ShapeShifterManager::getInstance()->setLayoutInformations("cflayout", "LaMoucheFolle/layouts");
 	ShapeShifterManager::getInstance()->loadLastSessionLayoutFile();
 	
 

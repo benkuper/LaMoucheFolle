@@ -31,14 +31,23 @@ public:
 	IntParameter * remotePort;
 	OSCSender sender;
 
-	void sendFeedback(Drone * d, Controllable * c) override;
+	void sendDroneFeedback(Drone * d, Controllable * c) override;
+	void sendNodeFeedback(Node * d, Controllable * c) override;
+
+	void sendFullSetup() override;
+	void sendDroneSetup(const String &droneName) override;
+	void sendNodeSetup(const String &nodeName) override;
+
 	void processMessage(const OSCMessage & msg);
+
+	void handleSetControllableValue(Controllable *c, const OSCMessage &msg);
 
 	//RECEIVE
 	void setupReceiver();
 	float getFloatArg(OSCArgument a);
 	int getIntArg(OSCArgument a);
 	String getStringArg(OSCArgument a);
+	OSCArgument varToArgument(const var &v);
 
 	//SEND
 	void setupSender();

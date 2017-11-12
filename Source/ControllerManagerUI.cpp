@@ -18,4 +18,5 @@ ControllerManagerUI::ControllerManagerUI(const String &name, ControllerManager *
 
 ControllerManagerUI::~ControllerManagerUI()
 {
+
 }

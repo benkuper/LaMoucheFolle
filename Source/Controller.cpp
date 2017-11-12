@@ -26,7 +26,6 @@ Controller::Controller(const String &name) :
 
 	outTrigger = addTrigger("OUT Activity", "Outgoing Activity Signal");
 	outTrigger->hideInEditor = true;
-
 }
 
 Controller::~Controller()

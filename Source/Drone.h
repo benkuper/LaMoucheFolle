@@ -26,7 +26,7 @@ public:
 	Drone();
 	~Drone();
 
-	enum DroneState {DISCONNECTED, CONNECTING, READY , ERROR };
+	enum DroneState {DISCONNECTED, CONNECTING, STABILIZING, READY , ERROR };
 		
 	IntParameter * targetRadio;
 	IntParameter * channel;
@@ -39,7 +39,11 @@ public:
 	Trigger * logParams;
 	Trigger * logLogs;
 	Trigger * taskDump;
+	
 	Trigger * resetKalmanTrigger;
+	Trigger * launchTrigger;
+	Trigger * stopTrigger;
+	Trigger * syncTrigger;
 
 	EnumParameter * lightMode;
 	ColorParameter * color;
@@ -49,12 +53,17 @@ public:
 
 	Point3DParameter * targetPosition;
 	Point3DParameter * realPosition;
+	Point3DParameter * goalFeedback;
+
+	FloatParameter * yaw;
+	BoolParameter * absoluteMode;
 
 
 	FloatParameter * linkQuality;
 	FloatParameter * voltage;
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
+
 
 	ScopedPointer<Crazyflie> cf;
 
@@ -80,7 +89,15 @@ public:
 		float z;
 	} __attribute__((packed));
 
+	struct feedbackLog
+	{
+		float goalX;
+		float goalY;
+		float goalZ;
+	} __attribute__((packed));
+
 	ScopedPointer<LogBlock<dataLog>> dataLogBlock;
+	ScopedPointer<LogBlock<feedbackLog>> feedbackBlock;
 
 	void launchCFThread();
 	void stopCFThread();
@@ -93,8 +110,8 @@ public:
 
 	template<class T>
 	bool setParam(String group, String paramID, T value);
-	bool setTargetPosition(float x, float y, float z, bool showTrigger = true);
-	bool setAnchors(Array<Point3DParameter *> positions);
+	bool setTargetPosition(float x, float y, float z, float yaw, bool showTrigger = true);
+	bool setAnchors(Array<Vector3D<float>> positions);
 
 	void logAllParams();
 	void logAllLogs();
@@ -103,6 +120,7 @@ public:
 	void emptyAckCallback(const crtpPlatformRSSIAck * a);
 	void linkQualityCallback(float val);
 	void dataLogCallback(uint32_t /*time*/, dataLog * data);
+	void feedbackLogCallback(uint32_t /*time*/, feedbackLog * data);
 
 	virtual void run() override;
 

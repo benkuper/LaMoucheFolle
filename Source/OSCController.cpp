@@ -10,6 +10,10 @@
 
 #include "OSCController.h"
 
+#include "NodeManager.h"
+#include "DroneManager.h"
+#include <type_traits>
+
 OSCController::OSCController(var params) :
 	Controller("OSC")
 {
@@ -42,9 +46,93 @@ OSCController::~OSCController()
 {
 }
 
-
-void OSCController::sendFeedback(Drone * d, Controllable * c)
+void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
 {
+
+	Controller::sendDroneFeedback(d, c);
+	Parameter * p = dynamic_cast<Parameter *>(c);
+	if (p != nullptr)
+	{
+		OSCMessage m("/drone-" + d->shortName + "/"+p->shortName);
+		if (p->value.isArray())
+		{
+			for (int i = 0; i < p->value.size(); i++)
+			{
+				m.addArgument(varToArgument(p->value[i]));
+			}
+		}
+		else
+		{
+			if (p->type == Controllable::ENUM) m.addArgument(varToArgument(((EnumParameter*)p)->getValueData()));
+			else m.addArgument(varToArgument(p->value));
+		}
+		sendOSC(m);
+	}
+}
+
+void OSCController::sendNodeFeedback(Node * n, Controllable * c)
+{
+	DBG("Drone::Send Node feedback " << c->shortName);
+	Controller::sendNodeFeedback(n, c);
+	Parameter * p = dynamic_cast<Parameter *>(c);
+	if (p != nullptr)
+	{
+		OSCMessage m("/node-" + n->shortName + "/" + p->shortName);
+		if (p->value.isArray())
+		{
+			for (int i = 0; i < p->value.size(); i++)
+			{
+				m.addArgument(varToArgument(p->value[i]));
+			}
+		}
+		else
+		{
+			if (p->type == Controllable::ENUM) m.addArgument(varToArgument(((EnumParameter*)p)->getValueData()));
+			else m.addArgument(varToArgument(p->value));
+		}sendOSC(m);
+	}
+	
+}
+
+void OSCController::sendFullSetup()
+{
+	OSCMessage m("/drones/setup");
+	for (Drone * d : DroneManager::getInstance()->items) m.addString(d->shortName);
+	sendOSC(m);
+	
+	OSCMessage m2("/nodes/setup");
+	for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
+	sendOSC(m2);
+}
+
+void OSCController::sendDroneSetup(const String & droneName)
+{
+	Drone * d = DroneManager::getInstance()->getItemWithName(droneName);
+	if (d == nullptr)
+	{
+		DBG("Drone " + droneName + " doesn't exist");
+		return;
+	}
+
+	sendDroneFeedback(d, d->droneState); 
+	sendDroneFeedback(d, d->realPosition);
+	sendDroneFeedback(d, d->lowBattery);
+	sendDroneFeedback(d, d->charging);
+	sendDroneFeedback(d, d->lightMode);
+	sendDroneFeedback(d, d->color); //no support for automatic color for now
+}
+
+void OSCController::sendNodeSetup(const String &nodeName)
+{
+	Node * n = NodeManager::getInstance()->getItemWithName(nodeName);
+	if (n == nullptr)
+	{
+		DBG("Node " + nodeName + " doesn't exist : " <<nodeName);
+		return;
+	}
+
+	sendNodeFeedback(n, n->id);
+	sendNodeFeedback(n, n->position);
 }
 
 void OSCController::processMessage(const OSCMessage & msg)
@@ -58,6 +146,82 @@ void OSCController::processMessage(const OSCMessage & msg)
 
 	inTrigger->trigger();
 
+	StringArray tokens;
+	tokens.addTokens(msg.getAddressPattern().toString(), "/", "\"");
+	
+
+	if (tokens[1] == "setup") sendFullSetup();
+	else if (tokens[1].contains("drone"))
+	{
+		String droneName = tokens[1].substring(6);
+		if(tokens[2] == "setup") sendDroneSetup(droneName);
+		else
+		{
+			Drone * d = DroneManager::getInstance()->getItemWithName(droneName); 
+			Controllable * c = d->getControllableByName(tokens[2]);
+			//DBG("Find controllable : " << tokens[2] << " / " << (int)( c != nullptr));
+			
+			if (c != nullptr)
+			{
+				handleSetControllableValue(c, msg);
+			}
+		}
+	}
+	else if (tokens[1].contains("node"))
+	{
+		DBG("Tokens : " << tokens.joinIntoString(", "));
+		String nodeName = tokens[1].substring(5);
+		if (tokens[2] == "setup") sendNodeSetup(nodeName);
+	}
+
+	
+}
+
+void OSCController::handleSetControllableValue(Controllable * c, const OSCMessage & msg)
+{
+	switch (c->type)
+	{
+	case Controllable::TRIGGER:
+		((Trigger *)c)->trigger();
+		break;
+
+	case Controllable::BOOL:
+		((Parameter *)c)->setValue(getFloatArg(msg[0]) >= 1); break;
+		break;
+
+	case Controllable::FLOAT:
+		if (msg.size() >= 1)
+		{
+			FloatParameter *f = (FloatParameter *)c;
+			f->setValue(getFloatArg(msg[0]));
+		}
+		break;
+
+	case Controllable::INT:
+		if (msg.size() >= 1)
+		{
+			IntParameter *i = (IntParameter *)c;
+			i->setValue(getIntArg(msg[0]));
+		}
+		break;
+
+	case Controllable::STRING:
+		if (msg.size() >= 1) ((StringParameter *)c)->setValue(getStringArg(msg[0]));
+		break;
+
+	case Controllable::POINT2D:
+		if (msg.size() >= 2) ((Point2DParameter *)c)->setPoint(getFloatArg(msg[0]), getFloatArg(msg[1]));
+		break;
+
+	case Controllable::POINT3D:
+		if (msg.size() >= 3) ((Point3DParameter *)c)->setVector(Vector3D<float>(getFloatArg(msg[0]), getFloatArg(msg[1]), getFloatArg(msg[2])));
+		break;
+
+
+	default:
+		DBG("Not handled " << c->type);
+		break;
+	}
 }
 
 
@@ -106,6 +270,18 @@ String OSCController::getStringArg(OSCArgument a)
 	if (a.isFloat32()) return String(a.getFloat32());
 	return String::empty;
 }
+
+OSCArgument OSCController::varToArgument(const var & v)
+{
+	if (v.isBool()) return OSCArgument(((bool)v) ? 1 : 0);
+	else if (v.isInt()) return OSCArgument((int)v);
+	else if (v.isInt64()) return OSCArgument((int)v);
+	else if (v.isDouble()) return OSCArgument((float)v);
+	else if (v.isString()) return OSCArgument(v.toString());
+	jassert(false);
+	return OSCArgument("error");
+}
+
 
 
 void OSCController::setupSender()

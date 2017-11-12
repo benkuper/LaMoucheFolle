@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 
 #include "Drone.h"
+#include "Node.h"
 
 class Controller :
 	public BaseItem
@@ -27,7 +28,12 @@ public:
 	Trigger * inTrigger;
 	Trigger * outTrigger;
 
-	virtual void sendFeedback(Drone * d, Controllable * c) {}
+	virtual void sendDroneFeedback(Drone * d, Controllable * c) {}
+	virtual void sendNodeFeedback(Node * d, Controllable * c) {}
+
+	virtual void sendFullSetup() {} 
+	virtual void sendDroneSetup(const String &droneName) {}
+	virtual void sendNodeSetup(const String &nodeName) {}
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Controller)
 };
