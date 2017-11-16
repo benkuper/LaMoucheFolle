@@ -22,6 +22,7 @@ public:
 	~DroneManager();
 
 	Trigger * connectAllTrigger;
+	Trigger * connectAllNotConnectedTrigger;
 	Trigger * resetAllKalman;
 
 	void onContainerTriggerTriggered(Trigger *) override;

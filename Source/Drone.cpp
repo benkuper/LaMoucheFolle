@@ -25,27 +25,32 @@ Drone::Drone() :
 	address = addStringParameter("Address", "Address of the drone, without the 0x", "E7E7E7E7E7");
 
 	targetPosition = addPoint3DParameter("Target", "Target Position for the drone");
-	targetPosition->setBounds(0,0,0, 10, 10, 10);
+	targetPosition->setBounds(-10,0,-10, 10, 10, 10);
+	targetPosition->isSavable = false;
 
 	realPosition = addPoint3DParameter("Real Position", "Position feedback from the drone");
-	realPosition->setBounds(0,0,0, 10, 10, 10);
+	realPosition->setBounds(-10,0,-10, 10, 10, 10);
+	realPosition->isSavable = false;
 
 	goalFeedback = addPoint3DParameter("Target", "Target Position for the drone");
-	goalFeedback->setBounds(0, 0, 0, 10, 10, 10);
+	goalFeedback->setBounds(-10,0,-10, 10, 10, 10);
+	goalFeedback->isSavable = false;
 
 	absoluteMode = addBoolParameter("Absolute Mode", "Absolute positionning", false);
 
 	yaw = addFloatParameter("Yaw", "Horizontal rotation of the drone", 0, 0, 360);
+	yaw->isSavable = false;
 
 	droneState = addEnumParameter("State", "Drone State");
 	droneState->addOption("Disconnected", DISCONNECTED)->addOption("Connecting", CONNECTING)->addOption("Stabilizing",STABILIZING)->addOption("Ready", READY)->addOption("Error", ERROR);
 	droneState->isEditable = false;
 	droneState->isSavable = false;
+	droneState->isSavable = false;
 
 	connectTrigger = addTrigger("Connect", "Init the connection to the radio");
 
-	logParams = addTrigger("Log Params", "Log all params from the drone");
-	logLogs = addTrigger("Log Logs", "Log logs entries from the drone");
+	logParamsTOC = addTrigger("Get Params TOC", "Log all params from the drone");
+	logLogsTOC = addTrigger("Get Log TOC", "Log logs entries from the drone");
 
 	taskDump = addTrigger("TaskDump", "TD");
 
@@ -59,9 +64,9 @@ Drone::Drone() :
 	lightMode->addOption("Off", 0)->addOption("White spinner", 1)->addOption("Color spinner",2)->addOption("Tilt effect", 3) \
 		->addOption("Brightness", 4)->addOption("Color spinner2", 5)->addOption("Double spinner", 6)->addOption("Solid color", 7) \
 		->addOption("Factory test", 8)->addOption("Battery status", 9)->addOption("Boat lights", 10)->addOption("Alert", 11)->addOption("Gravity", 12);
+	lightMode->isSavable = false;
 
-
-	color = new ColorParameter("Light Color", "LightColor", Colours::red);
+	color = new ColorParameter("Light Color", "LightColor", Colours::black);
 	addParameter(color);
 
 	headlight = addBoolParameter("Headlight", "Headlight", false);
@@ -70,9 +75,12 @@ Drone::Drone() :
 
 	linkQuality = addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 	linkQuality->isEditable = false;
+	linkQuality->isSavable = false;
+
 	voltage = addFloatParameter("Voltage", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 4.2f);
 	voltage->isEditable = false;
-	
+	voltage->isSavable = false;
+
 	charging = addBoolParameter("Is Charging", "Is the drone connected to a power source", false);
 	charging->isEditable = false;
 	charging->isSavable = false;
@@ -87,6 +95,9 @@ Drone::Drone() :
 	inTrigger->isEditable = false;
 	outTrigger->isEditable = false;
 	outTrigger->hideInEditor = true;
+
+	enableLogConsole = addBoolParameter("Enable log console", "", false);
+	enableLogParams = addBoolParameter("Enable log Params", "", false);
 
 }
 
@@ -131,7 +142,7 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 
 	if (p == absoluteMode)
 	{
-		NLOG(address->stringValue(), "Set absolute position mode");
+		//NLOG(address->stringValue(), "Set absolute position mode");
 		setParam("flightmode", "posSet", absoluteMode->intValue());
 	}
 
@@ -140,10 +151,13 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		switch (droneState->getValueDataAsEnum<DroneState>())
 		{
 		case ERROR: lightMode->setValueWithKey("Alert"); break;
-		case STABILIZING: lightMode->setValueWithKey("Double spinner"); break;
+		case STABILIZING: 
+			color->setColor(Colours::white); //to force ready state to send value
+			lightMode->setValueWithKey("Double spinner"); break;
 		case READY: 
 			targetPosition->setVector(realPosition->x, 0, realPosition->z);
-			lightMode->setValueWithKey("Off"); 
+			color->setColor(Colours::black);
+			lightMode->setValueWithKey("Solid color");
 			break;
 		}
 	}
@@ -184,7 +198,7 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	
 	if (t == resetKalmanTrigger)
 	{
-		NLOG(address->stringValue(), "Reset Kalman Estimation");
+		//NLOG(address->stringValue(), "Reset Kalman Estimation");
 		droneState->setValueWithData(STABILIZING);
 		setParam("kalman", "resetEstimation", 1);
 		sleep(2);
@@ -196,8 +210,8 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	if(droneState->getValueDataAsEnum<DroneState>() != READY && droneState->getValueDataAsEnum<DroneState>() != STABILIZING) return;
 	
 	if (t == taskDump) setParam("system", "taskDump", 1);
-	else if (t == logParams)  logAllParams();
-	else if (t == logLogs)  logAllLogs();
+	else if (t == logParamsTOC)  logAllParams();
+	else if (t == logLogsTOC)  logAllLogs();
 	else if (t == launchTrigger) targetPosition->setVector(targetPosition->x, .4f, targetPosition->z);
 	else if (t == stopTrigger) targetPosition->setVector(targetPosition->x, 0, targetPosition->z);
 	else if (t == syncTrigger) targetPosition->setVector(realPosition->x, 0, realPosition->z);
@@ -267,9 +281,9 @@ bool Drone::setupCF()
 		realPosition->setVector(0, 0, 0);
 		targetPosition->setVector(0, 0, 0);
 		
-		lightMode->setValueWithKey("Off");
+		lightMode->setValueWithKey("Solid color");
 		
-		NLOG(address->stringValue(), "Disable thrust lock.");
+		//NLOG(address->stringValue(), "Disable thrust lock.");
 		for (int i = 0; i < 10; i++) cf->sendSetpoint(0, 0, 0, 0); // disable thrust lock, put in autoArm param ?
 
 		setParam("flightmode", "posSet", 1);
@@ -287,7 +301,7 @@ bool Drone::setupCF()
 
 
 
-		NLOG(address->stringValue(), "Set anchor positions");
+		//NLOG(address->stringValue(), "Set anchor positions");
 		setAnchors(NodeManager::getInstance()->getAllPositions());
 
 		absoluteMode->setValue(true);
@@ -338,18 +352,18 @@ bool Drone::setParam(String group, String paramID, T value)
 		
 		if (pte == nullptr)
 		{
-			NLOG(address->stringValue(), "### Could not find param Entry for " + group + "." + paramID);
+			if(enableLogParams->boolValue()) NLOG(address->stringValue(), "### Could not find param Entry for " + group + "." + paramID);
 			return false;
 		}
 
 		cf->setParam(pte->id, value);
 		outTrigger->trigger();
 
-		NLOG(address->stringValue(), "** SET PARAM " << group << "." << paramID << " : " << (float)value);
+		if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Set Param : " << group << "." << paramID << " : " << (float)value);
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(address->stringValue(), "Error setting param " << group << "." << paramID <<" : " << e.what());
+		if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Error setting param " << group << "." << paramID <<" : " << e.what());
 		return false;
 	}
 
@@ -365,13 +379,13 @@ bool Drone::setTargetPosition(float x, float y, float z, float _yaw, bool showTr
 	SpinLock::ScopedLockType lock(cfLock);
 	try
 	{
-		DBG("Send set point " << x<< " / " << y << " / " << z);
+		if (enableLogParams->boolValue()) DBG("Send set point " << x<< " / " << y << " / " << z);
 		cf->sendSetpoint(z,-x, _yaw, (uint16_t)(y * 1000)); //z is height for the drones, height is y for me.
 		outTrigger->trigger();
 	}
 	catch (std::runtime_error &e)
 	{
-		NLOG(address->stringValue(),"Error setting target Position : " << e.what());
+		if (enableLogParams->boolValue()) NLOG(address->stringValue(),"Error setting target Position : " << e.what());
 		return false;
 	}
 	
@@ -386,12 +400,12 @@ bool Drone::setAnchors(Array<Vector3D<float>> positions)
 	
 	{
 
-		NLOG(address->stringValue(), "Set anchors : " << positions.size() << " values");
+		//NLOG(address->stringValue(), "Set anchors : " << positions.size() << " values");
 		try
 		{
 			for (int i = 0; i < positions.size() && i < 8; i++)
 			{
-				NLOG(address->stringValue(), "Set anchor (drone order)" + String(i) + " : " + String(positions[i].x) + " , " + String(positions[i].z) + ", " + String(positions[i].y));
+				//NLOG(address->stringValue(), "Set anchor (drone order)" + String(i) + " : " + String(positions[i].x) + " , " + String(positions[i].z) + ", " + String(positions[i].y));
 				setParam("anchorpos", (String("anchor") + String(i) + String("x")).toStdString(), positions[i].x);
 				setParam("anchorpos", (String("anchor") + String(i) + String("y")).toStdString(), positions[i].z); //z is height for the drones, height is y for me.
 				setParam("anchorpos", (String("anchor") + String(i) + String("z")).toStdString(), positions[i].y);
@@ -402,7 +416,7 @@ bool Drone::setAnchors(Array<Vector3D<float>> positions)
 		}
 		catch (std::runtime_error &e)
 		{
-			NLOG(address->stringValue(), "Error setting anchors : " << e.what());
+			if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Error setting anchors : " << e.what());
 			return false;
 		}
 	}
@@ -463,11 +477,11 @@ void Drone::consoleCallback(const char * c)
 
 	if (consoleBuffer.endsWith("\n"))
 	{
-		NLOG(address->stringValue(), consoleBuffer);
+		if (enableLogConsole->boolValue()) NLOG(address->stringValue(), consoleBuffer);
 
 		if (consoleBuffer.contains("----------------------------"))
 		{
-			DBG("Drone has started");
+			//DBG("Drone has started");
 			if (droneHasStarted)
 			{
 				//drone has already started, it means that drone has started again by itself. what to do here ?
@@ -477,7 +491,7 @@ void Drone::consoleCallback(const char * c)
 		}
 		else if (consoleBuffer.contains("Free heap"))
 		{
-			DBG("Drone init finish");
+			//DBG("Drone init finish");
 			droneHasFinishedInit = true;
 		}
 		else if (consoleBuffer.contains("Assert failed") || consoleBuffer.contains("[FAIL]"))
@@ -517,7 +531,7 @@ void Drone::feedbackLogCallback(uint32_t, feedbackLog * data)
 //THREAD
 void Drone::run()
 {
-	DBG("Drone thread start");
+	//DBG("Drone thread start")
 
 	while (enabled->boolValue() && !threadShouldExit())
 	{
@@ -579,7 +593,7 @@ void Drone::run()
 
 								lastRealPos = curRealPos;
 
-								DBG("Stabilizing, dist = " << avDist);
+								//DBG("Stabilizing, dist = " << avDist);
 								if (avDist < stabilizedDistanceThreshold)
 								{
 									if (averageDistance > stabilizedDistanceThreshold) //if just passed below the threshold
@@ -602,9 +616,9 @@ void Drone::run()
 					}
 
 				}
-				catch (std::runtime_error &e)
+				catch (std::runtime_error &)
 				{
-					NLOG(address->stringValue(), "Routine failed : " << e.what());
+					//NLOG(address->stringValue(), "Routine failed : " << e.what());
 					droneState->setValueWithData(ERROR);
 				}
 
@@ -616,5 +630,5 @@ void Drone::run()
 		sleep(3000);
 	}
 
-	DBG("Drone Thread finish");
+	//DBG("Drone Thread finish");
 }

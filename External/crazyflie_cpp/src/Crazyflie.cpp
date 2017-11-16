@@ -108,7 +108,7 @@ void Crazyflie::sendSetpoint(
 	uint16_t thrust)
 {
 	crtpSetpointRequest request(roll, pitch, yawrate, thrust);
-	DBG("After Request " << roll << "/" << pitch << "/" << yawrate << "/" << (int)thrust << "/" << sizeof(request) << "<>" << sizeof(crtpSetpointRequest));
+	//DBG("After Request " << roll << "/" << pitch << "/" << yawrate << "/" << (int)thrust << "/" << sizeof(request) << "<>" << sizeof(crtpSetpointRequest));
 
 	sendPacket((const uint8_t*)&request, sizeof(request));
 }
@@ -464,7 +464,7 @@ void Crazyflie::requestLogToc()
 
 void Crazyflie::requestParamToc()
 {
-	DBG("Request param toc !");
+	//DBG("Request param toc !");
 	// Find the number of parameters in TOC
 	crtpParamTocGetInfoRequest infoRequest;
 	startBatchRequest();
@@ -482,7 +482,7 @@ void Crazyflie::requestParamToc()
 	}
 	handleRequests();
 
-	DBG("Got " << len << " params");
+	//DBG("Got " << len << " params");
 	// Update internal structure with obtained data
 	m_paramTocEntries.resize(len);
 	for (size_t i = 0; i < len; ++i) {
@@ -500,7 +500,7 @@ void Crazyflie::requestParamToc()
 		std::memcpy(&v, &val->valueFloat, 4);
 		m_paramValues[i] = v;
 
-		DBG("Param " << entry.group << "." << entry.name << " = " << v.valueFloat);
+		//DBG("Param " << entry.group << "." << entry.name << " = " << v.valueFloat);
 	}
 }
 void Crazyflie::setParam(uint8_t id, const ParamValue& value) {
@@ -613,12 +613,6 @@ void Crazyflie::sendPacket(
 			m_radio->setDatarate(m_datarate);
 		}
 
-		String s = "> Packet data : ("+String(length)+")";
-		for (uint32_t i = 0; i < length; i++)
-		{
-			s += String(data[i]) + ", ";
-		}
-		DBG(s);
 		m_radio->sendPacket(data, length, ack);
 	}
 	else {

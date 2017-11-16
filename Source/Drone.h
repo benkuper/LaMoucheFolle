@@ -36,8 +36,8 @@ public:
 	EnumParameter * droneState;
 
 	Trigger * connectTrigger;
-	Trigger * logParams;
-	Trigger * logLogs;
+	Trigger * logParamsTOC;
+	Trigger * logLogsTOC;
 	Trigger * taskDump;
 	
 	Trigger * resetKalmanTrigger;
@@ -63,6 +63,9 @@ public:
 	FloatParameter * voltage;
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
+
+	BoolParameter * enableLogConsole;
+	BoolParameter * enableLogParams;
 
 
 	ScopedPointer<Crazyflie> cf;

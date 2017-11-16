@@ -185,6 +185,8 @@ void OSCController::handleSetControllableValue(Controllable * c, const OSCMessag
 		((Trigger *)c)->trigger();
 		break;
 
+
+
 	case Controllable::BOOL:
 		((Parameter *)c)->setValue(getFloatArg(msg[0]) >= 1); break;
 		break;
@@ -217,6 +219,14 @@ void OSCController::handleSetControllableValue(Controllable * c, const OSCMessag
 		if (msg.size() >= 3) ((Point3DParameter *)c)->setVector(Vector3D<float>(getFloatArg(msg[0]), getFloatArg(msg[1]), getFloatArg(msg[2])));
 		break;
 
+	case Controllable::COLOR:
+		if (msg.size() >= 4) ((ColorParameter *)c)->setColor(getColorArg(msg[0], msg[1], msg[2], msg[3]));
+		if (msg.size() >= 3) ((ColorParameter *)c)->setColor(getColorArg(msg[0],msg[1],msg[2]));
+		break;
+	
+	case Controllable::ENUM:
+		if (msg.size() >= 1) ((EnumParameter *)c)->setValueWithData(getIntArg(msg[0]));
+		break;
 
 	default:
 		DBG("Not handled " << c->type);
@@ -261,6 +271,16 @@ int OSCController::getIntArg(OSCArgument a)
 	if (a.isFloat32()) return roundFloatToInt(a.getFloat32());
 	if (a.isString()) return a.getString().getIntValue();
 	return 0;
+}
+
+Colour OSCController::getColorArg(OSCArgument r, OSCArgument g, OSCArgument b, OSCArgument a)
+{
+	return Colour((uint8)(r.getFloat32() * 255), (uint8)(g.getFloat32() * 255), (uint8)(b.getFloat32() * 255), (uint8)(a.getFloat32() * 255));
+}
+
+Colour OSCController::getColorArg(OSCArgument r, OSCArgument g, OSCArgument b)
+{
+	return Colour((uint8)(r.getFloat32() * 255), (uint8)(g.getFloat32() * 255), (uint8)(b.getFloat32() * 255), (uint8)255);
 }
 
 String OSCController::getStringArg(OSCArgument a)

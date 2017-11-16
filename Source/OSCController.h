@@ -46,6 +46,8 @@ public:
 	void setupReceiver();
 	float getFloatArg(OSCArgument a);
 	int getIntArg(OSCArgument a);
+	Colour getColorArg(OSCArgument r, OSCArgument g, OSCArgument b, OSCArgument a);
+	Colour getColorArg(OSCArgument r,OSCArgument g, OSCArgument b);
 	String getStringArg(OSCArgument a);
 	OSCArgument varToArgument(const var &v);
 

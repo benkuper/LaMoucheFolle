@@ -20,6 +20,7 @@ public:
 	~DroneManagerUI();
 
 	ScopedPointer<TriggerButtonUI> connectAllBT;
+	ScopedPointer<TriggerButtonUI> connectAllNCBT;
 	ScopedPointer<TriggerButtonUI> resetKalmanBT;
 
 	void resizedInternalHeader(Rectangle<int> &r) override;
