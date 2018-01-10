@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              splashScreenColour="Dark" projectType="guiapp" version="1.1.0"
               bundleIdentifier="com.yourcompany.CrazyflieServer" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
@@ -91,13 +91,14 @@
             windowsTargetPlatformVersion="10.0.16299.0" smallIcon="gOf6w2"
             bigIcon="gOf6w2">
       <CONFIGURATIONS>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="CrazyflieServer" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       libraryPath="../../External/libusb/lib"/>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" optimisation="1" targetName="CrazyflieServer" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib" debugInformationFormat="ProgramDatabase"
                        enablePluginBinaryCopyStep="0"/>
-        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="CrazyflieServer" debugInformationFormat="ProgramDatabase"
-                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../../../../Softwares/JUCE/modules"/>

@@ -64,9 +64,11 @@ public:
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
 
+	BoolParameter * initPIDSettings;
+	BoolParameter * initAnchorPos;
+
 	BoolParameter * enableLogConsole;
 	BoolParameter * enableLogParams;
-
 
 	ScopedPointer<Crazyflie> cf;
 

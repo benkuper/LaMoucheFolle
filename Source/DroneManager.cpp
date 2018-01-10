@@ -15,9 +15,13 @@ juce_ImplementSingleton(DroneManager)
 DroneManager::DroneManager() :
 	BaseManager("Drones")
 {
+	isSelectable = true;
 	connectAllTrigger = addTrigger("Connect All", "Connect all drones");
 	connectAllNotConnectedTrigger = addTrigger("Connect All Not Connected", "Connect all drones that are not connected yet");
 	resetAllKalman = addTrigger("Reset All Kalman", "Reset all Kalman estimations");
+
+	flyingLowBatteryThreshold = addFloatParameter("Fly Low Battery Threshold", "Low battery threshold when flying", 2.9f, 2.8f, 3.7f);
+	onGroundLowBatteryThreshold = addFloatParameter("On Ground Battery Threshold", "Low battery threshold when on ground", 3.2f, 2.8f, 3.7f);
 }
 
 DroneManager::~DroneManager()

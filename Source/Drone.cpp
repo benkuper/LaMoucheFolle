@@ -10,6 +10,7 @@
 
 #include "Drone.h"
 #include "NodeManager.h"
+#include "DroneManager.h"
 
 Drone::Drone() :
 	BaseItem("Drone"),
@@ -36,6 +37,7 @@ Drone::Drone() :
 	goalFeedback->setBounds(-10,0,-10, 10, 10, 10);
 	goalFeedback->isSavable = false;
 
+
 	absoluteMode = addBoolParameter("Absolute Mode", "Absolute positionning", false);
 
 	yaw = addFloatParameter("Yaw", "Horizontal rotation of the drone", 0, 0, 360);
@@ -53,6 +55,9 @@ Drone::Drone() :
 	logLogsTOC = addTrigger("Get Log TOC", "Log logs entries from the drone");
 
 	taskDump = addTrigger("TaskDump", "TD");
+
+	initPIDSettings = addBoolParameter("Init PID Settings", "Include PID settings in init", false);
+	initAnchorPos = addBoolParameter("Init Anchor Pos", "Include anchor pos in init", false);
 
 	launchTrigger = addTrigger("Launch", "Launch");
 	stopTrigger = addTrigger("Stop", "Stop");
@@ -132,6 +137,7 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	}
 
 	if (!enabled->boolValue()) return;
+
 	if (cf == nullptr) return;
 	
 
@@ -150,6 +156,10 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	{
 		switch (droneState->getValueDataAsEnum<DroneState>())
 		{
+		case DISCONNECTED:
+			lowBattery->setValue(false);
+			break;
+
 		case ERROR: lightMode->setValueWithKey("Alert"); break;
 		case STABILIZING: 
 			color->setColor(Colours::white); //to force ready state to send value
@@ -179,13 +189,19 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	{
 		if (voltage->floatValue() > 0 && !charging->boolValue()) //ensure voltage has been set and drone is not charging
 		{
-			if(targetPosition->y == 0) lowBattery->setValue(voltage->floatValue() < 3.1f); //drone is not flying, min battery is 3.1V
-			else lowBattery->setValue(voltage->floatValue() < 2.7f); //drone is flying, min battery is 2.7V
+			if (!lowBattery->boolValue())
+			{
+				if (targetPosition->y == 0) lowBattery->setValue(voltage->floatValue() < DroneManager::getInstance()->onGroundLowBatteryThreshold->floatValue()); //drone is not flying, min battery is 3.1V
+				else lowBattery->setValue(voltage->floatValue() < DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue()); //drone is flying, min battery is 2.7V
+			}
 		}
 		else
 		{
 			lowBattery->setValue(false);
 		}
+	} else if (p == charging)
+	{
+		lowBattery->setValue(false);
 	}
 }
 
@@ -276,8 +292,6 @@ bool Drone::setupCF()
 		feedbackBlock = new LogBlock<feedbackLog>(cf, { { "posCtl","targetX" },{ "posCtl","targetY" },{ "posCtl","targetZ" }}, fcb);
 		feedbackBlock->start(10); // 50ms - 20fps
 
-
-		
 		realPosition->setVector(0, 0, 0);
 		targetPosition->setVector(0, 0, 0);
 		
@@ -285,27 +299,37 @@ bool Drone::setupCF()
 		
 		//NLOG(address->stringValue(), "Disable thrust lock.");
 		for (int i = 0; i < 10; i++) cf->sendSetpoint(0, 0, 0, 0); // disable thrust lock, put in autoArm param ?
-
 		setParam("flightmode", "posSet", 1);
 		
+		
 
-		//TODO : ask why ????
-		setParam("posCtlPid", "xKp", 1.5f);
-		setParam("posCtlPid", "yKp", 1.5f);
-		setParam("posCtlPid", "zKp", 1.5f);
+		if (initPIDSettings->boolValue())
+		{
+			//TODO : ask why ????
+			setParam("posCtlPid", "xKp", 1.5f);
+			setParam("posCtlPid", "yKp", 1.5f);
+			setParam("posCtlPid", "zKp", 1.5f);
 
-		setParam("posCtlPid", "xKi", 0.25f);
-		setParam("posCtlPid", "yKi", 0.25f);
-		setParam("posCtlPid", "zKi", 0.5f);
-		//
+			setParam("posCtlPid", "xKi", 0.25f);
+			setParam("posCtlPid", "yKi", 0.25f);
+			setParam("posCtlPid", "zKi", 0.5f);
+			//
+		}
 
 
+		if (initAnchorPos->boolValue())
+		{
+			//NLOG(address->stringValue(), "Set anchor positions");
+			setAnchors(NodeManager::getInstance()->getAllPositions());
+		}else
+		{
+			resetKalmanTrigger->trigger();
+		}
 
-		//NLOG(address->stringValue(), "Set anchor positions");
-		setAnchors(NodeManager::getInstance()->getAllPositions());
-
+		
 		absoluteMode->setValue(true);
 
+		lowBattery->setValue(false); //reset low battery on connect
 
 		NLOG(address->stringValue(), "Connected.");
 		//droneState->setValueWithData(READY);
@@ -379,7 +403,9 @@ bool Drone::setTargetPosition(float x, float y, float z, float _yaw, bool showTr
 	SpinLock::ScopedLockType lock(cfLock);
 	try
 	{
+#if DEBUG
 		if (enableLogParams->boolValue()) DBG("Send set point " << x<< " / " << y << " / " << z);
+#endif
 		cf->sendSetpoint(z,-x, _yaw, (uint16_t)(y * 1000)); //z is height for the drones, height is y for me.
 		outTrigger->trigger();
 	}
@@ -414,6 +440,7 @@ bool Drone::setAnchors(Array<Vector3D<float>> positions)
 
 			//setParam("anchorpos", "enable", 1);
 		}
+
 		catch (std::runtime_error &e)
 		{
 			if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Error setting anchors : " << e.what());
@@ -440,7 +467,11 @@ void Drone::logAllParams()
 			[&](const Crazyflie::ParamTocEntry& entry) { LOG(String(entry.group) << "." << String(entry.name));// << " (" << types[(int)entry.type] << ")" << (entry.readonly ? " readyonly" : ""));
 	});
 	}
+#if DEBUG
 	catch (std::exception& e)
+#else
+	catch(std::exception& )
+#endif
 	{
 		DBG("Error getting params  : " << e.what() << "");
 	}
@@ -459,7 +490,11 @@ void Drone::logAllLogs()
 		std::for_each(cf->logVariablesBegin(), cf->logVariablesEnd(),
 			[&](const Crazyflie::LogTocEntry& entry) { LOG(String(entry.group) + "." + String(entry.name) + " (" + types[(int)entry.type] + ")"); });
 	}
+#if DEBUG
 	catch (std::exception& e)
+#else
+	catch(std::exception &)
+#endif
 	{
 		DBG("Error getting logs  : " << e.what() << "");
 	}
@@ -513,7 +548,6 @@ void Drone::linkQualityCallback(float val)
 {
 	linkQuality->setValue(val);
 }
-
 
 void Drone::dataLogCallback(uint32_t, dataLog * data)
 {
@@ -581,7 +615,7 @@ void Drone::run()
 						if (droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
 						{
 							Vector3D<float> curRealPos = realPosition->getVector();
-							if (curRealPos.x != lastRealPos.x || curRealPos.y != lastRealPos.y || curRealPos.z != lastRealPos.z)
+							if (curRealPos.x != .5 && curRealPos.y != .5 && curRealPos.x > -5 && curRealPos.z > -5)
 							{
 								//targetPosition->setVector(curRealPos.x, 0, curRealPos.z);
 

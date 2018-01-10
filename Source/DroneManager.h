@@ -21,6 +21,9 @@ public:
 	DroneManager();
 	~DroneManager();
 
+	FloatParameter * flyingLowBatteryThreshold;
+	FloatParameter * onGroundLowBatteryThreshold;
+
 	Trigger * connectAllTrigger;
 	Trigger * connectAllNotConnectedTrigger;
 	Trigger * resetAllKalman;

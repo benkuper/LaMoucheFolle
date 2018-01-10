@@ -374,9 +374,6 @@
     <Filter Include="Juce Modules\juce_organicui\controllable\parameter">
       <UniqueIdentifier>{9C1136FE-D33B-60FD-6E0B-CB1915F9EA4C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Juce Modules\juce_organicui\controllable\preset">
-      <UniqueIdentifier>{AA99D42E-048A-B5AD-3CB9-9EB00E6D5B39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Juce Modules\juce_organicui\controllable\ui">
       <UniqueIdentifier>{2C1B5E63-72AB-3D51-1CA8-1D5A7FC2A67B}</UniqueIdentifier>
     </Filter>
@@ -391,6 +388,9 @@
     </Filter>
     <Filter Include="Juce Modules\juce_organicui\engine">
       <UniqueIdentifier>{C8AC30D6-BDDF-C1B9-03B7-8012F91498C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_organicui\help">
+      <UniqueIdentifier>{37891DAA-3052-18A2-68BE-37B1AC77680C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules\juce_organicui\helpers">
       <UniqueIdentifier>{7BE1D0F8-9257-D13F-90F0-675DCBED6EB5}</UniqueIdentifier>
@@ -422,6 +422,12 @@
     <Filter Include="Juce Modules\juce_organicui\progress">
       <UniqueIdentifier>{524CA3BB-B15B-B7BC-3435-8E9DB7468F32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode">
+      <UniqueIdentifier>{7EDB8BBF-BE99-7F84-C349-D1057F9F9FCB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_organicui\resources\organicui_resources">
+      <UniqueIdentifier>{EB14C864-D68B-A355-6A96-75808617F993}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Juce Modules\juce_organicui\resources">
       <UniqueIdentifier>{09AC5532-3448-BB1E-4E2B-06702099701F}</UniqueIdentifier>
     </Filter>
@@ -430,6 +436,9 @@
     </Filter>
     <Filter Include="Juce Modules\juce_organicui\script">
       <UniqueIdentifier>{C86F123A-A33C-D55B-14A4-E9045490EB58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_organicui\settings">
+      <UniqueIdentifier>{7A3F0703-432A-6D36-8F7D-716B6F7AE6B8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules\juce_organicui\ui\shapeshifter">
       <UniqueIdentifier>{23BBFC8A-0A21-C5A6-C6AF-19D6C4D5C00B}</UniqueIdentifier>
@@ -2215,6 +2224,9 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatStepperUI.cpp">
       <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntParameterLabelUI.cpp">
+      <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntSliderUI.cpp">
       <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClCompile>
@@ -2271,12 +2283,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\TargetParameter.cpp">
       <Filter>Juce Modules\juce_organicui\controllable\parameter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetChooser.cpp">
-      <Filter>Juce Modules\juce_organicui\controllable\preset</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetManager.cpp">
-      <Filter>Juce Modules\juce_organicui\controllable\preset</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\ControllableEditor.cpp">
       <Filter>Juce Modules\juce_organicui\controllable\ui</Filter>
@@ -2365,6 +2371,12 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\engine\EngineFileDocument.cpp">
       <Filter>Juce Modules\juce_organicui\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpBox.cpp">
+      <Filter>Juce Modules\juce_organicui\help</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.cpp">
+      <Filter>Juce Modules\juce_organicui\help</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableContentComponent.cpp">
       <Filter>Juce Modules\juce_organicui\inspectable\ui</Filter>
     </ClCompile>
@@ -2419,10 +2431,91 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\progress\ProgressNotifier.cpp">
       <Filter>Juce Modules\juce_organicui\progress</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\BinaryData.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_basics.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_basics.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_devices.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_devices.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_formats.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_formats.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_processors.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_processors.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_core.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_core.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_cryptography.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_cryptography.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_data_structures.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_data_structures.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_events.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_events.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_graphics.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_graphics.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_basics.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_basics.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_extra.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_extra.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_opengl.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_opengl.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_video.cpp">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_video.mm">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\OrganicBinaryData.cpp">
       <Filter>Juce Modules\juce_organicui\resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptUI.cpp">
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptEditor.cpp">
       <Filter>Juce Modules\juce_organicui\script\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\Script.cpp">
@@ -2439,6 +2532,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.cpp">
       <Filter>Juce Modules\juce_organicui\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.cpp">
+      <Filter>Juce Modules\juce_organicui\settings</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\GapGrabber.cpp">
       <Filter>Juce Modules\juce_organicui\ui\shapeshifter</Filter>
@@ -4437,6 +4533,9 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatStepperUI.h">
       <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntParameterLabelUI.h">
+      <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntSliderUI.h">
       <Filter>Juce Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClInclude>
@@ -4493,12 +4592,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\TargetParameter.h">
       <Filter>Juce Modules\juce_organicui\controllable\parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetChooser.h">
-      <Filter>Juce Modules\juce_organicui\controllable\preset</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetManager.h">
-      <Filter>Juce Modules\juce_organicui\controllable\preset</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\ControllableEditor.h">
       <Filter>Juce Modules\juce_organicui\controllable\ui</Filter>
@@ -4590,6 +4683,12 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\engine\EngineListener.h">
       <Filter>Juce Modules\juce_organicui\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpBox.h">
+      <Filter>Juce Modules\juce_organicui\help</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.h">
+      <Filter>Juce Modules\juce_organicui\help</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\DebugHelpers.h">
       <Filter>Juce Modules\juce_organicui\helpers</Filter>
     </ClInclude>
@@ -4677,10 +4776,19 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\progress\ProgressNotifier.h">
       <Filter>Juce Modules\juce_organicui\progress</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\AppConfig.h">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\BinaryData.h">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\JuceHeader.h">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\OrganicBinaryData.h">
       <Filter>Juce Modules\juce_organicui\resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptUI.h">
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptEditor.h">
       <Filter>Juce Modules\juce_organicui\script\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\Script.h">
@@ -4697,6 +4805,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.h">
       <Filter>Juce Modules\juce_organicui\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.h">
+      <Filter>Juce Modules\juce_organicui\settings</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\GapGrabber.h">
       <Filter>Juce Modules\juce_organicui\ui\shapeshifter</Filter>
@@ -4843,6 +4954,9 @@
     </None>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt">
       <Filter>Juce Modules\juce_graphics\image_formats\pnglib</Filter>
+    </None>
+    <None Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\ReadMe.txt">
+      <Filter>Juce Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode</Filter>
     </None>
     <None Include="..\..\..\..\JUCE Modules\juce_organicui\README.md">
       <Filter>Juce Modules\juce_organicui</Filter>

@@ -4,12 +4,12 @@
          ToolsVersion="15.0"
          xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -19,19 +19,19 @@
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"
-                 Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v141</PlatformToolset>
-    <PlatformToolset>v141</PlatformToolset>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"
                  Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"
+                 Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v141</PlatformToolset>
     <PlatformToolset>v141</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -50,18 +50,67 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetExt>.exe</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\App\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\App\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CrazyflieServer</TargetName>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(LibraryPath);../../External/libusb/lib</LibraryPath>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\App\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\App\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CrazyflieServer</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(LibraryPath);../../External/libusb/lib</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\App\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\App\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CrazyflieServer</TargetName>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <PlatformToolset>v141</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <HeaderFileName/>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;D:\Softwares\JUCE\modules;..\..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=1.1.0;JUCE_APP_VERSION_HEX=0x10100;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader/>
+      <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)\</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
+      <WarningLevel>Level4</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>$(OutDir)\CrazyflieServer.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)\CrazyflieServer.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>../../External/libusb/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LargeAddressAware>true</LargeAddressAware>
+      <AdditionalDependencies>libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(IntDir)\CrazyflieServer.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <AdditionalDependencies>libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../External/libusb/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -74,7 +123,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;D:\Softwares\JUCE\modules;..\..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=1.1.0;JUCE_APP_VERSION_HEX=0x10100;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -107,52 +156,6 @@
     <Lib>
       <AdditionalDependencies>libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../External/libusb/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lib>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Midl>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <HeaderFileName/>
-    </Midl>
-    <ClCompile>
-      <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;D:\Softwares\JUCE\modules;..\..\..\..\JUCE Modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader/>
-      <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
-      <ObjectFileName>$(IntDir)\</ObjectFileName>
-      <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
-      <WarningLevel>Level4</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp14</LanguageStandard>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Link>
-      <OutputFile>$(OutDir)\CrazyflieServer.exe</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\CrazyflieServer.pdb</ProgramDatabaseFile>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <Bscmake>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\CrazyflieServer.bsc</OutputFile>
-    </Bscmake>
-    <Lib>
-      <AdditionalDependencies>libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -1758,6 +1761,9 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatStepperUI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntParameterLabelUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntSliderUI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1813,12 +1819,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\TargetParameter.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetChooser.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\ControllableEditor.cpp">
@@ -1908,6 +1908,12 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\engine\EngineFileDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpBox.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableContentComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1962,10 +1968,52 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\progress\ProgressNotifier.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\BinaryData.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_basics.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_devices.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_formats.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_audio_processors.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_core.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_cryptography.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_data_structures.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_events.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_graphics.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_basics.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_gui_extra.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_opengl.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\include_juce_video.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\resources\OrganicBinaryData.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptUI.cpp">
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\Script.cpp">
@@ -1981,6 +2029,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\GapGrabber.cpp">
@@ -2707,6 +2758,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatParameterLabelUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatSliderUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\FloatStepperUI.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntParameterLabelUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntSliderUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntStepperUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterEditor.h"/>
@@ -2726,8 +2778,6 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\Point3DParameter.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\StringParameter.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\TargetParameter.h"/>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetChooser.h"/>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\preset\PresetManager.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\ControllableEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\ControllableUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\ui\GenericControllableContainerEditor.h"/>
@@ -2758,6 +2808,8 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardScriptItem.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\engine\Engine.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\engine\EngineListener.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpBox.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\DebugHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\QueuedNotifier.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\StringUtil.h"/>
@@ -2787,13 +2839,17 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\outliner\Outliner.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\progress\ui\ProgressWindow.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\progress\ProgressNotifier.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\AppConfig.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\BinaryData.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\JuceHeader.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\resources\OrganicBinaryData.h"/>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptUI.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ui\ScriptEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\Script.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptExpression.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptManager.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptTarget.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\GapGrabber.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\ShapeShifter.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\ShapeShifterContainer.h"/>
@@ -2844,6 +2900,7 @@
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
+    <None Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\ReadMe.txt"/>
     <None Include="..\..\..\..\JUCE Modules\juce_organicui\README.md"/>
     <None Include=".\icon.ico"/>
   </ItemGroup>

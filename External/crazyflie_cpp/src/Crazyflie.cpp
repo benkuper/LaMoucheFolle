@@ -601,6 +601,8 @@ void Crazyflie::sendPacket(
 
 	numPackets++;
 
+	if (m_devId < 0) return;
+
 	if (m_radio) {
 		std::unique_lock<std::mutex> mlock(g_radioMutex[m_devId]);
 		if (m_radio->getAddress() != m_address) {
