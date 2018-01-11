@@ -60,3 +60,8 @@ profile
 **/doxygen/doc
 **/doxygen/build
 extras/Projucer/JUCECompileEngine.dylib
+JuceLibraryCode/
+
+Builds/MacOSX/
+
+Builds/VisualStudio2017/

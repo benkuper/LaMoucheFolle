@@ -6,9 +6,9 @@
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
-      <FILE id="Np0yeM" name="default.cflayout" compile="0" resource="1"
-            file="../../LaMoucheFolle/layouts/default.cflayout"/>
       <FILE id="s77xKn" name="charging.png" compile="0" resource="1" file="Resources/charging.png"/>
+      <FILE id="GU4KWp" name="default.cflayout" compile="0" resource="1"
+            file="Resources/default.cflayout"/>
       <FILE id="gOf6w2" name="icon.png" compile="0" resource="1" file="Resources/icon.png"/>
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
       <FILE id="v0o1BC" name="lowbattery.png" compile="0" resource="1" file="Resources/lowbattery.png"/>
@@ -94,11 +94,11 @@
             bigIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="CrazyflieServer" debugInformationFormat="ProgramDatabase"
+                       isDebug="0" optimisation="3" targetName="LaMoucheFolle" debugInformationFormat="ProgramDatabase"
                        enablePluginBinaryCopyStep="0" linkTimeOptimisation="1" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib"/>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" optimisation="1" targetName="CrazyflieServer" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       isDebug="1" optimisation="1" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib" debugInformationFormat="ProgramDatabase"
                        enablePluginBinaryCopyStep="0"/>
       </CONFIGURATIONS>

@@ -1,0 +1,74 @@
+{
+  "mainLayout": {
+    "type": 1,
+    "width": 1920,
+    "height": 997,
+    "direction": 2,
+    "shifters": [
+      {
+        "type": 1,
+        "width": 1920,
+        "height": 997,
+        "direction": 1,
+        "shifters": [
+          {
+            "type": 1,
+            "width": 636,
+            "height": 502,
+            "direction": 2,
+            "shifters": [
+              {
+                "type": 0,
+                "width": 152,
+                "height": 549,
+                "currentContent": "Nodes",
+                "tabs": [
+                  {
+                    "name": "Drones"
+                  },
+                  {
+                    "name": "Nodes"
+                  }
+                ]
+              },
+              {
+                "type": 0,
+                "width": 201,
+                "height": 443,
+                "currentContent": "Controllers",
+                "tabs": [
+                  {
+                    "name": "Controllers"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": 0,
+            "width": 636,
+            "height": 502,
+            "currentContent": "Logger",
+            "tabs": [
+              {
+                "name": "Logger"
+              }
+            ]
+          },
+          {
+            "type": 0,
+            "width": 636,
+            "height": 819,
+            "currentContent": "Inspector",
+            "tabs": [
+              {
+                "name": "Inspector"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "windows": null
+}
