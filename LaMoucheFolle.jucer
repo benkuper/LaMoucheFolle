@@ -6,6 +6,8 @@
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
+      <FILE id="Np0yeM" name="default.cflayout" compile="0" resource="1"
+            file="../../LaMoucheFolle/layouts/default.cflayout"/>
       <FILE id="s77xKn" name="charging.png" compile="0" resource="1" file="Resources/charging.png"/>
       <FILE id="gOf6w2" name="icon.png" compile="0" resource="1" file="Resources/icon.png"/>
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
@@ -118,6 +120,34 @@
         <MODULEPATH id="juce_osc" path="../../../../../Softwares/JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
+    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="" smallIcon="gOf6w2"
+               bigIcon="gOf6w2">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
+                       linkTimeOptimisation="1" targetName="LaMoucheFolle" libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"
+                       headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include&#10;"/>
+        <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
+                       linkTimeOptimisation="0" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include"
+                       libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../juce"/>
+        <MODULEPATH id="juce_osc" path="../../juce"/>
+        <MODULEPATH id="juce_organicui" path="../JUCE Modules"/>
+        <MODULEPATH id="juce_opengl" path="../../juce"/>
+        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_cryptography" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_audio_processors" path="../../juce"/>
+        <MODULEPATH id="juce_audio_formats" path="../../juce"/>
+        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

@@ -34,14 +34,17 @@ struct crtp
 } __attribute__((packed));
 
 // Packet structure definition
+struct headerData_t {
+    uint8_t header;
+    uint8_t data[CRTP_MAX_DATA_SIZE];
+};
+
+
 typedef struct {
   uint8_t size;
-  union {
-    struct headerData_t {
-      uint8_t header;
-      uint8_t data[CRTP_MAX_DATA_SIZE];
-	}; 
-    uint8_t raw[CRTP_MAX_DATA_SIZE+1];
+     union {
+      headerData_t headerData;
+      uint8_t raw[CRTP_MAX_DATA_SIZE+1];
   };
 } crtpPacket_t;
 

@@ -29,7 +29,7 @@ MainContentComponent::MainContentComponent()
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Nodes",&NodeManagerUI::create));
 	
 
-	//ShapeShifterManager::getInstance()->setDefaultFileData(BinaryData::default_cflayout);
+	ShapeShifterManager::getInstance()->setDefaultFileData(BinaryData::default_cflayout);
 
 	ShapeShifterManager::getInstance()->setLayoutInformations("cflayout", "LaMoucheFolle/layouts");
 	ShapeShifterManager::getInstance()->loadLastSessionLayoutFile();
