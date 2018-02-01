@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="guiapp" version="1.1.0"
+              splashScreenColour="Dark" projectType="guiapp" version="1.1.1"
               bundleIdentifier="com.yourcompany.CrazyflieServer" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" jucerVersion="5.2.0" companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">

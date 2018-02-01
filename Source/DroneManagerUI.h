@@ -19,6 +19,7 @@ public:
 	DroneManagerUI(const String &name, DroneManager * manager);
 	~DroneManagerUI();
 
+	ScopedPointer<TriggerButtonUI> disableAllBT;
 	ScopedPointer<TriggerButtonUI> connectAllBT;
 	ScopedPointer<TriggerButtonUI> connectAllNCBT;
 	ScopedPointer<TriggerButtonUI> resetKalmanBT;

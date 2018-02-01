@@ -50,10 +50,11 @@ public:
 	BoolParameter * headlight;
 
 	BoolParameter * autoReconnect;
+	BoolParameter * autoKillUpsideDown;
 
 	Point3DParameter * targetPosition;
 	Point3DParameter * realPosition;
-	Point3DParameter * goalFeedback;
+	Point3DParameter * orientation;
 
 	FloatParameter * yaw;
 	BoolParameter * absoluteMode;
@@ -84,6 +85,9 @@ public:
 	bool droneHasStarted;
 	bool droneHasFinishedInit;
 
+	const float lowBatteryTimeCheck = 1.0f; //1 second below threshold to declare low battery, this allows fast voltage drops and raise (like when flying up from ground)
+	float timeAtBelowLowBattery;
+
 	//log blocks
 	struct dataLog
 	{
@@ -96,9 +100,9 @@ public:
 
 	struct feedbackLog
 	{
-		float goalX;
-		float goalY;
-		float goalZ;
+		float pitch;
+		float yaw;
+		float roll;
 	} __attribute__((packed));
 
 	ScopedPointer<LogBlock<dataLog>> dataLogBlock;
@@ -107,6 +111,8 @@ public:
 	void launchCFThread();
 	void stopCFThread();
 
+	
+	void onContainerParameterChangedAsync(Parameter * p, const var &) override;
 	void onContainerParameterChangedInternal(Parameter * p) override;
 	void onContainerTriggerTriggered(Trigger * t) override;
 

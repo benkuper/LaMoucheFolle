@@ -23,8 +23,10 @@ public:
 
 	FloatParameter * flyingLowBatteryThreshold;
 	FloatParameter * onGroundLowBatteryThreshold;
+	FloatParameter * lowBatteryTimeCheck;
 
 	Trigger * connectAllTrigger;
+	Trigger * disableAllTrigger;
 	Trigger * connectAllNotConnectedTrigger;
 	Trigger * resetAllKalman;
 

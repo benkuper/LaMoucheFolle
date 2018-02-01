@@ -15,6 +15,7 @@
 Drone::Drone() :
 	BaseItem("Drone"),
 	cf(nullptr),
+	timeAtBelowLowBattery(0),
 	ackTimeout(2000), //2s no packet = drone disconnected
 	Thread("DroneInitThread")
 {
@@ -32,11 +33,12 @@ Drone::Drone() :
 	realPosition = addPoint3DParameter("Real Position", "Position feedback from the drone");
 	realPosition->setBounds(-10,0,-10, 10, 10, 10);
 	realPosition->isSavable = false;
+	realPosition->isControllableFeedbackOnly = true;
 
-	goalFeedback = addPoint3DParameter("Target", "Target Position for the drone");
-	goalFeedback->setBounds(-10,0,-10, 10, 10, 10);
-	goalFeedback->isSavable = false;
-
+	orientation = addPoint3DParameter("Orientation", "Target Position for the drone");
+	orientation->setBounds(-180,-180,-180, 180,180,180);
+	orientation->isSavable = false;
+	orientation->isControllableFeedbackOnly = true;
 
 	absoluteMode = addBoolParameter("Absolute Mode", "Absolute positionning", false);
 
@@ -77,6 +79,7 @@ Drone::Drone() :
 	headlight = addBoolParameter("Headlight", "Headlight", false);
 
 	autoReconnect = addBoolParameter("Auto Reconnect", "Auto Reboot drone if connected but in bad state", false);
+	autoKillUpsideDown = addBoolParameter("Auto Kill Upside-Down", "If drone is upside down, will set it in error state", true);
 
 	linkQuality = addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 	linkQuality->isEditable = false;
@@ -128,6 +131,24 @@ void Drone::stopCFThread()
 
 
 
+void Drone::onContainerParameterChangedAsync(Parameter * p, const var &)
+{
+	if (p == orientation)
+	{	
+		if (autoKillUpsideDown->boolValue() 
+			&& (droneState->getValueDataAsEnum<DroneState>() == READY  || droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
+			&& (orientation->z > 160 || orientation->z < -160)
+			)
+		{
+			NLOGWARNING(niceName, "Drone Upside down, kill");
+			droneState->setValueWithData(ERROR);
+			lightMode->setValueWithKey("Off");
+			headlight->setValue(false);
+			return;
+		}
+	}
+}
+
 // PARAMETERS AND TRIGGERS
 void Drone::onContainerParameterChangedInternal(Parameter * p)
 {
@@ -145,6 +166,8 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	{
 
 	}
+	
+	
 
 	if (p == absoluteMode)
 	{
@@ -191,8 +214,22 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		{
 			if (!lowBattery->boolValue())
 			{
-				if (targetPosition->y == 0) lowBattery->setValue(voltage->floatValue() < DroneManager::getInstance()->onGroundLowBatteryThreshold->floatValue()); //drone is not flying, min battery is 3.1V
-				else lowBattery->setValue(voltage->floatValue() < DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue()); //drone is flying, min battery is 2.7V
+				bool isNowLowBattery = false;
+				if (targetPosition->y == 0) isNowLowBattery =  voltage->floatValue() < DroneManager::getInstance()->onGroundLowBatteryThreshold->floatValue(); //drone is not flying, min battery is 3.1V
+				else  isNowLowBattery = voltage->floatValue() < DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue(); //drone is flying, min battery is 2.7V
+
+				if (isNowLowBattery)
+				{
+					float currentTime = Time::getMillisecondCounter() / 1000.0f;
+					if (timeAtBelowLowBattery == 0) timeAtBelowLowBattery = currentTime;
+					else if (currentTime > timeAtBelowLowBattery + DroneManager::getInstance()->lowBatteryTimeCheck->floatValue())
+					{
+						lowBattery->setValue(true);
+					}
+				} else
+				{
+					timeAtBelowLowBattery = 0;
+				}
 			}
 		}
 		else
@@ -289,7 +326,7 @@ bool Drone::setupCF()
 		dataLogBlock->start(10); // 50ms - 20fps
 
 		std::function<void(uint32_t, feedbackLog *)> fcb = std::bind(&Drone::feedbackLogCallback, this, std::placeholders::_1, std::placeholders::_2);
-		feedbackBlock = new LogBlock<feedbackLog>(cf, { { "posCtl","targetX" },{ "posCtl","targetY" },{ "posCtl","targetZ" }}, fcb);
+		feedbackBlock = new LogBlock<feedbackLog>(cf, { { "stabilizer","pitch" },{ "stabilizer","yaw" },{ "stabilizer","roll" }}, fcb);
 		feedbackBlock->start(10); // 50ms - 20fps
 
 		realPosition->setVector(0, 0, 0);
@@ -368,6 +405,7 @@ template <class T>
 bool Drone::setParam(String group, String paramID, T value)
 {
 	if (cf == nullptr) return false;
+
 
 	SpinLock::ScopedLockType lock(cfLock);
 	try
@@ -524,7 +562,7 @@ void Drone::consoleCallback(const char * c)
 			}
 			else droneHasStarted = true;
 		}
-		else if (consoleBuffer.contains("Free heap"))
+		else if (consoleBuffer.contains("Free heap") || (consoleBuffer.contains("DWM") && consoleBuffer.contains("TDoA")))
 		{
 			//DBG("Drone init finish");
 			droneHasFinishedInit = true;
@@ -558,7 +596,7 @@ void Drone::dataLogCallback(uint32_t, dataLog * data)
 
 void Drone::feedbackLogCallback(uint32_t, feedbackLog * data)
 {
-	goalFeedback->setVector(data->goalX, data->goalZ, data->goalY);
+	orientation->setVector(data->pitch, data->yaw, data->roll);
 }
 
 
