@@ -43,6 +43,11 @@ Image CFAssetManager::getChargingImage()
 	return ImageCache::getFromMemory(BinaryData::charging_png, BinaryData::charging_pngSize);
 }
 
+Image CFAssetManager::getFlyingImage()
+{
+	return ImageCache::getFromMemory(BinaryData::flying_png, BinaryData::flying_pngSize);
+}
+
 ImageButton * CFAssetManager::getSetupBTImage(const Image & image)
 {
 	ImageButton * bt = new ImageButton();

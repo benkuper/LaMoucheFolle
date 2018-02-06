@@ -51,6 +51,7 @@ public:
 
 	BoolParameter * autoReconnect;
 	BoolParameter * autoKillUpsideDown;
+	BoolParameter * freezeOnUpsideDown;
 
 	Point3DParameter * targetPosition;
 	Point3DParameter * realPosition;
@@ -58,6 +59,7 @@ public:
 
 	FloatParameter * yaw;
 	BoolParameter * absoluteMode;
+	BoolParameter * isFlying;
 
 
 	FloatParameter * linkQuality;
@@ -65,7 +67,16 @@ public:
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
 
+	/*
 	BoolParameter * initPIDSettings;
+	Point3DParameter * kd;
+	Point3DParameter * ki;
+	Point3DParameter * kp;
+	FloatParameter * zVelMax;
+	FloatParameter * xyVelMax;
+	FloatParameter * rpLimit;
+	*/
+
 	BoolParameter * initAnchorPos;
 
 	BoolParameter * enableLogConsole;
@@ -84,6 +95,10 @@ public:
 	//Setup chronology
 	bool droneHasStarted;
 	bool droneHasFinishedInit;
+
+	bool upsideDownFrozen;
+
+	bool timeAtResetKalman;
 
 	const float lowBatteryTimeCheck = 1.0f; //1 second below threshold to declare low battery, this allows fast voltage drops and raise (like when flying up from ground)
 	float timeAtBelowLowBattery;

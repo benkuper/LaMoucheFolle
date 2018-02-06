@@ -37,8 +37,10 @@ public:
 	ScopedPointer<TriggerImageUI> outTriggerUI;
 	ScopedPointer<BoolImageToggleUI> chargingUI;
 	ScopedPointer<BoolImageToggleUI> lowBatUI;
+	ScopedPointer<FloatSliderUI> voltageUI;
+	ScopedPointer<BoolImageToggleUI> flyingUI;
+	ScopedPointer<TriggerButtonUI> connectUI;
 
-	Label addressLabel;
 	DroneStatusFeedback stateFeedback;
 
 	void resizedInternalHeader(Rectangle<int> &r) override;

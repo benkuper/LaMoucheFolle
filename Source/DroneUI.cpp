@@ -13,23 +13,27 @@
 
 DroneUI::DroneUI(Drone * drone) :
 	BaseItemUI(drone),
-	addressLabel("DroneLabel"),
 	stateFeedback(drone)
 {
 	inTriggerUI = item->inTrigger->createImageUI(CFAssetManager::getInstance()->getInImage());
 	outTriggerUI = item->outTrigger->createImageUI(CFAssetManager::getInstance()->getOutImage());
 	lowBatUI = item->lowBattery->createImageToggle(CFAssetManager::getInstance()->getToggleBTImage(CFAssetManager::getInstance()->getLowBatteryImage()));
 	chargingUI = item->charging->createImageToggle(CFAssetManager::getInstance()->getToggleBTImage(CFAssetManager::getInstance()->getChargingImage()));
+	voltageUI = item->voltage->createSlider();
+	flyingUI = item->isFlying->createImageToggle(CFAssetManager::getInstance()->getToggleBTImage(CFAssetManager::getInstance()->getFlyingImage()));
+	connectUI = item->connectTrigger->createButtonUI();
 
 	addAndMakeVisible(inTriggerUI);
 	addAndMakeVisible(outTriggerUI);
 	addAndMakeVisible(lowBatUI);
 	addAndMakeVisible(chargingUI);
-
-	addressLabel.setText(drone->getRadioString(),dontSendNotification);
-	addAndMakeVisible(&addressLabel);
+	addAndMakeVisible(voltageUI);
+	addAndMakeVisible(flyingUI);
+	addAndMakeVisible(connectUI);
 
 	addAndMakeVisible(&stateFeedback);
+
+	voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->lowBattery ? RED_COLOR : BLUE_COLOR));
 }
 
 DroneUI::~DroneUI()
@@ -39,6 +43,9 @@ DroneUI::~DroneUI()
 void DroneUI::resizedInternalHeader(Rectangle<int>& r)
 {
 	stateFeedback.setBounds(r.removeFromRight(r.getHeight()));
+	r.removeFromRight(2);
+	flyingUI->setBounds(r.removeFromRight(r.getHeight()));
+	r.removeFromRight(2);
 	lowBatUI->setBounds(r.removeFromRight(r.getHeight()));
 	chargingUI->setBounds(r.removeFromRight(r.getHeight()));
 	r.removeFromRight(10);
@@ -47,15 +54,16 @@ void DroneUI::resizedInternalHeader(Rectangle<int>& r)
 	inTriggerUI->setBounds(r.removeFromRight(r.getHeight()));
 	r.removeFromRight(10);
 
-	addressLabel.setBounds(r.removeFromRight(jmin(200,r.getWidth()-60)));
-
+	voltageUI->setBounds(r.removeFromRight(r.getWidth() - 160).reduced(0,1));
+	r.removeFromRight(6);
+	connectUI->setBounds(r.removeFromRight(50).reduced(0,1));
 }
 
 void DroneUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
-	if (c == item->address || c == item->targetRadio || c == item->channel || c == item->speed)
+	if (c == item->charging || c == item->lowBattery)
 	{
-		addressLabel.setText(item->getRadioString() ,dontSendNotification);
+		voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->lowBattery ? RED_COLOR : BLUE_COLOR));
 	}
 	else if (c == item->droneState)
 	{

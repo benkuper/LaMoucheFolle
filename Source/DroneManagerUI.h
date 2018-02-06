@@ -20,6 +20,9 @@ public:
 	~DroneManagerUI();
 
 	ScopedPointer<TriggerButtonUI> disableAllBT;
+	ScopedPointer<TriggerButtonUI> enableAllBT;
+	ScopedPointer<TriggerButtonUI> connectSelectedBT;
+	ScopedPointer<TriggerButtonUI> disableNotFlyingsBT;
 	ScopedPointer<TriggerButtonUI> connectAllBT;
 	ScopedPointer<TriggerButtonUI> connectAllNCBT;
 	ScopedPointer<TriggerButtonUI> resetKalmanBT;

@@ -15,6 +15,7 @@
 Drone::Drone() :
 	BaseItem("Drone"),
 	cf(nullptr),
+	upsideDownFrozen(false),
 	timeAtBelowLowBattery(0),
 	ackTimeout(2000), //2s no packet = drone disconnected
 	Thread("DroneInitThread")
@@ -22,7 +23,7 @@ Drone::Drone() :
 	targetRadio = addIntParameter("Radio", "Target Radio to connect", 0, 0, 16);
 	channel = addIntParameter("Channel", "Target channel of the drone", 40, 0, 200);
 	speed = addEnumParameter("Baudrate", "Speed of the connection");
-	speed->addOption("250K", Crazyradio::Datarate_250KPS)->addOption("1M", Crazyradio::Datarate_1MPS)->addOption("2M", Crazyradio::Datarate_2MPS);
+	speed->addOption("2M", Crazyradio::Datarate_2MPS)->addOption("250K", Crazyradio::Datarate_250KPS)->addOption("1M", Crazyradio::Datarate_1MPS);
 
 	address = addStringParameter("Address", "Address of the drone, without the 0x", "E7E7E7E7E7");
 
@@ -41,6 +42,8 @@ Drone::Drone() :
 	orientation->isControllableFeedbackOnly = true;
 
 	absoluteMode = addBoolParameter("Absolute Mode", "Absolute positionning", false);
+	isFlying = addBoolParameter("Is Flying", "Is the drone flying ?",false);
+	isFlying->isControllableFeedbackOnly = true;
 
 	yaw = addFloatParameter("Yaw", "Horizontal rotation of the drone", 0, 0, 360);
 	yaw->isSavable = false;
@@ -58,7 +61,30 @@ Drone::Drone() :
 
 	taskDump = addTrigger("TaskDump", "TD");
 
+	/*	
 	initPIDSettings = addBoolParameter("Init PID Settings", "Include PID settings in init", false);
+
+	kd = addPoint3DParameter("Kd", "Kd settings for the PID tuning (drone reference, z is vertical axis)");
+	ki = addPoint3DParameter("Ki", "Ki settings for the PID tuning (drone reference, z is vertical axis)");
+	kp = addPoint3DParameter("Kp", "Kp settings for the PID tuning (drone reference, z is vertical axis)");
+	
+	kd->setBounds(0, 0, 0, 5, 5, 5); 
+	kd->setVector(0, 0, 0);
+	kd->defaultValue = kd->value;
+
+	ki->setBounds(0, 0, 0, 5, 5, 5); 
+	ki->setVector(0, 0, .5f);
+	ki->defaultValue = ki->value;
+
+	kp->setBounds(0, 0, 0, 5,5,5);
+	kp->setVector(2, 2, 2);
+	kp->defaultValue = kp->defaultValue;
+
+	xyVelMax = addFloatParameter("Z Vel Max", "For the PID tuning", 1, .1f, 3);
+	zVelMax = addFloatParameter("XY Vel Max", "For the PID tuning", 1, .1f, 3);
+	rpLimit = addFloatParameter("RP Limit", "For the PID tuning (RollPitch limit ?)", 20, 5, 50);
+	*/
+
 	initAnchorPos = addBoolParameter("Init Anchor Pos", "Include anchor pos in init", false);
 
 	launchTrigger = addTrigger("Launch", "Launch");
@@ -79,15 +105,18 @@ Drone::Drone() :
 	headlight = addBoolParameter("Headlight", "Headlight", false);
 
 	autoReconnect = addBoolParameter("Auto Reconnect", "Auto Reboot drone if connected but in bad state", false);
-	autoKillUpsideDown = addBoolParameter("Auto Kill Upside-Down", "If drone is upside down, will set it in error state", true);
+	autoKillUpsideDown = addBoolParameter("Auto Kill Upside-Down", "If drone is upside down, will set it in error state", false);
+	freezeOnUpsideDown = addBoolParameter("Freeze Upside-Down", "If drone is upside down and autokill set to false, will not send commands to drone when upside down", true);
 
 	linkQuality = addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 	linkQuality->isEditable = false;
 	linkQuality->isSavable = false;
 
-	voltage = addFloatParameter("Voltage", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 4.2f);
+	voltage = addFloatParameter("Voltage", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 4.4f);
+	voltage->setRange(DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue(), voltage->maximumValue); 
 	voltage->isEditable = false;
 	voltage->isSavable = false;
+	
 
 	charging = addBoolParameter("Is Charging", "Is the drone connected to a power source", false);
 	charging->isEditable = false;
@@ -126,7 +155,7 @@ void Drone::stopCFThread()
 
 	if (!isThreadRunning()) return;
 	signalThreadShouldExit();
-	waitForThreadToExit(3000);
+	waitForThreadToExit(1000);
 }
 
 
@@ -135,16 +164,27 @@ void Drone::onContainerParameterChangedAsync(Parameter * p, const var &)
 {
 	if (p == orientation)
 	{	
-		if (autoKillUpsideDown->boolValue() 
-			&& (droneState->getValueDataAsEnum<DroneState>() == READY  || droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
-			&& (orientation->z > 160 || orientation->z < -160)
-			)
+		bool isUpsideDown = orientation->z > 160 || orientation->z < -160 && fabsf(orientation->x < 20);
+		bool upsideDownAndShouldDoSomething = autoKillUpsideDown->boolValue()
+			&& (droneState->getValueDataAsEnum<DroneState>() == READY || droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
+			&& isUpsideDown
+			&& realPosition->y < .3f;//if detected flying high, do not do anything !
+
+		if (upsideDownAndShouldDoSomething)
 		{
-			NLOGWARNING(niceName, "Drone Upside down, kill");
-			droneState->setValueWithData(ERROR);
-			lightMode->setValueWithKey("Off");
-			headlight->setValue(false);
-			return;
+			if (autoKillUpsideDown->boolValue())
+			{
+				NLOGWARNING(niceName, "Drone Upside down and appears close to ground, kill");
+				droneState->setValueWithData(ERROR);
+				lightMode->setValueWithKey("Off");
+				headlight->setValue(false);
+			} else if (freezeOnUpsideDown->boolValue())
+			{
+				upsideDownFrozen = true;
+			}
+		} else
+		{
+			upsideDownFrozen = false;
 		}
 	}
 }
@@ -152,21 +192,42 @@ void Drone::onContainerParameterChangedAsync(Parameter * p, const var &)
 // PARAMETERS AND TRIGGERS
 void Drone::onContainerParameterChangedInternal(Parameter * p)
 {
+	//before enable to be able to change light on disable
+	if (p == headlight) setParam("ring", "headlightEnable", headlight->boolValue());
+	else if (p == lightMode) setParam("ring", "effect", (int)lightMode->getValueData());
+	else if (p == color)
+	{
+		setParam("ring", "solidRed", color->getColor().getRed());
+		setParam("ring", "solidGreen", color->getColor().getGreen());
+		setParam("ring", "solidBlue", color->getColor().getBlue());
+	}
+
 	if (p == enabled)
 	{
-		if (!enabled->boolValue()) droneState->setValueWithData(DISCONNECTED);
+		if (!enabled->boolValue())
+		{
+			droneState->setValueWithData(DISCONNECTED);
+			headlight->setValue(false);
+			lightMode->setValueWithKey("Off");
+			targetPosition->setValue(realPosition->x, 0, realPosition->z);
+		} else
+		{
+			isFlying->setValue(false);
+			lowBattery->setValue(false);
+			charging->setValue(false);
+		}
 	}
 
 	if (!enabled->boolValue()) return;
+
 
 	if (cf == nullptr) return;
 	
 
 	if (p == realPosition)
 	{
-
+		isFlying->setValue(realPosition->y < .1f && targetPosition->y > 0);
 	}
-	
 	
 
 	if (p == absoluteMode)
@@ -195,18 +256,9 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		}
 	}
 
-	if (p == headlight) setParam("ring", "headlightEnable", headlight->boolValue());
-	if (p == lightMode) setParam("ring", "effect", (int)lightMode->getValueData());
-
-
 	if(droneState->getValueDataAsEnum<DroneState>() != READY) return;
 	
-	else if (p == color)
-	{
-		setParam("ring", "solidRed", color->getColor().getRed());
-		setParam("ring", "solidGreen", color->getColor().getGreen());
-		setParam("ring", "solidBlue", color->getColor().getBlue());
-	}else if (p == targetPosition) setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z, yaw->floatValue());
+	if (p == targetPosition) setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z, yaw->floatValue());
 
 	if (p == voltage)
 	{
@@ -215,8 +267,8 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 			if (!lowBattery->boolValue())
 			{
 				bool isNowLowBattery = false;
-				if (targetPosition->y == 0) isNowLowBattery =  voltage->floatValue() < DroneManager::getInstance()->onGroundLowBatteryThreshold->floatValue(); //drone is not flying, min battery is 3.1V
-				else  isNowLowBattery = voltage->floatValue() < DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue(); //drone is flying, min battery is 2.7V
+				if (targetPosition->y == 0) isNowLowBattery =  voltage->floatValue() <= DroneManager::getInstance()->onGroundLowBatteryThreshold->floatValue(); //drone is not flying, min battery is 3.1V
+				else  isNowLowBattery = voltage->floatValue() <= DroneManager::getInstance()->flyingLowBatteryThreshold->floatValue(); //drone is flying, min battery is 2.7V
 
 				if (isNowLowBattery)
 				{
@@ -239,7 +291,38 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	} else if (p == charging)
 	{
 		lowBattery->setValue(false);
+	} 
+	/*else if (p == kd)
+	{
+		NLOG(niceName, "Update Kd PID Settings");
+		setParam("posCtlPid", "xKd", kd->x);
+		setParam("posCtlPid", "yKd", kd->y);
+		setParam("posCtlPid", "zKd", kd->z);
+	} else if (p == ki)
+	{
+		NLOG(niceName, "Update Ki Settings");
+		setParam("posCtlPid", "xKi", ki->x);
+		setParam("posCtlPid", "yKi", ki->y);
+		setParam("posCtlPid", "zKi", ki->z);
+	} else if (p == kp)
+	{
+		NLOG(niceName, "Update Kp Settings");
+		setParam("posCtlPid", "xKp", kp->x);
+		setParam("posCtlPid", "yKp", kp->y);
+		setParam("posCtlPid", "zKp", kp->z);
+	} else if (p == xyVelMax)
+	{
+		setParam("posCtlPid", "xyVelMax", xyVelMax->floatValue());
+	} else if (p == zVelMax)
+	{
+		
+		setParam("posCtlPid", "zVelMax", zVelMax->floatValue());
+	} else if (p == rpLimit)
+	{
+		setParam("posCtlPid", "rpLimit", rpLimit->floatValue());		
 	}
+	*/
+
 }
 
 void Drone::onContainerTriggerTriggered(Trigger * t)
@@ -252,7 +335,10 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	if (t == resetKalmanTrigger)
 	{
 		//NLOG(address->stringValue(), "Reset Kalman Estimation");
+
+		timeAtResetKalman = Time::getApproximateMillisecondCounter() / 1000.0f;
 		droneState->setValueWithData(STABILIZING);
+
 		setParam("kalman", "resetEstimation", 1);
 		sleep(2);
 		setParam("kalman", "resetEstimation", 0);
@@ -277,6 +363,7 @@ bool Drone::setupCF()
 	NLOG(address->stringValue(), "Connect " << getRadioString() << "...");
 	droneState->setValueWithData(CONNECTING);
 
+	
 	try
 	{
 		dataLogBlock = nullptr; 
@@ -298,10 +385,12 @@ bool Drone::setupCF()
 		std::function<void(float)> linkF = std::bind(&Drone::linkQualityCallback, this, std::placeholders::_1);
 		cf->setLinkQualityCallback(linkF);
 
-		while (!droneHasFinishedInit && droneState->getValueDataAsEnum<DroneState>() == CONNECTING)
+		float initStartTime = Time::getApproximateMillisecondCounter() / 1000.0f;
+		while (!droneHasFinishedInit && !threadShouldExit() && droneState->getValueDataAsEnum<DroneState>() == CONNECTING)
 		{
 			cf->sendPing();
-			sleep(10);
+			sleep(20);
+			if (Time::getApproximateMillisecondCounter() / 1000.0f > initStartTime + 5) break; //max 5 seconds to init the drone, otherwise try to stabilize
 		}
 
 		NLOG(address->stringValue(), "Init finished, setup params and logs");
@@ -339,20 +428,28 @@ bool Drone::setupCF()
 		setParam("flightmode", "posSet", 1);
 		
 		
-
+		/*
 		if (initPIDSettings->boolValue())
 		{
 			//TODO : ask why ????
-			setParam("posCtlPid", "xKp", 1.5f);
-			setParam("posCtlPid", "yKp", 1.5f);
-			setParam("posCtlPid", "zKp", 1.5f);
-
-			setParam("posCtlPid", "xKi", 0.25f);
-			setParam("posCtlPid", "yKi", 0.25f);
-			setParam("posCtlPid", "zKi", 0.5f);
+			setParam("posCtlPid", "xKp", kp->x);
+			setParam("posCtlPid", "yKp", kp->y);
+			setParam("posCtlPid", "zKp", kp->z);
+			sleep(20);
+			setParam("posCtlPid", "xKi",  ki->x);
+			setParam("posCtlPid", "yKi",  ki->y);
+			setParam("posCtlPid", "zKi", ki->z);
+			sleep(20);
+			setParam("posCtlPid", "xKd", kd->x);
+			setParam("posCtlPid", "yKd", kd->y);
+			setParam("posCtlPid", "zKd", kd->z);
+			sleep(20);
+			setParam("posCtlPid", "rpLimit", rpLimit->floatValue());
+			setParam("posCtlPid", "xyVelMax", xyVelMax->floatValue());
+			setParam("posCtlPid", "zVelMax", zVelMax->floatValue());
 			//
 		}
-
+		*/
 
 		if (initAnchorPos->boolValue())
 		{
@@ -406,7 +503,6 @@ bool Drone::setParam(String group, String paramID, T value)
 {
 	if (cf == nullptr) return false;
 
-
 	SpinLock::ScopedLockType lock(cfLock);
 	try
 	{
@@ -436,8 +532,9 @@ bool Drone::setTargetPosition(float x, float y, float z, float _yaw, bool showTr
 {
 	if (cf == nullptr || droneState->getValueDataAsEnum<DroneState>() != READY) return false;
 
-	//setParam("flightmode", "posSet", 1);
+	if (upsideDownFrozen) return false;
 
+	//setParam("flightmode", "posSet", 1);
 	SpinLock::ScopedLockType lock(cfLock);
 	try
 	{
@@ -550,7 +647,11 @@ void Drone::consoleCallback(const char * c)
 
 	if (consoleBuffer.endsWith("\n"))
 	{
-		if (enableLogConsole->boolValue()) NLOG(address->stringValue(), consoleBuffer);
+		if (enableLogConsole->boolValue())
+		{
+			if (consoleBuffer.toLowerCase().contains("error") || consoleBuffer.toLowerCase().contains("fail")) NLOGERROR(address->stringValue(), consoleBuffer);
+			else NLOG(address->stringValue(), consoleBuffer);
+		}
 
 		if (consoleBuffer.contains("----------------------------"))
 		{
@@ -562,7 +663,7 @@ void Drone::consoleCallback(const char * c)
 			}
 			else droneHasStarted = true;
 		}
-		else if (consoleBuffer.contains("Free heap") || (consoleBuffer.contains("DWM") && consoleBuffer.contains("TDoA")))
+		else if (consoleBuffer.contains("Free heap") || (consoleBuffer.contains("DWM") && consoleBuffer.contains("TDoA")) || consoleBuffer.contains("Deck 1 Test [OK]"))
 		{
 			//DBG("Drone init finish");
 			droneHasFinishedInit = true;
@@ -625,11 +726,12 @@ void Drone::run()
 			int distIndex = 0;
 			Vector3D<float> lastRealPos;
 			uint32 firstStabilizedTime = Time::getApproximateMillisecondCounter();
+			timeAtResetKalman = Time::getApproximateMillisecondCounter() / 1000.0f;
 
 			while (enabled->boolValue() && !threadShouldExit() && droneState->getValueDataAsEnum<DroneState>() != ERROR)
 			{
-				
 				sleep(100);
+
 				//ping, and stuff here
 				try
 				{
@@ -652,8 +754,18 @@ void Drone::run()
 
 						if (droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
 						{
+							/*
+							//If more than 5 seconds to stabilize, try to restabilize
+							if (Time::getApproximateMillisecondCounter() / 1000.0f > timeAtResetKalman + 5)
+							{
+								NLOGWARNING(niceName, "Stabilization takes too much time, reset kalman again");
+								resetKalmanTrigger->trigger();
+								continue;
+							}
+							*/
+
 							Vector3D<float> curRealPos = realPosition->getVector();
-							if (curRealPos.x != .5 && curRealPos.y != .5 && curRealPos.x > -5 && curRealPos.z > -5)
+							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z != 10))
 							{
 								//targetPosition->setVector(curRealPos.x, 0, curRealPos.z);
 
@@ -681,9 +793,6 @@ void Drone::run()
 									averageDistance = avDist;
 								}
 							}
-
-							
-							
 						}
 					}
 
