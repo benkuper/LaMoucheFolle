@@ -1,5 +1,5 @@
-# CrazyflieServer
-Cross-platform OSC server for controlling multiple crazyflies 2.0
+# La Mouche Folle
+Cross-platform server and OSC bridge for controlling multiple crazyflies 2.0
 
 ## The Download Zone
 
