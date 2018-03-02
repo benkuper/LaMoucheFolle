@@ -20,7 +20,7 @@ after_success:
     cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX/build/Release
     ls
     zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
-    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/benjamin/lamouchefolle/download/
+    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/lamouchefolle/download/
   fi
 language: cpp
 git:
