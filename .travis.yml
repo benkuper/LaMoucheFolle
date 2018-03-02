@@ -15,12 +15,12 @@ after_success:
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
     cd /home/travis/build/benkuper/LaMoucheFolle/Builds/LinuxMakefile/build
     zip LaMoucheFolle-linux-x64-bleedingedge.zip LaMoucheFolle
-    curl --ftp-create-dirs -T LaMoucheFolle-linux-x64-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/lamouchefolle
+    curl --ftp-create-dirs -T LaMoucheFolle-linux-x64-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/lamouchefolle/download
   else
     cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX/build/Release
     ls
     zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
-    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/lamouchefolle
+    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/lamouchefolle/download
   fi
 language: cpp
 git:
@@ -39,6 +39,9 @@ before_install:
     sudo apt-get update -qq
     sudo apt-get install -qq clang libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev libxcomposite-dev mesa-common-dev libasound2-dev freeglut3-dev libcurl4-gnutls-dev+ libasound2-dev libjack-dev libbluetooth-dev libgtk-3-dev libwebkit2gtk-4.0-dev
     sudo apt-get install -qq libusb-1.0-0-dev
+    cd /
+    find * | grep libusb
+    cd ${HOME}
     pwd
     ls -d */
     cd ..
@@ -77,5 +80,5 @@ script:
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
     make -j 8 CONFIG=Release -C "LaMoucheFolle/Builds/LinuxMakefile/"
   else
-    xcodebuild -project LaMoucheFolle/Builds/MacOSX/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 | xcpretty -f `xcpretty-travis-formatter`
+    xcodebuild -project LaMoucheFolle/Builds/MacOSX/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 -framework  | xcpretty -f `xcpretty-travis-formatter`
   fi
