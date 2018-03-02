@@ -149,7 +149,7 @@
         <MODULEPATH id="juce_audio_basics" path="~/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" externalLibraries="usb">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" externalLibraries="libusb">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/include"/>
         <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/include&#10;"/>
