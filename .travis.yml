@@ -77,5 +77,5 @@ script:
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
     make -j 8 CONFIG=Release -C "LaMoucheFolle/Builds/LinuxMakefile/"
   else
-    xcodebuild -project LaMoucheFolle/Builds/MacOSX/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 -framework libusb-1.0 | xcpretty -f `xcpretty-travis-formatter`
+    xcodebuild -project LaMoucheFolle/Builds/MacOSX/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 | xcpretty -f `xcpretty-travis-formatter`
   fi
