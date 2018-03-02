@@ -1,10 +1,15 @@
 # CrazyflieServer
 Cross-platform OSC server for controlling multiple crazyflies 2.0
 
-## Badge Section
+## The Badge Zone
+
+Linux (x64):  [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/benkuper/LaMoucheFolle/branches/master/2)](https://travis-ci.org/benkuper/LaMoucheFolle)
+
+MacOS : [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/benkuper/LaMoucheFolle/branches/master/1)](https://travis-ci.org/benkuper/LaMoucheFolle)
+
 Windows (x64) : [![Build status](https://ci.appveyor.com/api/projects/status/34kjvafxyv9o71nr?svg=true)](https://ci.appveyor.com/project/benkuper/lamouchefolle)
 
-
+[![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
 ## Screenshots
 
