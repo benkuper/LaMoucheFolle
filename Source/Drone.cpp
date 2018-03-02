@@ -226,7 +226,7 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 
 	if (p == realPosition)
 	{
-		isFlying->setValue(realPosition->y < .1f && targetPosition->y > 0);
+		isFlying->setValue(realPosition->y > .1f);
 	}
 	
 
@@ -242,15 +242,18 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		{
 		case DISCONNECTED:
 			lowBattery->setValue(false);
+			yaw->setValue(0);
 			break;
 
 		case ERROR: lightMode->setValueWithKey("Alert"); break;
 		case STABILIZING: 
 			color->setColor(Colours::white); //to force ready state to send value
 			lightMode->setValueWithKey("Double spinner"); break;
+			yaw->setValue(0);
 		case READY: 
 			targetPosition->setVector(realPosition->x, 0, realPosition->z);
 			color->setColor(Colours::black);
+			yaw->setValue(0);
 			lightMode->setValueWithKey("Solid color");
 			break;
 		}

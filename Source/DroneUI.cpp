@@ -33,7 +33,7 @@ DroneUI::DroneUI(Drone * drone) :
 
 	addAndMakeVisible(&stateFeedback);
 
-	voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->lowBattery ? RED_COLOR : BLUE_COLOR));
+	voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->voltage->getNormalizedValue() < .1f ? RED_COLOR : BLUE_COLOR));
 }
 
 DroneUI::~DroneUI()
@@ -54,16 +54,17 @@ void DroneUI::resizedInternalHeader(Rectangle<int>& r)
 	inTriggerUI->setBounds(r.removeFromRight(r.getHeight()));
 	r.removeFromRight(10);
 
-	voltageUI->setBounds(r.removeFromRight(r.getWidth() - 160).reduced(0,1));
+	connectUI->setBounds(r.removeFromRight(50).reduced(0, 1));
 	r.removeFromRight(6);
-	connectUI->setBounds(r.removeFromRight(50).reduced(0,1));
+	voltageUI->setBounds(r.removeFromRight(r.getWidth() - 100).reduced(0,1));
+	
 }
 
 void DroneUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
-	if (c == item->charging || c == item->lowBattery)
+	if (c == item->charging || c == item->lowBattery || c == item->voltage)
 	{
-		voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->lowBattery ? RED_COLOR : BLUE_COLOR));
+		voltageUI->setFrontColor(item->charging->boolValue() ? YELLOW_COLOR : (item->voltage->getNormalizedValue() < .1f ? RED_COLOR : BLUE_COLOR));
 	}
 	else if (c == item->droneState)
 	{
