@@ -149,6 +149,55 @@
         <MODULEPATH id="juce_audio_basics" path="../../juce"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include"
+                       libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include&#10;"
+                       libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_organicui" path="../../JUCE Modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Softwares/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <VS2017 targetFolder="Builds/VisualStudio2017_CI" externalLibraries="libusb-1.0.lib"
+            bigIcon="gOf6w2" smallIcon="gOf6w2">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       libraryPath="../../External/libusb/lib"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_organicui" path="../../JUCE Modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Softwares/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2017>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
