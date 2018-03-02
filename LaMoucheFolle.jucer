@@ -122,7 +122,7 @@
       </MODULEPATHS>
     </VS2017>
     <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="" smallIcon="gOf6w2"
-               bigIcon="gOf6w2">
+               bigIcon="gOf6w2" extraFrameworks="libusb-1.0">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="LaMoucheFolle" libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"

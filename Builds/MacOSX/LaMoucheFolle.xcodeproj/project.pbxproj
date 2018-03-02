@@ -17,6 +17,7 @@
 		2EC721F1FFB42CB7D24A80CB = {isa = PBXBuildFile; fileRef = BACA85788C197E487BACC45F; };
 		5C8083AD7F1B16EAAD1E3C9F = {isa = PBXBuildFile; fileRef = 15A8663D07A91926F0DEFBE4; };
 		AE59FA2840054DF3239182B4 = {isa = PBXBuildFile; fileRef = D67EE33CBB779AF526AB0613; };
+		E8DC50E81F491C46E2A5C90D = {isa = PBXBuildFile; fileRef = 4DC0F8F2177E7097821B5F39; };
 		19528EA09539D2BCFF68635F = {isa = PBXBuildFile; fileRef = 039D5D779295E222BC2B1ECE; };
 		7B290AE36D609BACF6EEDE8D = {isa = PBXBuildFile; fileRef = 5586A477269E9B9C1EA8B30A; };
 		526ED22BE2FE741857A763D4 = {isa = PBXBuildFile; fileRef = 7A8148780D7C55675B0D64D5; };
@@ -96,6 +97,7 @@
 		43CD8D02A2A6D3FCAEA3B8E5 = {isa = PBXFileReference; lastKnownFileType = image.png; name = in.png; path = ../../Resources/in.png; sourceTree = "SOURCE_ROOT"; };
 		47849CE88A5B9BE0F0F28CCD = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_opengl.mm"; path = "../../JuceLibraryCode/include_juce_opengl.mm"; sourceTree = "SOURCE_ROOT"; };
 		4803A9E9F3306C8EF39807D9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_gui_extra.mm"; path = "../../JuceLibraryCode/include_juce_gui_extra.mm"; sourceTree = "SOURCE_ROOT"; };
+		4DC0F8F2177E7097821B5F39 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "libusb-1.0.framework"; path = "System/Library/Frameworks/libusb-1.0.framework"; sourceTree = SDKROOT; };
 		4EAE7347DD8A2ADF784EDFDA = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ControllerManagerUI.cpp; path = ../../Source/ControllerManagerUI.cpp; sourceTree = "SOURCE_ROOT"; };
 		538543D3C37ADE2E2F905036 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_audio_formats"; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
 		53A7A8C9B7316274BB9AD6EE = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_events"; path = "~/JUCE/modules/juce_events"; sourceTree = "<absolute>"; };
@@ -274,6 +276,7 @@
 					BACA85788C197E487BACC45F,
 					15A8663D07A91926F0DEFBE4,
 					D67EE33CBB779AF526AB0613,
+					4DC0F8F2177E7097821B5F39,
 					039D5D779295E222BC2B1ECE,
 					5586A477269E9B9C1EA8B30A,
 					7A8148780D7C55675B0D64D5, ); name = Frameworks; sourceTree = "<group>"; };
@@ -485,6 +488,7 @@
 					2EC721F1FFB42CB7D24A80CB,
 					5C8083AD7F1B16EAAD1E3C9F,
 					AE59FA2840054DF3239182B4,
+					E8DC50E81F491C46E2A5C90D,
 					19528EA09539D2BCFF68635F,
 					7B290AE36D609BACF6EEDE8D,
 					526ED22BE2FE741857A763D4, ); runOnlyForDeploymentPostprocessing = 0; };
