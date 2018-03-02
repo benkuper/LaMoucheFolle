@@ -9,8 +9,7 @@ matrix:
 env:
   global:
   - FTP_USER=u67889354-benjamin
-  - secure: dFq9+I3Boz6hNb7nalxKc3rhrYKGiIfKnrgdS/h2PTNN+pHUyLHJ8CmohYHyYpHFMPoSAq1CQ91Xxi9y72Go2nSkg7ad77JANKMo7Rj3kUiG93GJx8ol2t0kHHj038LstujyTR4x4R9kSlfSXXdAexvFZ96F5a51S5MsU9uSqm5TaGfJw7lX7l2Aa8wa6/7CUZDPOyYKGhWvi+t3ZND8tZnpDFw5f1b0o2qtwDNBig5dS/+PSfFZSXUFD12uOnM+ynqjwBQa2czPs9jFxN9z+YAagC7xkbaakPF5R6KEBffbCa1TfESykZflf14jwDpY1iKdBB7v7qzOUX31Y5B06flaIPa+ECGCgdDMbS+I32nKXHuMZrcVu9ArP5uXcsx4t+dVXuF0sLr4MFT3rQvEUKtrzl148ijx6BDT2AlfvSLOcWumIaDKGaOX5pJ9KO6haykNTwGuQjAWVrk3PycCCKefSTvrebXQJRMBt25kt11OjKw9/j4ZIDqfyCYGM4CK7ZHZAYgwNdPNdIN404aF+tlsI8HMimfrQg53sywka+Ag5tGFPcHlXIIa+xVbWv+EfqTIsYesET7x+li+seHATgzldJjfTVEWCYYk9qETpPWlxi7pYXG30cm51e8BaJZ3i09XJSLPRysI073zyZ9vUa/Qm4hct/B3rFU/DOodlTE="
-
+  
 after_success:
 - |
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
