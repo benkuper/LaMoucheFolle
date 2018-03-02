@@ -123,7 +123,6 @@
 		9E9EA82576F55C5EE678D513 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../../Source/Controller.h; sourceTree = "SOURCE_ROOT"; };
 		9ECC8F634BA8DCCDAA97D27B = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaMoucheFolle.app; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		9F148078CD4AA73A92A0F356 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneManager.cpp; path = ../../Source/DroneManager.cpp; sourceTree = "SOURCE_ROOT"; };
-		A028CAA309EB8239EF41B1B1 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_organicui"; path = "~/modules/juce_organicui"; sourceTree = "<absolute>"; };
 		A45E5C57ED19BF8264EE6C92 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = "SOURCE_ROOT"; };
 		A6B6D91F13435FF906A2468C = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_video.mm"; path = "../../JuceLibraryCode/include_juce_video.mm"; sourceTree = "SOURCE_ROOT"; };
 		A90FE53C52440444493B27A9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "include_juce_organicui.cpp"; path = "../../JuceLibraryCode/include_juce_organicui.cpp"; sourceTree = "SOURCE_ROOT"; };
@@ -141,6 +140,7 @@
 		C50AB0BFAD239F5CA57876B8 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		C9E2BC8F160B9A37104CBF4D = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_graphics"; path = "~/JUCE/modules/juce_graphics"; sourceTree = "<absolute>"; };
 		CBC22A6721192315790D5B1C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NodeManagerUI.h; path = ../../Source/NodeManagerUI.h; sourceTree = "SOURCE_ROOT"; };
+		CFA9734E95A17D7CF054BBFE = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_organicui"; path = "../../../JUCE Modules/juce_organicui"; sourceTree = "SOURCE_ROOT"; };
 		D2B399F88D0D144392D40161 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneUI.h; path = ../../Source/DroneUI.h; sourceTree = "SOURCE_ROOT"; };
 		D67EE33CBB779AF526AB0613 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		D7B795EF52B875F87F8ED44A = {isa = PBXFileReference; lastKnownFileType = file.cflayout; name = default.cflayout; path = ../../Resources/default.cflayout; sourceTree = "SOURCE_ROOT"; };
@@ -236,7 +236,7 @@
 					2B60B8723C59F16360F87EFB,
 					7CEBA6BF09EDF44BC790D542,
 					20623FAE2B18AA0A4AAD6639,
-					A028CAA309EB8239EF41B1B1,
+					CFA9734E95A17D7CF054BBFE,
 					BECDA89E42EBF18B0164BF2D,
 					BF4329477227D189AFB4CC14, ); name = "JUCE Modules"; sourceTree = "<group>"; };
 		6340593DDD4651830EB24487 = {isa = PBXGroup; children = (
@@ -309,7 +309,7 @@
 					"JucePlugin_Build_Standalone=0", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "~/JUCE/modules", "~/modules", "../../External/crazyflie_cpp/include/crazyflie_cpp", "/usr/local/include", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "~/JUCE/modules", "\"../../../JUCE Modules\"", "../../External/crazyflie_cpp/include/crazyflie_cpp", "/usr/local/include", "$(inherited)");
 				INFOPLIST_FILE = Info-App.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -342,7 +342,7 @@
 					"JucePlugin_Build_AAX=0",
 					"JucePlugin_Build_Standalone=0", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "~/JUCE/modules", "~/modules", "../../External/crazyflie_cpp/include/crazyflie_cpp", "/usr/local/include", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "~/JUCE/modules", "\"../../../JUCE Modules\"", "../../External/crazyflie_cpp/include/crazyflie_cpp", "/usr/local/include", "$(inherited)");
 				INFOPLIST_FILE = Info-App.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
