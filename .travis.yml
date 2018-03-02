@@ -50,6 +50,8 @@ before_install:
     pwd
     ls -d */
   else
+    brew update
+    brew install libusb
     gem install xcpretty
     gem install xcpretty-travis-formatter
     pwd
