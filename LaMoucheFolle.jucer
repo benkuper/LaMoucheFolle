@@ -97,11 +97,11 @@
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="0" optimisation="3" targetName="LaMoucheFolle" debugInformationFormat="ProgramDatabase"
                        enablePluginBinaryCopyStep="0" linkTimeOptimisation="1" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="../../External/libusb/lib"/>
+                       libraryPath="../../External/libusb/lib" binaryPath="Binaries"/>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" optimisation="1" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib" debugInformationFormat="ProgramDatabase"
-                       enablePluginBinaryCopyStep="0"/>
+                       enablePluginBinaryCopyStep="0" binaryPath="Binaries/Debug"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="D:/Softwares/JUCE/modules"/>
@@ -178,7 +178,7 @@
             bigIcon="gOf6w2" smallIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="../../External/libusb/lib"/>
+                       libraryPath="../../External/libusb/lib" binaryPath="Binaries/CI"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="../JUCE/modules"/>
