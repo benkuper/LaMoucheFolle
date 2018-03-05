@@ -9,7 +9,7 @@ You can find the bleeding edge version, compiled against latest commits here :
 
 - Linux (x64):  http://benjamin.kuperberg.fr/lamouchefolle/download/LaMoucheFolle-linux-x64-bleedingedge.zip
 
-- MacOS :  http://benjamin.kuperberg.fr/lamouchefolle/download/LaMoucheFolle-osx-x64-bleedingedge.zip
+- MacOS :  http://benjamin.kuperberg.fr/lamouchefolle/download/LaMoucheFolle-osx-bleedingedge.zip
  
 - Windows (x64):  http://benjamin.kuperberg.fr/lamouchefolle/download/LaMoucheFolle-win-x64-bleedingedge.zip
 
