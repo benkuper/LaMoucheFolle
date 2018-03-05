@@ -79,6 +79,10 @@ void Crazyradio::setAddress(uint64_t address)
     // if (status != LIBUSB_SUCCESS) {
     //     std::cerr << "sendVendorSetup: " << libusb_error_name(status) << std::endl;
     // }
+    if(status != LIBUSB_SUCCESS)
+    {
+        
+    }
     m_address = address;
 }
 

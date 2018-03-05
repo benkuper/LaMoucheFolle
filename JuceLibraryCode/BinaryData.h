@@ -12,7 +12,7 @@ namespace BinaryData
     const int            charging_pngSize = 3774;
 
     extern const char*   default_cflayout;
-    const int            default_cflayoutSize = 1666;
+    const int            default_cflayoutSize = 1593;
 
     extern const char*   flying_png;
     const int            flying_pngSize = 2550;

@@ -13,12 +13,12 @@
 #include "DroneManager.h"
 
 Drone::Drone() :
-	BaseItem("Drone"),
+    BaseItem("Drone"),
+    Thread("DroneInitThread"),//2s no packet = drone disconnected
 	cf(nullptr),
-	upsideDownFrozen(false),
-	timeAtBelowLowBattery(0),
-	ackTimeout(2000), //2s no packet = drone disconnected
-	Thread("DroneInitThread")
+	ackTimeout(2000),
+    upsideDownFrozen(false),
+    timeAtBelowLowBattery(0)
 {
 	targetRadio = addIntParameter("Radio", "Target Radio to connect", 0, 0, 16);
 	channel = addIntParameter("Channel", "Target channel of the drone", 40, 0, 200);
@@ -163,8 +163,9 @@ void Drone::stopCFThread()
 void Drone::onContainerParameterChangedAsync(Parameter * p, const var &)
 {
 	if (p == orientation)
-	{	
-		bool isUpsideDown = orientation->z > 160 || orientation->z < -160 && fabsf(orientation->x < 20);
+	{
+        Vector3D<float> ov = orientation->getVector();
+		bool isUpsideDown = (ov.z > 160 || ov.z < -160) && fabsf(ov.x) < 20;
 		bool upsideDownAndShouldDoSomething = autoKillUpsideDown->boolValue()
 			&& (droneState->getValueDataAsEnum<DroneState>() == READY || droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
 			&& isUpsideDown
@@ -248,14 +249,17 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		case ERROR: lightMode->setValueWithKey("Alert"); break;
 		case STABILIZING: 
 			color->setColor(Colours::white); //to force ready state to send value
-			lightMode->setValueWithKey("Double spinner"); break;
+			lightMode->setValueWithKey("Double spinner");
 			yaw->setValue(0);
+            break;
 		case READY: 
 			targetPosition->setVector(realPosition->x, 0, realPosition->z);
 			color->setColor(Colours::black);
 			yaw->setValue(0);
 			lightMode->setValueWithKey("Solid color");
 			break;
+            default:
+                break;
 		}
 	}
 
