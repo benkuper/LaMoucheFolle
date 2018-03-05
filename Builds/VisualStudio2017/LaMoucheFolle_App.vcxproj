@@ -2865,7 +2865,6 @@
     <None Include="..\..\Resources\flying.png"/>
     <None Include="..\..\Resources\icon.png"/>
     <None Include="..\..\Resources\in.png"/>
-    <None Include="..\..\External\libusb\osx\libusb.dylib"/>
     <None Include="..\..\Resources\lowbattery.png"/>
     <None Include="..\..\Resources\out.png"/>
     <None Include="..\..\Resources\transparent.png"/>

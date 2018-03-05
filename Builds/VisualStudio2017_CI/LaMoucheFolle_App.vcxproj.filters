@@ -4865,9 +4865,6 @@
     <None Include="..\..\Resources\in.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\External\libusb\osx\libusb.dylib">
-      <Filter>LaMoucheFolle\Resources</Filter>
-    </None>
     <None Include="..\..\Resources\lowbattery.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>

@@ -22,7 +22,6 @@
 		526ED22BE2FE741857A763D4 = {isa = PBXBuildFile; fileRef = 7A8148780D7C55675B0D64D5; };
 		351948990CB081F43E1F7493 = {isa = PBXBuildFile; fileRef = F7BD64E507B5039604E28102; };
 		BC658EBBC1C9A5A3A175EDBC = {isa = PBXBuildFile; fileRef = 834322CC86758FD6926F05DB; };
-		53C3702ED9C74FDEE95556A9 = {isa = PBXBuildFile; fileRef = 0721ACFB5CFE8BA68B15A965; };
 		2B0B58A2874DD4D6967EEAB2 = {isa = PBXBuildFile; fileRef = 02A7CEEE51BE6BC5FA72F833; };
 		EABDD8496552707F6ADEEDFC = {isa = PBXBuildFile; fileRef = 4EAE7347DD8A2ADF784EDFDA; };
 		7F006F479151DDF2D0C5C34F = {isa = PBXBuildFile; fileRef = 8C53EAC233C7BD24A769EBC6; };
@@ -66,7 +65,6 @@
 		0492A05F6339091CD6B798FE = {isa = PBXFileReference; lastKnownFileType = image.png; name = charging.png; path = ../../Resources/charging.png; sourceTree = "SOURCE_ROOT"; };
 		056D216744D92BDC9042F4DF = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_video"; path = "/Applications/JUCE/modules/juce_video"; sourceTree = "<absolute>"; };
 		060B33AD1C6B7ECC8418B30A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "include_juce_osc.cpp"; path = "../../JuceLibraryCode/include_juce_osc.cpp"; sourceTree = "SOURCE_ROOT"; };
-		0721ACFB5CFE8BA68B15A965 = {isa = PBXFileReference; lastKnownFileType = file.dylib; name = libusb.dylib; path = ../../External/libusb/osx/libusb.dylib; sourceTree = "SOURCE_ROOT"; };
 		0BFE01274504C77A429F7500 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CFEngine.cpp; path = ../../Source/CFEngine.cpp; sourceTree = "SOURCE_ROOT"; };
 		0FE2B20D023E41D078201B5D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_formats.mm"; path = "../../JuceLibraryCode/include_juce_audio_formats.mm"; sourceTree = "SOURCE_ROOT"; };
 		10BB2AD5BAE0D3E3634B5103 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = ../../Source/Main.cpp; sourceTree = "SOURCE_ROOT"; };
@@ -163,7 +161,6 @@
 					2B1E16F89177D3F0FE97786C,
 					2CAE68FBF417A43E563E1FA7,
 					43CD8D02A2A6D3FCAEA3B8E5,
-					0721ACFB5CFE8BA68B15A965,
 					1669B95BDB765A126F51FE63,
 					1A30DB5287C93D9403174375,
 					990B80C65DC5A91DB67ADFE0, ); name = Resources; sourceTree = "<group>"; };
@@ -265,8 +262,7 @@
 		18FD2A226C9D8FA8AAACCC78 = {isa = PBXGroup; children = (
 					5F232DD202EF2835DA243EBC,
 					F7BD64E507B5039604E28102,
-					834322CC86758FD6926F05DB,
-					0721ACFB5CFE8BA68B15A965, ); name = Resources; sourceTree = "<group>"; };
+					834322CC86758FD6926F05DB, ); name = Resources; sourceTree = "<group>"; };
 		03331CB3EEC1C1385BEEBC9C = {isa = PBXGroup; children = (
 					88E7C03B589EC9C1A248773B,
 					6B443605FFCFE8FA6F0DEDE8,
@@ -321,7 +317,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-lusb";
+				OTHER_LDFLAGS = "-lusb-1.0";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.CrazyflieServer;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Release; };
@@ -354,7 +350,7 @@
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../External/libusb/osx\"");
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-lusb";
+				OTHER_LDFLAGS = "-lusb-1.0";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.CrazyflieServer;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Debug; };
@@ -441,8 +437,7 @@
 					CBBF742C22F1FB2E56D22F4E, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 		5CC7523E12A4AE1871D60F8D = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
 					351948990CB081F43E1F7493,
-					BC658EBBC1C9A5A3A175EDBC,
-					53C3702ED9C74FDEE95556A9, ); runOnlyForDeploymentPostprocessing = 0; };
+					BC658EBBC1C9A5A3A175EDBC, ); runOnlyForDeploymentPostprocessing = 0; };
 		A4595417BA7FD2131C02BC13 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
 					2B0B58A2874DD4D6967EEAB2,
 					EABDD8496552707F6ADEEDFC,

@@ -12,8 +12,6 @@
       <FILE id="dEMPvT" name="flying.png" compile="0" resource="1" file="Resources/flying.png"/>
       <FILE id="gOf6w2" name="icon.png" compile="0" resource="1" file="Resources/icon.png"/>
       <FILE id="Xp3uzF" name="in.png" compile="0" resource="1" file="Resources/in.png"/>
-      <FILE id="k2JDCL" name="libusb.dylib" compile="0" resource="0" file="External/libusb/osx/libusb.dylib"
-            xcodeResource="1"/>
       <FILE id="v0o1BC" name="lowbattery.png" compile="0" resource="1" file="Resources/lowbattery.png"/>
       <FILE id="rveCtC" name="out.png" compile="0" resource="1" file="Resources/out.png"/>
       <FILE id="exWlAN" name="transparent.png" compile="0" resource="1" file="Resources/transparent.png"/>
@@ -123,7 +121,7 @@
         <MODULEPATH id="juce_osc" path="D:/Softwares/JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="usb" smallIcon="gOf6w2"
+    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="usb-1.0" smallIcon="gOf6w2"
                bigIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
