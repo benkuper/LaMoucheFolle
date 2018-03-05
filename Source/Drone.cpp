@@ -772,7 +772,7 @@ void Drone::run()
 							*/
 
 							Vector3D<float> curRealPos = realPosition->getVector();
-							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z != 10))
+							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z) != 10)
 							{
 								//targetPosition->setVector(curRealPos.x, 0, curRealPos.z);
 
