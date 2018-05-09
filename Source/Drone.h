@@ -39,11 +39,14 @@ public:
 	Trigger * logParamsTOC;
 	Trigger * logLogsTOC;
 	Trigger * taskDump;
+	Trigger * writeToAnchors;
 	
 	Trigger * resetKalmanTrigger;
 	Trigger * launchTrigger;
 	Trigger * stopTrigger;
 	Trigger * syncTrigger;
+
+	BoolParameter * launchingMode;
 
 	EnumParameter * lightMode;
 	ColorParameter * color;
@@ -60,7 +63,6 @@ public:
 	FloatParameter * yaw;
 	BoolParameter * absoluteMode;
 	BoolParameter * isFlying;
-
 
 	FloatParameter * linkQuality;
 	FloatParameter * voltage;
@@ -98,7 +100,8 @@ public:
 
 	bool upsideDownFrozen;
 
-	bool timeAtResetKalman;
+	float timeAtResetKalman;
+	float timeAtLaunch;
 
 	const float lowBatteryTimeCheck = 1.0f; //1 second below threshold to declare low battery, this allows fast voltage drops and raise (like when flying up from ground)
 	float timeAtBelowLowBattery;

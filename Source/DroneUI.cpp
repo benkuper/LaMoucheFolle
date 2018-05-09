@@ -70,6 +70,10 @@ void DroneUI::controllableFeedbackUpdateInternal(Controllable * c)
 	{
 		DBG("Drone changed  state :" << (int)item->droneState->getValueData());
 		stateFeedback.repaint();
+	} else if (c == item->launchingMode)
+	{
+		bgColor = item->launchingMode->boolValue() ? Colours::rebeccapurple : BG_COLOR.brighter(.1f);
+		repaint();
 	}
 }
 

@@ -17,7 +17,8 @@ Drone::Drone() :
 	cf(nullptr),
 	upsideDownFrozen(false),
 	timeAtBelowLowBattery(0),
-	ackTimeout(2000), //2s no packet = drone disconnected
+	ackTimeout(2000), //2s no packet = drone disconnected,
+	timeAtLaunch(0),
 	Thread("DroneInitThread")
 {
 	targetRadio = addIntParameter("Radio", "Target Radio to connect", 0, 0, 16);
@@ -60,8 +61,9 @@ Drone::Drone() :
 	logLogsTOC = addTrigger("Get Log TOC", "Log logs entries from the drone");
 
 	taskDump = addTrigger("TaskDump", "TD");
+	writeToAnchors = addTrigger("Write position to nodes","Write the positions from the node manager to anchors");
 
-	/*	
+	/*
 	initPIDSettings = addBoolParameter("Init PID Settings", "Include PID settings in init", false);
 
 	kd = addPoint3DParameter("Kd", "Kd settings for the PID tuning (drone reference, z is vertical axis)");
@@ -90,6 +92,8 @@ Drone::Drone() :
 	launchTrigger = addTrigger("Launch", "Launch");
 	stopTrigger = addTrigger("Stop", "Stop");
 	syncTrigger = addTrigger("Sync Position", "Sync position");
+
+	launchingMode = addBoolParameter("Is Launching", "Is the drone in launching phase", false);
 
 	resetKalmanTrigger = addTrigger("Reset Kalman Estimation", "Reset Kalman Filter Estimation");
 
@@ -223,16 +227,32 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 
 	if (cf == nullptr) return;
 	
+	if (p == launchingMode)
+	{
+		if (launchingMode->boolValue())
+		{
+			absoluteMode->setValue(false);
+			NLOG(niceName, "Launching drone for " << DroneManager::getInstance()->launchTime->floatValue() << " s");
+		} else
+		{
+			NLOG(niceName, "Launching Complete, sync full position");
+			absoluteMode->setValue(true);
+		}
+
+		timeAtLaunch = Time::getMillisecondCounter() / 1000.0f;
+		
+	}
 
 	if (p == realPosition)
 	{
+		if (launchingMode->boolValue()) targetPosition->setVector(realPosition->x, realPosition->y, realPosition->z);
 		isFlying->setValue(realPosition->y > .1f);
 	}
 	
 
 	if (p == absoluteMode)
 	{
-		//NLOG(address->stringValue(), "Set absolute position mode");
+		NLOG(niceName, "Set absolute position mode");
 		setParam("flightmode", "posSet", absoluteMode->intValue());
 	}
 
@@ -248,8 +268,9 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		case ERROR: lightMode->setValueWithKey("Alert"); break;
 		case STABILIZING: 
 			color->setColor(Colours::white); //to force ready state to send value
-			lightMode->setValueWithKey("Double spinner"); break;
+			lightMode->setValueWithKey("Double spinner");
 			yaw->setValue(0);
+			break;
 		case READY: 
 			targetPosition->setVector(realPosition->x, 0, realPosition->z);
 			color->setColor(Colours::black);
@@ -346,7 +367,6 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 		sleep(2);
 		setParam("kalman", "resetEstimation", 0);
 	} 
-	
 
 
 	if(droneState->getValueDataAsEnum<DroneState>() != READY && droneState->getValueDataAsEnum<DroneState>() != STABILIZING) return;
@@ -354,9 +374,10 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	if (t == taskDump) setParam("system", "taskDump", 1);
 	else if (t == logParamsTOC)  logAllParams();
 	else if (t == logLogsTOC)  logAllLogs();
-	else if (t == launchTrigger) targetPosition->setVector(targetPosition->x, .4f, targetPosition->z);
+	else if (t == launchTrigger) launchingMode->setValue(true);// targetPosition->setVector(targetPosition->x, .4f, targetPosition->z);
 	else if (t == stopTrigger) targetPosition->setVector(targetPosition->x, 0, targetPosition->z);
 	else if (t == syncTrigger) targetPosition->setVector(realPosition->x, 0, realPosition->z);
+	else if (t == writeToAnchors) setAnchors(NodeManager::getInstance()->getAllPositions());
 }
 
 
@@ -388,6 +409,7 @@ bool Drone::setupCF()
 		std::function<void(float)> linkF = std::bind(&Drone::linkQualityCallback, this, std::placeholders::_1);
 		cf->setLinkQualityCallback(linkF);
 
+		
 		float initStartTime = Time::getApproximateMillisecondCounter() / 1000.0f;
 		while (!droneHasFinishedInit && !threadShouldExit() && droneState->getValueDataAsEnum<DroneState>() == CONNECTING)
 		{
@@ -395,6 +417,7 @@ bool Drone::setupCF()
 			sleep(20);
 			if (Time::getApproximateMillisecondCounter() / 1000.0f > initStartTime + 5) break; //max 5 seconds to init the drone, otherwise try to stabilize
 		}
+		
 
 		NLOG(address->stringValue(), "Init finished, setup params and logs");
 		cf->requestParamToc();
@@ -428,7 +451,6 @@ bool Drone::setupCF()
 		
 		//NLOG(address->stringValue(), "Disable thrust lock.");
 		for (int i = 0; i < 10; i++) cf->sendSetpoint(0, 0, 0, 0); // disable thrust lock, put in autoArm param ?
-		setParam("flightmode", "posSet", 1);
 		
 		
 		/*
@@ -460,6 +482,7 @@ bool Drone::setupCF()
 			setAnchors(NodeManager::getInstance()->getAllPositions());
 		}else
 		{
+			sleep(500);
 			resetKalmanTrigger->trigger();
 		}
 
@@ -534,8 +557,8 @@ bool Drone::setParam(String group, String paramID, T value)
 bool Drone::setTargetPosition(float x, float y, float z, float _yaw, bool showTrigger)
 {
 	if (cf == nullptr || droneState->getValueDataAsEnum<DroneState>() != READY) return false;
-
 	if (upsideDownFrozen) return false;
+	if (!absoluteMode->boolValue()) return false;
 
 	//setParam("flightmode", "posSet", 1);
 	SpinLock::ScopedLockType lock(cfLock);
@@ -570,11 +593,12 @@ bool Drone::setAnchors(Array<Vector3D<float>> positions)
 			for (int i = 0; i < positions.size() && i < 8; i++)
 			{
 				//NLOG(address->stringValue(), "Set anchor (drone order)" + String(i) + " : " + String(positions[i].x) + " , " + String(positions[i].z) + ", " + String(positions[i].y));
-				setParam("anchorpos", (String("anchor") + String(i) + String("x")).toStdString(), positions[i].x);
-				setParam("anchorpos", (String("anchor") + String(i) + String("y")).toStdString(), positions[i].z); //z is height for the drones, height is y for me.
-				setParam("anchorpos", (String("anchor") + String(i) + String("z")).toStdString(), positions[i].y);
-			}
+				//setParam("anchorpos", (String("anchor") + String(i) + String("x")).toStdString(), positions[i].x);
+				//setParam("anchorpos", (String("anchor") + String(i) + String("y")).toStdString(), positions[i].z); //z is height for the drones, height is y for me.
+				//setParam("anchorpos", (String("anchor") + String(i) + String("z")).toStdString(), positions[i].y);
 
+				cf->sendSetNodePos(i, positions[i].x, positions[i].z, positions[i].y); //z is up for the drone, y is up for me
+			}
 
 			//setParam("anchorpos", "enable", 1);
 		}
@@ -602,8 +626,9 @@ void Drone::logAllParams()
 
 		LOG("Param Entries :");
 		std::for_each(cf->paramsBegin(), cf->paramsEnd(),
-			[&](const Crazyflie::ParamTocEntry& entry) { LOG(String(entry.group) << "." << String(entry.name));// << " (" << types[(int)entry.type] << ")" << (entry.readonly ? " readyonly" : ""));
-	});
+			[&](const Crazyflie::ParamTocEntry& entry) { 
+				LOG(String(entry.group) << "." << String(entry.name)); // << " (" << types[(int)entry.type] << ")" << (entry.readonly ? " readyonly" : ""));
+			});
 	}
 #if DEBUG
 	catch (std::exception& e)
@@ -752,11 +777,22 @@ void Drone::run()
 
 					if (time > lastPosSend + 200) // send pos every 200ms and check stab
 					{
-						setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z,yaw->floatValue());
+						if (absoluteMode->boolValue())
+						{
+							setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z, yaw->floatValue());
+						} else if(launchingMode->boolValue())
+						{
+							cf->sendSetpoint(0, 0, 0, DroneManager::getInstance()->launchForce->floatValue()*10000);
+							if (time/1000.0f > timeAtLaunch + DroneManager::getInstance()->launchTime->floatValue()) launchingMode->setValue(false);
+							
+						}
+
 						lastPosSend = time;
 
 						if (droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
 						{
+							
+
 							/*
 							//If more than 5 seconds to stabilize, try to restabilize
 							if (Time::getApproximateMillisecondCounter() / 1000.0f > timeAtResetKalman + 5)
@@ -766,6 +802,8 @@ void Drone::run()
 								continue;
 							}
 							*/
+
+							//STABILIZATION
 
 							Vector3D<float> curRealPos = realPosition->getVector();
 							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z != 10))
@@ -811,7 +849,7 @@ void Drone::run()
 
 		//If drone is in error mode or could not connect, if autoReconnect, will wait 1 second and try reconnecting, else it will end the thread
 		if (!autoReconnect->boolValue() || threadShouldExit() || !enabled->boolValue()) return;
-		sleep(3000);
+		sleep(800);
 	}
 
 	//DBG("Drone Thread finish");

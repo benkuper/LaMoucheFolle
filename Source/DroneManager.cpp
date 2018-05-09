@@ -24,6 +24,9 @@ DroneManager::DroneManager() :
 	disableNotFlyingsTrigger = addTrigger("Disable Not Flyings", "Disable all not flying drones");
 	resetAllKalman = addTrigger("Reset All Kalman", "Reset all Kalman estimations");
 
+	launchTime = addFloatParameter("Launch Time", "How much time the drone keep the launching mode", 2, 0, 5);
+	launchForce = addFloatParameter("Launch Force", "The thrust amount. 1 = 10000, 10 = 100000", 4, 1, 10);
+
 	flyingLowBatteryThreshold = addFloatParameter("Fly Low Battery Threshold", "Low battery threshold when flying", 2.9f, 2.8f, 3.7f);
 	onGroundLowBatteryThreshold = addFloatParameter("On Ground Battery Threshold", "Low battery threshold when on ground", 3.2f, 2.8f, 3.7f);
 	lowBatteryTimeCheck = addFloatParameter("Low Battery Time Check", "Amount of time the voltage has to be below threshold to decalre low battery", 1.0f,0,10);

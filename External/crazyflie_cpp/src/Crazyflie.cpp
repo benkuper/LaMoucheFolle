@@ -113,6 +113,13 @@ void Crazyflie::sendSetpoint(
 	sendPacket((const uint8_t*)&request, sizeof(request));
 }
 
+void Crazyflie::sendSetNodePos(int nodeId, float x, float y, float z)
+{
+	crtpSetNodePosRequest request(nodeId, x, y, z);
+	//DBG("After Request " << roll << "/" << pitch << "/" << yawrate << "/" << (int)thrust << "/" << sizeof(request) << "<>" << sizeof(crtpSetpointRequest));
+	sendPacket((const uint8_t*)&request, sizeof(request));
+}
+
 void Crazyflie::sendExternalPositionUpdate(
 	float x,
 	float y,

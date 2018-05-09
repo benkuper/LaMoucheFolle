@@ -33,6 +33,9 @@ public:
 	Trigger * disableNotFlyingsTrigger;
 	Trigger * resetAllKalman;
 
+	FloatParameter * launchTime;
+	FloatParameter * launchForce;
+
 	void onContainerTriggerTriggered(Trigger *) override;
 	void onContainerParameterChanged(Parameter *) override;
 

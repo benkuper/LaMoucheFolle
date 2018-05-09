@@ -15,7 +15,8 @@ Node::Node() :
 {
 	id = addIntParameter("Node ID", "ID of the anchor", 0, 0, 7);
 	position = addPoint3DParameter("Position", "Position of the node");
-	position->setBounds(-10, -10, -10, 10, 10, 10);
+	position->setBounds(-100, -100, -100, 100, 100, 100);
+	position->defaultUI = FloatParameter::UIType::LABEL;
 }
 
 Node::~Node()

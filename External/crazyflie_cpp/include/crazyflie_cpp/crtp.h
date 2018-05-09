@@ -213,6 +213,8 @@ struct crtpSetpointRequest
   uint16_t thrust;
 }  __attribute__((packed));
 
+
+
 // Port 4 (Memory access)
 
 // Port 5 (Data logging)
@@ -438,6 +440,33 @@ struct crtpExternalPositionUpdate
   float z;
 }  __attribute__((packed));
 
+
+//LPS
+struct crtpSetNodePosRequest
+{
+	crtpSetNodePosRequest(
+		uint8_t nodeId,
+		float x,
+		float y,
+		float z //z is up
+	)
+		: header(0x06, 1) //Port CrtpPort.LOCALIZATION and Channel 1 (from lib-python code)
+		, lppShortPacket(0x02) //from lib-python code
+		, nodeId(nodeId)
+		, lppTypePosition(1) //from lib-python code
+		, x(x)
+		, y(y)
+		, z(z)
+	{
+	}
+	const crtp header;
+	uint8_t lppShortPacket;
+	uint8_t nodeId;
+	uint8_t lppTypePosition;
+	float x;
+	float y;
+	float z;
+}  __attribute__((packed));
 
 
 // Port 13 (Platform)

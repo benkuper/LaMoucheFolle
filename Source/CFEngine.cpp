@@ -11,6 +11,7 @@ Author:  Martin Hermant
 #include "DroneManager.h"
 #include "ControllerManager.h"
 #include "NodeManager.h"
+#include "CFAssetManager.h"
 
 CFEngine::CFEngine(ApplicationProperties * appProperties, const String &appVersion) :
 	Engine("LaMoucheFolle", ".mouche", appProperties, appVersion)
@@ -31,7 +32,7 @@ CFEngine::~CFEngine()
 	ControllerManager::deleteInstance();
 	DroneManager::deleteInstance();
 	NodeManager::deleteInstance();
-
+	CFAssetManager::deleteInstance();
 }
 
 void CFEngine::clearInternal()

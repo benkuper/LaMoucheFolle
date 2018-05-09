@@ -268,7 +268,7 @@ float OSCController::getFloatArg(OSCArgument a)
 int OSCController::getIntArg(OSCArgument a)
 {
 	if (a.isInt32()) return a.getInt32();
-	if (a.isFloat32()) return roundFloatToInt(a.getFloat32());
+	if (a.isFloat32()) return roundToInt(a.getFloat32());
 	if (a.isString()) return a.getString().getIntValue();
 	return 0;
 }

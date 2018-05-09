@@ -17,7 +17,7 @@
 		2EC721F1FFB42CB7D24A80CB = {isa = PBXBuildFile; fileRef = BACA85788C197E487BACC45F; };
 		5C8083AD7F1B16EAAD1E3C9F = {isa = PBXBuildFile; fileRef = 15A8663D07A91926F0DEFBE4; };
 		AE59FA2840054DF3239182B4 = {isa = PBXBuildFile; fileRef = D67EE33CBB779AF526AB0613; };
-		004B9DAD4F37B143B943E138 = {isa = PBXBuildFile; fileRef = AF94237E633394687A088FC0; };
+		12DB46328584111F8327C08E = {isa = PBXBuildFile; fileRef = 931CB513CCC8FE9915D2CB1F; };
 		19528EA09539D2BCFF68635F = {isa = PBXBuildFile; fileRef = 039D5D779295E222BC2B1ECE; };
 		7B290AE36D609BACF6EEDE8D = {isa = PBXBuildFile; fileRef = 5586A477269E9B9C1EA8B30A; };
 		526ED22BE2FE741857A763D4 = {isa = PBXBuildFile; fileRef = 7A8148780D7C55675B0D64D5; };
@@ -116,6 +116,7 @@
 		8C53EAC233C7BD24A769EBC6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ControllerUI.cpp; path = ../../Source/ControllerUI.cpp; sourceTree = "SOURCE_ROOT"; };
 		8F2F70809051764AD87712CF = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData.cpp; path = ../../JuceLibraryCode/BinaryData.cpp; sourceTree = "SOURCE_ROOT"; };
 		915E9293459AD25E20D4C16A = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		931CB513CCC8FE9915D2CB1F = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "libusb-1.0.dylib.framework"; path = "System/Library/Frameworks/libusb-1.0.dylib.framework"; sourceTree = SDKROOT; };
 		94F050CA8D30F830A1A0AE9F = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../../Source/Node.cpp; sourceTree = "SOURCE_ROOT"; };
 		98AE56C7934D59BE02CF9823 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_basics.mm"; path = "../../JuceLibraryCode/include_juce_audio_basics.mm"; sourceTree = "SOURCE_ROOT"; };
 		990B80C65DC5A91DB67ADFE0 = {isa = PBXFileReference; lastKnownFileType = image.png; name = transparent.png; path = ../../Resources/transparent.png; sourceTree = "SOURCE_ROOT"; };
@@ -128,7 +129,6 @@
 		A6B6D91F13435FF906A2468C = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_video.mm"; path = "../../JuceLibraryCode/include_juce_video.mm"; sourceTree = "SOURCE_ROOT"; };
 		A90FE53C52440444493B27A9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "include_juce_organicui.cpp"; path = "../../JuceLibraryCode/include_juce_organicui.cpp"; sourceTree = "SOURCE_ROOT"; };
 		AE435B799FEFD1E7A132935C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CFAssetManager.h; path = ../../Source/CFAssetManager.h; sourceTree = "SOURCE_ROOT"; };
-		AF94237E633394687A088FC0 = {isa = PBXFileReference; lastKnownFileType = file.dylib; name = "libusb-1.0.dylib"; path = "System/Library/Frameworks/libusb-1.0.dylib"; sourceTree = SDKROOT; };
 		B2AF7445E8455C7BEA3E14B5 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = "SOURCE_ROOT"; };
 		B4BE8374C63DBFD6B2668221 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneManager.h; path = ../../Source/DroneManager.h; sourceTree = "SOURCE_ROOT"; };
 		B6ED0BCF5C033A2AB1D599CB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OSCController.cpp; path = ../../Source/OSCController.cpp; sourceTree = "SOURCE_ROOT"; };
@@ -276,7 +276,7 @@
 					BACA85788C197E487BACC45F,
 					15A8663D07A91926F0DEFBE4,
 					D67EE33CBB779AF526AB0613,
-					AF94237E633394687A088FC0,
+					931CB513CCC8FE9915D2CB1F,
 					039D5D779295E222BC2B1ECE,
 					5586A477269E9B9C1EA8B30A,
 					7A8148780D7C55675B0D64D5, ); name = Frameworks; sourceTree = "<group>"; };
@@ -488,7 +488,7 @@
 					2EC721F1FFB42CB7D24A80CB,
 					5C8083AD7F1B16EAAD1E3C9F,
 					AE59FA2840054DF3239182B4,
-					004B9DAD4F37B143B943E138,
+					12DB46328584111F8327C08E,
 					19528EA09539D2BCFF68635F,
 					7B290AE36D609BACF6EEDE8D,
 					526ED22BE2FE741857A763D4, ); runOnlyForDeploymentPostprocessing = 0; };

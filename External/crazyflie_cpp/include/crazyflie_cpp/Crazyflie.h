@@ -87,6 +87,8 @@ public:
     float yawrate,
     uint16_t thrust);
 
+  void sendSetNodePos(int nodeId, float x, float y, float z);
+
   void sendExternalPositionUpdate(
     float x,
     float y,
