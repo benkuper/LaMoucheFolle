@@ -288,7 +288,7 @@ String OSCController::getStringArg(OSCArgument a)
 	if (a.isString()) return a.getString();
 	if (a.isInt32()) return String(a.getInt32());
 	if (a.isFloat32()) return String(a.getFloat32());
-	return String::empty;
+	return String();
 }
 
 OSCArgument OSCController::varToArgument(const var & v)

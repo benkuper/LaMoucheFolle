@@ -189,7 +189,7 @@ bool MainContentComponent::perform(const InvocationInfo& info) {
 		break;
 
 	case CommandIDs::saveAs:
-		Engine::mainEngine->saveAs(File::nonexistent, true, true, true);
+		Engine::mainEngine->saveAs(File(), true, true, true);
 		break;
 
 	case CommandIDs::checkForUpdates:

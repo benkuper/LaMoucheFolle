@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" displaySplashScreen="0" splashScreenColour="Dark"
               projectType="guiapp" version="1.1.2" bundleIdentifier="com.yourcompany.CrazyflieServer"
-              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.3.1"
+              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.3.2"
               companyCopyright="" reportAppUsage="0">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
@@ -217,4 +217,7 @@
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

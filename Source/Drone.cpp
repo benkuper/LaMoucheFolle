@@ -19,8 +19,7 @@ Drone::Drone() :
 	upsideDownFrozen(false),
 	timeAtBelowLowBattery(0),
 	ackTimeout(2000), //2s no packet = drone disconnected,
-	timeAtLaunch(0),
-	Thread("DroneInitThread")
+	timeAtLaunch(0)
 {
 	targetRadio = addIntParameter("Radio", "Target Radio to connect", 0, 0, 16);
 	channel = addIntParameter("Channel", "Target channel of the drone", 40, 0, 200);
