@@ -276,7 +276,7 @@ void Crazyflie::writeFlash(
 			// std::cout << "request: " << req.page << " " << req.address << " " << requestedSize << std::endl;
 			// for (size_t i = 0; i < 10; ++i) {
 
-			auto start = std::chrono::system_clock::now();
+			//auto start = std::chrono::system_clock::now();
 			// while (true) {
 			sendPacketOrTimeout((uint8_t*)&req, 7 + requestedSize);
 			//   startBatchRequest();

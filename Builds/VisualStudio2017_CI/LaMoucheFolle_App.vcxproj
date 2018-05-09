@@ -56,7 +56,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;D:\Softwares\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;C:\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A57A61=1;JUCE_APP_VERSION=1.1.2;JUCE_APP_VERSION_HEX=0x10102;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -209,25 +209,25 @@
     <ClCompile Include="..\..\..\JUCE\modules\juce_audio_basics\juce_audio_basics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\audio_io\juce_AudioDeviceManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\audio_io\juce_AudioDeviceManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\audio_io\juce_AudioIODevice.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\audio_io\juce_AudioIODevice.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\audio_io\juce_AudioIODeviceType.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\audio_io\juce_AudioIODeviceType.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\midi_io\juce_MidiOutput.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\midi_io\juce_MidiOutput.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_android_Audio.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_android_Audio.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_android_Midi.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_android_Midi.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_android_Oboe.cpp">
@@ -236,10 +236,10 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_android_OpenSL.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_ios_Audio.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_ios_Audio.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_linux_ALSA.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_linux_ALSA.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_linux_Bela.cpp">
@@ -248,211 +248,211 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_linux_JackAudio.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_linux_Midi.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_linux_Midi.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_mac_CoreAudio.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_mac_CoreAudio.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_mac_CoreMidi.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_mac_CoreMidi.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_win32_ASIO.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_win32_ASIO.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_win32_DirectSound.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_win32_DirectSound.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_win32_Midi.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_win32_Midi.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\native\juce_win32_WASAPI.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\native\juce_win32_WASAPI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\sources\juce_AudioSourcePlayer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\sources\juce_AudioSourcePlayer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\sources\juce_AudioTransportSource.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\sources\juce_AudioTransportSource.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_devices\juce_audio_devices.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_devices\juce_audio_devices.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitmath.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitmath.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitreader.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitreader.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitwriter.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitwriter.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\cpu.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\cpu.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\crc.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\crc.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\fixed.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\fixed.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\float.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\float.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\format.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\format.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\lpc_flac.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\lpc_flac.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\md5.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\md5.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\memory.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\memory.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_decoder.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_decoder.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_encoder.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_encoder.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_encoder_framing.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\stream_encoder_framing.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\window_flac.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\window_flac.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\analysis.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\analysis.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\bitrate.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\bitrate.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\block.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\block.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\codebook.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\codebook.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\envelope.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\envelope.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\floor0.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\floor0.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\floor1.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\floor1.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\info.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\info.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lookup.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lookup.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lpc.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lpc.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lsp.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\lsp.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\mapping0.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\mapping0.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\mdct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\mdct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\psy.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\psy.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\registry.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\registry.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\res0.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\res0.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\sharedbook.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\sharedbook.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\smallft.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\smallft.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\synthesis.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\synthesis.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\vorbisenc.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\vorbisenc.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\vorbisfile.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\vorbisfile.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\window.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\libvorbis-1.3.2\lib\window.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\bitwise.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\bitwise.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\framing.c">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\framing.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_AiffAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_AiffAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_CoreAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_CoreAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_FlacAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_FlacAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_LAMEEncoderAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_LAMEEncoderAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_MP3AudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_MP3AudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_OggVorbisAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_OggVorbisAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_WavAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_WavAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\juce_WindowsMediaAudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\codecs\juce_WindowsMediaAudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioFormatManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioFormatManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioFormatReader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioFormatReader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioFormatReaderSource.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioFormatReaderSource.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioFormatWriter.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioFormatWriter.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_AudioSubsectionReader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_AudioSubsectionReader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\format\juce_BufferingAudioFormatReader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\format\juce_BufferingAudioFormatReader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\sampler\juce_Sampler.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\sampler\juce_Sampler.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\juce_audio_formats.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_formats\juce_audio_formats.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format\juce_AudioPluginFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\format\juce_AudioPluginFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format_types\juce_LegacyAudioParameter.cpp">
@@ -461,7 +461,7 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_AudioPluginInstance.cpp">
@@ -470,205 +470,205 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_AudioProcessor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_AudioProcessorEditor.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\processors\juce_AudioProcessorEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_AudioProcessorGraph.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\processors\juce_AudioProcessorGraph.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_GenericAudioProcessorEditor.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\processors\juce_GenericAudioProcessorEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\processors\juce_PluginDescription.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\processors\juce_PluginDescription.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\scanning\juce_KnownPluginList.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\scanning\juce_KnownPluginList.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\scanning\juce_PluginDirectoryScanner.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\scanning\juce_PluginDirectoryScanner.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\scanning\juce_PluginListComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\scanning\juce_PluginListComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorParameters.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorParameters.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorValueTreeState.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorValueTreeState.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_processors\juce_audio_processors.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_audio_processors\juce_audio_processors.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_AbstractFifo.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_AbstractFifo.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_DynamicObject.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_DynamicObject.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_HashMap_test.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_HashMap_test.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_NamedValueSet.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_NamedValueSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_PropertySet.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_PropertySet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_Variant.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\containers\juce_Variant.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_DirectoryIterator.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_DirectoryIterator.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_File.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_File.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_FileFilter.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_FileFilter.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_FileInputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_FileInputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_FileOutputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_FileOutputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_FileSearchPath.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_FileSearchPath.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_TemporaryFile.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_TemporaryFile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\files\juce_WildcardFileFilter.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\files\juce_WildcardFileFilter.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\javascript\juce_Javascript.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\javascript\juce_Javascript.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\javascript\juce_JSON.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\javascript\juce_JSON.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\logging\juce_FileLogger.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\logging\juce_FileLogger.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\logging\juce_Logger.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\logging\juce_Logger.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\maths\juce_BigInteger.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\maths\juce_BigInteger.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\maths\juce_Expression.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\maths\juce_Expression.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\maths\juce_Random.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\maths\juce_Random.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_MemoryBlock.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\memory\juce_MemoryBlock.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\misc\juce_Result.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\misc\juce_Result.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\misc\juce_RuntimePermissions.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\misc\juce_RuntimePermissions.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\misc\juce_StdFunctionCompat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\misc\juce_StdFunctionCompat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\misc\juce_Uuid.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\misc\juce_Uuid.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Files.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_Files.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Misc.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_Misc.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Network.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_Network.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_RuntimePermissions.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_RuntimePermissions.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_SystemStats.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_SystemStats.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Threads.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_android_Threads.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_curl_Network.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_curl_Network.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_linux_CommonFile.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_linux_CommonFile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_linux_Files.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_linux_Files.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_linux_Network.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_linux_Network.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_linux_SystemStats.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_linux_SystemStats.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_linux_Threads.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_linux_Threads.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_NamedPipe.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_posix_NamedPipe.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_Files.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_win32_Files.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_Network.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_win32_Network.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_Registry.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_win32_Registry.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_SystemStats.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_win32_SystemStats.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_Threads.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\native\juce_win32_Threads.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_IPAddress.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_IPAddress.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_MACAddress.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_MACAddress.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_NamedPipe.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_NamedPipe.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_Socket.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_Socket.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_URL.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_URL.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_WebInputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\network\juce_WebInputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_BufferedInputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_BufferedInputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_FileInputSource.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_FileInputSource.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_InputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_InputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_MemoryInputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_MemoryInputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_MemoryOutputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_MemoryOutputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_OutputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_OutputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_SubregionStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\streams\juce_SubregionStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\streams\juce_URLInputSource.cpp">
@@ -677,829 +677,829 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\system\juce_SystemStats.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_Base64.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_Base64.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_CharacterFunctions.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_CharacterFunctions.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_Identifier.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_Identifier.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_LocalisedStrings.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_LocalisedStrings.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_String.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_String.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_StringArray.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_StringArray.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_StringPairArray.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_StringPairArray.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_StringPool.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_StringPool.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\text\juce_TextDiff.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\text\juce_TextDiff.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_ChildProcess.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_ChildProcess.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_HighResolutionTimer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_HighResolutionTimer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_ReadWriteLock.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_ReadWriteLock.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_Thread.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_Thread.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_ThreadPool.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_ThreadPool.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\threads\juce_TimeSliceThread.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\threads\juce_TimeSliceThread.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\time\juce_PerformanceCounter.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\time\juce_PerformanceCounter.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\time\juce_RelativeTime.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\time\juce_RelativeTime.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\time\juce_Time.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\time\juce_Time.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\unit_tests\juce_UnitTest.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\unit_tests\juce_UnitTest.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\xml\juce_XmlDocument.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\xml\juce_XmlDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\xml\juce_XmlElement.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\xml\juce_XmlElement.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\adler32.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\adler32.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\compress.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\compress.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\crc32.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\crc32.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\deflate.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\deflate.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\infback.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\infback.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\inffast.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\inffast.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\inflate.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\inflate.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\inftrees.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\inftrees.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\trees.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\trees.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\uncompr.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\uncompr.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\zlib\zutil.c">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\zlib\zutil.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\juce_GZIPCompressorOutputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\juce_GZIPCompressorOutputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\juce_GZIPDecompressorInputStream.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\juce_GZIPDecompressorInputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\zip\juce_ZipFile.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\zip\juce_ZipFile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\juce_core.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_core\juce_core.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\encryption\juce_Primes.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\encryption\juce_Primes.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\hashing\juce_MD5.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\hashing\juce_MD5.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\hashing\juce_SHA256.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\hashing\juce_SHA256.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_cryptography\juce_cryptography.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_cryptography\juce_cryptography.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\app_properties\juce_PropertiesFile.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\app_properties\juce_PropertiesFile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\undomanager\juce_UndoManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\undomanager\juce_UndoManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_CachedValue.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\values\juce_CachedValue.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_Value.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\values\juce_Value.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueTree.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\values\juce_ValueTree.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\broadcasters\juce_AsyncUpdater.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\broadcasters\juce_AsyncUpdater.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\broadcasters\juce_ChangeBroadcaster.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\broadcasters\juce_ChangeBroadcaster.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_ConnectedChildProcess.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\interprocess\juce_ConnectedChildProcess.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnection.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\interprocess\juce_InterprocessConnection.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_ApplicationBase.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\messages\juce_ApplicationBase.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_DeletedAtShutdown.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\messages\juce_DeletedAtShutdown.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_MessageListener.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\messages\juce_MessageListener.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_MessageManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\messages\juce_MessageManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\native\juce_android_Messaging.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\native\juce_android_Messaging.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\native\juce_linux_Messaging.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\native\juce_linux_Messaging.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\native\juce_win32_Messaging.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\native\juce_win32_Messaging.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\native\juce_win32_WinRTWrapper.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\native\juce_win32_WinRTWrapper.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\timers\juce_MultiTimer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\timers\juce_MultiTimer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\timers\juce_Timer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\timers\juce_Timer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\juce_events.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_events\juce_events.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\colour\juce_Colour.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\colour\juce_Colour.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\colour\juce_ColourGradient.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\colour\juce_ColourGradient.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\colour\juce_Colours.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\colour\juce_Colours.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\colour\juce_FillType.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\colour\juce_FillType.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\contexts\juce_GraphicsContext.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\contexts\juce_GraphicsContext.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsPostScriptRenderer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsPostScriptRenderer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\effects\juce_GlowEffect.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\effects\juce_GlowEffect.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_AttributedString.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_AttributedString.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_CustomTypeface.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_CustomTypeface.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_Font.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_Font.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_GlyphArrangement.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_GlyphArrangement.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_TextLayout.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_TextLayout.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\fonts\juce_Typeface.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\fonts\juce_Typeface.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\geometry\juce_AffineTransform.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\geometry\juce_AffineTransform.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\geometry\juce_EdgeTable.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\geometry\juce_EdgeTable.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\geometry\juce_Path.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\geometry\juce_Path.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\geometry\juce_PathIterator.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\geometry\juce_PathIterator.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\geometry\juce_PathStrokeType.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\geometry\juce_PathStrokeType.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcapimin.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcapimin.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcapistd.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcapistd.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jccoefct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jccoefct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jccolor.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jccolor.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcdctmgr.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcdctmgr.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jchuff.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jchuff.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcinit.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcinit.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcmainct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcmainct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcmarker.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcmarker.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcmaster.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcmaster.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcomapi.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcomapi.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcparam.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcparam.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcphuff.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcphuff.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcprepct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcprepct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jcsample.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jcsample.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jctrans.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jctrans.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdapimin.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdapimin.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdapistd.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdapistd.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdatasrc.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdatasrc.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdcoefct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdcoefct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdcolor.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdcolor.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jddctmgr.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jddctmgr.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdhuff.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdhuff.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdinput.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdinput.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdmainct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdmainct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdmarker.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdmarker.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdmaster.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdmaster.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdmerge.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdmerge.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdphuff.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdphuff.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdpostct.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdpostct.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdsample.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdsample.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jdtrans.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jdtrans.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jerror.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jerror.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctflt.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctflt.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctfst.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctfst.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctint.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jfdctint.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jidctflt.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jidctflt.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jidctfst.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jidctfst.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jidctint.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jidctint.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jidctred.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jidctred.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jmemmgr.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jmemmgr.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jmemnobs.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jmemnobs.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jquant1.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jquant1.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jquant2.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jquant2.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\jutils.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\jutils.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\transupp.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\transupp.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\png.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\png.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngerror.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngerror.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngget.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngget.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngmem.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngmem.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngpread.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngpread.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngread.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngread.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngrio.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngrio.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngrtran.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngrtran.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngrutil.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngrutil.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngset.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngset.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngtrans.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngtrans.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngwio.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngwio.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngwrite.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngwrite.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngwtran.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngwtran.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\pngwutil.c">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\pngwutil.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\juce_GIFLoader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\juce_GIFLoader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\juce_JPEGLoader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\juce_JPEGLoader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\juce_PNGLoader.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\image_formats\juce_PNGLoader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\images\juce_Image.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\images\juce_Image.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\images\juce_ImageCache.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\images\juce_ImageCache.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\images\juce_ImageConvolutionKernel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\images\juce_ImageConvolutionKernel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\images\juce_ImageFileFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\images\juce_ImageFileFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_android_Fonts.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_android_Fonts.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_android_GraphicsContext.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_android_GraphicsContext.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_android_IconHelpers.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_android_IconHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_freetype_Fonts.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_freetype_Fonts.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_linux_Fonts.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_linux_Fonts.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_linux_IconHelpers.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_linux_IconHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_mac_IconHelpers.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_mac_IconHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_win32_Direct2DGraphicsContext.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_win32_Direct2DGraphicsContext.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_win32_DirectWriteTypeface.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_win32_DirectWriteTypeface.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_win32_DirectWriteTypeLayout.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_win32_DirectWriteTypeLayout.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_win32_Fonts.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_win32_Fonts.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\native\juce_win32_IconHelpers.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\native\juce_win32_IconHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\placement\juce_RectanglePlacement.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\placement\juce_RectanglePlacement.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\juce_graphics.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_graphics\juce_graphics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\application\juce_Application.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\application\juce_Application.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_ArrowButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_ArrowButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_Button.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_Button.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_DrawableButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_DrawableButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_HyperlinkButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_HyperlinkButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_ImageButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_ImageButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_ShapeButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_ShapeButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_TextButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_TextButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_ToggleButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_ToggleButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\buttons\juce_ToolbarButton.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\buttons\juce_ToolbarButton.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandInfo.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandInfo.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandTarget.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\commands\juce_ApplicationCommandTarget.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\commands\juce_KeyPressMappingSet.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\commands\juce_KeyPressMappingSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\components\juce_Component.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\components\juce_Component.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\components\juce_ComponentListener.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\components\juce_ComponentListener.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\components\juce_Desktop.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\components\juce_Desktop.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\components\juce_ModalComponentManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\components\juce_ModalComponentManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_Drawable.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_Drawable.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawableComposite.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawableComposite.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawableImage.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawableImage.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawablePath.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawablePath.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawableRectangle.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawableRectangle.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawableShape.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawableShape.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_DrawableText.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_DrawableText.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\drawables\juce_SVGParser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\drawables\juce_SVGParser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_ContentSharer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_ContentSharer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsDisplayComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsDisplayComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsList.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsList.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileBrowserComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileBrowserComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileChooser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileChooser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileChooserDialogBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileChooserDialogBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileListComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileListComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FilenameComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FilenameComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileSearchPathListComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileSearchPathListComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_FileTreeComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_FileTreeComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\filebrowser\juce_ImagePreviewComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\filebrowser\juce_ImagePreviewComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\keyboard\juce_CaretComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\keyboard\juce_CaretComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\keyboard\juce_KeyboardFocusTraverser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\keyboard\juce_KeyboardFocusTraverser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\keyboard\juce_KeyListener.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\keyboard\juce_KeyListener.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\keyboard\juce_KeyPress.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\keyboard\juce_KeyPress.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\keyboard\juce_ModifierKeys.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\keyboard\juce_ModifierKeys.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ComponentAnimator.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ComponentAnimator.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ComponentBoundsConstrainer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ComponentBoundsConstrainer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ComponentBuilder.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ComponentBuilder.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ComponentMovementWatcher.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ComponentMovementWatcher.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ConcertinaPanel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ConcertinaPanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_FlexBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_FlexBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_Grid.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_Grid.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_GridItem.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_GridItem.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_GridUnitTests.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_GridUnitTests.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_GroupComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_GroupComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_MultiDocumentPanel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_MultiDocumentPanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ResizableBorderComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ResizableBorderComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ResizableCornerComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ResizableCornerComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ResizableEdgeComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ResizableEdgeComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_ScrollBar.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_ScrollBar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_SidePanel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_SidePanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_StretchableLayoutManager.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_StretchableLayoutManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_StretchableLayoutResizerBar.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_StretchableLayoutResizerBar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_StretchableObjectResizer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_StretchableObjectResizer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_TabbedButtonBar.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_TabbedButtonBar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_TabbedComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_TabbedComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\layout\juce_Viewport.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\layout\juce_Viewport.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V1.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V1.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V2.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V2.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V3.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V3.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V4.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V4.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\menus\juce_BurgerMenuComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\menus\juce_BurgerMenuComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\menus\juce_MenuBarComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\menus\juce_MenuBarComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\menus\juce_MenuBarModel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\menus\juce_MenuBarModel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\menus\juce_PopupMenu.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\menus\juce_PopupMenu.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\misc\juce_BubbleComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\misc\juce_BubbleComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\misc\juce_DropShadower.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\misc\juce_DropShadower.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\misc\juce_JUCESplashScreen.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\misc\juce_JUCESplashScreen.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_ComponentDragger.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_ComponentDragger.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_DragAndDropContainer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_DragAndDropContainer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_MouseCursor.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_MouseCursor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_MouseEvent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_MouseEvent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_MouseInactivityDetector.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_MouseInactivityDetector.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_MouseInputSource.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_MouseInputSource.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_android_ContentSharer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_android_ContentSharer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_android_FileChooser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_android_FileChooser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_android_Windowing.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_android_Windowing.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_common_MimeTypes.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_common_MimeTypes.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_ios_ContentSharer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_ios_ContentSharer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_linux_FileChooser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_linux_FileChooser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_linux_X11.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_linux_X11.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_linux_X11_Clipboard.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_linux_X11_Clipboard.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_linux_X11_Windowing.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_linux_X11_Windowing.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_win32_DragAndDrop.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_win32_DragAndDrop.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_win32_FileChooser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_win32_FileChooser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\native\juce_win32_Windowing.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\native\juce_win32_Windowing.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_MarkerList.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_MarkerList.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativeCoordinate.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativeCoordinate.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativeCoordinatePositioner.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativeCoordinatePositioner.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativeParallelogram.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativeParallelogram.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativePoint.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativePoint.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativePointPath.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativePointPath.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\positioning\juce_RelativeRectangle.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\positioning\juce_RelativeRectangle.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_BooleanPropertyComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_BooleanPropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_ButtonPropertyComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_ButtonPropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_ChoicePropertyComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_ChoicePropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_MultiChoicePropertyComponent.cpp">
@@ -1508,199 +1508,199 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_PropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_PropertyPanel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_PropertyPanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_SliderPropertyComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_SliderPropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\properties\juce_TextPropertyComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\properties\juce_TextPropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ComboBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ComboBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ImageComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ImageComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_Label.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_Label.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ListBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ListBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ProgressBar.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ProgressBar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_Slider.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_Slider.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_TableHeaderComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_TableHeaderComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_TableListBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_TableListBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_TextEditor.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_TextEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_Toolbar.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_Toolbar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ToolbarItemComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ToolbarItemComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_ToolbarItemPalette.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_ToolbarItemPalette.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_AlertWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_AlertWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_CallOutBox.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_CallOutBox.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_ComponentPeer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_ComponentPeer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_DialogWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_DialogWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_DocumentWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_DocumentWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_ResizableWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_ResizableWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_ThreadWithProgressWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_ThreadWithProgressWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_TooltipWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_TooltipWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\windows\juce_TopLevelWindow.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\windows\juce_TopLevelWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_basics\juce_gui_basics.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_basics\juce_gui_basics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\code_editor\juce_CodeEditorComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\code_editor\juce_CodeEditorComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\code_editor\juce_CPlusPlusCodeTokeniser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\code_editor\juce_CPlusPlusCodeTokeniser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\code_editor\juce_LuaCodeTokeniser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\code_editor\juce_LuaCodeTokeniser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\code_editor\juce_XMLCodeTokeniser.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\code_editor\juce_XMLCodeTokeniser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\documents\juce_FileBasedDocument.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\documents\juce_FileBasedDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_AnimatedAppComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_AnimatedAppComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_BubbleMessageComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_BubbleMessageComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_ColourSelector.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_ColourSelector.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_KeyMappingEditorComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_KeyMappingEditorComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_LiveConstantEditor.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_LiveConstantEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_PreferencesPanel.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_PreferencesPanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_PushNotifications.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_PushNotifications.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_RecentlyOpenedFilesList.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_RecentlyOpenedFilesList.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_SplashScreen.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_SplashScreen.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\misc\juce_SystemTrayIconComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\misc\juce_SystemTrayIconComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_android_PushNotifications.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_android_PushNotifications.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_android_WebBrowserComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_android_WebBrowserComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_AndroidViewComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_AndroidViewComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_ios_PushNotifications.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_ios_PushNotifications.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_linux_X11_SystemTrayIcon.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_linux_X11_SystemTrayIcon.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_linux_X11_WebBrowserComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_linux_X11_WebBrowserComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_linux_XEmbedComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_linux_XEmbedComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_mac_PushNotifications.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_mac_PushNotifications.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_mac_SystemTrayIcon.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_mac_SystemTrayIcon.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_win32_ActiveXComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_win32_ActiveXComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_win32_SystemTrayIcon.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_win32_SystemTrayIcon.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\native\juce_win32_WebBrowserComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\native\juce_win32_WebBrowserComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_gui_extra\juce_gui_extra.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_gui_extra\juce_gui_extra.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLContext.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLContext.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLFrameBuffer.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLFrameBuffer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLGraphicsContext.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLGraphicsContext.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLHelpers.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLImage.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLImage.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLPixelFormat.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLPixelFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLShaderProgram.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLShaderProgram.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\opengl\juce_OpenGLTexture.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\opengl\juce_OpenGLTexture.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\utils\juce_OpenGLAppComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\utils\juce_OpenGLAppComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\juce_opengl.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_opengl\juce_opengl.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\app\CrashHandler.cpp">
@@ -2027,40 +2027,40 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\juce_organicui.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCAddress.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCAddress.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCArgument.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCArgument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCBundle.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCBundle.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCMessage.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCMessage.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCReceiver.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCReceiver.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCSender.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCSender.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCTimeTag.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCTimeTag.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCTypes.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\osc\juce_OSCTypes.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\juce_osc.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_osc\juce_osc.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\capture\juce_CameraDevice.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_video\capture\juce_CameraDevice.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\playback\juce_VideoComponent.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_video\playback\juce_VideoComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\juce_video.cpp">
+    <ClCompile Include="C:\JUCE\modules\juce_video\juce_video.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
@@ -2815,24 +2815,24 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\ui\Style.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\undo\UndoMaster.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\updater\AppUpdater.h"/>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\juce_organicui.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCAddress.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCArgument.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCBundle.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCMessage.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCReceiver.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCSender.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCTimeTag.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\osc\juce_OSCTypes.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_osc\juce_osc.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\capture\juce_CameraDevice.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_android_CameraDevice.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_mac_CameraDevice.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_mac_Video.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_win32_CameraDevice.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_win32_Video.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\playback\juce_VideoComponent.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\juce_video.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\juce_organicui.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCAddress.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCArgument.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCBundle.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCMessage.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCReceiver.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCSender.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCTimeTag.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_osc\osc\juce_OSCTypes.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Applications\JUCE\modules\juce_osc\juce_osc.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\capture\juce_CameraDevice.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\native\juce_android_CameraDevice.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\native\juce_mac_CameraDevice.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\native\juce_mac_Video.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\native\juce_win32_CameraDevice.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\native\juce_win32_Video.h"/>
+    <ClInclude Include="C:\JUCE\modules\juce_video\playback\juce_VideoComponent.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Applications\JUCE\modules\juce_video\juce_video.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>

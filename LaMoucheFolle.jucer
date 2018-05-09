@@ -121,15 +121,15 @@
         <MODULEPATH id="juce_osc" path="D:/Softwares/JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="" smallIcon="gOf6w2"
-               bigIcon="gOf6w2" extraFrameworks="libusb-1.0.dylib">
+    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="usb-1.0" smallIcon="gOf6w2"
+               bigIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
-                       linkTimeOptimisation="1" targetName="LaMoucheFolle" libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"
-                       headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include&#10;"/>
+                       linkTimeOptimisation="1" targetName="LaMoucheFolle" libraryPath="../../External/libusb/osx"
+                       headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include&#10;"/>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
-                       linkTimeOptimisation="0" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/local/include"
-                       libraryPath="/usr/local/Cellar/libusb/1.0.21/lib"/>
+                       linkTimeOptimisation="0" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       libraryPath="../../External/libusb/osx"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="~/JUCE/modules"/>

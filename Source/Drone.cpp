@@ -13,7 +13,8 @@
 #include "DroneManager.h"
 
 Drone::Drone() :
-	BaseItem("Drone"),
+    BaseItem("Drone"),
+    Thread("DroneInitThread"),//2s no packet = drone disconnected
 	cf(nullptr),
 	upsideDownFrozen(false),
 	timeAtBelowLowBattery(0),
@@ -167,8 +168,9 @@ void Drone::stopCFThread()
 void Drone::onContainerParameterChangedAsync(Parameter * p, const var &)
 {
 	if (p == orientation)
-	{	
-		bool isUpsideDown = orientation->z > 160 || orientation->z < -160 && fabsf(orientation->x < 20);
+	{
+        Vector3D<float> ov = orientation->getVector();
+		bool isUpsideDown = (ov.z > 160 || ov.z < -160) && fabsf(ov.x) < 20;
 		bool upsideDownAndShouldDoSomething = autoKillUpsideDown->boolValue()
 			&& (droneState->getValueDataAsEnum<DroneState>() == READY || droneState->getValueDataAsEnum<DroneState>() == STABILIZING)
 			&& isUpsideDown
@@ -277,6 +279,8 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 			yaw->setValue(0);
 			lightMode->setValueWithKey("Solid color");
 			break;
+            default:
+                break;
 		}
 	}
 
@@ -806,7 +810,7 @@ void Drone::run()
 							//STABILIZATION
 
 							Vector3D<float> curRealPos = realPosition->getVector();
-							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z != 10))
+							if (curRealPos.x != .5 && curRealPos.y != .5 && fabsf(curRealPos.x) != 10 && fabs(curRealPos.z) != 10)
 							{
 								//targetPosition->setVector(curRealPos.x, 0, curRealPos.z);
 
