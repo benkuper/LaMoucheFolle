@@ -1,3 +1,0 @@
-[submodule "External/crazyflie_cpp"]
-	path = External/crazyflie_cpp
-	url = https://github.com/whoenig/crazyflie_cpp
