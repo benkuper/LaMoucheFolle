@@ -51,6 +51,7 @@
           <FILE id="JJgW4A" name="CrazyflieUSB.cpp" compile="1" resource="0"
                 file="External/crazyflie_cpp/src/CrazyflieUSB.cpp"/>
           <FILE id="dE9IXJ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
+          <FILE id="TBtwBM" name="crtp.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/crtp.cpp"/>
           <FILE id="J9lIB9" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
         </GROUP>
         <GROUP id="{C84648B2-96C6-5450-6DEB-C0930E840EA9}" name="ui">
@@ -63,6 +64,8 @@
         </GROUP>
         <FILE id="NSo4WJ" name="Drone.cpp" compile="1" resource="0" file="Source/Drone.cpp"/>
         <FILE id="fIRSKg" name="Drone.h" compile="0" resource="0" file="Source/Drone.h"/>
+        <FILE id="kXFB9h" name="Drone2.cpp" compile="1" resource="0" file="Source/Drone2.cpp"/>
+        <FILE id="NnF2Xu" name="Drone2.h" compile="0" resource="0" file="Source/Drone2.h"/>
         <FILE id="zEx8SH" name="DroneManager.cpp" compile="1" resource="0"
               file="Source/DroneManager.cpp"/>
         <FILE id="S5P6BY" name="DroneManager.h" compile="0" resource="0" file="Source/DroneManager.h"/>

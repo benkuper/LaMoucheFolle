@@ -82,18 +82,21 @@ Drone::Drone() :
 	kp->setVector(2, 2, 2);
 	kp->defaultValue = kp->defaultValue;
 
-	xyVelMax = addFloatParameter("Z Vel Max", "For the PID tuning", 1, .1f, 3);
-	zVelMax = addFloatParameter("XY Vel Max", "For the PID tuning", 1, .1f, 3);
+	xyVelMax = addFloatParameter("XY Vel Max", "For the PID tuning", 1, .1f, 3);
+	zVelMax = addFloatParameter("Z Vel Max", "For the PID tuning", 1, .1f, 3);
 	rpLimit = addFloatParameter("RP Limit", "For the PID tuning (RollPitch limit ?)", 20, 5, 50);
 	*/
 
 	initAnchorPos = addBoolParameter("Init Anchor Pos", "Include anchor pos in init", false);
 
-	launchTrigger = addTrigger("Launch", "Launch");
+	takeOffTrigger = addTrigger("Take Off", "Take off");
+	landTrigger = addTrigger("Land", "Land");
+
 	stopTrigger = addTrigger("Stop", "Stop");
 	syncTrigger = addTrigger("Sync Position", "Sync position");
 
 	launchingMode = addBoolParameter("Is Launching", "Is the drone in launching phase", false);
+	landingMode = addBoolParameter("Is Landing", "Is the drone in landing phase", false);
 
 	resetKalmanTrigger = addTrigger("Reset Kalman Estimation", "Reset Kalman Filter Estimation");
 
@@ -230,18 +233,19 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	
 	if (p == launchingMode)
 	{
-		if (launchingMode->boolValue())
-		{
-			absoluteMode->setValue(false);
-			NLOG(niceName, "Launching drone for " << DroneManager::getInstance()->launchTime->floatValue() << " s");
-		} else
-		{
-			NLOG(niceName, "Launching Complete, sync full position");
-			absoluteMode->setValue(true);
-		}
-
+		/*{
+			const SpinLock::ScopedLockType lock(cfLock);
+			cf->takeoff(2, DroneManager::getInstance()->launchTime->floatValue());
+		}*/
 		timeAtLaunch = Time::getMillisecondCounter() / 1000.0f;
 		
+	} else if(p == landingMode)
+	{
+		/*{
+			const SpinLock::ScopedLockType lock(cfLock);
+			cf->land(2, DroneManager::getInstance()->launchTime->floatValue());
+		}*/
+		timeAtLaunch = Time::getMillisecondCounter() / 1000.0f;
 	}
 
 	if (p == realPosition)
@@ -254,7 +258,7 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 	if (p == absoluteMode)
 	{
 		NLOG(niceName, "Set absolute position mode");
-		setParam("flightmode", "posSet", absoluteMode->intValue());
+		//setParam("flightmode", "posSet", absoluteMode->intValue());
 	}
 
 	if (p == droneState)
@@ -377,7 +381,8 @@ void Drone::onContainerTriggerTriggered(Trigger * t)
 	if (t == taskDump) setParam("system", "taskDump", 1);
 	else if (t == logParamsTOC)  logAllParams();
 	else if (t == logLogsTOC)  logAllLogs();
-	else if (t == launchTrigger) launchingMode->setValue(true);// targetPosition->setVector(targetPosition->x, .4f, targetPosition->z);
+	else if (t == takeOffTrigger) launchingMode->setValue(true);// targetPosition->setVector(targetPosition->x, .4f, targetPosition->z);
+	else if (t == landTrigger) landingMode->setValue(true);
 	else if (t == stopTrigger) targetPosition->setVector(targetPosition->x, 0, targetPosition->z);
 	else if (t == syncTrigger) targetPosition->setVector(realPosition->x, 0, realPosition->z);
 	else if (t == writeToAnchors) setAnchors(NodeManager::getInstance()->getAllPositions());
@@ -532,27 +537,38 @@ bool Drone::setParam(String group, String paramID, T value)
 {
 	if (cf == nullptr) return false;
 
-	SpinLock::ScopedLockType lock(cfLock);
-	try
+	if (cfLock.tryEnter())
 	{
-		const Crazyflie::ParamTocEntry * pte = cf->getParamTocEntry(group.toStdString(), paramID.toStdString());
-		
-		if (pte == nullptr)
+
+		try
 		{
-			if(enableLogParams->boolValue()) NLOG(address->stringValue(), "### Could not find param Entry for " + group + "." + paramID);
+			const Crazyflie::ParamTocEntry * pte = cf->getParamTocEntry(group.toStdString(), paramID.toStdString());
+
+			if (pte == nullptr)
+			{
+				if (enableLogParams->boolValue()) NLOG(address->stringValue(), "### Could not find param Entry for " + group + "." + paramID);
+				cfLock.exit();
+				return false;
+			}
+
+			cf->setParam(pte->id, value);
+			outTrigger->trigger();
+			cfLock.exit();
+
+			if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Set Param : " << group << "." << paramID << " : " << (float)value);
+		} catch (std::runtime_error &e)
+		{
+			if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Error setting param " << group << "." << paramID << " : " << e.what());
+			cfLock.exit();
 			return false;
 		}
 
-		cf->setParam(pte->id, value);
-		outTrigger->trigger();
-
-		if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Set Param : " << group << "." << paramID << " : " << (float)value);
-	}
-	catch (std::runtime_error &e)
+	} else
 	{
-		if (enableLogParams->boolValue()) NLOG(address->stringValue(), "Error setting param " << group << "." << paramID <<" : " << e.what());
-		return false;
+		LOGWARNING("Lock was not gained for setting param " << group << "." << paramID);
 	}
+
+	
 
 	return true;
 }
@@ -570,7 +586,9 @@ bool Drone::setTargetPosition(float x, float y, float z, float _yaw, bool showTr
 #if DEBUG
 		if (enableLogParams->boolValue()) DBG("Send set point " << x<< " / " << y << " / " << z);
 #endif
-		cf->sendSetpoint(z,-x, _yaw, (uint16_t)(y * 1000)); //z is height for the drones, height is y for me.
+		cf->sendSetpoint(z, -x, _yaw, (uint16_t)(y * 1000)); //z is height for the drones, height is y for me.
+
+		//cf->sendPositionSetpoint(x, z, y, _yaw);// cf->sendSetpoint(z, -x, _yaw, (uint16_t)(y * 1000)); //z is height for the drones, height is y for me.
 		outTrigger->trigger();
 	}
 	catch (std::runtime_error &e)
@@ -590,17 +608,17 @@ bool Drone::setAnchors(Array<Vector3D<float>> positions)
 	
 	{
 
-		//NLOG(address->stringValue(), "Set anchors : " << positions.size() << " values");
+		NLOG(address->stringValue(), "Set anchors : " << positions.size() << " values");
 		try
 		{
 			for (int i = 0; i < positions.size() && i < 8; i++)
 			{
-				//NLOG(address->stringValue(), "Set anchor (drone order)" + String(i) + " : " + String(positions[i].x) + " , " + String(positions[i].z) + ", " + String(positions[i].y));
-				//setParam("anchorpos", (String("anchor") + String(i) + String("x")).toStdString(), positions[i].x);
-				//setParam("anchorpos", (String("anchor") + String(i) + String("y")).toStdString(), positions[i].z); //z is height for the drones, height is y for me.
-				//setParam("anchorpos", (String("anchor") + String(i) + String("z")).toStdString(), positions[i].y);
+				NLOG(address->stringValue(), "Set anchor (drone order)" + String(i) + " : " + String(positions[i].x) + " , " + String(positions[i].z) + ", " + String(positions[i].y));
+				setParam("anchorpos", (String("anchor") + String(i) + String("x")).toStdString(), positions[i].x);
+				setParam("anchorpos", (String("anchor") + String(i) + String("y")).toStdString(), positions[i].z); //z is height for the drones, height is y for me.
+				setParam("anchorpos", (String("anchor") + String(i) + String("z")).toStdString(), positions[i].y);
 
-				cf->sendSetNodePos(i, positions[i].x, positions[i].z, positions[i].y); //z is up for the drone, y is up for me
+				//cf->sendSetNodePos(i, positions[i].x, positions[i].z, positions[i].y); //z is up for the drone, y is up for me
 			}
 
 			//setParam("anchorpos", "enable", 1);
@@ -780,15 +798,44 @@ void Drone::run()
 
 					if (time > lastPosSend + 200) // send pos every 200ms and check stab
 					{
-						if (absoluteMode->boolValue())
+						if(launchingMode->boolValue())
+						{
+							float percent = (time / 1000.0f - timeAtLaunch) / DroneManager::getInstance()->launchTime->floatValue();
+							LOG("Launching.." << percent);
+
+							//	cf->sendHoverSetpoint(0, 0, 0, percent*DroneManager::getInstance()->launchForce->floatValue());
+
+							//	cf->takeoff(2, DroneManager::getInstance()->launchTime->floatValue());
+							
+							if (cfLock.tryEnter())
+							{
+								try
+								{
+									cf->sendSetpoint(0, 0, 0, DroneManager::getInstance()->launchForce->floatValue() * 10000);
+								} catch (std::runtime_error &e)
+								{
+									LOGERROR("Error when launching " << e.what());
+								}
+								cfLock.exit();
+							}
+							else
+							{
+								LOGWARNING("Could not send launch set point");
+							}
+							
+							if (percent > 1)
+							{
+								LOG("Launching finished");
+								launchingMode->setValue(false);
+							}
+						} else if (landingMode->boolValue())
+						{
+
+							if (time / 1000.0f > timeAtLaunch + DroneManager::getInstance()->launchTime->floatValue()) landingMode->setValue(false);
+						}else if(absoluteMode->boolValue())
 						{
 							setTargetPosition(targetPosition->x, targetPosition->y, targetPosition->z, yaw->floatValue());
-						} else if(launchingMode->boolValue())
-						{
-							cf->sendSetpoint(0, 0, 0, DroneManager::getInstance()->launchForce->floatValue()*10000);
-							if (time/1000.0f > timeAtLaunch + DroneManager::getInstance()->launchTime->floatValue()) launchingMode->setValue(false);
-							
-						}
+						} 
 
 						lastPosSend = time;
 

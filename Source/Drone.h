@@ -13,6 +13,8 @@
 #include "JuceHeader.h"
 #include "Crazyflie.h"
 
+
+
 #if _WIN32
 #define __attribute__(x) 
 #pragma pack(push,1)
@@ -42,11 +44,14 @@ public:
 	Trigger * writeToAnchors;
 	
 	Trigger * resetKalmanTrigger;
-	Trigger * launchTrigger;
+	Trigger * takeOffTrigger;
+	Trigger * landTrigger;
+
 	Trigger * stopTrigger;
 	Trigger * syncTrigger;
 
 	BoolParameter * launchingMode;
+	BoolParameter * landingMode;
 
 	EnumParameter * lightMode;
 	ColorParameter * color;

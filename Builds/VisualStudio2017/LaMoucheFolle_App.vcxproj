@@ -169,10 +169,12 @@
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
+    <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp"/>
     <ClCompile Include="..\..\Source\DroneManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\DroneUI.cpp"/>
     <ClCompile Include="..\..\Source\Drone.cpp"/>
+    <ClCompile Include="..\..\Source\Drone2.cpp"/>
     <ClCompile Include="..\..\Source\DroneManager.cpp"/>
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\Node.cpp"/>
@@ -2194,6 +2196,7 @@
     <ClInclude Include="..\..\Source\DroneManagerUI.h"/>
     <ClInclude Include="..\..\Source\DroneUI.h"/>
     <ClInclude Include="..\..\Source\Drone.h"/>
+    <ClInclude Include="..\..\Source\Drone2.h"/>
     <ClInclude Include="..\..\Source\DroneManager.h"/>
     <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
     <ClInclude Include="..\..\Source\Node.h"/>

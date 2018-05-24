@@ -46,7 +46,7 @@ OSCController::~OSCController()
 {
 }
 
-void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
+void OSCController::sendDroneFeedback(Drone2 * d, Controllable * c)
 {
 
 	Controller::sendDroneFeedback(d, c);
@@ -96,30 +96,34 @@ void OSCController::sendNodeFeedback(Node * n, Controllable * c)
 
 void OSCController::sendFullSetup()
 {
+	
 	OSCMessage m("/drones/setup");
-	for (Drone * d : DroneManager::getInstance()->items) m.addString(d->shortName);
+	for (Drone2 * d : DroneManager::getInstance()->items) m.addString(d->shortName);
 	sendOSC(m);
 	
 	OSCMessage m2("/nodes/setup");
 	for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
 	sendOSC(m2);
+	
 }
 
 void OSCController::sendDroneSetup(const String & droneName)
 {
-	Drone * d = DroneManager::getInstance()->getItemWithName(droneName);
+	
+	Drone2 * d = DroneManager::getInstance()->getItemWithName(droneName);
 	if (d == nullptr)
 	{
 		DBG("Drone " + droneName + " doesn't exist");
 		return;
 	}
 
-	sendDroneFeedback(d, d->droneState); 
+	sendDroneFeedback(d, d->state); 
 	sendDroneFeedback(d, d->realPosition);
-	sendDroneFeedback(d, d->lowBattery);
-	sendDroneFeedback(d, d->charging);
+	//sendDroneFeedback(d, d->lowBattery);
+	//sendDroneFeedback(d, d->charging);
 	sendDroneFeedback(d, d->lightMode);
 	sendDroneFeedback(d, d->color); //no support for automatic color for now
+	
 }
 
 void OSCController::sendNodeSetup(const String &nodeName)
@@ -149,6 +153,7 @@ void OSCController::processMessage(const OSCMessage & msg)
 	StringArray tokens;
 	tokens.addTokens(msg.getAddressPattern().toString(), "/", "\"");
 	
+	
 
 	if (tokens[1] == "setup") sendFullSetup();
 	else if (tokens[1].contains("drone"))
@@ -157,7 +162,8 @@ void OSCController::processMessage(const OSCMessage & msg)
 		if(tokens[2] == "setup") sendDroneSetup(droneName);
 		else
 		{
-			Drone * d = DroneManager::getInstance()->getItemWithName(droneName); 
+			
+			Drone2 * d = DroneManager::getInstance()->getItemWithName(droneName); 
 			Controllable * c = d->getControllableByName(tokens[2]);
 			//DBG("Find controllable : " << tokens[2] << " / " << (int)( c != nullptr));
 			
@@ -174,7 +180,6 @@ void OSCController::processMessage(const OSCMessage & msg)
 		if (tokens[2] == "setup") sendNodeSetup(nodeName);
 	}
 
-	
 }
 
 void OSCController::handleSetControllableValue(Controllable * c, const OSCMessage & msg)

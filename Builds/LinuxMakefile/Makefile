@@ -77,10 +77,12 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/Crazyflie_54967be1.o \
   $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o \
   $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
+  $(JUCE_OBJDIR)/crtp_66d3a667.o \
   $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o \
   $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o \
   $(JUCE_OBJDIR)/DroneUI_56dbee0d.o \
   $(JUCE_OBJDIR)/Drone_7c6d2e79.o \
+  $(JUCE_OBJDIR)/Drone2_1158b6a3.o \
   $(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o \
   $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o \
   $(JUCE_OBJDIR)/Node_d45d218b.o \
@@ -162,6 +164,11 @@ $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o: ../../External/crazyflie_cpp/src/Crazyradi
 	@echo "Compiling Crazyradio.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/crtp_66d3a667.o: ../../External/crazyflie_cpp/src/crtp.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling crtp.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o: ../../External/crazyflie_cpp/src/USBDevice.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling USBDevice.cpp"
@@ -180,6 +187,11 @@ $(JUCE_OBJDIR)/DroneUI_56dbee0d.o: ../../Source/DroneUI.cpp
 $(JUCE_OBJDIR)/Drone_7c6d2e79.o: ../../Source/Drone.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Drone.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Drone2_1158b6a3.o: ../../Source/Drone2.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Drone2.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o: ../../Source/DroneManager.cpp

@@ -19,7 +19,10 @@ DroneManagerUI::DroneManagerUI(const String & name, DroneManager * manager) :
 	connectSelectedBT = manager->connectSelectedTrigger->createButtonUI();
 	disableNotFlyingsBT = manager->disableNotFlyingsTrigger->createButtonUI();
 	connectAllNCBT = manager->connectAllNotConnectedTrigger->createButtonUI();
-	resetKalmanBT = manager->resetAllKalman->createButtonUI();
+	resetKalmanBT = manager->recalibrateAll->createButtonUI();
+	takeOffAllBT = manager->takeOffAll->createButtonUI();
+	landAllBT = manager->landAll->createButtonUI();
+	unlockAllBT = manager->unlockAll->createButtonUI();
 
 	addAndMakeVisible(connectAllBT);
 	addAndMakeVisible(connectAllNCBT);
@@ -28,6 +31,9 @@ DroneManagerUI::DroneManagerUI(const String & name, DroneManager * manager) :
 	addAndMakeVisible(enableAllBT);
 	addAndMakeVisible(connectSelectedBT);
 	addAndMakeVisible(disableNotFlyingsBT);
+	addAndMakeVisible(takeOffAllBT);
+	addAndMakeVisible(landAllBT);
+	addAndMakeVisible(unlockAllBT);
 	addExistingItems();
 }
 
@@ -54,4 +60,11 @@ void DroneManagerUI::resizedInternalHeader(Rectangle<int>& r)
 	disableNotFlyingsBT->setBounds(h2.removeFromLeft(100));
 	h2.removeFromLeft(10);
 	resetKalmanBT->setBounds(h2.removeFromLeft(100));
+	h2.removeFromLeft(10);
+	takeOffAllBT->setBounds(h2.removeFromLeft(70));
+	h2.removeFromLeft(10);
+	landAllBT->setBounds(h2.removeFromLeft(70));
+	h2.removeFromLeft(10);
+	unlockAllBT->setBounds(h2.removeFromLeft(70));
+
 }

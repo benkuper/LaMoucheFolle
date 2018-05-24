@@ -23,7 +23,7 @@ public:
 	~ControllerManager();
 
 	void sendFullSetup();
-	void sendDroneFeedback(Drone *, Controllable * c);
+	void sendDroneFeedback(Drone2 *, Controllable * c);
 	void sendNodeFeedback(Node *, Controllable * c);
 
 	void controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c) override;

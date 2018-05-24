@@ -529,6 +529,9 @@
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
@@ -539,6 +542,9 @@
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Drone.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drone2.cpp">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneManager.cpp">
@@ -2731,6 +2737,9 @@
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Drone.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone2.h">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneManager.h">

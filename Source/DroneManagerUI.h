@@ -13,7 +13,7 @@
 #include "DroneUI.h"
 
 class DroneManagerUI :
-	public BaseManagerShapeShifterUI<DroneManager, Drone, DroneUI>
+	public BaseManagerShapeShifterUI<DroneManager, Drone2, DroneUI>
 {
 public:
 	DroneManagerUI(const String &name, DroneManager * manager);
@@ -26,6 +26,9 @@ public:
 	ScopedPointer<TriggerButtonUI> connectAllBT;
 	ScopedPointer<TriggerButtonUI> connectAllNCBT;
 	ScopedPointer<TriggerButtonUI> resetKalmanBT;
+	ScopedPointer<TriggerButtonUI> takeOffAllBT;
+	ScopedPointer<TriggerButtonUI> landAllBT;
+	ScopedPointer<TriggerButtonUI> unlockAllBT;
 
 	void resizedInternalHeader(Rectangle<int> &r) override;
 
