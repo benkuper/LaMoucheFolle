@@ -568,9 +568,6 @@
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MainComponentCommands.cpp">
-      <Filter>LaMoucheFolle\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
     </ClCompile>

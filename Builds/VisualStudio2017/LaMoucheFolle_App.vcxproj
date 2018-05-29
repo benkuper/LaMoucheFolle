@@ -182,7 +182,6 @@
     <ClCompile Include="..\..\Source\CFEngine.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
-    <ClCompile Include="..\..\Source\MainComponentCommands.cpp"/>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>

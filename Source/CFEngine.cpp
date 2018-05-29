@@ -40,6 +40,7 @@ void CFEngine::clearInternal()
 	//clear
 	ControllerManager::getInstance()->clear();
 	DroneManager::getInstance()->clear();
+	NodeManager::getInstance()->clear();
 }
 
 var CFEngine::getJSONData()

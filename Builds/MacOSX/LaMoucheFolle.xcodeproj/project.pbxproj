@@ -44,7 +44,6 @@
 		89B59F8C6D3C3D84171C7667 = {isa = PBXBuildFile; fileRef = 0BFE01274504C77A429F7500; };
 		7E250DA3B0A716A8FD1E8BD3 = {isa = PBXBuildFile; fileRef = 10BB2AD5BAE0D3E3634B5103; };
 		E25F272B93FE7FB319788F1F = {isa = PBXBuildFile; fileRef = E44B87C8FE990E95EAE69EDD; };
-		5730B38EE89652E214E6BCFC = {isa = PBXBuildFile; fileRef = FE75487D663193504E29ABBF; };
 		1EFADFE8F5C1C6F541BA7D6F = {isa = PBXBuildFile; fileRef = 8F2F70809051764AD87712CF; };
 		7AEA30449C99386381F06ED6 = {isa = PBXBuildFile; fileRef = 98AE56C7934D59BE02CF9823; };
 		44A258DE8EB9F01EA05D5EB9 = {isa = PBXBuildFile; fileRef = 80AEC2299D7DEA3414D133BC; };
@@ -159,7 +158,6 @@
 		F80350BC2B7017CB8A7381A9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneUI.cpp; path = ../../Source/DroneUI.cpp; sourceTree = "SOURCE_ROOT"; };
 		F93C69500917788E78E4B33A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_processors.mm"; path = "../../JuceLibraryCode/include_juce_audio_processors.mm"; sourceTree = "SOURCE_ROOT"; };
 		FA24C6905D2B6A89E5AABF52 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Drone.cpp; path = ../../Source/Drone.cpp; sourceTree = "SOURCE_ROOT"; };
-		FE75487D663193504E29ABBF = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainComponentCommands.cpp; path = ../../Source/MainComponentCommands.cpp; sourceTree = "SOURCE_ROOT"; };
 		265E8F76B30F2A6321C5180B = {isa = PBXGroup; children = (
 					0492A05F6339091CD6B798FE,
 					D7B795EF52B875F87F8ED44A,
@@ -226,8 +224,7 @@
 					F424423A60A0C3E9A8A3927E,
 					10BB2AD5BAE0D3E3634B5103,
 					E9830948A54E5C7CDB55E97C,
-					E44B87C8FE990E95EAE69EDD,
-					FE75487D663193504E29ABBF, ); name = Source; sourceTree = "<group>"; };
+					E44B87C8FE990E95EAE69EDD, ); name = Source; sourceTree = "<group>"; };
 		BB1626C7B4DFC636BBE4B36E = {isa = PBXGroup; children = (
 					265E8F76B30F2A6321C5180B,
 					ADFB9A01CDEB24C12B646C04, ); name = LaMoucheFolle; sourceTree = "<group>"; };
@@ -471,7 +468,6 @@
 					89B59F8C6D3C3D84171C7667,
 					7E250DA3B0A716A8FD1E8BD3,
 					E25F272B93FE7FB319788F1F,
-					5730B38EE89652E214E6BCFC,
 					1EFADFE8F5C1C6F541BA7D6F,
 					7AEA30449C99386381F06ED6,
 					44A258DE8EB9F01EA05D5EB9,

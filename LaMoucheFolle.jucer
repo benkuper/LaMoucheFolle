@@ -88,8 +88,6 @@
       <FILE id="ixZ7D1" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="HCWHV1" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
-      <FILE id="kpfbZR" name="MainComponentCommands.cpp" compile="1" resource="0"
-            file="Source/MainComponentCommands.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
