@@ -7,7 +7,7 @@ matrix:
     dist: trusty
     sudo: required
 env:
-  global:
+  global:/
   - FTP_USER=u67889354-benjamin
   - secure: VsFnLBcCo+huDKFv1j8PLl1R70GanRUJfFEkahWbdoZge21GOwcXKwCVaaRoO8qMLvoW8DLKdTLrWE/nFo3aJjFNbA1g4SeBZO2uY2o9E4mg2bEPHuzF3y9YCXtcFoz83qmcV9gXHUBdVzhFR7533n1dTReyV7emjPOoOFyue7vcI9+bWXocIWgJn6eAUb9XUsXM7Yzu45xnA4YNMD80KDASdJrwtGFfU5Fy+Yugoq1uwmqr/b6H3LZox1QnG2SSoZgNQxZtHS36mBfDT8ubpyO4+pZb7izIFvrjA6AkK8d1ytE3hTo5YHsFEQ0+3O140FF3Own0wkDCFS23H7lhhY6cjt2mKq4cD2V2bk0YgLvixDPvLrTsQsaSBXMtOyQrqnIy4EbwczBD6cjOqsSzaGK9x6J/1hAcob2Uq7ohiUHBVZaA2XkB/RV3cF2fa+pB8XTB6DNXai/0BsIChn1C9ofizP//KmFDuzoimQ7ioFvHQoEd62T3RXU4UCBtWHxpvQlkikQO+/gUUzxAEtCDYaLAhjcaOGHrACkFcPmC7+yUZULYk1DHvorvPEQu7KpwuIgZ36uZ/Nm4GmO5JR0HD/oe5q446o6Eg0QBGt732av2zhkGIX1HPaKqcC2XgjOQzLF+gdC9gGPL7pRn3fIgZG34/s+iJ84YIkVh4TQBOHE=
 after_success:
@@ -20,7 +20,7 @@ after_success:
     cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX/build/Release
     ls
     zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
-    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/download/lamouchefolle
+    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/download/lamouchefolle/
   fi
 language: cpp
 git:
