@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "DroneManagerUI.h"
 
 DroneManagerUI::DroneManagerUI(const String & name, DroneManager * manager) :
@@ -68,3 +69,5 @@ void DroneManagerUI::resizedInternalHeader(Rectangle<int>& r)
 	unlockAllBT->setBounds(h2.removeFromLeft(70));
 
 }
+
+*/

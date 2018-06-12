@@ -34,7 +34,7 @@ void ControllerManager::sendFullSetup()
 	for (Controller * i : items) i->sendFullSetup();
 }
 
-void ControllerManager::sendDroneFeedback(Drone2 * d, Controllable * c)
+void ControllerManager::sendDroneFeedback(Drone * d, Controllable * c)
 {
 	for (Controller * i : items) i->sendDroneFeedback(d, c);
 }
@@ -47,11 +47,11 @@ void ControllerManager::sendNodeFeedback(Node * n, Controllable * c)
 
 void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c)
 {
- 	Drone2 * d = dynamic_cast<Drone2 *>(c->parentContainer);
+ 	Drone * d = dynamic_cast<Drone *>(c->parentContainer);
 	if (d != nullptr)
 	{
 		//if(c != d->realPosition && c != d->inTrigger && c != d->outTrigger) LOG("Feedback : " << c->shortName);
-		if (c == d->realPosition || c == d->voltage || /*c == d->lowBattery || c == d->charging ||*/ c == d->state || c == d->headlight || c == d->color || c == d->lightMode)
+		if (c == d->realPosition || c == d->batteryLevel || c == d->lowBattery || c == d->charging || c == d->state || c == d->headlight || c == d->color || c == d->lightMode)
 		{
 			sendDroneFeedback(d, c);
 		}

@@ -160,6 +160,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CFSettings.cpp"/>
+    <ClCompile Include="..\..\Source\RadialMenu.cpp"/>
+    <ClCompile Include="..\..\Source\RadialMenuItem.cpp"/>
+    <ClCompile Include="..\..\Source\RadialMenuTarget.cpp"/>
     <ClCompile Include="..\..\Source\CFAssetManager.cpp"/>
     <ClCompile Include="..\..\Source\ControllerManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\ControllerUI.cpp"/>
@@ -171,10 +175,13 @@
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp"/>
+    <ClCompile Include="..\..\Source\DroneGridUI.cpp"/>
+    <ClCompile Include="..\..\Source\DroneManagerGridUI.cpp"/>
     <ClCompile Include="..\..\Source\DroneManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\DroneUI.cpp"/>
     <ClCompile Include="..\..\Source\Drone.cpp"/>
-    <ClCompile Include="..\..\Source\Drone2.cpp"/>
+    <ClCompile Include="..\..\Source\DroneOld1.cpp"/>
+    <ClCompile Include="..\..\Source\DroneOld2.cpp"/>
     <ClCompile Include="..\..\Source\DroneManager.cpp"/>
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\Node.cpp"/>
@@ -2228,16 +2235,23 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\CFSettings.h"/>
+    <ClInclude Include="..\..\Source\RadialMenu.h"/>
+    <ClInclude Include="..\..\Source\RadialMenuItem.h"/>
+    <ClInclude Include="..\..\Source\RadialMenuTarget.h"/>
     <ClInclude Include="..\..\Source\CFAssetManager.h"/>
     <ClInclude Include="..\..\Source\ControllerManagerUI.h"/>
     <ClInclude Include="..\..\Source\ControllerUI.h"/>
     <ClInclude Include="..\..\Source\OSCController.h"/>
     <ClInclude Include="..\..\Source\Controller.h"/>
     <ClInclude Include="..\..\Source\ControllerManager.h"/>
+    <ClInclude Include="..\..\Source\DroneGridUI.h"/>
+    <ClInclude Include="..\..\Source\DroneManagerGridUI.h"/>
     <ClInclude Include="..\..\Source\DroneManagerUI.h"/>
     <ClInclude Include="..\..\Source\DroneUI.h"/>
     <ClInclude Include="..\..\Source\Drone.h"/>
-    <ClInclude Include="..\..\Source\Drone2.h"/>
+    <ClInclude Include="..\..\Source\DroneOld1.h"/>
+    <ClInclude Include="..\..\Source\DroneOld2.h"/>
     <ClInclude Include="..\..\Source\DroneManager.h"/>
     <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
     <ClInclude Include="..\..\Source\Node.h"/>
@@ -3003,14 +3017,26 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\battery_problem.png"/>
+    <None Include="..\..\Resources\calibrating.png"/>
     <None Include="..\..\Resources\charging.png"/>
+    <None Include="..\..\Resources\config_problem.png"/>
+    <None Include="..\..\Resources\connect_bt.png"/>
     <None Include="..\..\Resources\default.cflayout"/>
-    <None Include="..\..\Resources\flying.png"/>
+    <None Include="..\..\Resources\disconnect_bt.png"/>
+    <None Include="..\..\Resources\drone_connecting.png"/>
+    <None Include="..\..\Resources\drone_error.png"/>
+    <None Include="..\..\Resources\drone_ok.png"/>
+    <None Include="..\..\Resources\drone_poweroff.png"/>
+    <None Include="..\..\Resources\drone_poweron.png"/>
+    <None Include="..\..\Resources\drone_warning.png"/>
+    <None Include="..\..\Resources\health_analysis.png"/>
     <None Include="..\..\Resources\icon.png"/>
-    <None Include="..\..\Resources\in.png"/>
-    <None Include="..\..\Resources\lowbattery.png"/>
-    <None Include="..\..\Resources\out.png"/>
-    <None Include="..\..\Resources\transparent.png"/>
+    <None Include="..\..\Resources\low_battery.png"/>
+    <None Include="..\..\Resources\parachute.png"/>
+    <None Include="..\..\Resources\startup.png"/>
+    <None Include="..\..\Resources\warning.png"/>
+    <None Include="..\..\Resources\warning_red.png"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>

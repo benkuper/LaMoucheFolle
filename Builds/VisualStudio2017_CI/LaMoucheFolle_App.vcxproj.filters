@@ -5,6 +5,9 @@
     <Filter Include="LaMoucheFolle\Resources">
       <UniqueIdentifier>{9AAA5D1D-443E-6A1E-D93A-52631601B4D1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LaMoucheFolle\Source\RadialMenu">
+      <UniqueIdentifier>{283ADC34-3E54-DFF6-B8F6-D3D825EBF886}</UniqueIdentifier>
+    </Filter>
     <Filter Include="LaMoucheFolle\Source\UI">
       <UniqueIdentifier>{7666CA69-6836-31A9-C5BC-2A17E17A544B}</UniqueIdentifier>
     </Filter>
@@ -508,6 +511,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CFSettings.cpp">
+      <Filter>LaMoucheFolle\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RadialMenu.cpp">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RadialMenuItem.cpp">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RadialMenuTarget.cpp">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\CFAssetManager.cpp">
       <Filter>LaMoucheFolle\Source\UI</Filter>
     </ClCompile>
@@ -541,6 +556,12 @@
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\DroneGridUI.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DroneManagerGridUI.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\DroneManagerUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
@@ -550,7 +571,10 @@
     <ClCompile Include="..\..\Source\Drone.cpp">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Drone2.cpp">
+    <ClCompile Include="..\..\Source\DroneOld1.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DroneOld2.cpp">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneManager.cpp">
@@ -2796,6 +2820,18 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\CFSettings.h">
+      <Filter>LaMoucheFolle\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RadialMenu.h">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RadialMenuItem.h">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RadialMenuTarget.h">
+      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\CFAssetManager.h">
       <Filter>LaMoucheFolle\Source\UI</Filter>
     </ClInclude>
@@ -2814,6 +2850,12 @@
     <ClInclude Include="..\..\Source\ControllerManager.h">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\DroneGridUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DroneManagerGridUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\DroneManagerUI.h">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
@@ -2823,7 +2865,10 @@
     <ClInclude Include="..\..\Source\Drone.h">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Drone2.h">
+    <ClInclude Include="..\..\Source\DroneOld1.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DroneOld2.h">
       <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneManager.h">
@@ -5117,28 +5162,64 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\battery_problem.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\calibrating.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\charging.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\config_problem.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\connect_bt.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\default.cflayout">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\flying.png">
+    <None Include="..\..\Resources\disconnect_bt.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_connecting.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_error.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_ok.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_poweroff.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_poweron.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_warning.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\health_analysis.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\icon.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\in.png">
+    <None Include="..\..\Resources\low_battery.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\lowbattery.png">
+    <None Include="..\..\Resources\parachute.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\out.png">
+    <None Include="..\..\Resources\startup.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\transparent.png">
+    <None Include="..\..\Resources\warning.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\warning_red.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">

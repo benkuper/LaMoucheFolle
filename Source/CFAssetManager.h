@@ -19,12 +19,6 @@ public:
 	CFAssetManager();
 	virtual ~CFAssetManager();
 
-	Image getInImage();
-	Image getOutImage();
-	Image getLowBatteryImage();
-	Image getChargingImage();
-	Image getFlyingImage();
-
 	ImageButton * getSetupBTImage(const Image & image);
 	ImageButton * getToggleBTImage(const Image &image);
 };

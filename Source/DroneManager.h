@@ -10,10 +10,11 @@
 
 #pragma once
 
-#include "Drone2.h"
+
+#include "Drone.h"
 
 class DroneManager :
-	public BaseManager<Drone2>
+	public BaseManager<Drone>
 {
 public:
 	juce_DeclareSingleton(DroneManager,true)
@@ -21,6 +22,7 @@ public:
 	DroneManager();
 	~DroneManager();
 
+	/*
 	FloatParameter * flyingLowBatteryThreshold;
 	FloatParameter * onGroundLowBatteryThreshold;
 	FloatParameter * lowBatteryTimeCheck;
@@ -43,12 +45,14 @@ public:
 	FloatParameter * launchMinForce;
 
 	Automation launchCurve;
+	
 
 	void onContainerTriggerTriggered(Trigger *) override;
 	void onContainerParameterChanged(Parameter *) override;
 
 	var getJSONData() override;
 	void loadJSONDataInternal(var data) override;
+	*/
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DroneManager)
 };

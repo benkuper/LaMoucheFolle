@@ -10,6 +10,7 @@
 
 #pragma once
 
+/*
 #include "Drone2.h"
 
 class DroneStatusFeedback :
@@ -48,3 +49,5 @@ public:
 	void resizedInternalHeader(Rectangle<int> &r) override;
 	void controllableFeedbackUpdateInternal(Controllable * c) override;
 };
+
+*/

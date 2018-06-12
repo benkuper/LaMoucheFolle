@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "Drone2.h"
 #include "DroneManager.h"
 
@@ -508,3 +509,5 @@ void Drone2::feedbackLogCallback(uint32_t, feedbackLog * data)
 	lastAckTime = Time::getApproximateMillisecondCounter();
 	//orientation->setVector(data->pitch, data->yaw, data->roll);
 }
+
+*/

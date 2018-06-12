@@ -68,6 +68,10 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
+  $(JUCE_OBJDIR)/CFSettings_70cc9c0f.o \
+  $(JUCE_OBJDIR)/RadialMenu_baba22a7.o \
+  $(JUCE_OBJDIR)/RadialMenuItem_1b3af75a.o \
+  $(JUCE_OBJDIR)/RadialMenuTarget_1e240258.o \
   $(JUCE_OBJDIR)/CFAssetManager_eb1f6e09.o \
   $(JUCE_OBJDIR)/ControllerManagerUI_7e8032a6.o \
   $(JUCE_OBJDIR)/ControllerUI_991c0fb9.o \
@@ -79,10 +83,13 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
   $(JUCE_OBJDIR)/crtp_66d3a667.o \
   $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o \
+  $(JUCE_OBJDIR)/DroneGridUI_e48746f3.o \
+  $(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o \
   $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o \
   $(JUCE_OBJDIR)/DroneUI_56dbee0d.o \
   $(JUCE_OBJDIR)/Drone_7c6d2e79.o \
-  $(JUCE_OBJDIR)/Drone2_1158b6a3.o \
+  $(JUCE_OBJDIR)/DroneOld1_3512a283.o \
+  $(JUCE_OBJDIR)/DroneOld2_3520ba04.o \
   $(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o \
   $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o \
   $(JUCE_OBJDIR)/Node_d45d218b.o \
@@ -117,6 +124,26 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : check-pkg-config $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
+
+$(JUCE_OBJDIR)/CFSettings_70cc9c0f.o: ../../Source/CFSettings.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFSettings.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/RadialMenu_baba22a7.o: ../../Source/RadialMenu.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling RadialMenu.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/RadialMenuItem_1b3af75a.o: ../../Source/RadialMenuItem.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling RadialMenuItem.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/RadialMenuTarget_1e240258.o: ../../Source/RadialMenuTarget.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling RadialMenuTarget.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/CFAssetManager_eb1f6e09.o: ../../Source/CFAssetManager.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
@@ -173,6 +200,16 @@ $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o: ../../External/crazyflie_cpp/src/USBDevice.
 	@echo "Compiling USBDevice.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/DroneGridUI_e48746f3.o: ../../Source/DroneGridUI.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DroneGridUI.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o: ../../Source/DroneManagerGridUI.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DroneManagerGridUI.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o: ../../Source/DroneManagerUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneManagerUI.cpp"
@@ -188,9 +225,14 @@ $(JUCE_OBJDIR)/Drone_7c6d2e79.o: ../../Source/Drone.cpp
 	@echo "Compiling Drone.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/Drone2_1158b6a3.o: ../../Source/Drone2.cpp
+$(JUCE_OBJDIR)/DroneOld1_3512a283.o: ../../Source/DroneOld1.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Drone2.cpp"
+	@echo "Compiling DroneOld1.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DroneOld2_3520ba04.o: ../../Source/DroneOld2.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DroneOld2.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o: ../../Source/DroneManager.cpp

@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+
 #include "DroneManager.h"
 
 juce_ImplementSingleton(DroneManager)
@@ -15,6 +16,8 @@ juce_ImplementSingleton(DroneManager)
 DroneManager::DroneManager() :
 	BaseManager("Drones")
 {
+
+	/*
 	isSelectable = true;
 	disableAllTrigger = addTrigger("Disable All", "Disable all drones");
 	enableAllTrigger = addTrigger("Enable All", "Disable all drones");
@@ -41,12 +44,14 @@ DroneManager::DroneManager() :
 	launchCurve.addItem(1, 0);
 	launchCurve.items[0]->setEasing(Easing::BEZIER);
 	launchCurve.enableSnap->setValue(false);
+	*/
 }
 
 DroneManager::~DroneManager()
 {
 }
 
+/*
 void DroneManager::onContainerTriggerTriggered(Trigger * t)
 {
 	
@@ -94,3 +99,5 @@ void DroneManager::loadJSONDataInternal(var data)
 	BaseManager::loadJSONDataInternal(data);
 	launchCurve.loadJSONData(data.getProperty("launchCurve", var()));
 }
+
+*/

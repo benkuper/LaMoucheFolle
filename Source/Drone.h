@@ -2,7 +2,7 @@
   ==============================================================================
 
     Drone.h
-    Created: 19 Oct 2017 7:33:14pm
+    Created: 12 Jun 2018 4:34:07pm
     Author:  Ben
 
   ==============================================================================
@@ -10,15 +10,36 @@
 
 #pragma once
 
-#include "JuceHeader.h"
 #include "Crazyflie.h"
+#include "JuceHeader.h"
 
-
+#define MAX_DECKS 3 //max supported decks in CF2
 
 #if _WIN32
 #define __attribute__(x) 
 #pragma pack(push,1)
 #endif
+
+struct BatteryLog
+{
+	float battery;
+	uint8 lowBattery;
+	uint8 charging;
+} __attribute__((packed));
+
+struct PosLog
+{
+	float x;
+	float y;
+	float z;
+} __attribute__((packed));
+
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif
+
+
 
 class Drone :
 	public BaseItem,
@@ -28,144 +49,108 @@ public:
 	Drone();
 	~Drone();
 
-	enum DroneState {DISCONNECTED, CONNECTING, STABILIZING, READY , ERROR };
-		
-	IntParameter * targetRadio;
-	IntParameter * channel;
-	EnumParameter * speed;
-	StringParameter * address;
-
-	EnumParameter * droneState;
-
-	Trigger * connectTrigger;
-	Trigger * logParamsTOC;
-	Trigger * logLogsTOC;
-	Trigger * taskDump;
-	Trigger * writeToAnchors;
+	enum DroneState { POWERED_OFF, DISCONNECTED, CONNECTING, CALIBRATING, ANALYSIS , WARNING, READY, ERROR };
 	
-	Trigger * resetKalmanTrigger;
-	Trigger * takeOffTrigger;
-	Trigger * landTrigger;
-
-	Trigger * stopTrigger;
-	Trigger * syncTrigger;
-
-	BoolParameter * launchingMode;
-	BoolParameter * landingMode;
-
-	EnumParameter * lightMode;
-	ColorParameter * color;
-	BoolParameter * headlight;
-
-	BoolParameter * autoReconnect;
-	BoolParameter * autoKillUpsideDown;
-	BoolParameter * freezeOnUpsideDown;
-
-	Point3DParameter * targetPosition;
-	Point3DParameter * realPosition;
-	Point3DParameter * orientation;
-
-	FloatParameter * yaw;
-	BoolParameter * absoluteMode;
-	BoolParameter * isFlying;
-
-	FloatParameter * linkQuality;
-	FloatParameter * voltage;
-	BoolParameter * charging;
-	BoolParameter * lowBattery;
-
-	/*
-	BoolParameter * initPIDSettings;
-	Point3DParameter * kd;
-	Point3DParameter * ki;
-	Point3DParameter * kp;
-	FloatParameter * zVelMax;
-	FloatParameter * xyVelMax;
-	FloatParameter * rpLimit;
-	*/
-
-	BoolParameter * initAnchorPos;
-
-	BoolParameter * enableLogConsole;
-	BoolParameter * enableLogParams;
-
 	ScopedPointer<Crazyflie> cf;
 
-	Trigger * inTrigger;
-	Trigger * outTrigger;
+	ControllableContainer radioCC;
+	BoolParameter * autoRadio;
+	BoolParameter * autoChannel;
+	IntParameter * targetRadio;
+	IntParameter * channel;
+	EnumParameter * baudRate;
+	StringParameter * address;
 
-	String consoleBuffer;
+	ControllableContainer controlsCC;
+	Trigger * connectTrigger;
+	Trigger * calibrateTrigger;
+	Trigger * takeOffTrigger;
+	Trigger * landTrigger;
+	Trigger * rebootTrigger;
 
-	uint32 lastAckTime;
-	uint32 ackTimeout;
+	ControllableContainer statusCC;
+	EnumParameter * state;
+	FloatParameter * linkQuality;
+	FloatParameter * batteryLevel;
+	BoolParameter * charging;
+	FloatParameter * chargingProgress;
+	BoolParameter * lowBattery;
+	BoolParameter * selfTestProblem;
+	BoolParameter * batteryProblem;
+	ControllableContainer decksCC;
+	ControllableContainer wingsCC;
 
-	//Setup chronology
-	bool droneHasStarted;
-	bool droneHasFinishedInit;
+	ControllableContainer flightCC;
+	Point3DParameter * realPosition;
+	Point3DParameter * targetPosition;
+	FloatParameter * yaw;
 
-	bool upsideDownFrozen;
+	ControllableContainer lightingCC;
+	EnumParameter * lightMode;
+	ColorParameter * color;
+	FloatParameter * fadeTime;
+	BoolParameter * headlight;
+	BoolParameter * stealthMode;
 
-	float timeAtResetKalman;
-	float timeAtLaunch;
+	//Calibration
+	float calibrationProgress;
+	Vector3D<float> lastRealPos;
+	const float minConvergeDist = .2f;
+	float timeAtStartConverge;
+	const float minConvergeTime = 1.0f;
 
-	const float lowBatteryTimeCheck = 1.0f; //1 second below threshold to declare low battery, this allows fast voltage drops and raise (like when flying up from ground)
-	float timeAtBelowLowBattery;
+	//Analysis
+	float analysisProgress;
 
-	//log blocks
-	struct dataLog
-	{
-		float battery;
-		uint8 charging;
-		float x;
-		float y;
-		float z;
-	} __attribute__((packed));
-
-	struct feedbackLog
-	{
-		float pitch;
-		float yaw;
-		float roll;
-	} __attribute__((packed));
-
-	ScopedPointer<LogBlock<dataLog>> dataLogBlock;
-	ScopedPointer<LogBlock<feedbackLog>> feedbackBlock;
-
-	void launchCFThread();
-	void stopCFThread();
+	//Procedures
+	bool isLaunching;
+	bool isLanding;
+	float timeAtStartTakeOff;
+	float timeAtStartLanding;
 
 	
-	void onContainerParameterChangedAsync(Parameter * p, const var &) override;
 	void onContainerParameterChangedInternal(Parameter * p) override;
-	void onContainerTriggerTriggered(Trigger * t) override;
+	void onControllableFeedbackUpdateInternal(ControllableContainer * cc, Controllable *c) override;
 
-	bool setupCF();
-	void selfTestCheck();
-
-	template<class T>
-	bool setParam(String group, String paramID, T value);
-	bool setTargetPosition(float x, float y, float z, float yaw, bool showTrigger = true);
-	bool setAnchors(Array<Vector3D<float>> positions);
-
-	void logAllParams();
-	void logAllLogs();
-
+	//Callbacks
 	void consoleCallback(const char * c);
 	void emptyAckCallback(const crtpPlatformRSSIAck * a);
 	void linkQualityCallback(float val);
-	void dataLogCallback(uint32_t /*time*/, dataLog * data);
-	void feedbackLogCallback(uint32_t /*time*/, feedbackLog * data);
+	
+	//Logging
+	String consoleBuffer;
+	ScopedPointer<LogBlock<BatteryLog>> batteryLogBlock;
+	ScopedPointer<LogBlock<PosLog>> posLogBlock;
+	void batteryLogCallback(uint32_t, BatteryLog * data);
+	void posLogCallback(uint32_t, PosLog * data);
 
-	virtual void run() override;
+	//Helper
+	bool allDecksAreConnected();
 
-	String getRadioString() const { return "radio://" + String(targetRadio->intValue()) + "/" + String(channel->intValue()) + "/" + speed->getValueData().toString() + "/" + address->stringValue(); }
-	String getTypeString() const override { return "Drone"; }
+	//Thread
+	void run() override;
 
+	void stateUpdated();
+	
+	void ping();
+	void connect();
+	void calibrate();
+	void processCalibration();
 
-private:
-	SpinLock cfLock;
+	void takeOff();
+	void updateTakeOff();
+	void updateFlyingPosition();
+	void land();
+
+	var getJSONData() override;
+	void loadJSONDataInternal(var data) override;
+
+	//CF Control
+	SpinLock paramLock;
+
+	template<class T>
+	bool setParam(String group, String paramID, T value);
+
 };
 
-#ifdef _WIN32
-#pragma pack(pop)
-#endif
+

@@ -8,32 +8,68 @@
 
 namespace BinaryData
 {
+    extern const char*   battery_problem_png;
+    const int            battery_problem_pngSize = 6427;
+
+    extern const char*   calibrating_png;
+    const int            calibrating_pngSize = 12697;
+
     extern const char*   charging_png;
-    const int            charging_pngSize = 3774;
+    const int            charging_pngSize = 5831;
+
+    extern const char*   config_problem_png;
+    const int            config_problem_pngSize = 13847;
+
+    extern const char*   connect_bt_png;
+    const int            connect_bt_pngSize = 9077;
 
     extern const char*   default_cflayout;
     const int            default_cflayoutSize = 1666;
 
-    extern const char*   flying_png;
-    const int            flying_pngSize = 2550;
+    extern const char*   disconnect_bt_png;
+    const int            disconnect_bt_pngSize = 12150;
+
+    extern const char*   drone_connecting_png;
+    const int            drone_connecting_pngSize = 15975;
+
+    extern const char*   drone_error_png;
+    const int            drone_error_pngSize = 15534;
+
+    extern const char*   drone_ok_png;
+    const int            drone_ok_pngSize = 15244;
+
+    extern const char*   drone_poweroff_png;
+    const int            drone_poweroff_pngSize = 16207;
+
+    extern const char*   drone_poweron_png;
+    const int            drone_poweron_pngSize = 16184;
+
+    extern const char*   drone_warning_png;
+    const int            drone_warning_pngSize = 14497;
+
+    extern const char*   health_analysis_png;
+    const int            health_analysis_pngSize = 11070;
 
     extern const char*   icon_png;
     const int            icon_pngSize = 66595;
 
-    extern const char*   in_png;
-    const int            in_pngSize = 20744;
+    extern const char*   low_battery_png;
+    const int            low_battery_pngSize = 5222;
 
-    extern const char*   lowbattery_png;
-    const int            lowbattery_pngSize = 2544;
+    extern const char*   parachute_png;
+    const int            parachute_pngSize = 12425;
 
-    extern const char*   out_png;
-    const int            out_pngSize = 20427;
+    extern const char*   startup_png;
+    const int            startup_pngSize = 12436;
 
-    extern const char*   transparent_png;
-    const int            transparent_pngSize = 2311;
+    extern const char*   warning_png;
+    const int            warning_pngSize = 4699;
+
+    extern const char*   warning_red_png;
+    const int            warning_red_pngSize = 3997;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 8;
+    const int namedResourceListSize = 20;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

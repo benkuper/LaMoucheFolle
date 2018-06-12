@@ -46,9 +46,8 @@ OSCController::~OSCController()
 {
 }
 
-void OSCController::sendDroneFeedback(Drone2 * d, Controllable * c)
+void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
 {
-
 	Controller::sendDroneFeedback(d, c);
 	Parameter * p = dynamic_cast<Parameter *>(c);
 	if (p != nullptr)
@@ -98,7 +97,7 @@ void OSCController::sendFullSetup()
 {
 	
 	OSCMessage m("/drones/setup");
-	for (Drone2 * d : DroneManager::getInstance()->items) m.addString(d->shortName);
+	for (Drone * d : DroneManager::getInstance()->items) m.addString(d->shortName);
 	sendOSC(m);
 	
 	OSCMessage m2("/nodes/setup");
@@ -110,7 +109,7 @@ void OSCController::sendFullSetup()
 void OSCController::sendDroneSetup(const String & droneName)
 {
 	
-	Drone2 * d = DroneManager::getInstance()->getItemWithName(droneName);
+	Drone * d = DroneManager::getInstance()->getItemWithName(droneName);
 	if (d == nullptr)
 	{
 		DBG("Drone " + droneName + " doesn't exist");
@@ -163,7 +162,7 @@ void OSCController::processMessage(const OSCMessage & msg)
 		else
 		{
 			
-			Drone2 * d = DroneManager::getInstance()->getItemWithName(droneName); 
+			Drone * d = DroneManager::getInstance()->getItemWithName(droneName); 
 			Controllable * c = d->getControllableByName(tokens[2]);
 			//DBG("Find controllable : " << tokens[2] << " / " << (int)( c != nullptr));
 			

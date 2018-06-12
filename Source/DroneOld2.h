@@ -10,6 +10,8 @@
 
 #pragma once
 
+/*
+
 #include "Crazyflie.h"
 #include "JuceHeader.h"
 
@@ -38,8 +40,6 @@ public:
 	StringParameter * address;
 
 	EnumParameter * state;
-
-
 
 	Trigger * connectTrigger;
 	Trigger * calibrateTrigger;
@@ -138,8 +138,8 @@ public:
 	void consoleCallback(const char * c);
 	void emptyAckCallback(const crtpPlatformRSSIAck * a);
 	void linkQualityCallback(float val);
-	void dataLogCallback(uint32_t /*time*/, dataLog * data);
-	void feedbackLogCallback(uint32_t /*time*/, feedbackLog * data);
+	void dataLogCallback(uint32_t , dataLog * data);
+	void feedbackLogCallback(uint32_t , feedbackLog * data);
 
 
 
@@ -150,3 +150,5 @@ public:
 #ifdef _WIN32
 #pragma pack(pop)
 #endif
+
+*/

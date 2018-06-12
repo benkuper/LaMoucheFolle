@@ -8,7 +8,7 @@ This file was auto-generated!
 
 #include "MainComponent.h"
 
-#include "DroneManagerUI.h"
+#include "DroneManagerGridUI.h"
 #include "ControllerManagerUI.h"
 #include "NodeManagerUI.h"
 
@@ -17,7 +17,7 @@ MainContentComponent::MainContentComponent() :
 	OrganicMainContentComponent()
 { 
 
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones", &DroneManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones", &DroneManagerGridUI::create));
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Controllers", &ControllerManagerUI::create));
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Nodes",&NodeManagerUI::create));
 	

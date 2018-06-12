@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #pragma once
 #include "DroneManager.h"
 #include "DroneUI.h"
@@ -34,3 +35,4 @@ public:
 
 	static DroneManagerUI * create(const String &name) { return new DroneManagerUI(name, DroneManager::getInstance()); }
 };
+*/

@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "DroneUI.h"
 #include "CFAssetManager.h"
 
@@ -72,9 +73,9 @@ void DroneUI::resizedInternalHeader(Rectangle<int>& r)
 
 void DroneUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
-	if (/*c == item->charging || */c == item->lowBattery || c == item->voltage)
+	if (c == item->lowBattery || c == item->voltage)
 	{
-		voltageUI->setFrontColor(/*item->charging->boolValue() ? YELLOW_COLOR :*/ (item->voltage->getNormalizedValue() < .1f ? RED_COLOR : BLUE_COLOR));
+		voltageUI->setFrontColor((item->voltage->getNormalizedValue() < .1f ? RED_COLOR : BLUE_COLOR);
 	}
 	else if (c == item->state)
 	{
@@ -116,3 +117,5 @@ void DroneStatusFeedback::paint(Graphics & g)
 	g.setColour(c.brighter(.3f));
 	g.drawEllipse(getLocalBounds().reduced(4).toFloat(),1);
 }
+
+*/
