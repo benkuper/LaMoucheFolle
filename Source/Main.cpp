@@ -4,6 +4,6 @@ String getAppVersion();
 
 void CFApplication::initialiseInternal(const String &)
 {
-	engine = new CFEngine(appProperties, getAppVersion());
+	engine = new CFEngine();
 	mainComponent = new MainContentComponent();
 }

@@ -18,7 +18,7 @@ class CFEngine :
 	public Engine
 {
 public:
-	CFEngine(ApplicationProperties * appProperties, const String &appVersion);
+	CFEngine();
 	~CFEngine();
 
 	void clearInternal() override;

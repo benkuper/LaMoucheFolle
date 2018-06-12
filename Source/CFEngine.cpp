@@ -13,8 +13,8 @@ Author:  Martin Hermant
 #include "NodeManager.h"
 #include "CFAssetManager.h"
 
-CFEngine::CFEngine(ApplicationProperties * appProperties, const String &appVersion) :
-	Engine("LaMoucheFolle", ".mouche", appProperties, appVersion)
+CFEngine::CFEngine() :
+	Engine("LaMoucheFolle", ".mouche")
 {
 	//init here
 	Engine::mainEngine = this;
