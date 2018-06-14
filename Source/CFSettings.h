@@ -11,6 +11,32 @@
 #pragma once
 #include "JuceHeader.h"
 
+class PhysicsCC :
+	public EnablingControllableContainer
+{
+public:
+	PhysicsCC();
+	~PhysicsCC();
+
+	enum ControlMode { DIRECT, SPRING, JERK };
+	EnumParameter * mode;
+	FloatParameter * forceFactor;
+	FloatParameter * frotFactor;
+
+	FloatParameter * maxJerk;
+	FloatParameter * jerkFactor;
+	FloatParameter * maxAcceleration;
+	FloatParameter * maxSpeed;
+
+	//Viz
+	FloatParameter * simTime;
+	Automation testMotion;
+
+	void onContainerParameterChanged(Parameter * p) override;
+
+	InspectableEditor * getEditor(bool isRoot) override;
+};
+
 class CFSettings : public ControllableContainer
 {
 public:
@@ -19,9 +45,22 @@ public:
 
 	juce_DeclareSingleton(CFSettings, true)
 
+	ControllableContainer setupCC;
+	BoolParameter * autoConnect;
+	BoolParameter * analyzeAfterConnect;
+	BoolParameter * calibAfterConnect;
+	BoolParameter * calibAfterAnalyze;
+
 	ControllableContainer flightCC;
-	FloatParameter * flightSpeedFactor;
+	FloatParameter * takeOffTime;
+	FloatParameter * takeOffMaxSpeed;
+	Automation takeOffCurve;
+
+	PhysicsCC physicsCC;
 
 	ControllableContainer miscCC;
 	BoolParameter * zIsVertical;
+
 };
+
+

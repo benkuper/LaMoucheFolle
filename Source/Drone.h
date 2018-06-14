@@ -35,6 +35,13 @@ struct PosLog
 } __attribute__((packed));
 
 
+struct CalibLog
+{
+	float varianceX;
+	float varianceY;
+	float varianceZ;
+} __attribute__((packed));
+
 #ifdef _WIN32
 #pragma pack(pop)
 #endif
@@ -49,7 +56,7 @@ public:
 	Drone();
 	~Drone();
 
-	enum DroneState { POWERED_OFF, DISCONNECTED, CONNECTING, CALIBRATING, ANALYSIS , WARNING, READY, ERROR };
+	enum DroneState { POWERED_OFF, DISCONNECTED, CONNECTING, CALIBRATING, ANALYSIS , TAKING_OFF, FLYING, LANDING, WARNING, READY, ERROR };
 	
 	ScopedPointer<Crazyflie> cf;
 
@@ -64,8 +71,10 @@ public:
 	ControllableContainer controlsCC;
 	Trigger * connectTrigger;
 	Trigger * calibrateTrigger;
+	Trigger * analyzeTrigger;
 	Trigger * takeOffTrigger;
 	Trigger * landTrigger;
+	Trigger * stopTrigger;
 	Trigger * rebootTrigger;
 
 	ControllableContainer statusCC;
@@ -73,7 +82,6 @@ public:
 	FloatParameter * linkQuality;
 	FloatParameter * batteryLevel;
 	BoolParameter * charging;
-	FloatParameter * chargingProgress;
 	BoolParameter * lowBattery;
 	BoolParameter * selfTestProblem;
 	BoolParameter * batteryProblem;
@@ -92,23 +100,37 @@ public:
 	BoolParameter * headlight;
 	BoolParameter * stealthMode;
 
-	//Calibration
-	float calibrationProgress;
-	Vector3D<float> lastRealPos;
-	const float minConvergeDist = .2f;
-	float timeAtStartConverge;
-	const float minConvergeTime = 1.0f;
+	//Analysis and Calib feedfback
+	FloatParameter * calibrationProgress;
+	FloatParameter * analysisProgress;
 
-	//Analysis
-	float analysisProgress;
+	//Packet timing
+	const uint32 pingTime = 300; //ms between pings
+	uint32 lastPingTime;
+	const int maxNoPongCount = 3;
+	int noPongCount;
+
+	//Calibration
+	float timeAtStartCalib;
+	const float calibTimeout = 5.0f;
+	const float minConvergeDist = .005f;
+	const uint32 minConvergeTime = 2000; //ms
+	uint64 timeAtStartConverge;
 
 	//Procedures
-	bool isLaunching;
-	bool isLanding;
 	float timeAtStartTakeOff;
 	float timeAtStartLanding;
+	float landingTime;
 
+	//Physics
+	double lastTime;
+	double deltaTime;
+	Vector3D<float> lastTargetPosition;
+	Vector3D<float> targetSpeed;
+	Vector3D<float> lastSpeed;
+	Vector3D<float> targetAcceleration;
 	
+	//Events
 	void onContainerParameterChangedInternal(Parameter * p) override;
 	void onControllableFeedbackUpdateInternal(ControllableContainer * cc, Controllable *c) override;
 
@@ -121,17 +143,21 @@ public:
 	String consoleBuffer;
 	ScopedPointer<LogBlock<BatteryLog>> batteryLogBlock;
 	ScopedPointer<LogBlock<PosLog>> posLogBlock;
+	ScopedPointer<LogBlock<CalibLog>> calibLog;
 	void batteryLogCallback(uint32_t, BatteryLog * data);
 	void posLogCallback(uint32_t, PosLog * data);
+	void calibLogCallback(uint32_t, CalibLog * data);
 
 	//Helper
 	bool allDecksAreConnected();
+	bool droneHasLogVariable(String group, String name);
 
 	//Thread
 	void run() override;
 
 	void stateUpdated();
 	
+	void setupCF();
 	void ping();
 	void connect();
 	void calibrate();
@@ -141,6 +167,7 @@ public:
 	void updateTakeOff();
 	void updateFlyingPosition();
 	void land();
+	void updateLanding();
 
 	var getJSONData() override;
 	void loadJSONDataInternal(var data) override;
@@ -149,7 +176,7 @@ public:
 	SpinLock paramLock;
 
 	template<class T>
-	bool setParam(String group, String paramID, T value);
+	bool setParam(String group, String paramID, T value, bool force = false);
 
 };
 

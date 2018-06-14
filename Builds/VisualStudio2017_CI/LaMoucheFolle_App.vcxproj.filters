@@ -511,7 +511,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CFSettings.cpp">
+    <ClCompile Include="..\..\Source\CFSettingsUI.cpp">
       <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\RadialMenu.cpp">
@@ -588,6 +588,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\NodeManager.cpp">
       <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFSettings.cpp">
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\CFEngine.cpp">
       <Filter>LaMoucheFolle\Source</Filter>
@@ -2820,7 +2823,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CFSettings.h">
+    <ClInclude Include="..\..\Source\CFSettingsUI.h">
       <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\RadialMenu.h">
@@ -2882,6 +2885,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\NodeManager.h">
       <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFSettings.h">
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CFEngine.h">
       <Filter>LaMoucheFolle\Source</Filter>
@@ -5199,6 +5205,9 @@
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\drone_warning.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\flying.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\health_analysis.png">

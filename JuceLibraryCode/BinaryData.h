@@ -47,6 +47,9 @@ namespace BinaryData
     extern const char*   drone_warning_png;
     const int            drone_warning_pngSize = 14497;
 
+    extern const char*   flying_png;
+    const int            flying_pngSize = 11367;
+
     extern const char*   health_analysis_png;
     const int            health_analysis_pngSize = 11070;
 
@@ -69,7 +72,7 @@ namespace BinaryData
     const int            warning_red_pngSize = 3997;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 20;
+    const int namedResourceListSize = 21;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

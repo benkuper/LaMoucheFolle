@@ -160,7 +160,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CFSettings.cpp"/>
+    <ClCompile Include="..\..\Source\CFSettingsUI.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenu.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenuItem.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenuTarget.cpp"/>
@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\Node.cpp"/>
     <ClCompile Include="..\..\Source\NodeManager.cpp"/>
+    <ClCompile Include="..\..\Source\CFSettings.cpp"/>
     <ClCompile Include="..\..\Source\CFEngine.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
@@ -2235,7 +2236,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CFSettings.h"/>
+    <ClInclude Include="..\..\Source\CFSettingsUI.h"/>
     <ClInclude Include="..\..\Source\RadialMenu.h"/>
     <ClInclude Include="..\..\Source\RadialMenuItem.h"/>
     <ClInclude Include="..\..\Source\RadialMenuTarget.h"/>
@@ -2256,6 +2257,7 @@
     <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
     <ClInclude Include="..\..\Source\Node.h"/>
     <ClInclude Include="..\..\Source\NodeManager.h"/>
+    <ClInclude Include="..\..\Source\CFSettings.h"/>
     <ClInclude Include="..\..\Source\CFEngine.h"/>
     <ClInclude Include="..\..\Source\Main.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
@@ -3030,6 +3032,7 @@
     <None Include="..\..\Resources\drone_poweroff.png"/>
     <None Include="..\..\Resources\drone_poweron.png"/>
     <None Include="..\..\Resources\drone_warning.png"/>
+    <None Include="..\..\Resources\flying.png"/>
     <None Include="..\..\Resources\health_analysis.png"/>
     <None Include="..\..\Resources\icon.png"/>
     <None Include="..\..\Resources\low_battery.png"/>

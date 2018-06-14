@@ -27,11 +27,18 @@ void DroneGridUI::paint(Graphics & g)
 	if (overlayImage.getWidth() > 0) g.drawImage(overlayImage, getLocalBounds().reduced(20).toFloat());
 
 	//Progress
+	Drone::DroneState s = item->state->getValueDataAsEnum<Drone::DroneState>();
 	float progress = 0;
+	switch (s)
+	{
+	case Drone::CALIBRATING: progress = item->calibrationProgress->floatValue(); break;
+	case Drone::ANALYSIS: progress = item->analysisProgress->floatValue(); break;
+	}
+
 	if (progress > 0)
 	{
 		Path p;
-		p.addArc(0, 0, getWidth(), getHeight(), 0, float_Pi * 2 * progress, true);
+		p.addArc(10, 10, getWidth()-20, getHeight()-20, 0, float_Pi * 2 * progress, true);
 
 		g.setColour(Colours::yellow);
 		g.strokePath(p, PathStrokeType(4));
@@ -47,7 +54,7 @@ void DroneGridUI::updateUI()
 
 void DroneGridUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
-	if (c == item->state) updateUI();
+	if (c == item->state || c == item->calibrationProgress || c == item->analysisProgress) updateUI();
 }
 
 
@@ -70,10 +77,13 @@ Image VizImages::getDroneStateImage(Drone * d)
 		return ImageCache::getFromMemory(BinaryData::drone_connecting_png, BinaryData::drone_connecting_pngSize);
 
 	case Drone::READY:
+	case Drone::TAKING_OFF:
+	case Drone::FLYING:
+	case Drone::LANDING:
 		return ImageCache::getFromMemory(BinaryData::drone_ok_png, BinaryData::drone_ok_pngSize);
 
 	case Drone::WARNING:
-		return ImageCache::getFromMemory(BinaryData::warning_png, BinaryData::warning_pngSize);
+		return ImageCache::getFromMemory(BinaryData::drone_warning_png, BinaryData::drone_warning_pngSize);
 
 	case Drone::ERROR:
 		return ImageCache::getFromMemory(BinaryData::drone_error_png, BinaryData::drone_error_pngSize);
@@ -99,10 +109,14 @@ Image VizImages::getDroneOverlayImage(Drone * d)
 		if (d->selfTestProblem->boolValue() || !d->allDecksAreConnected()) return ImageCache::getFromMemory(BinaryData::config_problem_png, BinaryData::config_problem_pngSize);
 		break;
 
-	case Drone::READY:
-		if (d->isLaunching) return ImageCache::getFromMemory(BinaryData::startup_png, BinaryData::startup_pngSize);
-		if (d->isLanding) return ImageCache::getFromMemory(BinaryData::parachute_png, BinaryData::parachute_pngSize);
-		break;
+	case Drone::TAKING_OFF:
+		return ImageCache::getFromMemory(BinaryData::startup_png, BinaryData::startup_pngSize);
+	
+	case Drone::FLYING:
+		return ImageCache::getFromMemory(BinaryData::flying_png, BinaryData::flying_pngSize);
+
+	case Drone::LANDING:
+		return ImageCache::getFromMemory(BinaryData::parachute_png, BinaryData::parachute_pngSize);
 	}
 
 	return Image();

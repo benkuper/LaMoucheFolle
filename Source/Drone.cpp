@@ -22,13 +22,12 @@ Drone::Drone() :
 	wingsCC("Wings"),
 	flightCC("Flight"),
 	lightingCC("Lights"),
+	lastPingTime(0),
 	timeAtStartTakeOff(0),
 	timeAtStartLanding(0),
 	timeAtStartConverge(0),
-	isLaunching(false),
-	isLanding(false),
-	calibrationProgress(0),
-	analysisProgress(0)
+	noPongCount(0),
+	lastTime(0)
 {
 	addChildControllableContainer(&radioCC);
 	autoRadio = radioCC.addBoolParameter("Auto radio", "If enabled, radio will automatically be set depending on the channel : Channel 0-> 9 = radio 0, Channel 10->19 = radio 1...", false);
@@ -44,6 +43,7 @@ Drone::Drone() :
 	calibrateTrigger = controlsCC.addTrigger("Calibrate", "Reset the kalman filter");
 	takeOffTrigger = controlsCC.addTrigger("Take off", "Make the drone take off");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
+	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
 
 	addChildControllableContainer(&flightCC);
@@ -69,7 +69,9 @@ Drone::Drone() :
 	state = statusCC.addEnumParameter("State", "State of the drone");
 	state->addOption("Powered Off", POWERED_OFF)->addOption("Disconnected", DISCONNECTED)->addOption("Connecting", CONNECTING)
 		->addOption("Calibrating", CALIBRATING)->addOption("Analysis", ANALYSIS)
-		->addOption("Warning", WARNING)->addOption("Ready", READY)->addOption("Error", ERROR);
+		->addOption("Warning", WARNING)->addOption("Ready", READY)->addOption("Taking Off",TAKING_OFF)
+		->addOption("Flying",FLYING)->addOption("LANDING",LANDING)->addOption("Error", ERROR);
+
 	linkQuality = statusCC.addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 
 	batteryLevel = statusCC.addFloatParameter("BatteryLevel", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 100);
@@ -80,6 +82,8 @@ Drone::Drone() :
 	batteryProblem = statusCC.addBoolParameter("Battery Problem", "If on, you should replace this battery !", false);
 	for (auto &c : statusCC.controllables) c->setControllableFeedbackOnly(true);
 
+	calibrationProgress = statusCC.addFloatParameter("Calibration Progress", "Progress of calibration", 0, 0, 1);
+	analysisProgress = statusCC.addFloatParameter("Analysis Progress", "Progress of analysis", 0, 0, 1);
 
 	statusCC.addChildControllableContainer(&decksCC);
 	decksCC.addBoolParameter("bcLedRing", "LED-Ring", false);
@@ -110,7 +114,7 @@ Drone::Drone() :
 Drone::~Drone()
 {
 	signalThreadShouldExit();
-	waitForThreadToExit(1000);
+	waitForThreadToExit(2000);
 }
 
 void Drone::onContainerParameterChangedInternal(Parameter * p)
@@ -133,7 +137,6 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 	if (c == state)
 	{
 		stateUpdated();
-
 	}
 
 	DroneState curState = state->getValueDataAsEnum<DroneState>();
@@ -142,7 +145,7 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 	{
 		connectTrigger->setEnabled(curState != POWERED_OFF);
 		takeOffTrigger->setEnabled(curState == READY);
-		landTrigger->setEnabled(curState == READY);
+		landTrigger->setEnabled(curState == FLYING);
 		calibrateTrigger->setEnabled(curState != DISCONNECTED && curState != POWERED_OFF);
 		rebootTrigger->setEnabled(curState != DISCONNECTED && curState != POWERED_OFF);
 
@@ -159,9 +162,12 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 		if (linkQuality->floatValue() == 0 && curState != CONNECTING)
 		{
 			NLOG(niceName, "Lost connection to drone");
-			state->setValue(DISCONNECTED);
+			state->setValueWithData(POWERED_OFF);
 		}
 	}
+
+	if (!enabled->boolValue()) return;
+
 
 	if (c == headlight) setParam("ring", "headlightEnable", headlight->boolValue());
 	else if (c == lightMode) setParam("ring", "effect", (int)lightMode->getValueData());
@@ -177,29 +183,502 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 		if (autoChannel->boolValue()) channel->setValue(rIndex * 10);
 	}
 
+	if (cf == nullptr) return;
+
+	if (c == address) cf->setRadioAddress(address->stringValue());
+	else if (c == channel) cf->setRadioChannel(channel->intValue());
+	else if (c == baudRate) cf->setRadioBaudrate(baudRate->getValueDataAsEnum<Crazyradio::Datarate>());
+
+	else if (c == connectTrigger) state->setValueWithData(CONNECTING);
+	else if (c == takeOffTrigger && c == READY) state->setValueWithData(TAKING_OFF);
+	else if (c == landTrigger) state->setValueWithData(LANDING);
+	else if (c == rebootTrigger)
+	{
+		state->setValueWithData(POWERED_OFF);
+		try
+		{
+			cf->reboot();
+		} catch (std::runtime_error &)
+		{
+			DBG("Timeout on reboot !");
+		}
+	}
+	else if (c == calibrateTrigger) state->setValueWithData(CALIBRATING);
+	else if (c == analyzeTrigger) state->setValueWithData(ANALYSIS);
+	else if (c == stopTrigger)
+	{
+		if (curState == FLYING || curState == TAKING_OFF || curState == LANDING)
+		{
+			state->setValueWithData(READY);
+		}
+		cf->sendStop();
+	}
+ }
+
+
+void Drone::stateUpdated()
+{
+	DroneState s = state->getValueDataAsEnum<DroneState>();
+
+	DBG("Status update : " << state->getValueKey());
+
+	switch (s)
+	{
+
+	case POWERED_OFF:
+		try
+		{
+			if (batteryLogBlock != nullptr) batteryLogBlock->stop();
+			if (posLogBlock != nullptr) posLogBlock->stop();
+		} catch (std::runtime_error &)
+		{
+			DBG("Timeout resetting log blocks");
+		}
+
+		break;
+
+	case DISCONNECTED:
+
+		if (CFSettings::getInstanceWithoutCreating() != nullptr && CFSettings::getInstance()->autoConnect->boolValue()) state->setValueWithData(CONNECTING); 
+		break;
+
+	case CONNECTING:
+		break;
+
+	case CALIBRATING:
+		lightMode->setValueWithKey("Double spinner");
+		if (calibLog != nullptr) calibLog->stop();
+		calibLog = nullptr;
+		break;
+
+	case ANALYSIS:
+		lightMode->setValueWithKey("Battery status");
+		break;
+
+	case READY:
+	{
+		timeAtStartTakeOff = 0;
+		timeAtStartLanding = 0;
+		bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+		lightMode->setValueWithKey("Fade Color");
+		color->setColor(Colours::black);
+		targetPosition->setVector(realPosition->x, zIsVertical?realPosition->y:0, zIsVertical?0:realPosition->z);
+	}
+		break;
+
+	case TAKING_OFF:
+		break;
+
+	case FLYING:
+		timeAtStartTakeOff = 0;
+		timeAtStartLanding = 0;
+		break;
+
+	case LANDING:
+		break;
+
+	case WARNING:
+		lightMode->setValueWithKey("Boat lights");
+		break;
+
+	case ERROR:
+		lightMode->setValueWithKey("Alert");
+		break;
+
+	}
+
+
 }
 
-void Drone::consoleCallback(const char * c)
+
+void Drone::run()
 {
-	consoleBuffer += String(c);
+		for (int i = 0; i < 100; i++)
+		{
+			if (threadShouldExit()) break;
+			sleep(10);
+		}
 
-	if (consoleBuffer.endsWith("\n"))
+		while(!threadShouldExit() && cf == nullptr)
+		{
+		
+			try
+			{
+				setupCF();
+			} catch (std::runtime_error &e)
+			{
+				NLOG(niceName, "Runtime error " << e.what());
+				cf = nullptr;
+				sleep(500);
+			}
+		}
+
+		try
+		{
+
+		while (!threadShouldExit())
+		{
+			bool sendingData = false;
+
+			DroneState s = state->getValueDataAsEnum<DroneState>();
+			switch (s)
+			{
+			case POWERED_OFF:
+				break;
+
+			case DISCONNECTED:
+				break;
+
+			case CONNECTING:
+				connect();
+				break;
+
+			case CALIBRATING:
+				processCalibration();
+				break;
+
+			case ANALYSIS:
+				break;
+
+			case READY:
+				
+				break;
+
+			case TAKING_OFF:
+				updateTakeOff();
+				sendingData = true;
+				break;
+
+			case FLYING:
+				updateFlyingPosition();
+				sendingData = true;
+				break;
+
+			case LANDING:
+				updateLanding();
+				sendingData = true;
+				break;
+
+			case WARNING:
+				break;
+
+			case ERROR:
+				break;
+			}
+
+			if (cf != nullptr && s != POWERED_OFF && s != DISCONNECTED) cf->sendPing();
+			else ping();
+			sleep(sendingData?20:10);
+		}
+
+		//Exit
+		if (batteryLogBlock != nullptr) batteryLogBlock->stop();
+		if (posLogBlock != nullptr) posLogBlock->stop();
+		batteryLogBlock = nullptr;
+		posLogBlock = nullptr;
+		calibLog = nullptr;
+		cf = nullptr;
+
+		state->setValueWithData(DISCONNECTED);
+	} catch (std::runtime_error &e)
 	{
-		if (consoleBuffer.toLowerCase().contains("error") || consoleBuffer.toLowerCase().contains("fail")) NLOGERROR(address->stringValue(), consoleBuffer);
-		else NLOG(address->stringValue(), consoleBuffer);
+		NLOG(niceName,"Runtime error " << e.what());
+	} catch (std::exception &e)
+	{
+		NLOG(niceName, "Exception " << e.what());
+	}
 
-		consoleBuffer.clear();
+}
+
+void Drone::setupCF()
+{
+	cf = nullptr; //delete previous
+	cf = new Crazyflie(targetRadio->intValue(), channel->intValue(), baudRate->getValueDataAsEnum<Crazyradio::Datarate>(), address->stringValue());
+	//Set the callbacks and logs
+	std::function<void(const char *)> consoleF = std::bind(&Drone::consoleCallback, this, std::placeholders::_1);
+	cf->setConsoleCallback(consoleF);
+
+	std::function<void(const crtpPlatformRSSIAck *)> ackF = std::bind(&Drone::emptyAckCallback, this, std::placeholders::_1);
+	cf->setEmptyAckCallback(ackF);
+
+	std::function<void(float)> linkF = std::bind(&Drone::linkQualityCallback, this, std::placeholders::_1);
+	cf->setLinkQualityCallback(linkF);
+}
+
+void Drone::ping()
+{
+	if (cf == nullptr) return;
+
+	if (Time::getApproximateMillisecondCounter() > lastPingTime + pingTime)
+	{
+		lastPingTime = Time::getApproximateMillisecondCounter();
+		
+		bool result = cf->sendPing();
+		
+		DroneState s = state->getValueDataAsEnum<DroneState>();
+		
+		if (result) {
+			noPongCount = 0;
+			if (s == POWERED_OFF && result) state->setValueWithData(DISCONNECTED);
+		} else
+		{
+			noPongCount++;
+			if (noPongCount > maxNoPongCount)
+			if (s == DISCONNECTED && !result) state->setValueWithData(POWERED_OFF);
+		}
+		
 	}
 }
+
+void Drone::connect()
+{
+	NLOG(niceName, "Connecting...");
+	
+	//Reset all parameters
+
+	lowBattery->setValue(false);
+	batteryProblem->setValue(false);
+	selfTestProblem->setValue(false);
+	batteryLevel->setValue(0);
+	charging->setValue(false);
+	targetPosition->setVector(0, 0, 0);
+	realPosition->setVector(0, 0, 0);
+	yaw->setValue(0);
+	linkQuality->setValue(0);
+	lightMode->setValue("Off");
+	color->setColor(Colours::black);
+	headlight->setValue(false);
+
+	Array<WeakReference<Parameter>> deckParams = decksCC.getAllParameters();
+	for (auto & p : deckParams) p->setValue(false);
+	Array<WeakReference<Parameter>> wingsParam = wingsCC.getAllParameters();
+	for (auto & w : wingsParam) w->setValue(false);
+
+	try
+	{ 
+		cf->requestParamToc();
+		bool selfTest = cf->requestParamValue<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
+		
+		int attempt = 0;
+		while (!selfTest && attempt < 6)
+		{
+			sleep(500);
+			DBG("Self test failed, maybe it's booting ? attempt " << attempt << " of 6");
+			selfTest = cf->requestParamValue<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
+			attempt++;
+		}
+
+		selfTestProblem->setValue(!selfTest);
+
+		if (!selfTest)
+		{
+			NLOGERROR(niceName, "Self test failed");
+			state->setValueWithData(WARNING);
+			return;
+		}
+
+		if (batteryLogBlock != nullptr) batteryLogBlock->stop();
+		if (posLogBlock != nullptr) posLogBlock->stop();
+		batteryLogBlock = nullptr;
+		posLogBlock = nullptr;
+
+		cf->logReset();
+		cf->requestLogToc();
+
+		if (droneHasLogVariable("pm", "batteryLevel") && droneHasLogVariable("pm", "lowBattery") && droneHasLogVariable("pm", "state"))
+		{
+			std::function<void(uint32_t, BatteryLog *)> cb = std::bind(&Drone::batteryLogCallback, this, std::placeholders::_1, std::placeholders::_2);
+			batteryLogBlock = new LogBlock<BatteryLog>(cf, { { "pm","batteryLevel" },{ "pm","lowBattery" },{ "pm","state" } }, cb);
+			batteryLogBlock->start(50);
+		} else
+		{
+			NLOGWARNING(niceName, "Drone doesn't have batteryLevel log");
+		}
+		
+
+		std::function<void(uint32_t, PosLog *)> fcb = std::bind(&Drone::posLogCallback, this, std::placeholders::_1, std::placeholders::_2);
+		posLogBlock = new LogBlock<PosLog>(cf, { { "kalman","stateX" },{ "kalman","stateY" },{ "kalman","stateZ" } }, fcb);
+		posLogBlock->start(5); //5 = 20fps
+
+		NLOG(niceName, "Connected");
+
+		if(CFSettings::getInstance()->analyzeAfterConnect->boolValue()) state->setValueWithData(ANALYSIS);
+		else if(CFSettings::getInstance()->calibAfterConnect->boolValue()) state->setValueWithData(CALIBRATING);
+		else state->setValueWithData(READY);
+
+	} catch (std::runtime_error &e)
+	{
+		NLOGERROR(niceName, "Error on drone setup : " << e.what());
+	} catch (std::exception &e)
+	{
+		NLOGERROR(niceName, "Exception on drone setup : " << e.what());
+	}
+}
+
+void Drone::calibrate()
+{
+	
+}
+
+void Drone::processCalibration()
+{
+	if (cf == nullptr) return;
+	if (calibLog != nullptr) return;
+
+	timeAtStartConverge = 0;
+	calibrationProgress->setValue(0);
+
+	std::function<void(uint32_t, CalibLog *)> fcb = std::bind(&Drone::calibLogCallback, this, std::placeholders::_1, std::placeholders::_2);
+	calibLog = new LogBlock<CalibLog>(cf, { { "kalman","varPX" },{ "kalman","varPY" },{ "kalman","varPZ" } }, fcb);
+	calibLog->start(2);
+
+	setParam("kalman", "resetEstimation", 1);
+	sleep(50);
+	setParam("kalman", "resetEstimation", 0);
+}
+
+void Drone::takeOff()
+{
+	if (cf == nullptr) return;
+}
+
+void Drone::updateTakeOff()
+{
+	if (cf == nullptr) return;
+	if (CFSettings::getInstanceWithoutCreating() == nullptr) return;
+
+	if(timeAtStartTakeOff == 0) timeAtStartTakeOff = Time::getMillisecondCounter() / 1000.0f;
+
+
+	float t = Time::getMillisecondCounter() / 1000.0f;
+	float toTime = CFSettings::getInstance()->takeOffTime->floatValue();
+	float relTime = (t - timeAtStartTakeOff) / toTime;
+	float p = CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
+	DBG("Take off " << relTime << " > " << p);
+
+	cf->sendVelocitySetpoint(0, 0, p, 0);
+
+	if (relTime >= 1)
+	{
+		targetPosition->setVector(realPosition->x, realPosition->y, realPosition->z);
+		lastTime = 0;
+		state->setValueWithData(FLYING);
+	}
+}
+
+void Drone::updateFlyingPosition()
+{
+	if (cf == nullptr || !enabled->boolValue()) return;
+	if (CFSettings::getInstanceWithoutCreating() == nullptr) return;
+
+	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+	Vector3D<float> tPos = Vector3D<float>(targetPosition->x, zIsVertical ? targetPosition->y : targetPosition->z, zIsVertical ? targetPosition->z : targetPosition->y);
+
+	if (CFSettings::getInstance()->physicsCC.enabled->boolValue())
+	{
+		double t = Time::getMillisecondCounterHiRes() / 1000.0f;
+
+		if (lastTime == 0)
+		{
+			lastSpeed = Vector3D<float>();
+			lastTargetPosition = Vector3D<float>(tPos.x, tPos.y, tPos.z);
+		}
+
+		if (lastTime > 0)
+		{
+			deltaTime = t - lastTime;
+
+			//targetSpeed = tPos - lastTargetPosition;
+			//targetAcceleration = targetSpeed - lastSpeed;
+
+			float force = CFSettings::getInstance()->physicsCC.forceFactor->floatValue();
+			float frot = CFSettings::getInstance()->physicsCC.frotFactor->floatValue();
+
+			//Spring
+			targetAcceleration = (tPos - lastTargetPosition) * force;
+
+			//General physics
+			targetAcceleration -= Vector3D<float>(lastSpeed.x*frot, lastSpeed.y*frot, lastSpeed.z*frot); //frottement - general
+
+
+			targetSpeed = lastSpeed + targetAcceleration * deltaTime; // speed calculation - general
+			tPos = lastTargetPosition + targetSpeed * deltaTime; // pos calculation - general
+
+			lastTargetPosition = Vector3D<float>(tPos.x, tPos.y, tPos.z);
+			lastSpeed = Vector3D<float>(targetSpeed.x, targetSpeed.y, targetSpeed.z);
+		}
+
+		lastTime = t;
+
+		//DBG("Tpos : " << tPos.x << ", " << tPos.y << ", " << tPos.z);
+	}
+
+	cf->sendPositionSetpoint(tPos.x,tPos.y,tPos.z,yaw->floatValue());
+}
+
+void Drone::land()
+{
+	
+}
+
+void Drone::updateLanding()
+{
+	if (timeAtStartLanding == 0)
+	{
+		float h = CFSettings::getInstance()->zIsVertical->boolValue() ? realPosition->z : realPosition->y;
+		landingTime = jmax<float>(h * 2, 1);
+		timeAtStartLanding = Time::getMillisecondCounter() / 1000.0f;
+	}
+
+	float t = Time::getMillisecondCounter() / 1000.0f;
+	float toTime = CFSettings::getInstance()->takeOffTime->floatValue();
+	cf->sendVelocitySetpoint(0, 0, -.5f, 0);
+	float relTime = (t - timeAtStartLanding) / toTime;
+	if (relTime >= 1) state->setValueWithData(READY);
+}
+
+template<class T>
+bool Drone::setParam(String group, String paramID, T value, bool force)
+{
+	if (cf == nullptr) return false;
+	DroneState s = state->getValueDataAsEnum<DroneState>();
+	if (!force && (s == POWERED_OFF || s == DISCONNECTED || !enabled->boolValue())) return false;
+
+	try
+	{
+		SpinLock::ScopedLockType lock(paramLock);
+
+		const Crazyflie::ParamTocEntry * pte = cf->getParamTocEntry(group.toStdString(), paramID.toStdString());
+		if (pte == nullptr)
+		{
+			NLOGWARNING(niceName, "Param " << group << "." << paramID << " doesn't exist");
+			return false;
+		}
+
+		NLOG(niceName, "Set param : " << group << "." << paramID << " : " << (int)value);
+		cf->setParam(pte->id, value);
+
+	} catch (std::runtime_error &e)
+	{
+		NLOGERROR(niceName, "Error setting param " << group << "." << paramID << " : " << e.what());
+		return false;
+	}
+
+	return true;
+}
+
 
 void Drone::emptyAckCallback(const crtpPlatformRSSIAck * a)
 {
 	//ack
+	//DBG("Empty ack");
+	//if(state->getValueDataAsEnum<DroneState>() == POWERED_OFF) state->setValue(DISCONNECTED);
 }
 
 void Drone::linkQualityCallback(float val)
 {
-	linkQuality->setValue(0);
+	linkQuality->setValue(val);
+	//DBG("Link quality callback");
 }
 
 void Drone::batteryLogCallback(uint32_t, BatteryLog * data)
@@ -211,8 +690,34 @@ void Drone::batteryLogCallback(uint32_t, BatteryLog * data)
 
 void Drone::posLogCallback(uint32_t, PosLog * data)
 {
+	if (CFSettings::getInstanceWithoutCreating() == nullptr) return;
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	realPosition->setVector(data->x, zIsVertical ? data->y : data->z, zIsVertical ? data->z : data->y);
+}
+
+void Drone::calibLogCallback(uint32_t, CalibLog * data)
+{
+	//DBG("Variance " << data->varianceX << ", " << data->varianceY << ", " << data->varianceZ);
+	uint64 t = Time::currentTimeMillis(); 
+	bool stab = data->varianceX < minConvergeDist && data->varianceY < minConvergeDist && data->varianceZ < minConvergeDist;
+	if (stab)
+	{
+		if (timeAtStartConverge == 0) timeAtStartConverge = t;
+		if (t > timeAtStartConverge + minConvergeTime)
+		{
+			NLOG(niceName, "Calibrated");
+			calibLog->stop();
+			calibLog = nullptr;
+			state->setValueWithData(READY);
+		} else
+		{
+			calibrationProgress->setValue((float)((t - timeAtStartConverge)*1.0f / minConvergeTime));
+		}
+	} else
+	{
+		timeAtStartConverge = 0;
+		calibrationProgress->setValue(0);
+	}
 }
 
 bool Drone::allDecksAreConnected()
@@ -228,214 +733,22 @@ bool Drone::allDecksAreConnected()
 	return numDecks == 2;
 }
 
-void Drone::run()
+bool Drone::droneHasLogVariable(String group, String name)
 {
-	try
-	{
-		
-		while (!threadShouldExit())
-		{
-			DroneState s = state->getValueDataAsEnum<DroneState>();
-
-			switch (s)
+	bool found = false;
+	std::for_each(cf->logVariablesBegin(), cf->logVariablesEnd(),
+		[&](const Crazyflie::LogTocEntry& entry) {
+			if (group == String(entry.group) && name == String(entry.name))
 			{
-			case POWERED_OFF:
-				ping();
-				break;
-
-			case DISCONNECTED:
-				break;
-
-			case CONNECTING:
-				break;
-
-			case CALIBRATING:
-				processCalibration();
-				break;
-
-			case ANALYSIS:
-				break;
-
-			case READY:
-				updateFlyingPosition();
-				break;
-
-			case WARNING:
-				break;
-
-			case ERROR:
-				break;
+				found = true;
 			}
-
-
-			sleep(50);
 		}
+	);
 
-		//Exit
-		batteryLogBlock = nullptr;
-		posLogBlock = nullptr;
-		cf = nullptr;
-
-		state->setValueWithData(DISCONNECTED);
-	} catch (std::runtime_error &e)
-	{
-		NLOG(niceName,"Runtime error " << e.what());
-	} catch (std::exception &e)
-	{
-		NLOG(niceName, "Exception " << e.what());
-	}
-
+	return found;
 }
 
-void Drone::stateUpdated()
-{
-	DroneState s = state->getValueDataAsEnum<DroneState>();
-	switch (s)
-	{
-	case DISCONNECTED:
-		break;
 
-	case CONNECTING:
-		connect();
-		break;
-
-	case CALIBRATING:
-		lightMode->setValueWithKey("Battery status");
-		calibrate();
-		break;
-
-	case ANALYSIS:
-		break;
-
-	case READY:
-		color->setColor(Colours::black);
-		lightMode->setValueWithKey("Fade Color");
-		break;
-
-	case WARNING:
-		break;
-
-	case ERROR:
-		break;
-
-	}
-
-	
-}
-
-void Drone::ping()
-{
-	if (cf == nullptr) return;
-	cf->sendPing();
-}
-
-void Drone::connect()
-{
-	NLOG(niceName, "Connecting...");
-
-	cf = nullptr; //delete previous
-	cf = new Crazyflie(targetRadio->intValue(), channel->intValue(), baudRate->getValueDataAsEnum<Crazyradio::Datarate>(), address->stringValue());
-
-	//Reset all parameters
-
-	lowBattery->setValue(false);
-	batteryProblem->setValue(false);
-	selfTestProblem->setValue(false);
-	batteryLevel->setValue(0);
-	charging->setValue(false);
-	chargingProgress->setValue(false);
-	targetPosition->setVector(0, 0, 0);
-	realPosition->setVector(0, 0, 0);
-	yaw->setValue(0);
-	linkQuality->setValue(0);
-	lightMode->setValue("Off");
-	color->setColor(Colours::black);
-	headlight->setValue(false);
-
-	Array<WeakReference<Parameter>> deckParams = decksCC.getAllParameters();
-	for (auto & p : deckParams) p->setValue(false);
-	Array<WeakReference<Parameter>> wingsParam = wingsCC.getAllParameters();
-	for (auto & w : wingsParam) w->setValue(false);
-
-	try
-	{
-		batteryLogBlock = nullptr;
-		posLogBlock = nullptr;
-
-		cf->requestParamToc();
-
-		bool selfTest = cf->requestParamValue<uint8>(cf->getParamTocEntry("system", "selftestPassed")->id);
-
-		selfTestProblem->setValue(!selfTest);
-		if (!selfTest)
-		{
-			NLOGERROR(niceName, "Self test failed");
-			state->setValueWithData(WARNING);
-			return;
-		}
-
-
-		//Set the callbacks and logs
-		std::function<void(const char *)> consoleF = std::bind(&Drone::consoleCallback, this, std::placeholders::_1);
-		cf->setConsoleCallback(consoleF);
-
-		std::function<void(const crtpPlatformRSSIAck *)> ackF = std::bind(&Drone::emptyAckCallback, this, std::placeholders::_1);
-		cf->setEmptyAckCallback(ackF);
-
-		std::function<void(float)> linkF = std::bind(&Drone::linkQualityCallback, this, std::placeholders::_1);
-		cf->setLinkQualityCallback(linkF);
-
-		cf->logReset();
-		cf->requestLogToc();
-
-		std::function<void(uint32_t, BatteryLog *)> cb = std::bind(&Drone::batteryLogCallback, this, std::placeholders::_1, std::placeholders::_2);
-		batteryLogBlock = new LogBlock<BatteryLog>(cf, { {"pm","batteryLevel" }, {"pm","lowBattery"},{ "pm","state" } }, cb);
-		batteryLogBlock->start(30);
-
-		std::function<void(uint32_t, PosLog *)> fcb = std::bind(&Drone::posLogCallback, this, std::placeholders::_1, std::placeholders::_2);
-		posLogBlock = new LogBlock<PosLog>(cf, { { "kalman","stateX" },{ "kalman","stateY" },{ "kalman","stateZ" } }, fcb);
-		posLogBlock->start(20); //20ms = 50fps
-
-		NLOG(niceName, "Connected");
-
-		state->setValueWithData(CALIBRATING);
-
-	} catch (std::runtime_error &e)
-	{
-		NLOGERROR(niceName, "Error on drone setup : " << e.what());
-	} catch (std::exception &e)
-	{
-		NLOGERROR(niceName, "Exception on drone setup : " << e.what());
-	}
-}
-
-void Drone::calibrate()
-{
-	calibrationProgress = 0;
-}
-
-void Drone::processCalibration()
-{
-}
-
-void Drone::takeOff()
-{
-}
-
-void Drone::updateTakeOff()
-{
-}
-
-void Drone::updateFlyingPosition()
-{
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	cf->sendPositionSetpoint(targetPosition->x, zIsVertical ? targetPosition->y : targetPosition->z, zIsVertical ? targetPosition->z : targetPosition->y, yaw->floatValue());
-}
-
-void Drone::land()
-{
-
-}
 
 var Drone::getJSONData()
 {
@@ -449,29 +762,20 @@ void Drone::loadJSONDataInternal(var data)
 	BaseItem::loadJSONDataInternal(data);
 	radioCC.loadJSONData(data.getProperty("radio", var()));
 
-	stopThread(100);
-	startThread();
 }
 
 
-template<class T>
-bool Drone::setParam(String group, String paramID, T value)
+
+void Drone::consoleCallback(const char * c)
 {
-	if (cf == nullptr) return false;
-	try
-	{
-		SpinLock::ScopedLockType lock(paramLock);
+	consoleBuffer += String(c);
 
-		const Crazyflie::ParamTocEntry * pte = cf->getParamTocEntry(group.toStdString(), paramID.toStdString());
-		if (pte == nullptr) return false;
-		//NLOG(niceName, "Set param : " << group << "." << paramID << " : " << (int)value);
-		cf->setParam(pte->id, value);
-
-	} catch (std::runtime_error &e)
+	if (consoleBuffer.endsWith("\n"))
 	{
-		NLOG(address->stringValue(), "Error setting param " << group << "." << paramID << " : " << e.what());
-		return false;
+		if (consoleBuffer.toLowerCase().contains("error") || consoleBuffer.toLowerCase().contains("fail")) NLOGERROR(address->stringValue(), consoleBuffer);
+		else NLOG(address->stringValue(), consoleBuffer);
+
+		consoleBuffer.clear();
 	}
-
-	return true;
 }
+

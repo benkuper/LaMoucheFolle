@@ -68,7 +68,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
-  $(JUCE_OBJDIR)/CFSettings_70cc9c0f.o \
+  $(JUCE_OBJDIR)/CFSettingsUI_b1164e23.o \
   $(JUCE_OBJDIR)/RadialMenu_baba22a7.o \
   $(JUCE_OBJDIR)/RadialMenuItem_1b3af75a.o \
   $(JUCE_OBJDIR)/RadialMenuTarget_1e240258.o \
@@ -94,6 +94,7 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o \
   $(JUCE_OBJDIR)/Node_d45d218b.o \
   $(JUCE_OBJDIR)/NodeManager_42cb902c.o \
+  $(JUCE_OBJDIR)/CFSettings_70cc9c0f.o \
   $(JUCE_OBJDIR)/CFEngine_565f46e.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
   $(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o \
@@ -125,9 +126,9 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : check-pkg-config $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
 
-$(JUCE_OBJDIR)/CFSettings_70cc9c0f.o: ../../Source/CFSettings.cpp
+$(JUCE_OBJDIR)/CFSettingsUI_b1164e23.o: ../../Source/CFSettingsUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFSettings.cpp"
+	@echo "Compiling CFSettingsUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/RadialMenu_baba22a7.o: ../../Source/RadialMenu.cpp
@@ -253,6 +254,11 @@ $(JUCE_OBJDIR)/Node_d45d218b.o: ../../Source/Node.cpp
 $(JUCE_OBJDIR)/NodeManager_42cb902c.o: ../../Source/NodeManager.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling NodeManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFSettings_70cc9c0f.o: ../../Source/CFSettings.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFSettings.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/CFEngine_565f46e.o: ../../Source/CFEngine.cpp
