@@ -38,9 +38,6 @@
       <FILE id="d1wxi9" name="warning_red.png" compile="0" resource="1" file="Resources/warning_red.png"/>
     </GROUP>
     <GROUP id="{3CD3B0F3-7DF3-7A2A-99FB-EBEB655CF279}" name="Source">
-      <FILE id="IGyjqY" name="CFSettingsUI.cpp" compile="1" resource="0"
-            file="Source/CFSettingsUI.cpp"/>
-      <FILE id="B5cW7C" name="CFSettingsUI.h" compile="0" resource="0" file="Source/CFSettingsUI.h"/>
       <GROUP id="{D5B51078-2236-A806-5222-9BD3CD544FD6}" name="RadialMenu">
         <FILE id="PJlSrA" name="RadialMenu.cpp" compile="1" resource="0" file="Source/RadialMenu.cpp"/>
         <FILE id="lXPLjt" name="RadialMenu.h" compile="0" resource="0" file="Source/RadialMenu.h"/>
@@ -125,6 +122,9 @@
         <FILE id="wN00ee" name="NodeManager.cpp" compile="1" resource="0" file="Source/NodeManager.cpp"/>
         <FILE id="fRQWps" name="NodeManager.h" compile="0" resource="0" file="Source/NodeManager.h"/>
       </GROUP>
+      <FILE id="IGyjqY" name="CFSettingsUI.cpp" compile="1" resource="0"
+            file="Source/CFSettingsUI.cpp"/>
+      <FILE id="B5cW7C" name="CFSettingsUI.h" compile="0" resource="0" file="Source/CFSettingsUI.h"/>
       <FILE id="mRhVWY" name="CFSettings.cpp" compile="1" resource="0" file="Source/CFSettings.cpp"/>
       <FILE id="zk6yQP" name="CFSettings.h" compile="0" resource="0" file="Source/CFSettings.h"/>
       <FILE id="Tz6prv" name="CFEngine.cpp" compile="1" resource="0" file="Source/CFEngine.cpp"/>

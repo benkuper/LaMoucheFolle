@@ -511,9 +511,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CFSettingsUI.cpp">
-      <Filter>LaMoucheFolle\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\RadialMenu.cpp">
       <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
     </ClCompile>
@@ -588,6 +585,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\NodeManager.cpp">
       <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFSettingsUI.cpp">
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\CFSettings.cpp">
       <Filter>LaMoucheFolle\Source</Filter>
@@ -2823,9 +2823,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CFSettingsUI.h">
-      <Filter>LaMoucheFolle\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\RadialMenu.h">
       <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
     </ClInclude>
@@ -2885,6 +2882,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\NodeManager.h">
       <Filter>LaMoucheFolle\Source\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFSettingsUI.h">
+      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CFSettings.h">
       <Filter>LaMoucheFolle\Source</Filter>

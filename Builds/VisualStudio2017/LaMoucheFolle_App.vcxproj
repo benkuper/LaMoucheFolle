@@ -160,7 +160,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CFSettingsUI.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenu.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenuItem.cpp"/>
     <ClCompile Include="..\..\Source\RadialMenuTarget.cpp"/>
@@ -186,6 +185,7 @@
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\Node.cpp"/>
     <ClCompile Include="..\..\Source\NodeManager.cpp"/>
+    <ClCompile Include="..\..\Source\CFSettingsUI.cpp"/>
     <ClCompile Include="..\..\Source\CFSettings.cpp"/>
     <ClCompile Include="..\..\Source\CFEngine.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
@@ -2236,7 +2236,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CFSettingsUI.h"/>
     <ClInclude Include="..\..\Source\RadialMenu.h"/>
     <ClInclude Include="..\..\Source\RadialMenuItem.h"/>
     <ClInclude Include="..\..\Source\RadialMenuTarget.h"/>
@@ -2257,6 +2256,7 @@
     <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
     <ClInclude Include="..\..\Source\Node.h"/>
     <ClInclude Include="..\..\Source\NodeManager.h"/>
+    <ClInclude Include="..\..\Source\CFSettingsUI.h"/>
     <ClInclude Include="..\..\Source\CFSettings.h"/>
     <ClInclude Include="..\..\Source\CFEngine.h"/>
     <ClInclude Include="..\..\Source\Main.h"/>

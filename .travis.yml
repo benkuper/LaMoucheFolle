@@ -21,7 +21,7 @@ after_success:
     ls
     zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
     curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/download/lamouchefolle/
-  fi
+  fi 
 language: cpp
 git:
   depth: 1
