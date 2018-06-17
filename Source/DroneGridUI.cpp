@@ -43,6 +43,14 @@ void DroneGridUI::paint(Graphics & g)
 		g.setColour(Colours::yellow);
 		g.strokePath(p, PathStrokeType(4));
 	}
+
+	Rectangle<float> tr = getLocalBounds().reduced(20,0).withHeight(14).toFloat();
+	g.setColour(BG_COLOR.brighter().withAlpha(.6f));
+	g.fillRoundedRectangle(tr, 4);
+	g.setColour(BG_COLOR.brighter(.3f).withAlpha(.6f));
+	g.drawRoundedRectangle(tr, 4,1);
+	g.setColour(TEXT_COLOR);
+	g.drawFittedText(item->niceName, tr.toNearestInt(), Justification::centred, 1);
 }
 
 void DroneGridUI::updateUI()
@@ -55,6 +63,11 @@ void DroneGridUI::updateUI()
 void DroneGridUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
 	if (c == item->state || c == item->calibrationProgress || c == item->analysisProgress) updateUI();
+}
+
+void DroneGridUI::containerChildAddressChangedAsync(ControllableContainer *)
+{
+	repaint();
 }
 
 

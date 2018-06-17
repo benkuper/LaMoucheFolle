@@ -15,6 +15,7 @@
 Drone::Drone() :
 	BaseItem("Drone"),
 	Thread("DroneThread"),
+	cf(nullptr),
 	radioCC("Radio"),
 	controlsCC("Controls"),
 	statusCC("Status"),
@@ -32,8 +33,8 @@ Drone::Drone() :
 	addChildControllableContainer(&radioCC);
 	autoRadio = radioCC.addBoolParameter("Auto radio", "If enabled, radio will automatically be set depending on the channel : Channel 0-> 9 = radio 0, Channel 10->19 = radio 1...", false);
 	autoChannel = radioCC.addBoolParameter("Auto channel", "If enabled, the last byte of the address will be used to automatically set the drone channel : 00->0F = Channel 0, 10->1F = Channel 10, 20->2F = Channel 20...",false);
-	targetRadio = radioCC.addIntParameter("Radio", "The USB Crazyradio to use to connect to the drone", 0, 0, 100);
-	channel = radioCC.addIntParameter("Channel", "The Channel set up in the drone", 0, 0, 125);
+	targetRadio = radioCC.addIntParameter("Radio", "The USB Crazyradio to use to connect to the drone", 0, 0, 16);
+	channel = radioCC.addIntParameter("Channel", "The Channel set up in the drone", 80, 0, 125);
 	baudRate = radioCC.addEnumParameter("Baud Rate", "The baudrate to use to connect to the drone");
 	baudRate->addOption("2M", Crazyradio::Datarate_2MPS)->addOption("250K", Crazyradio::Datarate_250KPS)->addOption("1M", Crazyradio::Datarate_1MPS);
 	address = radioCC.addStringParameter("Address", "Address of the drone, without the 0x", "E7E7E7E7E7");
@@ -47,9 +48,20 @@ Drone::Drone() :
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
 
 	addChildControllableContainer(&flightCC);
-	realPosition = flightCC.addPoint3DParameter("Real Position", "Real Position feedback from the drone");
-	targetPosition = flightCC.addPoint3DParameter("Target", "Target Position for the drone");
+	desiredPosition = flightCC.addPoint3DParameter("Desired Position", "The desired position for the drone. This is the one you setup");
+	desiredSpeed = flightCC.addPoint3DParameter("Desired Speed", "The desired speed for the drone. This is the one you setup");
+	desiredAcceleration = flightCC.addPoint3DParameter("Desired Acceleration", "The desired acceleration for the drone. This is the one you setup");
+
+	targetPosition = flightCC.addPoint3DParameter("Target Position", "Computed target position for the drone depending on desired parameters and the physics engine. This is the one sent to the drone");
+	targetSpeed = flightCC.addPoint3DParameter("Target Speed", "Computed target position for the drone depending on desired parameters and the physics engine. This is the one sent to the drone");
+	targetAcceleration = flightCC.addPoint3DParameter("Target Acceleration", "Computed target position for the drone depending on desired parameters and the physics engine.This is the one sent to the drone");
+
+	targetPosition->isEditable = false;
+	targetSpeed->isEditable = false;
+	targetAcceleration->isEditable = false;
+
 	yaw = flightCC.addFloatParameter("Yaw", "The target horizontal rotation of the drone, 0 is aligned to X+", 0, 0, 360);
+	realPosition = flightCC.addPoint3DParameter("Real Position", "Real Position feedback from the drone");
 
 	addChildControllableContainer(&lightingCC);
 	lightMode = lightingCC.addEnumParameter("LightMode", "Led Preset");
@@ -128,6 +140,8 @@ void Drone::onContainerParameterChangedInternal(Parameter * p)
 		{
 			signalThreadShouldExit();
 			waitForThreadToExit(1000);
+
+			state->setValue(POWERED_OFF);
 		}
 	}
 }
@@ -189,10 +203,10 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 	else if (c == channel) cf->setRadioChannel(channel->intValue());
 	else if (c == baudRate) cf->setRadioBaudrate(baudRate->getValueDataAsEnum<Crazyradio::Datarate>());
 
-	else if (c == connectTrigger) state->setValueWithData(CONNECTING);
-	else if (c == takeOffTrigger && c == READY) state->setValueWithData(TAKING_OFF);
-	else if (c == landTrigger) state->setValueWithData(LANDING);
-	else if (c == rebootTrigger)
+	else if (c == connectTrigger && curState != POWERED_OFF) state->setValueWithData(CONNECTING);
+	else if (c == takeOffTrigger && curState == READY) state->setValueWithData(TAKING_OFF);
+	else if (c == landTrigger && curState == FLYING) state->setValueWithData(LANDING);
+	else if (c == rebootTrigger && curState != FLYING)
 	{
 		state->setValueWithData(POWERED_OFF);
 		try
@@ -203,18 +217,22 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, Con
 			DBG("Timeout on reboot !");
 		}
 	}
-	else if (c == calibrateTrigger) state->setValueWithData(CALIBRATING);
-	else if (c == analyzeTrigger) state->setValueWithData(ANALYSIS);
-	else if (c == stopTrigger)
+	
+	if (curState == READY)
 	{
-		if (curState == FLYING || curState == TAKING_OFF || curState == LANDING)
+		if (c == calibrateTrigger) state->setValueWithData(CALIBRATING);
+		if (c == analyzeTrigger) state->setValueWithData(ANALYSIS);
+	}
+
+	if (curState == FLYING || curState == TAKING_OFF || curState == LANDING)
+	{
+		if (c == stopTrigger)
 		{
+			cf->sendStop();
 			state->setValueWithData(READY);
 		}
-		cf->sendStop();
 	}
  }
-
 
 void Drone::stateUpdated()
 {
@@ -262,7 +280,9 @@ void Drone::stateUpdated()
 		bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 		lightMode->setValueWithKey("Fade Color");
 		color->setColor(Colours::black);
-		targetPosition->setVector(realPosition->x, zIsVertical?realPosition->y:0, zIsVertical?0:realPosition->z);
+
+		desiredPosition->setVector(realPosition->x, zIsVertical ? realPosition->y : 0, zIsVertical ? 0 : realPosition->z);
+		targetPosition->setVector(desiredPosition->getVector());
 	}
 		break;
 
@@ -293,15 +313,8 @@ void Drone::stateUpdated()
 
 void Drone::run()
 {
-		for (int i = 0; i < 100; i++)
-		{
-			if (threadShouldExit()) break;
-			sleep(10);
-		}
-
 		while(!threadShouldExit() && cf == nullptr)
 		{
-		
 			try
 			{
 				setupCF();
@@ -485,10 +498,10 @@ void Drone::connect()
 		cf->logReset();
 		cf->requestLogToc();
 
-		if (droneHasLogVariable("pm", "batteryLevel") && droneHasLogVariable("pm", "lowBattery") && droneHasLogVariable("pm", "state"))
+		if (droneHasLogVariable("pm", "batteryLevel") && /*droneHasLogVariable("pm", "lowBattery") &&*/ droneHasLogVariable("pm", "state"))
 		{
 			std::function<void(uint32_t, BatteryLog *)> cb = std::bind(&Drone::batteryLogCallback, this, std::placeholders::_1, std::placeholders::_2);
-			batteryLogBlock = new LogBlock<BatteryLog>(cf, { { "pm","batteryLevel" },{ "pm","lowBattery" },{ "pm","state" } }, cb);
+			batteryLogBlock = new LogBlock<BatteryLog>(cf, { { "pm","batteryLevel" }/*,{ "pm","lowBattery" }*/,{ "pm","state" } }, cb);
 			batteryLogBlock->start(50);
 		} else
 		{
@@ -572,7 +585,7 @@ void Drone::updateFlyingPosition()
 	if (CFSettings::getInstanceWithoutCreating() == nullptr) return;
 
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	Vector3D<float> tPos = Vector3D<float>(targetPosition->x, zIsVertical ? targetPosition->y : targetPosition->z, zIsVertical ? targetPosition->z : targetPosition->y);
+	Vector3D<float> tPos = Vector3D<float>(desiredPosition->x, zIsVertical ? desiredPosition->y : desiredPosition->z, zIsVertical ? desiredPosition->z : desiredPosition->y);
 
 	if (CFSettings::getInstance()->physicsCC.enabled->boolValue())
 	{
@@ -595,17 +608,18 @@ void Drone::updateFlyingPosition()
 			float frot = CFSettings::getInstance()->physicsCC.frotFactor->floatValue();
 
 			//Spring
-			targetAcceleration = (tPos - lastTargetPosition) * force;
+			Vector3D<float> acc = (tPos - lastTargetPosition) * force;
 
 			//General physics
-			targetAcceleration -= Vector3D<float>(lastSpeed.x*frot, lastSpeed.y*frot, lastSpeed.z*frot); //frottement - general
+			acc -= Vector3D<float>(lastSpeed.x*frot, lastSpeed.y*frot, lastSpeed.z*frot); //frottement - general
 
-
-			targetSpeed = lastSpeed + targetAcceleration * deltaTime; // speed calculation - general
-			tPos = lastTargetPosition + targetSpeed * deltaTime; // pos calculation - general
+			Vector3D<float> tSpeed = lastSpeed + acc * deltaTime; // speed calculation - general
+			targetPosition->setVector(lastTargetPosition + tSpeed * deltaTime); // pos calculation - general
+			targetSpeed->setVector(tSpeed);
+			targetAcceleration->setVector(acc);
 
 			lastTargetPosition = Vector3D<float>(tPos.x, tPos.y, tPos.z);
-			lastSpeed = Vector3D<float>(targetSpeed.x, targetSpeed.y, targetSpeed.z);
+			lastSpeed = Vector3D<float>(tSpeed.x, tSpeed.y, tSpeed.z);
 		}
 
 		lastTime = t;
@@ -678,13 +692,13 @@ void Drone::emptyAckCallback(const crtpPlatformRSSIAck * a)
 void Drone::linkQualityCallback(float val)
 {
 	linkQuality->setValue(val);
-	//DBG("Link quality callback");
+	DBG("Link quality callback");
 }
 
 void Drone::batteryLogCallback(uint32_t, BatteryLog * data)
 {
 	batteryLevel->setValue(data->battery);
-	lowBattery->setValue(data->lowBattery);
+	//lowBattery->setValue(data->lowBattery);
 	charging->setValue(data->charging > 0);
 }
 
@@ -699,7 +713,7 @@ void Drone::calibLogCallback(uint32_t, CalibLog * data)
 {
 	//DBG("Variance " << data->varianceX << ", " << data->varianceY << ", " << data->varianceZ);
 	uint64 t = Time::currentTimeMillis(); 
-	bool stab = data->varianceX < minConvergeDist && data->varianceY < minConvergeDist && data->varianceZ < minConvergeDist;
+	bool stab = /*data->varianceX > 0 && data->varianceY > 0 && data->varianceZ > 0 &&*/ data->varianceX < minConvergeDist && data->varianceY < minConvergeDist && data->varianceZ < minConvergeDist;
 	if (stab)
 	{
 		if (timeAtStartConverge == 0) timeAtStartConverge = t;
@@ -761,7 +775,6 @@ void Drone::loadJSONDataInternal(var data)
 {
 	BaseItem::loadJSONDataInternal(data);
 	radioCC.loadJSONData(data.getProperty("radio", var()));
-
 }
 
 

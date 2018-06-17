@@ -261,7 +261,7 @@ void PhysicsCCUI::generateJerk()
 {
 
 	float jerkMax = pcc->maxJerk->floatValue();
-	float jerkFactor = pcc->jerkFactor->floatValue();
+	//float jerkFactor = pcc->jerkFactor->floatValue();
 	float accMax = pcc->maxAcceleration->floatValue();
 	float sMax = pcc->maxSpeed->floatValue();
 

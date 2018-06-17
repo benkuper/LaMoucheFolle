@@ -51,10 +51,7 @@ void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, C
 	if (d != nullptr)
 	{
 		//if(c != d->realPosition && c != d->inTrigger && c != d->outTrigger) LOG("Feedback : " << c->shortName);
-		if (c == d->realPosition || c == d->batteryLevel || c == d->lowBattery || c == d->charging || c == d->state || c == d->headlight || c == d->color || c == d->lightMode)
-		{
-			sendDroneFeedback(d, c);
-		}
+		sendDroneFeedback(d, c);
 		return;
 	}
 

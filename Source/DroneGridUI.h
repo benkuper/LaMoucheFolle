@@ -28,6 +28,7 @@ public:
 	void updateUI();
 
 	void controllableFeedbackUpdateInternal(Controllable * c) override;
+	void containerChildAddressChangedAsync(ControllableContainer *) override;
 };
 
 class VizImages

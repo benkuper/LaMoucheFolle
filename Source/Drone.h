@@ -22,8 +22,8 @@
 
 struct BatteryLog
 {
-	float battery;
-	uint8 lowBattery;
+	uint8 battery;
+	//uint8 lowBattery;
 	uint8 charging;
 } __attribute__((packed));
 
@@ -89,9 +89,15 @@ public:
 	ControllableContainer wingsCC;
 
 	ControllableContainer flightCC;
-	Point3DParameter * realPosition;
+	Point3DParameter * desiredPosition;
+	Point3DParameter * desiredSpeed;
+	Point3DParameter * desiredAcceleration;
 	Point3DParameter * targetPosition;
+	Point3DParameter * targetSpeed;
+	Point3DParameter * targetAcceleration;
 	FloatParameter * yaw;
+	Point3DParameter * realPosition;
+
 
 	ControllableContainer lightingCC;
 	EnumParameter * lightMode;
@@ -125,10 +131,9 @@ public:
 	//Physics
 	double lastTime;
 	double deltaTime;
+
 	Vector3D<float> lastTargetPosition;
-	Vector3D<float> targetSpeed;
 	Vector3D<float> lastSpeed;
-	Vector3D<float> targetAcceleration;
 	
 	//Events
 	void onContainerParameterChangedInternal(Parameter * p) override;
