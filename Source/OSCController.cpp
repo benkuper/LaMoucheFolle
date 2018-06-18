@@ -22,7 +22,7 @@ OSCController::OSCController(var params) :
 	localPort->isTargettable = false;
 
 	isConnected = addBoolParameter("Is Connected", "Is the receiver bound the the local port", false);
-	isConnected->isEditable = false;
+	isConnected->isControllableFeedbackOnly = true;
 	isConnected->hideInOutliner = true;
 	isConnected->isTargettable = false;
 	isConnected->isSavable = false;
@@ -62,7 +62,7 @@ void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
 		}
 		else
 		{
-			if (p->type == Controllable::ENUM) m.addArgument(varToArgument(((EnumParameter*)p)->getValueData()));
+			if (p->type == Controllable::ENUM) m.addArgument(varToArgument((int)((EnumParameter*)p)->getValueData()));
 			else m.addArgument(varToArgument(p->value));
 		}
 		sendOSC(m);
@@ -116,13 +116,16 @@ void OSCController::sendDroneSetup(const String & droneName)
 		return;
 	}
 
-	sendDroneFeedback(d, d->state); 
+	sendDroneFeedback(d, d->enabled);
+	sendDroneFeedback(d, d->state);
+	sendDroneFeedback(d, d->desiredPosition);
+	sendDroneFeedback(d, d->targetPosition);
 	sendDroneFeedback(d, d->realPosition);
-	//sendDroneFeedback(d, d->lowBattery);
-	//sendDroneFeedback(d, d->charging);
+	sendDroneFeedback(d, d->lowBattery);
+	sendDroneFeedback(d, d->charging);
 	sendDroneFeedback(d, d->lightMode);
+	sendDroneFeedback(d, d->fadeTime);
 	sendDroneFeedback(d, d->color); //no support for automatic color for now
-	
 }
 
 void OSCController::sendNodeSetup(const String &nodeName)
@@ -152,19 +155,35 @@ void OSCController::processMessage(const OSCMessage & msg)
 	StringArray tokens;
 	tokens.addTokens(msg.getAddressPattern().toString(), "/", "\"");
 	
-	
 
 	if (tokens[1] == "setup") sendFullSetup();
 	else if (tokens[1].contains("drone"))
 	{
+		if (tokens.size() < 2)
+		{
+			LOGWARNING("Address incomplete : " << msg.getAddressPattern().toString());
+			return;
+		}
+
+
+
 		String droneName = tokens[1].substring(6);
 		if(tokens[2] == "setup") sendDroneSetup(droneName);
 		else
 		{
 			
 			Drone * d = DroneManager::getInstance()->getItemWithName(droneName); 
-			Controllable * c = d->getControllableByName(tokens[2]);
-			//DBG("Find controllable : " << tokens[2] << " / " << (int)( c != nullptr));
+			if (d == nullptr)
+			{
+				LOGWARNING("Could not find drone " << droneName << "( address : " << msg.getAddressPattern().toString() << ")");
+				return;
+			}
+
+			String s = "/"+tokens[2];
+			for (int i = 3; i < tokens.size(); i++) s += "/"+tokens[i];
+			Controllable * c = d->getControllableForAddress(s,true);
+
+			DBG("Find controllable : " << s << " > " << (int)( c != nullptr));
 			
 			if (c != nullptr)
 			{

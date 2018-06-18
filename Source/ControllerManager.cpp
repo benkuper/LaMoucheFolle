@@ -47,12 +47,20 @@ void ControllerManager::sendNodeFeedback(Node * n, Controllable * c)
 
 void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c)
 {
- 	Drone * d = dynamic_cast<Drone *>(c->parentContainer);
+	if (dynamic_cast<Controller *>(c->parentContainer))
+	{
+		return;
+	}
+
+	Drone * d = c->findParentAs<Drone>();
 	if (d != nullptr)
 	{
 		//if(c != d->realPosition && c != d->inTrigger && c != d->outTrigger) LOG("Feedback : " << c->shortName);
 		sendDroneFeedback(d, c);
 		return;
+	} else
+	{
+		DBG("Not found for " << c->getControlAddress());
 	}
 
 	Node * n = dynamic_cast<Node *>(c->parentContainer);

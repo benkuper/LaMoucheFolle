@@ -4689,6 +4689,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_opengl\juce_opengl.h">
       <Filter>JUCE Modules\juce_opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\app\CrashHandler.h">
+      <Filter>JUCE Modules\juce_organicui\app</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\app\OrganicApplication.h">
       <Filter>JUCE Modules\juce_organicui\app</Filter>
     </ClInclude>
@@ -5131,9 +5134,6 @@
       <Filter>JUCE Modules\juce_video\capture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_android_CameraDevice.h">
-      <Filter>JUCE Modules\juce_video\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_android_Video.h">
       <Filter>JUCE Modules\juce_video\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_video\native\juce_ios_CameraDevice.h">
