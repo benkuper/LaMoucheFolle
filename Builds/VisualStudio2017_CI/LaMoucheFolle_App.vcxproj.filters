@@ -20,6 +20,9 @@
     <Filter Include="LaMoucheFolle\Source\Controller">
       <UniqueIdentifier>{0827AADF-B6E5-2A73-7751-AEF88B69FA9A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LaMoucheFolle\Source\Drone\Radio">
+      <UniqueIdentifier>{2871D274-CD54-6E06-7A37-1E08094D9847}</UniqueIdentifier>
+    </Filter>
     <Filter Include="LaMoucheFolle\Source\Drone\lib">
       <UniqueIdentifier>{65F0665A-7C6E-C6D1-7CCD-3D2B2DF7C56C}</UniqueIdentifier>
     </Filter>
@@ -538,13 +541,34 @@
     <ClCompile Include="..\..\Source\ControllerManager.cpp">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CFPacket.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFLog.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFParam.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFCommand.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFDroneManager.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFDrone.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Radio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFRadioManager.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Radio</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp">
@@ -552,6 +576,9 @@
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp">
       <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CFDroneManagerUI.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DroneGridUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
@@ -2849,6 +2876,30 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\ControllerManager.h">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFPacket.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFLog.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFParam.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFCommand.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFDroneManager.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFDrone.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFRadioManager.h">
+      <Filter>LaMoucheFolle\Source\Drone\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CFDroneManagerUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DroneGridUI.h">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>

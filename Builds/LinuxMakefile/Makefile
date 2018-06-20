@@ -77,11 +77,19 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/OSCController_303f61dc.o \
   $(JUCE_OBJDIR)/Controller_2961cb25.o \
   $(JUCE_OBJDIR)/ControllerManager_255bc552.o \
+  $(JUCE_OBJDIR)/CFPacket_b8d3b3b4.o \
+  $(JUCE_OBJDIR)/CFLog_d3cbf6e2.o \
+  $(JUCE_OBJDIR)/CFParam_50c5896b.o \
+  $(JUCE_OBJDIR)/CFCommand_ed833ae9.o \
+  $(JUCE_OBJDIR)/CFDroneManager_9db500e1.o \
+  $(JUCE_OBJDIR)/CFDrone_ba8fe276.o \
+  $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
+  $(JUCE_OBJDIR)/CFRadioManager_ebf6c01e.o \
   $(JUCE_OBJDIR)/Crazyflie_54967be1.o \
   $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o \
-  $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
   $(JUCE_OBJDIR)/crtp_66d3a667.o \
   $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o \
+  $(JUCE_OBJDIR)/CFDroneManagerUI_4578c675.o \
   $(JUCE_OBJDIR)/DroneGridUI_e48746f3.o \
   $(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o \
   $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o \
@@ -171,6 +179,46 @@ $(JUCE_OBJDIR)/ControllerManager_255bc552.o: ../../Source/ControllerManager.cpp
 	@echo "Compiling ControllerManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/CFPacket_b8d3b3b4.o: ../../Source/CFPacket.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFPacket.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFLog_d3cbf6e2.o: ../../Source/CFLog.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFLog.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFParam_50c5896b.o: ../../Source/CFParam.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFParam.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFCommand_ed833ae9.o: ../../Source/CFCommand.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFCommand.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFDroneManager_9db500e1.o: ../../Source/CFDroneManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFDroneManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFDrone_ba8fe276.o: ../../Source/CFDrone.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFDrone.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Crazyradio_bc9130a6.o: ../../External/crazyflie_cpp/src/Crazyradio.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Crazyradio.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFRadioManager_ebf6c01e.o: ../../Source/CFRadioManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFRadioManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/Crazyflie_54967be1.o: ../../External/crazyflie_cpp/src/Crazyflie.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Crazyflie.cpp"
@@ -181,11 +229,6 @@ $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o: ../../External/crazyflie_cpp/src/Crazyfl
 	@echo "Compiling CrazyflieUSB.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/Crazyradio_bc9130a6.o: ../../External/crazyflie_cpp/src/Crazyradio.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Crazyradio.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/crtp_66d3a667.o: ../../External/crazyflie_cpp/src/crtp.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling crtp.cpp"
@@ -194,6 +237,11 @@ $(JUCE_OBJDIR)/crtp_66d3a667.o: ../../External/crazyflie_cpp/src/crtp.cpp
 $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o: ../../External/crazyflie_cpp/src/USBDevice.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling USBDevice.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFDroneManagerUI_4578c675.o: ../../Source/CFDroneManagerUI.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFDroneManagerUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/DroneGridUI_e48746f3.o: ../../Source/DroneGridUI.cpp

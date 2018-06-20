@@ -79,15 +79,39 @@
               file="Source/ControllerManager.h"/>
       </GROUP>
       <GROUP id="{75C9A9BA-C218-9773-C3F8-D548D3A71D6A}" name="Drone">
+        <FILE id="voMEFR" name="CFPacket.cpp" compile="1" resource="0" file="Source/CFPacket.cpp"/>
+        <FILE id="T5nCjR" name="CFPacket.h" compile="0" resource="0" file="Source/CFPacket.h"/>
+        <FILE id="ZrfVS9" name="CFLog.cpp" compile="1" resource="0" file="Source/CFLog.cpp"/>
+        <FILE id="LWIoK2" name="CFLog.h" compile="0" resource="0" file="Source/CFLog.h"/>
+        <FILE id="dNyrPJ" name="CFParam.cpp" compile="1" resource="0" file="Source/CFParam.cpp"/>
+        <FILE id="B8Kyv7" name="CFParam.h" compile="0" resource="0" file="Source/CFParam.h"/>
+        <FILE id="NjaOeZ" name="CFCommand.cpp" compile="1" resource="0" file="Source/CFCommand.cpp"/>
+        <FILE id="SuWhHG" name="CFCommand.h" compile="0" resource="0" file="Source/CFCommand.h"/>
+        <FILE id="fyUhbs" name="CFDroneManager.cpp" compile="1" resource="0"
+              file="Source/CFDroneManager.cpp"/>
+        <FILE id="Flv6iL" name="CFDroneManager.h" compile="0" resource="0"
+              file="Source/CFDroneManager.h"/>
+        <FILE id="v1WClu" name="CFDrone.cpp" compile="1" resource="0" file="Source/CFDrone.cpp"/>
+        <FILE id="reTW7S" name="CFDrone.h" compile="0" resource="0" file="Source/CFDrone.h"/>
+        <GROUP id="{F31E5103-CB6C-1971-7AFC-CAC042C7CB31}" name="Radio">
+          <FILE id="AMfNIQ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
+          <FILE id="AJZRuv" name="CFRadioManager.cpp" compile="1" resource="0"
+                file="Source/CFRadioManager.cpp"/>
+          <FILE id="k4Rbdz" name="CFRadioManager.h" compile="0" resource="0"
+                file="Source/CFRadioManager.h"/>
+        </GROUP>
         <GROUP id="{77275532-ADD8-8C02-BA57-05DEE9880E94}" name="lib">
           <FILE id="b01uYW" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
           <FILE id="Q9WwVQ" name="CrazyflieUSB.cpp" compile="1" resource="0"
                 file="External/crazyflie_cpp/src/CrazyflieUSB.cpp"/>
-          <FILE id="AMfNIQ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
           <FILE id="BA69Mr" name="crtp.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/crtp.cpp"/>
           <FILE id="hkRkiz" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
         </GROUP>
         <GROUP id="{C84648B2-96C6-5450-6DEB-C0930E840EA9}" name="ui">
+          <FILE id="r6Dj5v" name="CFDroneManagerUI.cpp" compile="1" resource="0"
+                file="Source/CFDroneManagerUI.cpp"/>
+          <FILE id="P6OJyM" name="CFDroneManagerUI.h" compile="0" resource="0"
+                file="Source/CFDroneManagerUI.h"/>
           <FILE id="BDjGkD" name="DroneGridUI.cpp" compile="1" resource="0" file="Source/DroneGridUI.cpp"/>
           <FILE id="lwNTtt" name="DroneGridUI.h" compile="0" resource="0" file="Source/DroneGridUI.h"/>
           <FILE id="gz7AnS" name="DroneManagerGridUI.cpp" compile="1" resource="0"

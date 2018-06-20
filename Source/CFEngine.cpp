@@ -13,13 +13,21 @@ Author:  Martin Hermant
 #include "NodeManager.h"
 #include "CFAssetManager.h"
 
+#include "CFDroneManager.h"
+#include "CFRadioManager.h"
+#include "CFParam.h"
+#include "CFLog.h"
+
 CFEngine::CFEngine() :
 	Engine("LaMoucheFolle", ".mouche")
 {
 	//init here
 	Engine::mainEngine = this;
 	
+	CFRadioManager::getInstance();
+
 	addChildControllableContainer(DroneManager::getInstance());
+	addChildControllableContainer(CFDroneManager::getInstance());
 	addChildControllableContainer(ControllerManager::getInstance());
 	addChildControllableContainer(NodeManager::getInstance());
 }
@@ -29,10 +37,15 @@ CFEngine::~CFEngine()
 	//Application-end cleanup, nothing should be recreated after this
 
 	//delete singletons here
+	CFRadioManager::deleteInstance();
+	CFDroneManager::deleteInstance(); 
+	CFParamToc::deleteInstance();
+
 	ControllerManager::deleteInstance();
 	DroneManager::deleteInstance();
 	NodeManager::deleteInstance();
 	CFAssetManager::deleteInstance();
+	
 }
 
 void CFEngine::clearInternal()
