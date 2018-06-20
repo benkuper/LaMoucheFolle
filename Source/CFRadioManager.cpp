@@ -52,6 +52,14 @@ void CFRadioManager::run()
 
 			int64 curTime = Time::currentTimeMillis();
 
+			if (curTime > lastRadioCheckTime + radioCheckTime)
+			{
+				setupRadios();
+				lastRadioCheckTime = curTime;
+			}
+
+			if (numRadios == 0) continue;
+
 			OwnedArray<CFCommand> currentCommands;
 			for (WeakReference<CFDrone> d : CFDroneManager::getInstance()->items)
 			{
@@ -73,15 +81,6 @@ void CFRadioManager::run()
 				//Release the lock
 				d->commandQueue.getLock().exit();
 			}
-
-
-			if (curTime > lastRadioCheckTime + radioCheckTime)
-			{
-				setupRadios();
-				lastRadioCheckTime = curTime;
-			}
-
-			if (numRadios == 0) continue;
 
 
 			int curRadio = 0;
@@ -107,46 +106,58 @@ void CFRadioManager::run()
 				ITransport::Ack ack;
 
 				int lostCounter = 0;
-
-				while (!ack.ack && lostCounter < 10)
+				bool packetIsValidated = false;
+				while (!packetIsValidated && lostCounter < 3  && !threadShouldExit())
 				{
+
 					try
 					{
 						uint8_t ch = droneId * 2;
 						uint64_t ad = 0xE7E7E7E700 + droneId;
+
 						r->setChannel(ch);
-						r->setAddress(ad);
+						r->setAddress(ad); 
+						
+						if (c->type != CFCommand::PING) {
+							DBG("Send interesting command : " << c->getTypeString());
+						}
+						
+						//modify the packet for safe link
+						if (c->drone->safeLinkActive)
+						{
+							c->data.set(0, c->data[0] & 0xF3 | (int)c->drone->safeLinkUpFlag << 3 | (int)c->drone->safeLinkDownFlag << 2);
+							//DBG("Safe link check : " << c->data[0]);
+						}
+
+						
 						r->sendPacket(c->data.getRawDataPointer(), c->data.size(), ack);
+						
 					} catch (std::runtime_error &e)
 					{
 						LOGWARNING("Error sending packet, maybe radio is disconnected ? Error : " << e.what());
 						setupRadios();
-					}
+						break;
+					} 
 
 					numPacketsSentSinceLastCheck++;
-					processAck(c->drone, ack);
-					if (ack.ack)
+
+					if (c->drone.wasObjectDeleted()) break;
+
+					packetIsValidated = processAck(c->drone, ack);
+					if (packetIsValidated)
 					{
-						
 						numAcksReceivedSinceLastCheck++;
 					} else
 					{
-						if (!c->drone.wasObjectDeleted())
-						{
+						lostCounter++;
+						//DBG("Packet NOT validated, retrying (" << lostCounter << ")");
 
-							c->drone->noAckReceived();
-							// do something more here to avoid being stuck if drone is off ?
-						}
-
-						lostCounter++; 
 						numPacketsLostSinceLastCheck++;
-
 					}
 				}
 
 				maxLostCounter = jmax(lostCounter, maxLostCounter);
 				lostCounter = 0;
-
 
 				curRadio = numRadios == 0 ? 0 : (curRadio + 1) % numRadios;
 			}
@@ -154,8 +165,8 @@ void CFRadioManager::run()
 			if (curTime > lastPacketCheckTime + 1000) //check every second
 			{
 				packetsPerSeconds = numPacketsSentSinceLastCheck;
+
 				float ratio = numAcksReceivedSinceLastCheck * 1.0f / numPacketsSentSinceLastCheck;
-				
 				if(packetsPerSeconds > 0) LOG("Stats : " << packetsPerSeconds << " packets/s, " << maxLostCounter << " max packets retries, ratio : " << ratio);
 				
 				numPacketsSentSinceLastCheck = 0;
@@ -166,6 +177,8 @@ void CFRadioManager::run()
 				lastPacketCheckTime = curTime;
 			}
 
+			//for debug
+			//sleep(100);
 		}
 
 	} catch (std::runtime_error &e)
@@ -196,6 +209,8 @@ void CFRadioManager::setupRadios()
 			{
 				r->setMode(3);
 				DBG("Radio set to CHAD mode");
+
+				
 			} catch (std::runtime_error &e)
 			{
 				DBG("Radio not compatible with CHAD Mode, keeping normal mode : " << e.what());
@@ -207,18 +222,33 @@ void CFRadioManager::setupRadios()
 	}
 }
 
-void CFRadioManager::processAck(WeakReference<CFDrone> drone, ITransport::Ack &ack)
+bool CFRadioManager::processAck(WeakReference<CFDrone> drone, ITransport::Ack &ack)
 {
-	if (drone.wasObjectDeleted())
+	if (drone.wasObjectDeleted()) return false;
+		
+	if (!ack.ack)
 	{
-		DBG("Drone was deleted !");
-		return;
+		drone->noAckReceived();
+		return false;
 	}
 
-	if (!ack.ack) drone->noAckReceived();
-	else
+	if (drone->safeLinkActive)
 	{
-		drone->genericPacketReceived(CFPacket(drone, ack));
-	}
+		drone->safeLinkUpFlag = !drone->safeLinkUpFlag;
 
+		if ((ack.data[0] & 0x04) != (drone->safeLinkDownFlag << 2))
+		{
+			return false;
+		} else
+		{
+			//DBG("Safe link check passed !");
+			drone->safeLinkDownFlag = !drone->safeLinkDownFlag;
+		}
+	}
+	
+
+	CFPacket packet = CFPacket(drone, ack);
+	drone->packetReceived(CFPacket(drone, ack));
+
+	return true;
 }

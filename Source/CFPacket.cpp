@@ -18,7 +18,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		type = CONSOLE;
 		data = ((crtpConsoleResponse*)ack.data)->text;
 	} else if (crtpLogGetInfoResponse::match(ack)) {
-		// handled in batch system
+		type = LOG_INFO;
 		crtpLogGetInfoResponse * r = (crtpLogGetInfoResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("crc", (int)r->log_crc);
@@ -27,14 +27,14 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("maxPackets", r->log_max_packet);
 
 	} else if (crtpLogGetItemResponse::match(ack)) {
-		// handled in batch system
+		type = LOG_ITEM;
 		crtpLogGetItemResponse * r = (crtpLogGetItemResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("name", r->text);
 		data.getDynamicObject()->setProperty("id", r->type);
 
 	} else if (crtpLogControlResponse::match(ack)) {
-
+		type = LOG_CONTROL;
 		crtpLogControlResponse * r = (crtpLogControlResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("result", r->result);
@@ -42,7 +42,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("byte1", r->requestByte1);
 
 	} else if (crtpLogDataResponse::match(ack)) {
-
+		type = LOG_DATA;
 		crtpLogDataResponse * r = (crtpLogDataResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("blockId", r->blockId);
@@ -56,12 +56,14 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		}
 		*/
 	} else if (crtpParamTocGetInfoResponse::match(ack)) {
+		type = PARAM_TOC_INFO;
 		crtpParamTocGetInfoResponse * r = (crtpParamTocGetInfoResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("crc", (int)r->crc);
 		data.getDynamicObject()->setProperty("size", r->numParam);
 
 	} else if (crtpParamTocGetItemResponse::match(ack)) {
+		type = PARAM_TOC_ITEM;
 		crtpParamTocGetItemResponse * r = (crtpParamTocGetItemResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("group", r->group);
@@ -72,10 +74,12 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("sign", r->sign);
 
 	} else if (crtpMemoryGetNumberResponse::match(ack)) {
+		type = MEMORY_NUMBER;
 		crtpMemoryGetNumberResponse * r = (crtpMemoryGetNumberResponse *)ack.data;
 		data = r->numberOfMemories;
 
 	} else if (crtpMemoryGetInfoResponse::match(ack)) {
+		type = MEMORY_INFO;
 		crtpMemoryGetInfoResponse * r = (crtpMemoryGetInfoResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("address", (int64)r->memAddr);
@@ -83,6 +87,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("type", (int)r->memType);
 
 	} else if (crtpParamValueResponse::match(ack)) {
+		type = PARAM_VALUE;
 		/*
 		crtpParamValueResponse * r = (crtpParamValueResponse *)ack.data;
 		data = new DynamicObject();
@@ -102,14 +107,21 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("sign", r->sign);
 		*/
 	} else if (crtpPlatformRSSIAck::match(ack)) {
-		
+		type = RSSI_ACK;
+		crtpPlatformRSSIAck * r = (crtpPlatformRSSIAck *)ack.data;
+		data = r->rssi;
 		/*
 		crtpPlatformRSSIAck* r = (crtpPlatformRSSIAck*)ack.data;
 		if (m_emptyAckCallback) {
 			m_emptyAckCallback(r);
 		}
 		*/
-	} else {
+	} else if (memcmp(ack.data, Crazyradio::safeLinkPacket, 3) == 0)
+	{
+		type = SAFELINK;
+	} else
+	{
+		type = UNKNOWN;
 		/*
 		crtp* header = (crtp*)result.data;
 		m_logger.warning("Don't know ack: Port: " + std::to_string((int)header->port)

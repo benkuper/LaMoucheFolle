@@ -25,8 +25,18 @@ public:
 	CFParamToc * paramToc;
 	IntParameter * droneId;
 
+	//Radio
+	bool safeLinkActive;
+	bool safeLinkUpFlag;
+	bool safeLinkDownFlag;
+
 	FloatParameter * linkQuality;
+	static const int maxQualityPackets = 100;
+	bool qualityPackets[maxQualityPackets];
+	int qualityPacketIndex;
 	const int zeroQualityTimeout = 1000; //ms after linkQuality has been to 0 to mark as disconnected
+
+	String consoleBuffer;
 
 	//CFLogToc * logToc;
 
@@ -36,7 +46,10 @@ public:
 
 	//Callbacks from CFRadioManager
 	virtual void noAckReceived();
-	virtual void consolePacketReceived(String data);
+	virtual void packetReceived(const CFPacket &packet);
+
+
+	virtual void consolePacketReceived(const String &msg);
 	virtual void rssiAckReceived(uint8_t rssi);
 	virtual void paramTocReceived(CFParamToc * toc);
 	virtual void paramInfoReceived(CFParam * param);
@@ -45,8 +58,10 @@ public:
 	virtual void logTocReceived(CFLogToc * toc) = 0;
 	virtual void logBlockReceived(CFLogBlock * block) = 0;
 	*/
-	virtual void genericPacketReceived(const CFPacket &packet);
 
+	virtual void safeLinkReceived();
+
+	void updateQualityPackets(bool val);
 
 	WeakReference<CFDrone>::Master masterReference;
 };

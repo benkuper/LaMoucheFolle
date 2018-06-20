@@ -14,9 +14,10 @@
 
 CFCommand::CFCommand(CFDrone * drone, Array<uint8> _data, Type type) : 
 	drone(drone), 
+	data(_data),
 	type(type)
 {
-	data.addArray(_data);
+
 }
 
 CFCommand * CFCommand::createPing(CFDrone * d) {
@@ -93,3 +94,9 @@ CFCommand * CFCommand::createRequestParamToc(CFDrone * d)
 	crtpParamTocGetInfoRequest r;
 	return new CFCommand(d, Array<uint8>((uint8 *)&r), SET_PARAM);
 }
+
+CFCommand * CFCommand::createActivateSafeLink(CFDrone * d)
+{
+	return new CFCommand(d, Array<uint8>(Crazyradio::safeLinkPacket), ACTIVATE_SAFELINK);
+}
+
