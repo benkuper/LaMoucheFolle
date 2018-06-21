@@ -11,7 +11,7 @@
 #include "CFSettingsUI.h"
 
 PhysicsCCUI::PhysicsCCUI(PhysicsCC * cc, bool isRoot) :
-	EnablingControllableContainerEditor(cc, isRoot),
+	GenericControllableContainerEditor(cc, isRoot),
 	pcc(cc)
 {
 }
@@ -23,7 +23,7 @@ PhysicsCCUI::~PhysicsCCUI()
 
 void PhysicsCCUI::paintOverChildren(Graphics & g)
 {
-	EnablingControllableContainerEditor::paintOverChildren(g);
+	GenericControllableContainerEditor::paintOverChildren(g);
 
 	g.setColour(BG_COLOR);
 	g.fillRect(simRect);
@@ -67,7 +67,7 @@ void PhysicsCCUI::paintOverChildren(Graphics & g)
 
 void PhysicsCCUI::resizedInternalContent(Rectangle<int>& r)
 {
-	EnablingControllableContainerEditor::resizedInternalContent(r);
+	GenericControllableContainerEditor::resizedInternalContent(r);
 	r.translate(0, 2);
 
 	simRect = r.withHeight(100);

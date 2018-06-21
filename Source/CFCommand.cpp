@@ -21,19 +21,35 @@ CFCommand::CFCommand(CFDrone * drone, Array<uint8> _data, Type type) :
 }
 
 CFCommand * CFCommand::createPing(CFDrone * d) {
-	return new CFCommand(d, Array<uint8>(0xFF), PING);
+	return new CFCommand(d, Array<uint8>((uint8)0xFF), PING);
 }
+CFCommand * CFCommand::createStop(CFDrone * d)
+{
+	crtpStopRequest r;
+	return  new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpStopRequest)), STOP);
+}
+
+CFCommand * CFCommand::createRebootInit(CFDrone * d)
+{
+	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0xFF), REBOOT_INIT);
+}
+
+CFCommand * CFCommand::createRebootFirmware(CFDrone * d)
+{
+	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0xF0, (uint8)0x01), REBOOT_FIRMWARE);
+}
+
 CFCommand * CFCommand::createSetPoint(CFDrone * d, float yaw, float pitch, float roll, float thrust) {
 	crtpSetpointRequest r(roll, pitch, yaw, thrust);
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpSetpointRequest)), SETPOINT);
 }
 CFCommand * CFCommand::createVelocity(CFDrone * d, Vector3D<float> vel, float yaw) {
 	crtpVelocitySetpointRequest r(vel.x, vel.y, vel.z, yaw);
-	return new CFCommand(d, Array<uint8>((uint8 *)&r), VELOCITY);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpVelocitySetpointRequest)), VELOCITY);
 }
 CFCommand * CFCommand::createPosition(CFDrone * d, Vector3D<float> pos, float yaw) {
 	crtpPositionSetpointRequest r(pos.x, pos.y, pos.z, yaw);
-	return new CFCommand(d, Array<uint8>((uint8 *)&r), POSITION);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpPositionSetpointRequest)), POSITION);
 }
 
 CFCommand * CFCommand::createSetParam(CFDrone * d, StringRef name, var value) {
@@ -55,21 +71,22 @@ CFCommand * CFCommand::createSetParam(CFDrone * d, StringRef name, var value) {
 	Array<uint8> data;
 	switch (p->definition.type)
 	{
-	case CFParam::Type::Uint8: { crtpParamWriteRequest<uint8_t> r(p->definition.id, (uint8_t)(int)value); data = Array<uint8>((uint8 *)&r); } break;
+	case CFParam::Type::Uint8: { crtpParamWriteRequest<uint8_t> r(p->definition.id, (uint8_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint8_t>)); } break;
 
-	case CFParam::Type::Int8: { crtpParamWriteRequest<int8_t> r(p->definition.id, (int8_t)(int)value); data = Array<uint8>((uint8 *)&r); }	break;
-	case CFParam::Type::Uint16: { crtpParamWriteRequest<uint16_t> r(p->definition.id, (uint16_t)(int)value); data = Array<uint8>((uint8 *)&r);  }break;
-	case CFParam::Type::Int16: { crtpParamWriteRequest<int16_t> r(p->definition.id, (int16_t)(int)value); data = Array<uint8>((uint8 *)&r);  }break;
-	case CFParam::Type::Uint32: { crtpParamWriteRequest<uint32_t> r(p->definition.id, (uint32_t)(int)value); data = Array<uint8>((uint8 *)&r); }break;
-	case CFParam::Type::Int32: { crtpParamWriteRequest<int32_t> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r);  }break;
-	case CFParam::Type::Float: { crtpParamWriteRequest<float> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r);  }break;
+	case CFParam::Type::Int8: { crtpParamWriteRequest<int8_t> r(p->definition.id, (int8_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int8_t>)); }	break;
+	case CFParam::Type::Uint16: { crtpParamWriteRequest<uint16_t> r(p->definition.id, (uint16_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint16_t>));  }break;
+	case CFParam::Type::Int16: { crtpParamWriteRequest<int16_t> r(p->definition.id, (int16_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int16_t>));  }break;
+	case CFParam::Type::Uint32: { crtpParamWriteRequest<uint32_t> r(p->definition.id, (uint32_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint32_t>)); }break;
+	case CFParam::Type::Int32: { crtpParamWriteRequest<int32_t> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int32_t>));  }break;
+	case CFParam::Type::Float: { crtpParamWriteRequest<float> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r), sizeof(crtpParamWriteRequest<float>);  }break;
 	default: DBG("Type not handled : " << (int)p->definition.type); return nullptr; break;
 	}
 
 	return new CFCommand(d, data, SET_PARAM);
 }
 
-CFCommand * CFCommand::createGetParam(CFDrone * d, StringRef name)
+
+CFCommand * CFCommand::createGetParamValue(CFDrone * d, StringRef name)
 {
 	CFParamToc * toc = d->paramToc;
 	if (toc == nullptr)
@@ -86,17 +103,43 @@ CFCommand * CFCommand::createGetParam(CFDrone * d, StringRef name)
 		return nullptr;
 	}
 	crtpParamReadRequest r(p->definition.id);
-	return new CFCommand(d, Array<uint8>((uint8 *)&r), SET_PARAM);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpParamReadRequest)), GET_PARAM_VALUE);
 }
+
+CFCommand * CFCommand::createGetParamValue(CFDrone * d, int paramId)
+{
+	crtpParamReadRequest r(paramId);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpParamReadRequest)), GET_PARAM_VALUE);
+}
+
+CFCommand * CFCommand::createGetParamInfo(CFDrone * d, int paramId)
+{
+	DBG("Create param getInfo command for id " << paramId);
+	crtpParamTocGetItemRequest r(paramId);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpParamTocGetItemRequest)), GET_PARAM_INFO);
+}
+
 
 CFCommand * CFCommand::createRequestParamToc(CFDrone * d)
 {
 	crtpParamTocGetInfoRequest r;
-	return new CFCommand(d, Array<uint8>((uint8 *)&r), SET_PARAM);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpParamTocGetInfoRequest)), REQUEST_PARAM_TOC);
 }
 
 CFCommand * CFCommand::createActivateSafeLink(CFDrone * d)
 {
 	return new CFCommand(d, Array<uint8>(Crazyradio::safeLinkPacket), ACTIVATE_SAFELINK);
+}
+
+CFCommand * CFCommand::createRequestLogToc(CFDrone * d)
+{
+	crtpLogGetInfoRequest r;
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogGetInfoRequest)), REQUEST_LOG_TOC);
+}
+
+CFCommand * CFCommand::createGetLogItemInfo(CFDrone * d, StringRef name)
+{
+	crtpLogGetItemRequest r(0); // TO REPLACE WITH PROPER LOG ID
+	return new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpLogGetInfoRequest)), GET_LOG_ITEM_INFO);
 }
 

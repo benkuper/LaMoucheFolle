@@ -48,19 +48,25 @@ class CFParamToc
 public:
 	juce_DeclareSingleton(CFParamToc, true)
 
-	CFParamToc(int crc = -1);
+	CFParamToc(int crc = -1, int numParams = -1);
 	~CFParamToc();
 
 	int crc;
+	int numParams;
+
+	bool isInitialized();
+
+	void addParamDef(const String &name, uint8 id, CFParam::Type type);
+
 	OwnedArray<CFParam> params;
 	HashMap<String, CFParam *> paramNamesMap;
 	HashMap<uint8, CFParam *> paramIdsMap;
 
-	var getParamValue(StringRef name);
+	var getParamValue(const String &name);
 	var getParamValue(uint8 id);
-	int getParamIdForName(StringRef name);
+	int getParamIdForName(const String &name);
 	String getParamNameForId(uint8  id) const;
-	CFParam * getParam(StringRef name);
+	CFParam * getParam(const String &name);
 	CFParam * getParam(uint8 id);
 
 	static OwnedArray<CFParamToc> tocs;
@@ -68,5 +74,5 @@ public:
 
 	static void loadParamTocs();
 	static CFParamToc * getParamToc(int crc);
-	static CFParamToc * addParamToc(int crc);
+	static CFParamToc * addParamToc(int crc, int size);
 };

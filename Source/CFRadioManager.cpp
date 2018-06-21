@@ -72,8 +72,14 @@ void CFRadioManager::run()
 
 				//If no command for this drone, add an empty packet, else, add all the commands
 				//TODO : implement smart command depending on drone's state : if powered off, send only 1 or 2 ping/sec to not clog the radio / if drone is flying, send position instead of ping
-				if (d->commandQueue.size() == 0) currentCommands.add(CFCommand::createPing(d));
-				else currentCommands.addArray(d->commandQueue);
+				if (d->commandQueue.size() == 0)
+				{
+					CFCommand * c = d->getDefaultCommand();
+					if (c != nullptr) currentCommands.add(c);
+				} else
+				{
+					currentCommands.addArray(d->commandQueue);
+				}
 
 				//clear the command queue from the drone
 				d->commandQueue.clear();
@@ -94,6 +100,12 @@ void CFRadioManager::run()
 					continue;
 				}
 				Crazyradio * r = radios[curRadio];
+
+				if (c == nullptr)
+				{
+					DBG("Command is null, skipping");
+					continue;
+				}
 
 				if (c->drone.wasObjectDeleted())
 				{

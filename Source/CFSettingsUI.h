@@ -13,7 +13,7 @@
 #include "CFSettings.h"
 
 class PhysicsCCUI :
-	public EnablingControllableContainerEditor
+	public GenericControllableContainerEditor
 {
 public:
 	PhysicsCCUI(PhysicsCC * cc, bool isRoot = false);

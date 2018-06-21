@@ -12,11 +12,23 @@
 #include "JuceHeader.h"
 
 class PhysicsCC :
-	public EnablingControllableContainer
+	public ControllableContainer
 {
 public:
 	PhysicsCC();
 	~PhysicsCC();
+
+	struct PhysicalState
+	{
+		PhysicalState() {}
+		PhysicalState(Vector3D<float> position, Vector3D<float> speed, Vector3D<float> acceleration) :
+			position(position), speed(speed), acceleration(acceleration) {}
+
+		Vector3D<float> position;
+		Vector3D<float> speed;
+		Vector3D<float> acceleration;
+		Vector3D<float> jerk;
+	};
 
 	enum ControlMode { DIRECT, SPRING, JERK };
 	EnumParameter * mode;
@@ -33,6 +45,8 @@ public:
 	Automation testMotion;
 
 	void onContainerParameterChanged(Parameter * p) override;
+
+	PhysicalState processPhysics(float deltaTime, const PhysicalState &currentState, const PhysicalState &desiredState) const;
 
 	InspectableEditor * getEditor(bool isRoot) override;
 };

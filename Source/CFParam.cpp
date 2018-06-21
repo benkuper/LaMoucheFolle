@@ -16,8 +16,9 @@ OwnedArray<CFParamToc> CFParamToc::tocs;
 HashMap<int, CFParamToc *> CFParamToc::tocCrcMap;
 
 
-CFParamToc::CFParamToc(int crc) :
-	crc(crc)
+CFParamToc::CFParamToc(int crc, int numParams) :
+	crc(crc),
+	numParams(numParams)
 {
 }
 
@@ -25,8 +26,27 @@ CFParamToc::~CFParamToc()
 {
 }
 
+bool CFParamToc::isInitialized()
+{
+	return numParams > 0 && params.size() == numParams;
+}
 
-var CFParamToc::getParamValue(StringRef name)
+void CFParamToc::addParamDef(const String & name, uint8 id, CFParam::Type type)
+{
+	if (getParam(name) != nullptr)
+	{
+		DBG("WEIRD : Param " << name << " already exists in this TOC");
+		return;
+	}
+
+	CFParam * p = new CFParam(CFParam::Definition(name, type, id));
+	params.add(p);
+	paramIdsMap.set(id, p);
+	paramNamesMap.set(name, p);
+}
+
+
+var CFParamToc::getParamValue(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name]->value;
 	DBG("Could not find parameter with name " << name << " in this TOC");
@@ -40,7 +60,7 @@ var CFParamToc::getParamValue(uint8 id)
 	return -1;
 }
 
-int CFParamToc::getParamIdForName(StringRef name)
+int CFParamToc::getParamIdForName(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name]->definition.id;
 	DBG("Could not find parameter with name " << name << " in this TOC");
@@ -54,7 +74,7 @@ String CFParamToc::getParamNameForId(uint8 id) const
 	return "[notset]";
 }
 
-CFParam * CFParamToc::getParam(StringRef name)
+CFParam * CFParamToc::getParam(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name];
 	DBG("Could not find parameter with name " << name << "in this TOC");
@@ -79,12 +99,12 @@ CFParamToc * CFParamToc::getParamToc(int crc)
 	return tocCrcMap[crc];
 }
 
-CFParamToc * CFParamToc::addParamToc(int crc)
+CFParamToc * CFParamToc::addParamToc(int crc, int size)
 {
 	CFParamToc * result = getParamToc(crc);
 	if (result != nullptr) return result;
 
-	result = new CFParamToc(crc);
+	result = new CFParamToc(crc, size);
 	return result;
 }
 

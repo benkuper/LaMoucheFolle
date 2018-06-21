@@ -48,7 +48,7 @@ CFSettings::~CFSettings()
 }
 
 PhysicsCC::PhysicsCC() :
-	EnablingControllableContainer("Physics"),
+	ControllableContainer("Physics"),
 	testMotion("Test Motion")
 {
 	saveAndLoadRecursiveData = true;
@@ -91,6 +91,36 @@ void PhysicsCC::onContainerParameterChanged(Parameter * p)
 		maxJerk->setEnabled(cm == JERK);
 		jerkFactor->setEnabled(cm == JERK);
 	}
+}
+
+PhysicsCC::PhysicalState PhysicsCC::processPhysics(float deltaTime, const PhysicalState & currentState, const PhysicalState & desiredState) const
+{
+	ControlMode m = mode->getValueDataAsEnum<ControlMode>();
+
+	PhysicalState result;
+	switch (m)
+	{
+	case DIRECT:
+		return desiredState;
+		break;
+
+	case SPRING:
+	{
+		//Spring
+		result.acceleration = (desiredState.position - currentState.position) * forceFactor->floatValue();
+		result.acceleration -= Vector3D<float>(currentState.speed) * frotFactor->floatValue(); //frottement - general
+
+		result.speed = currentState.speed + result.acceleration * deltaTime; // speed calculation - general
+		result.position = currentState.position + result.speed * deltaTime; // pos calculation - general
+	}
+	break;
+
+	default:
+		//not handle
+		break;
+	}
+
+	return result;
 }
 
 InspectableEditor * PhysicsCC::getEditor(bool isRoot)

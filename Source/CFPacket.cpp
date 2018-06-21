@@ -1,9 +1,9 @@
 /*
   ==============================================================================
 
-    CFPacket.cpp
-    Created: 19 Jun 2018 1:55:30pm
-    Author:  Ben
+	CFPacket.cpp
+	Created: 19 Jun 2018 1:55:30pm
+	Author:  Ben
 
   ==============================================================================
 */
@@ -47,14 +47,14 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("blockId", r->blockId);
 		data.getDynamicObject()->setProperty("data", r->data);
-/*
-		auto iter = m_logBlockCb.find(r->blockId);
-		if (iter != m_logBlockCb.end()) {
-			iter->second(r, result.size - 5);
-		} else {
-			m_logger.warning("Received unrequested data for block: " + std::to_string((int)r->blockId));
-		}
-		*/
+		/*
+				auto iter = m_logBlockCb.find(r->blockId);
+				if (iter != m_logBlockCb.end()) {
+					iter->second(r, result.size - 5);
+				} else {
+					m_logger.warning("Received unrequested data for block: " + std::to_string((int)r->blockId));
+				}
+				*/
 	} else if (crtpParamTocGetInfoResponse::match(ack)) {
 		type = PARAM_TOC_INFO;
 		crtpParamTocGetInfoResponse * r = (crtpParamTocGetInfoResponse *)ack.data;
@@ -66,9 +66,12 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		type = PARAM_TOC_ITEM;
 		crtpParamTocGetItemResponse * r = (crtpParamTocGetItemResponse *)ack.data;
 		data = new DynamicObject();
-		data.getDynamicObject()->setProperty("group", r->group);
+		String groupName = String(&r->text[0]);
+		String paramName = String(&r->text[groupName.length() + 1]);
+		data.getDynamicObject()->setProperty("id", r->request.id);
+		data.getDynamicObject()->setProperty("group", groupName);
 		data.getDynamicObject()->setProperty("type", r->type);
-		data.getDynamicObject()->setProperty("name", r->text);
+		data.getDynamicObject()->setProperty("name", paramName);
 		data.getDynamicObject()->setProperty("realOnly", r->readonly);
 		data.getDynamicObject()->setProperty("length", r->length);
 		data.getDynamicObject()->setProperty("sign", r->sign);
@@ -88,7 +91,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 
 	} else if (crtpParamValueResponse::match(ack)) {
 		type = PARAM_VALUE;
-		/*
+
 		crtpParamValueResponse * r = (crtpParamValueResponse *)ack.data;
 		data = new DynamicObject();
 		if (drone->paramToc == nullptr)
@@ -96,26 +99,34 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 			DBG("Drone has no param toc !");
 			return;
 		}
-		
-		drone->paramToc->params[r->request.id];
-		data.getDynamicObject()->setProperty("crc", (int)r->);
-		data.getDynamicObject()->setProperty("group", r->group);
-		data.getDynamicObject()->setProperty("type", r->type);
-		data.getDynamicObject()->setProperty("name", r->text);
-		data.getDynamicObject()->setProperty("realOnly", r->readonly);
-		data.getDynamicObject()->setProperty("length", r->length);
-		data.getDynamicObject()->setProperty("sign", r->sign);
-		*/
+
+		CFParam * p = drone->paramToc->params[r->request.id];
+		if (p == nullptr)
+		{
+			DBG("TOC has not param with id : " << r->request.id);
+			return;
+		}
+
+		data.getDynamicObject()->setProperty("id", r->request.id);
+
+		var value = var();
+		switch (p->definition.type)
+		{
+		case CFParam::Uint8:	value = r->valueUint8; break;
+		case CFParam::Int8:		value = r->valueInt8; break;
+		case CFParam::Uint16:	value = r->valueUint16; break;
+		case CFParam::Int16:	value = r->valueInt16; break;
+		case CFParam::Uint32:	value = (int)r->valueUint32; break;
+		case CFParam::Int32:	value = r->valueInt32; break;
+		case CFParam::Float:	value = r->valueFloat; break;
+		}
+
+		data.getDynamicObject()->setProperty("value", value);
+
 	} else if (crtpPlatformRSSIAck::match(ack)) {
 		type = RSSI_ACK;
 		crtpPlatformRSSIAck * r = (crtpPlatformRSSIAck *)ack.data;
 		data = r->rssi;
-		/*
-		crtpPlatformRSSIAck* r = (crtpPlatformRSSIAck*)ack.data;
-		if (m_emptyAckCallback) {
-			m_emptyAckCallback(r);
-		}
-		*/
 	} else if (memcmp(ack.data, Crazyradio::safeLinkPacket, 3) == 0)
 	{
 		type = SAFELINK;

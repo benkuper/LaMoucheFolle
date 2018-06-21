@@ -305,8 +305,6 @@ void Drone::stateUpdated()
 		break;
 
 	}
-
-
 }
 
 
@@ -614,51 +612,8 @@ void Drone::updateFlyingPosition()
 
 	Vector3D<float> tPos = desiredPosition->getVector();
 
-	if (CFSettings::getInstance()->physicsCC.enabled->boolValue())
-	{
-		double t = Time::getMillisecondCounterHiRes() / 1000.0f;
-
-		if (lastTime == 0)
-		{
-			lastSpeed = Vector3D<float>();
-			lastTargetPosition = Vector3D<float>(tPos.x, tPos.y, tPos.z);
-		}
-
-		if (lastTime > 0)
-		{
-			deltaTime = t - lastTime;
-
-			//targetSpeed = tPos - lastTargetPosition;
-			//targetAcceleration = targetSpeed - lastSpeed;
-
-			float force = CFSettings::getInstance()->physicsCC.forceFactor->floatValue();
-			float frot = CFSettings::getInstance()->physicsCC.frotFactor->floatValue();
-
-			//Spring
-			Vector3D<float> acc = (tPos - lastTargetPosition) * force;
-
-			//General physics
-			acc -= Vector3D<float>(lastSpeed.x*frot, lastSpeed.y*frot, lastSpeed.z*frot); //frottement - general
-
-			Vector3D<float> tSpeed = lastSpeed + acc * deltaTime; // speed calculation - general
-			targetPosition->setVector(lastTargetPosition + tSpeed * deltaTime); // pos calculation - general
-			targetSpeed->setVector(tSpeed);
-			targetAcceleration->setVector(acc);
-
-			lastTargetPosition = targetPosition->getVector();
-			lastSpeed = Vector3D<float>(tSpeed.x, tSpeed.y, tSpeed.z);
-		}
-
-		lastTime = t;
-
-		//DBG("Tpos : " << tPos.x << ", " << tPos.y << ", " << tPos.z);
-	} else
-	{
-		targetPosition->setVector(tPos);
-	}
-
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	cf->sendPositionSetpoint(targetPosition->x, zIsVertical?targetPosition->y:targetPosition->z, zIsVertical?targetPosition->z:targetPosition->y, yaw->floatValue());
+	
+	//cf->sendPositionSetpoint(targetPosition->x, zIsVertical?targetPosition->y:targetPosition->z, zIsVertical?targetPosition->z:targetPosition->y, yaw->floatValue());
 }
 
 void Drone::land()
