@@ -1,6 +1,8 @@
 # La Mouche Folle
 Cross-platform server and OSC bridge for controlling multiple crazyflies 2.0
 
+**This software is under heavy development and will hopefully be back and running in September 2018, stronger than ever !**
+
 ## The Download Zone
 
 Releases are on the release page.
