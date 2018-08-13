@@ -11,7 +11,7 @@
 #include "OSCController.h"
 
 #include "NodeManager.h"
-#include "DroneManager.h"
+#include "CFDroneManager.h"
 #include <type_traits>
 
 OSCController::OSCController(var params) :
@@ -46,7 +46,7 @@ OSCController::~OSCController()
 {
 }
 
-void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
+void OSCController::sendDroneFeedback(CFDrone * d, Controllable * c)
 {
 	Controller::sendDroneFeedback(d, c);
 	Parameter * p = dynamic_cast<Parameter *>(c);
@@ -97,7 +97,7 @@ void OSCController::sendFullSetup()
 {
 	
 	OSCMessage m("/drones/setup");
-	for (Drone * d : DroneManager::getInstance()->items) m.addString(d->shortName);
+	for (CFDrone * d : CFDroneManager::getInstance()->items) m.addString(d->shortName);
 	sendOSC(m);
 	
 	OSCMessage m2("/nodes/setup");
@@ -109,7 +109,7 @@ void OSCController::sendFullSetup()
 void OSCController::sendDroneSetup(const String & droneName)
 {
 	
-	Drone * d = DroneManager::getInstance()->getItemWithName(droneName);
+	CFDrone * d = CFDroneManager::getInstance()->getItemWithName(droneName);
 	if (d == nullptr)
 	{
 		DBG("Drone " + droneName + " doesn't exist");
@@ -172,7 +172,7 @@ void OSCController::processMessage(const OSCMessage & msg)
 		else
 		{
 			
-			Drone * d = DroneManager::getInstance()->getItemWithName(droneName); 
+			CFDrone * d = CFDroneManager::getInstance()->getItemWithName(droneName); 
 			if (d == nullptr)
 			{
 				LOGWARNING("Could not find drone " << droneName << "( address : " << msg.getAddressPattern().toString() << ")");

@@ -14,11 +14,13 @@
 
 CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 {
+	hasSafeLink = memcmp(ack.data, Crazyradio::safeLinkPacket, 3) == 0;
+
 	if (crtpConsoleResponse::match(ack)) {
 		type = CONSOLE;
-		data = ((crtpConsoleResponse*)ack.data)->text;
+		data = ack.size == 5?"?":((crtpConsoleResponse*)ack.data)->text;
 	} else if (crtpLogGetInfoResponse::match(ack)) {
-		type = LOG_INFO;
+		type = LOG_TOC_INFO;
 		crtpLogGetInfoResponse * r = (crtpLogGetInfoResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("crc", (int)r->log_crc);
@@ -27,11 +29,14 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("maxPackets", r->log_max_packet);
 
 	} else if (crtpLogGetItemResponse::match(ack)) {
-		type = LOG_ITEM;
+		type = LOG_TOC_ITEM;
 		crtpLogGetItemResponse * r = (crtpLogGetItemResponse *)ack.data;
 		data = new DynamicObject();
-		data.getDynamicObject()->setProperty("name", r->text);
-		data.getDynamicObject()->setProperty("id", r->type);
+		String groupName = String(&r->text[0]);
+		String variableName = String(&r->text[groupName.length() + 1]);
+		data.getDynamicObject()->setProperty("group", groupName);
+		data.getDynamicObject()->setProperty("name", variableName);
+		data.getDynamicObject()->setProperty("type", r->type);
 
 	} else if (crtpLogControlResponse::match(ack)) {
 		type = LOG_CONTROL;
@@ -46,7 +51,8 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		crtpLogDataResponse * r = (crtpLogDataResponse *)ack.data;
 		data = new DynamicObject();
 		data.getDynamicObject()->setProperty("blockId", r->blockId);
-		data.getDynamicObject()->setProperty("data", r->data);
+		data.getDynamicObject()->setProperty("data",var(r->data,26));
+
 		/*
 				auto iter = m_logBlockCb.find(r->blockId);
 				if (iter != m_logBlockCb.end()) {
@@ -70,7 +76,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		String paramName = String(&r->text[groupName.length() + 1]);
 		data.getDynamicObject()->setProperty("id", r->request.id);
 		data.getDynamicObject()->setProperty("group", groupName);
-		data.getDynamicObject()->setProperty("type", r->type);
+		data.getDynamicObject()->setProperty("type", (r->length | r->type << 2 | r->sign << 3));
 		data.getDynamicObject()->setProperty("name", paramName);
 		data.getDynamicObject()->setProperty("realOnly", r->readonly);
 		data.getDynamicObject()->setProperty("length", r->length);
@@ -108,6 +114,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		}
 
 		data.getDynamicObject()->setProperty("id", r->request.id);
+		data.getDynamicObject()->setProperty("name", p->definition.name);
 
 		var value = var();
 		switch (p->definition.type)
@@ -127,23 +134,21 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		type = RSSI_ACK;
 		crtpPlatformRSSIAck * r = (crtpPlatformRSSIAck *)ack.data;
 		data = r->rssi;
-	} else if (memcmp(ack.data, Crazyradio::safeLinkPacket, 3) == 0)
-	{
-		type = SAFELINK;
+	} else if (crtpLppShortPacketResponse::match(ack)) {
+		type = LPP_SHORT_PACKET;
+		crtpLppShortPacketResponse * r = (crtpLppShortPacketResponse *)ack.data;
+		data = var();
+		for(int i=0;i<12;i++) data.append(r->rest[i]);
 	} else
 	{
 		type = UNKNOWN;
-		/*
-		crtp* header = (crtp*)result.data;
-		m_logger.warning("Don't know ack: Port: " + std::to_string((int)header->port)
-			+ " Channel: " + std::to_string((int)header->channel)
-			+ " Len: " + std::to_string((int)result.size));
+		
+		crtp* header = (crtp*)ack.data;
+		LOG("Unknown packet\nPort: " << (int)header->port << "\nChannel: " << (int)header->channel << "\nLen: " << (int)ack.size);
 		// for (size_t i = 1; i < result.size; ++i) {
 		//   std::cout << "    " << (int)result.data[i] << std::endl;
 		// }
-		queueGenericPacket(result);
-
-		*/
+		//queueGenericPacket(result);
 	}
 }
 

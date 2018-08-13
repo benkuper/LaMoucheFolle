@@ -26,7 +26,6 @@ CFEngine::CFEngine() :
 	
 	CFRadioManager::getInstance();
 
-	addChildControllableContainer(DroneManager::getInstance());
 	addChildControllableContainer(CFDroneManager::getInstance());
 	addChildControllableContainer(ControllerManager::getInstance());
 	addChildControllableContainer(NodeManager::getInstance());
@@ -39,10 +38,11 @@ CFEngine::~CFEngine()
 	//delete singletons here
 	CFRadioManager::deleteInstance();
 	CFDroneManager::deleteInstance(); 
-	CFParamToc::deleteInstance();
+	CFParamToc::tocs.clear();
+	CFLogToc::tocs.clear();
 
 	ControllerManager::deleteInstance();
-	DroneManager::deleteInstance();
+	CFDroneManager::deleteInstance();
 	NodeManager::deleteInstance();
 	CFAssetManager::deleteInstance();
 	
@@ -52,7 +52,7 @@ void CFEngine::clearInternal()
 {
 	//clear
 	ControllerManager::getInstance()->clear();
-	DroneManager::getInstance()->clear();
+	CFDroneManager::getInstance()->clear();
 	NodeManager::getInstance()->clear();
 }
 
@@ -61,7 +61,7 @@ var CFEngine::getJSONData()
 	var data = Engine::getJSONData();
 
 	//save here
-	data.getDynamicObject()->setProperty("droneManager", DroneManager::getInstance()->getJSONData());
+	data.getDynamicObject()->setProperty("droneManager", CFDroneManager::getInstance()->getJSONData());
 	data.getDynamicObject()->setProperty("controllerManager", ControllerManager::getInstance()->getJSONData());
 	data.getDynamicObject()->setProperty("nodeManager", NodeManager::getInstance()->getJSONData());
 
@@ -74,7 +74,7 @@ void CFEngine::loadJSONDataInternalEngine(var data, ProgressTask * loadingTask)
 	//load here
 	ProgressTask * droneTask = loadingTask->addTask("Drones");
 	droneTask->start();
-	DroneManager::getInstance()->loadJSONData(data.getProperty("droneManager", var()));
+	CFDroneManager::getInstance()->loadJSONData(data.getProperty("droneManager", var()));
 	droneTask->setProgress(1);
 	droneTask->end();
 

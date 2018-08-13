@@ -12,7 +12,7 @@
 
 #include "JuceHeader.h"
 
-#include "Drone.h"
+#include "CFDrone.h"
 #include "Node.h"
 
 class Controller :
@@ -28,7 +28,7 @@ public:
 	Trigger * inTrigger;
 	Trigger * outTrigger;
 
-	virtual void sendDroneFeedback(Drone * d, Controllable * c) {}
+	virtual void sendDroneFeedback(CFDrone * d, Controllable * c) {}
 	virtual void sendNodeFeedback(Node * d, Controllable * c) {}
 
 	virtual void sendFullSetup() {} 

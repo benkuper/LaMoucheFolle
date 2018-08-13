@@ -31,7 +31,7 @@ public:
 	IntParameter * remotePort;
 	OSCSender sender;
 
-	void sendDroneFeedback(Drone * d, Controllable * c) override;
+	void sendDroneFeedback(CFDrone * d, Controllable * c) override;
 	void sendNodeFeedback(Node * d, Controllable * c) override;
 
 	void sendFullSetup() override;

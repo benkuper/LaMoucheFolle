@@ -10,15 +10,15 @@
 
 #pragma once
 
-#include "Drone.h"
+#include "CFDrone.h"
 #include "RadialMenuTarget.h"
 
 class DroneGridUI :
-	public BaseItemMinimalUI<Drone>,
+	public BaseItemMinimalUI<CFDrone>,
 	public RadialMenuTarget
 {
 public:
-	DroneGridUI(Drone * drone);
+	DroneGridUI(CFDrone * drone);
 	~DroneGridUI();
 
 	Image droneImage;
@@ -35,6 +35,6 @@ class VizImages
 {
 public:
 
-	static Image getDroneStateImage(Drone * d);
-	static Image getDroneOverlayImage(Drone * d);
+	static Image getDroneStateImage(CFDrone * d);
+	static Image getDroneOverlayImage(CFDrone * d);
 };

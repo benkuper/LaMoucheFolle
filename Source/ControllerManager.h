@@ -11,7 +11,7 @@
 #pragma once
 
 #include "Controller.h"
-#include "DroneManager.h"
+class CFDrone;
 
 class ControllerManager :
 	public BaseManager<Controller>
@@ -23,7 +23,7 @@ public:
 	~ControllerManager();
 
 	void sendFullSetup();
-	void sendDroneFeedback(Drone *, Controllable * c);
+	void sendDroneFeedback(CFDrone *, Controllable * c);
 	void sendNodeFeedback(Node *, Controllable * c);
 
 	void controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c) override;

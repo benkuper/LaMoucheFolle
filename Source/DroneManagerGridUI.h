@@ -10,14 +10,14 @@
 
 #pragma once
 
-#include "DroneManager.h"
+#include "CFDroneManager.h"
 #include "DroneGridUI.h"
 
 class DroneManagerGridUI :
-	public BaseManagerShapeShifterUI<DroneManager, Drone, DroneGridUI>
+	public BaseManagerShapeShifterUI<CFDroneManager, CFDrone, DroneGridUI>
 {
 public:
-	DroneManagerGridUI(const String &name, DroneManager * manager);
+	DroneManagerGridUI(const String &name, CFDroneManager * manager);
 	~DroneManagerGridUI();
 
 	const int thumbSize = 128;
@@ -39,5 +39,5 @@ public:
 
 	//void resizedInternalHeader(Rectangle<int> &r) override;
 
-	static DroneManagerGridUI * create(const String &name) { return new DroneManagerGridUI(name, DroneManager::getInstance()); }
+	static DroneManagerGridUI * create(const String &name) { return new DroneManagerGridUI(name, CFDroneManager::getInstance()); }
 };

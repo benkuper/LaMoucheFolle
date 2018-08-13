@@ -10,13 +10,17 @@
 
 #pragma once
 
-#define MAX_DECKS 3 //max supported decks in CF2
-
+#define LOG_POSITION_ID 0
+#define LOG_POWER_ID 1
+#define LOG_CALIB_ID 2
 
 #include "CFCommand.h"
 #include "CFParam.h"
 #include "CFLog.h"
 #include "CFPacket.h"
+
+
+
 
 class CFDrone :
 	public BaseItem,
@@ -27,12 +31,12 @@ public:
 	CFDrone();
 	~CFDrone();
 
-	CFParamToc * paramToc;
+	
 	IntParameter * droneId;
 
-	enum DeckId {NONE, BCLEDRING, BCQI, BCBUZZER, BCBIGQUAD, BCDWM, BCUSD, BCZRANGER, BCFLOW, BCOA, BCMULTIRANGER, BCMOCAP, BCZRANGER2, BCFLOW2, DECKID_MAX };
-	const String deckIds[DECKID_MAX] {"None", "bcLedRing","bcQi","bcBuzzer","bcBigQuad","bcDWM","bcUSD","bcZRanger","bcFlow","bcOA","bcMultiranger","bcMocap","bcZRanger2","bcFlow2" };
-	const String deckNames[DECKID_MAX] {"None", "LED-Ring", "Qi charger", "Buzzer", "Big quad", "UWB LPS", "Micro - SD", "Z - Ranger", "Flow", "Obstacle Avoidance", "Multi - ranger", "Mocap marker deck", "Z - Ranger v2", "Flow V2" };
+	enum DeckId { BCLEDRING, BCQI, BCBUZZER, BCBIGQUAD, BCDWM, BCUSD, BCZRANGER, BCFLOW, BCOA, BCMULTIRANGER, BCMOCAP, BCZRANGER2, BCFLOW2, DECKID_MAX };
+	const String deckIds[DECKID_MAX] { "bcLedRing","bcQi","bcBuzzer","bcBigQuad","bcDWM1000","bcUSD","bcZRanger","bcFlow","bcOA","bcMultiranger","bcMocap","bcZRanger2","bcFlow2" };
+	const String deckNames[DECKID_MAX] { "LED-Ring", "Qi charger", "Buzzer", "Big quad", "UWB LPS", "Micro - SD", "Z - Ranger", "Flow", "Obstacle Avoidance", "Multi - ranger", "Mocap marker deck", "Z - Ranger v2", "Flow V2" };
 
 	enum LightMode { OFF, WHITE_SPINNER, COLOR_SPINNER, TILT_EFFECT, BRIGHTNESS, COLOR_SPINNER2, DOUBLE_SPINNER, SOLID_COLOR, FACTORY_TEST, BATTERY_STATUS, BOAT_LIGHTS, ALERT, GRAVITY, MEMORY, FADE_COLOR, LIGHTMODE_MAX};
 	const String lightModeNames[LIGHTMODE_MAX] { "Off","White spinner","Color spinner","Tilt effect","Brightness","Color spinner2","Double spinner","Solid color","Factory test","Battery status","Boat lights","Alert","Gravity","Memory","Fade Color" };
@@ -40,7 +44,7 @@ public:
 	//Parameters
 	enum DroneState { POWERED_OFF, DISCONNECTED, CONNECTING, CALIBRATING, ANALYSIS, TAKING_OFF, FLYING, LANDING, WARNING, READY, ERROR };
 	enum TimerId { TIMER_PING, TIMER_TAKEOFF, TIMER_FLYING, TIMER_LANDING, TIMER_CALIBRATION, TIMER_MAX };
-	const float timerFreqs[TIMER_MAX]{2, 20, 50, 20, 30 };
+	const float timerFreqs[TIMER_MAX]{1, 20, 50, 20, 30 };
 
 	ControllableContainer radioCC;
 	BoolParameter * autoRadio;
@@ -58,6 +62,7 @@ public:
 	Trigger * landTrigger;
 	Trigger * stopTrigger;
 	Trigger * rebootTrigger;
+	Trigger * setupNodesTrigger;
 
 	ControllableContainer statusCC;
 	EnumParameter * state;
@@ -68,6 +73,7 @@ public:
 	BoolParameter * selfTestProblem;
 	BoolParameter * batteryProblem;
 	ControllableContainer decksCC;
+	HashMap<String, BoolParameter *> deckMap;
 	ControllableContainer wingsCC;
 
 	ControllableContainer flightCC;
@@ -88,12 +94,19 @@ public:
 	BoolParameter * headlight;
 	BoolParameter * stealthMode;
 
+	//Parameters
+	CFParamToc * paramToc;
+	int currentParamRequestId; //to keep track when gathering all the parameters
+
+	//Logs
+	CFLogToc * logToc;
+	int currentLogVariableId; //to keep track when gathering all the log variables
+
 	//Analysis and Calib feedfback
 	FloatParameter * calibrationProgress;
 	FloatParameter * analysisProgress;
 	
 	//Ping
-	const uint32 pingTime = 500; //ms between pings
 	uint32 lastPingTime;
 
 	//Radio
@@ -125,8 +138,7 @@ public:
 	//Physics
 	double lastPhysicsUpdateTime;
 
-	//CFLogToc * logToc;
-
+	//Commands
 	Array<CFCommand *, CriticalSection> commandQueue;
 
 	void addCommand(CFCommand * command);
@@ -138,7 +150,10 @@ public:
 	void addFlyingCommand();
 	void addLandingCommand();
 	void addParamCommand(String paramName, var value);
+	void addGetParamValueCommand(int  paramId);
+	void addGetParamValueCommand(String paramName);
 	void addRebootCommand();
+	void addSetupNodesCommands();
 
 	void syncToRealPosition();
 
@@ -157,22 +172,12 @@ public:
 	virtual void consolePacketReceived(const String &msg);
 	virtual void rssiAckReceived(uint8_t rssi);
 	virtual void paramTocReceived(int crc, int size);
-	virtual void paramInfoReceived(int paramId, String group, String name, int type, bool readOnly, int length, int sign);
-	virtual void paramValueReceived(CFParam * param);
-	/*
-	data.getDynamicObject()->setProperty("group", r->group);
-	data.getDynamicObject()->setProperty("type", r->type);
-	data.getDynamicObject()->setProperty("name", r->text);
-	data.getDynamicObject()->setProperty("realOnly", r->readonly);
-	data.getDynamicObject()->setProperty("length", r->length);
-	data.getDynamicObject()->setProperty("sign", r->sign)
+	virtual void paramInfoReceived(int id, String group, String name, int type, bool readOnly, int length, int sign);
+	virtual void paramValueReceived(int id, var value);
+	virtual void logTocReceived(int crc, int size);
+	virtual void logVariableInfoReceived(String group, String name, int type);
+	virtual void logBlockReceived(int blockId, var data);
 
-
-	virtual void logTocReceived(CFLogToc * toc) = 0;
-	virtual void logBlockReceived(CFLogBlock * block) = 0;
-	*/
-
-	virtual void safeLinkReceived();
 	void updateQualityPackets(bool val);
 
 
@@ -182,8 +187,41 @@ public:
 	void startTimer(TimerId id);
 	virtual void timerCallback(int timerID) override;
 
-
-
 	//
 	WeakReference<CFDrone>::Master masterReference;
 };
+
+
+// BLOCK DATA HOLDERS
+
+#if _WIN32
+#define __attribute__(x) 
+#pragma pack(push,1)
+#endif
+
+struct BatteryBlock
+{
+	uint8 battery;
+	//uint8 lowBattery;
+	uint8 charging;
+} __attribute__((packed));
+
+struct PosBlock
+{
+	float x;
+	float y;
+	float z;
+} __attribute__((packed));
+
+
+struct CalibBlock
+{
+	float varianceX;
+	float varianceY;
+	float varianceZ;
+} __attribute__((packed));
+
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif

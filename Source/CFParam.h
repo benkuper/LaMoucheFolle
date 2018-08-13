@@ -24,12 +24,24 @@ public:
 		Uint32 = 0x02 | (0x00 << 2) | (0x01 << 3),
 		Int32 = 0x02 | (0x00 << 2) | (0x00 << 3),
 		Float = 0x02 | (0x01 << 2) | (0x00 << 3),
+		TYPE_MAX
 	};
+
 
 	class Definition
 	{
 	public:
-		Definition(StringRef name, Type type, uint8 id) : name(name), type(type), id(id) {}
+		Definition(StringRef name, Type type, uint8 id) : name(name), type(type), id(id) 
+		{
+			StringArray pSplit;
+			pSplit.addTokens(name, ".", "\"");
+			group = pSplit[0];
+			localName = pSplit[1];
+		}
+
+		String group;
+		String localName;
+
 		String name;
 		Type type;
 		uint8 id;
@@ -41,13 +53,25 @@ public:
 
 	Definition definition;
 	var value;
+
+	const static String getTypeString(Type type) {
+		switch (type)
+		{
+		case Int8: return "int8";
+		case Uint8: return "uint8";
+		case Uint16: return "uint16";
+		case Int16: return "int16";
+		case Uint32: return "uint32";
+		case Int32: return "int32";
+		case Float: return "float";
+		default: return "unknown";
+		}
+	}
 };
 
 class CFParamToc
 {
 public:
-	juce_DeclareSingleton(CFParamToc, true)
-
 	CFParamToc(int crc = -1, int numParams = -1);
 	~CFParamToc();
 
@@ -57,6 +81,8 @@ public:
 	bool isInitialized();
 
 	void addParamDef(const String &name, uint8 id, CFParam::Type type);
+
+	void save();
 
 	OwnedArray<CFParam> params;
 	HashMap<String, CFParam *> paramNamesMap;
@@ -71,6 +97,7 @@ public:
 
 	static OwnedArray<CFParamToc> tocs;
 	static HashMap<int, CFParamToc *> tocCrcMap;
+	static bool paramTocsAreLoaded;
 
 	static void loadParamTocs();
 	static CFParamToc * getParamToc(int crc);

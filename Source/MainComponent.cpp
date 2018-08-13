@@ -18,8 +18,8 @@ MainContentComponent::MainContentComponent() :
 	OrganicMainContentComponent()
 { 
 
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones", &DroneManagerGridUI::create));
-	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("CFDrones", &CFDroneManagerUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones Grid", &DroneManagerGridUI::create));
+	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Drones List", &CFDroneManagerUI::create));
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Controllers", &ControllerManagerUI::create));
 	ShapeShifterFactory::getInstance()->defs.add(new ShapeShifterDefinition("Nodes",&NodeManagerUI::create));
 	

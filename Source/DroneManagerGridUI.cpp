@@ -10,7 +10,7 @@
 
 #include "DroneManagerGridUI.h"
 
-DroneManagerGridUI::DroneManagerGridUI(const String & name, DroneManager * manager) :
+DroneManagerGridUI::DroneManagerGridUI(const String & name, CFDroneManager * manager) :
 	BaseManagerShapeShifterUI(name, manager, true)
 {
 	animateItemOnAdd = false;

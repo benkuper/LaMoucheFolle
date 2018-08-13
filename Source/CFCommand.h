@@ -17,8 +17,8 @@ class CFDrone;
 class CFCommand
 {
 public:
-	enum Type { PING, SETPOINT, POSITION, VELOCITY, SET_PARAM, GET_PARAM_INFO, GET_PARAM_VALUE, REQUEST_PARAM_TOC, SET_LOG, START_LOC, REQUEST_LOG_TOC, GET_LOG_ITEM_INFO, ACTIVATE_SAFELINK, STOP, REBOOT_INIT, REBOOT_FIRMWARE, TYPES_MAX};
-	const String typeStrings[TYPES_MAX] { "Ping","SetPoint","Position","Velocity","SetParam","GetParamInfo","GetParamValue","RequestParamToc","SetLog","StartLoc","RequestLogToc", "GetLogItemInfo", "SafeLink", "Stop","RebootInit","RebootFirmware" };
+	enum Type { PING, SETPOINT, POSITION, VELOCITY, SET_PARAM, GET_PARAM_INFO, GET_PARAM_VALUE, REQUEST_PARAM_TOC, RESET_LOGS, ADD_LOG_BLOCK, START_LOG, STOP_LOG, REQUEST_LOG_TOC, GET_LOG_ITEM_INFO, ACTIVATE_SAFELINK, STOP, REBOOT_INIT, REBOOT_FIRMWARE, LPS_NODE_POS_SET, TYPES_MAX};
+	const String typeStrings[TYPES_MAX] { "Ping","SetPoint","Position","Velocity","SetParam","GetParamInfo","GetParamValue","RequestParamToc","ResetLogs","AddLogBlock", "StartLog", "StopLog", "RequestLogToc", "GetLogItemInfo", "SafeLink", "Stop","RebootInit","RebootFirmware", "LPSNodePosSet" };
 
 	CFCommand(CFDrone * drone, Array<uint8> data, Type type);
 	WeakReference<CFDrone> drone;
@@ -39,12 +39,13 @@ public:
 	static CFCommand * createRequestParamToc(CFDrone * d);
 	static CFCommand * createActivateSafeLink(CFDrone * d);
 	static CFCommand * createRequestLogToc(CFDrone * d);
-	static CFCommand * createGetLogItemInfo(CFDrone * d, StringRef name);
-	/*
-	static CFCommand * createStartLog(CFDrone * d);
-	static CFCommand * createSetLog(CFDrone * d);
-	*/
+	static CFCommand * createGetLogItemInfo(CFDrone * d, int id);
+	static CFCommand * createLPSNodePos(CFDrone * d, int nodeId, float x, float y, float z);
 
+	static CFCommand * createResetLogs(CFDrone * d);
+	static CFCommand * createAddLogBlock(CFDrone * d, int logBlockId, Array<String> variableNames);
+	static CFCommand * createStartLog(CFDrone * d, int logBlockId, int freq);
+	static CFCommand * createStopLog(CFDrone * d, int logBlockId);
 
 	String getTypeString() const { return typeStrings[type]; }
 };

@@ -583,12 +583,15 @@ void Drone::updateTakeOff()
 	if (cf == nullptr) return;
 	if (CFSettings::getInstanceWithoutCreating() == nullptr) return;
 
+	DBG("update TakeOff");
 	if (timeAtStartTakeOff == 0) timeAtStartTakeOff = Time::getMillisecondCounter() / 1000.0f;
 
 	float t = Time::getMillisecondCounter() / 1000.0f;
 	float toTime = CFSettings::getInstance()->takeOffTime->floatValue();
 	float relTime = (t - timeAtStartTakeOff) / toTime;
 	float p = CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
+
+	DBG("Take off here " << p);
 
 	desiredPosition->setVector(realPosition->getVector());
 	targetPosition->setVector(realPosition->getVector());

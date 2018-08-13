@@ -75,12 +75,13 @@ CFCommand * CFCommand::createSetParam(CFDrone * d, StringRef name, var value) {
 
 	case CFParam::Type::Int8: { crtpParamWriteRequest<int8_t> r(p->definition.id, (int8_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int8_t>)); }	break;
 	case CFParam::Type::Uint16: { crtpParamWriteRequest<uint16_t> r(p->definition.id, (uint16_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint16_t>));  }break;
-	case CFParam::Type::Int16: { crtpParamWriteRequest<int16_t> r(p->definition.id, (int16_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int16_t>));  }break;
+	case CFParam::Type::Int16: { crtpParamWriteRequest<int16_t> r(p->definition.id, (int16_t)(int)value);  data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int16_t>));  }break;
 	case CFParam::Type::Uint32: { crtpParamWriteRequest<uint32_t> r(p->definition.id, (uint32_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint32_t>)); }break;
 	case CFParam::Type::Int32: { crtpParamWriteRequest<int32_t> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int32_t>));  }break;
 	case CFParam::Type::Float: { crtpParamWriteRequest<float> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r), sizeof(crtpParamWriteRequest<float>);  }break;
 	default: DBG("Type not handled : " << (int)p->definition.type); return nullptr; break;
 	}
+
 
 	return new CFCommand(d, data, SET_PARAM);
 }
@@ -137,9 +138,53 @@ CFCommand * CFCommand::createRequestLogToc(CFDrone * d)
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogGetInfoRequest)), REQUEST_LOG_TOC);
 }
 
-CFCommand * CFCommand::createGetLogItemInfo(CFDrone * d, StringRef name)
+CFCommand * CFCommand::createGetLogItemInfo(CFDrone * d, int id)
 {
-	crtpLogGetItemRequest r(0); // TO REPLACE WITH PROPER LOG ID
-	return new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpLogGetInfoRequest)), GET_LOG_ITEM_INFO);
+	crtpLogGetItemRequest r(id);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpLogGetItemRequest)), GET_LOG_ITEM_INFO);
+}
+
+CFCommand * CFCommand::createLPSNodePos(CFDrone * d, int nodeId, float x, float y, float z)
+{
+	crtpLppSetNodePosRequest r(nodeId, x, y, z);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLppSetNodePosRequest)), LPS_NODE_POS_SET);
+}
+
+CFCommand * CFCommand::createResetLogs(CFDrone * d)
+{
+	crtpLogResetRequest r;
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogResetRequest)), RESET_LOGS);
+}
+
+CFCommand * CFCommand::createAddLogBlock(CFDrone * d, int logBlockId, Array<String> variableNames)
+{
+	crtpLogCreateBlockRequest r;
+	r.id = logBlockId;
+	
+	for (int i = 0; i < variableNames.size(); i++)
+	{
+		CFLogVariable * v = d->logToc->getLogVariable(variableNames[i]);
+		if (v == nullptr)
+		{
+			LOGWARNING("Variable " << variableNames[i] << " not found in toc");
+			continue;
+		}
+		r.items[i].id = v->definition.id;
+		r.items[i].logType = v->definition.type;
+	}
+
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogCreateBlockRequest)), ADD_LOG_BLOCK);
+}
+
+CFCommand * CFCommand::createStartLog(CFDrone * d, int logBlockId, int freq)
+{
+	crtpLogStartRequest r(logBlockId, 100 / freq);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogStartRequest)), START_LOG);
+}
+
+CFCommand * CFCommand::createStopLog(CFDrone * d, int logBlockId)
+{
+	crtpLogStopRequest r(logBlockId);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogStopRequest)), STOP_LOG);
 }
 

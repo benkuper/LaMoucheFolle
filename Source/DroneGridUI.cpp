@@ -10,7 +10,7 @@
 
 #include "DroneGridUI.h"
 
-DroneGridUI::DroneGridUI(Drone * drone) :
+DroneGridUI::DroneGridUI(CFDrone * drone) :
 	BaseItemMinimalUI(drone),
 	RadialMenuTarget(this)
 {
@@ -27,12 +27,12 @@ void DroneGridUI::paint(Graphics & g)
 	if (overlayImage.getWidth() > 0) g.drawImage(overlayImage, getLocalBounds().reduced(20).toFloat());
 
 	//Progress
-	Drone::DroneState s = item->state->getValueDataAsEnum<Drone::DroneState>();
+	CFDrone::DroneState s = item->state->getValueDataAsEnum<CFDrone::DroneState>();
 	float progress = 0;
 	switch (s)
 	{
-	case Drone::CALIBRATING: progress = item->calibrationProgress->floatValue(); break;
-	case Drone::ANALYSIS: progress = item->analysisProgress->floatValue(); break;
+	case CFDrone::CALIBRATING: progress = item->calibrationProgress->floatValue(); break;
+	case CFDrone::ANALYSIS: progress = item->analysisProgress->floatValue(); break;
 	}
 
 	if (progress > 0)
@@ -72,63 +72,63 @@ void DroneGridUI::containerChildAddressChangedAsync(ControllableContainer *)
 
 
 
-Image VizImages::getDroneStateImage(Drone * d)
+Image VizImages::getDroneStateImage(CFDrone * d)
 {
-	Drone::DroneState s = d->state->getValueDataAsEnum<Drone::DroneState>();
+	CFDrone::DroneState s = d->state->getValueDataAsEnum<CFDrone::DroneState>();
 	switch (s)
 	{
 
-	case Drone::POWERED_OFF:
+	case CFDrone::POWERED_OFF:
 		return ImageCache::getFromMemory(BinaryData::drone_poweroff_png, BinaryData::drone_poweroff_pngSize);
 
-	case Drone::DISCONNECTED:
+	case CFDrone::DISCONNECTED:
 		return ImageCache::getFromMemory(BinaryData::drone_poweron_png, BinaryData::drone_poweron_pngSize);
 
-	case Drone::CONNECTING:
-	case Drone::CALIBRATING:
-	case Drone::ANALYSIS:
+	case CFDrone::CONNECTING:
+	case CFDrone::CALIBRATING:
+	case CFDrone::ANALYSIS:
 		return ImageCache::getFromMemory(BinaryData::drone_connecting_png, BinaryData::drone_connecting_pngSize);
 
-	case Drone::READY:
-	case Drone::TAKING_OFF:
-	case Drone::FLYING:
-	case Drone::LANDING:
+	case CFDrone::READY:
+	case CFDrone::TAKING_OFF:
+	case CFDrone::FLYING:
+	case CFDrone::LANDING:
 		return ImageCache::getFromMemory(BinaryData::drone_ok_png, BinaryData::drone_ok_pngSize);
 
-	case Drone::WARNING:
+	case CFDrone::WARNING:
 		return ImageCache::getFromMemory(BinaryData::drone_warning_png, BinaryData::drone_warning_pngSize);
 
-	case Drone::ERROR:
+	case CFDrone::ERROR:
 		return ImageCache::getFromMemory(BinaryData::drone_error_png, BinaryData::drone_error_pngSize);
 	}
 
 	return Image();
 }
 
-Image VizImages::getDroneOverlayImage(Drone * d)
+Image VizImages::getDroneOverlayImage(CFDrone * d)
 {
-	Drone::DroneState s = d->state->getValueDataAsEnum<Drone::DroneState>();
+	CFDrone::DroneState s = d->state->getValueDataAsEnum<CFDrone::DroneState>();
 	switch (s)
 	{
-	case Drone::CALIBRATING:
+	case CFDrone::CALIBRATING:
 		return ImageCache::getFromMemory(BinaryData::calibrating_png, BinaryData::calibrating_pngSize);
 
-	case Drone::ANALYSIS:
+	case CFDrone::ANALYSIS:
 		return ImageCache::getFromMemory(BinaryData::health_analysis_png, BinaryData::health_analysis_pngSize);
 
 
-	case Drone::WARNING:
+	case CFDrone::WARNING:
 		if (d->batteryProblem->boolValue()) return ImageCache::getFromMemory(BinaryData::battery_problem_png, BinaryData::battery_problem_pngSize);
-		if (d->selfTestProblem->boolValue() || !d->allDecksAreConnected()) return ImageCache::getFromMemory(BinaryData::config_problem_png, BinaryData::config_problem_pngSize);
+		if (d->selfTestProblem->boolValue() /*|| !d->allDecksAreConnected()*/) return ImageCache::getFromMemory(BinaryData::config_problem_png, BinaryData::config_problem_pngSize);
 		break;
 
-	case Drone::TAKING_OFF:
+	case CFDrone::TAKING_OFF:
 		return ImageCache::getFromMemory(BinaryData::startup_png, BinaryData::startup_pngSize);
 	
-	case Drone::FLYING:
+	case CFDrone::FLYING:
 		return ImageCache::getFromMemory(BinaryData::flying_png, BinaryData::flying_pngSize);
 
-	case Drone::LANDING:
+	case CFDrone::LANDING:
 		return ImageCache::getFromMemory(BinaryData::parachute_png, BinaryData::parachute_pngSize);
 	}
 

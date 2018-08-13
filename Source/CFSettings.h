@@ -30,6 +30,7 @@ public:
 		Vector3D<float> jerk;
 	};
 
+
 	enum ControlMode { DIRECT, SPRING, JERK };
 	EnumParameter * mode;
 	FloatParameter * forceFactor;
@@ -64,6 +65,7 @@ public:
 	BoolParameter * analyzeAfterConnect;
 	BoolParameter * calibAfterConnect;
 	BoolParameter * calibAfterAnalyze;
+	Point3DParameter * lpsBoxSize;
 
 	ControllableContainer flightCC;
 	FloatParameter * takeOffTime;

@@ -27,6 +27,9 @@ CFSettings::CFSettings() :
 	calibAfterConnect = setupCC.addBoolParameter("Calibrate after connect", "If checked and 'Analyze after connect' is unchecked, a calibration be performed after each connection", true);
 	calibAfterAnalyze = setupCC.addBoolParameter("Calibrate after Analysis", "If checked, a calibration will be trigger after each analysis", true);
 	
+	lpsBoxSize = addPoint3DParameter("LPS Box Size", "Size of the box enclosed by the LPS Nodes. Origin is floor center.\n \
+										Nodes are assumed to be positionned 0 left front ground > 1,2,3 clockwise on ground, 4 on top of 0 > 5,6,7 clockwise up");
+
 	addChildControllableContainer(&flightCC);
 	takeOffTime = flightCC.addFloatParameter("Takeoff Time", "Time to take off", 3, 0, 10);
 	takeOffMaxSpeed = flightCC.addFloatParameter("Takeoff Max Speed", "The vertical speed in m/s corresponding to the max curve value",1,0,6);
@@ -53,6 +56,7 @@ PhysicsCC::PhysicsCC() :
 {
 	saveAndLoadRecursiveData = true;
 
+	
 	mode = addEnumParameter("Mode", "Control Mode");
 	mode->addOption("Direct", DIRECT)->addOption("Spring", SPRING)->addOption("Jerk", JERK);
 

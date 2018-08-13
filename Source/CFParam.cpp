@@ -10,11 +10,9 @@
 
 #include "CFParam.h"
 
-juce_ImplementSingleton(CFParamToc)
-
 OwnedArray<CFParamToc> CFParamToc::tocs;
 HashMap<int, CFParamToc *> CFParamToc::tocCrcMap;
-
+bool CFParamToc::paramTocsAreLoaded = false;
 
 CFParamToc::CFParamToc(int crc, int numParams) :
 	crc(crc),
@@ -45,52 +43,109 @@ void CFParamToc::addParamDef(const String & name, uint8 id, CFParam::Type type)
 	paramNamesMap.set(name, p);
 }
 
+void CFParamToc::save()
+{
+	var data = var();
+	for (int i = 0; i < numParams; i++)
+	{
+		var pData = var(new DynamicObject());
+		pData.getDynamicObject()->setProperty("name", params[i]->definition.name);
+		pData.getDynamicObject()->setProperty("id", params[i]->definition.id);
+		pData.getDynamicObject()->setProperty("type", params[i]->definition.type);
+		data.append(pData);
+	}
+
+	File tocDir = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(String(ProjectInfo::projectName) + "/paramTocs");
+	if (!tocDir.exists()) tocDir.createDirectory();
+
+
+	File f = tocDir.getChildFile(String(crc) + ".json");
+	FileOutputStream fs(f);
+	JSON::writeToStream(fs, data);
+
+	LOG("Param TOC saved to " << f.getFullPathName());
+}
+
 
 var CFParamToc::getParamValue(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name]->value;
-	DBG("Could not find parameter with name " << name << " in this TOC");
+	//DBG("Could not find parameter with name " << name << " in this TOC");
 	return -1;
 }
 
 var CFParamToc::getParamValue(uint8 id)
 {
 	if (paramIdsMap.contains(id)) return paramIdsMap[id]->value;
-	DBG("Could not find parameter with id " << id << " in this TOC");
+	//DBG("Could not find parameter with id " << id << " in this TOC");
 	return -1;
 }
 
 int CFParamToc::getParamIdForName(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name]->definition.id;
-	DBG("Could not find parameter with name " << name << " in this TOC");
+	//DBG("Could not find parameter with name " << name << " in this TOC");
 	return -1;
 }
 
 String CFParamToc::getParamNameForId(uint8 id) const
 {
 	if (paramIdsMap.contains(id)) return paramIdsMap[id]->definition.name;
-	DBG("Could not find parameter with id " << id << " in this TOC");
+	//DBG("Could not find parameter with id " << id << " in this TOC");
 	return "[notset]";
 }
 
 CFParam * CFParamToc::getParam(const String &name)
 {
 	if (paramNamesMap.contains(name)) return paramNamesMap[name];
-	DBG("Could not find parameter with name " << name << "in this TOC");
+	//DBG("Could not find parameter with name " << name << "in this TOC");
 	return nullptr;
 }
 
 CFParam * CFParamToc::getParam(uint8 id)
 {
 	if (paramIdsMap.contains(id)) return paramIdsMap[id];
-	DBG("Could not find parameter with id " << id << " in this TOC");
+	//DBG("Could not find parameter with id " << id << " in this TOC");
 	return nullptr;
 }
 
 void CFParamToc::loadParamTocs()
 {
-	//load files here
+
+	File tocDir = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(String(ProjectInfo::projectName) + "/paramTocs");
+	if (!tocDir.exists()) tocDir.createDirectory();
+
+	Array<File> tocFiles = tocDir.findChildFiles(File::TypesOfFileToFind::findFiles, false);
+
+
+	DBG("Found " << tocFiles.size() << " files");
+	for (auto &f : tocFiles)
+	{
+		FileInputStream fs(f);
+		DBG("Loading TOC " << f.getFullPathName());
+
+		String fString = fs.readString();
+		var data = JSON::fromString(fString);
+		
+		if (!data.isVoid())
+		{
+			CFParamToc * toc = addParamToc(f.getFileNameWithoutExtension().getIntValue(), data.size());
+
+			DBG("Found toc with crc " << toc->crc << " and " << toc->numParams << " params");
+
+			for (int i = 0; i < data.size(); i++)
+			{
+				toc->addParamDef(data[i].getProperty("name", "[notset]"), (int)data[i].getProperty("id", 0), (CFParam::Type)(int)data[i].getProperty("type", 0));
+			}
+
+		} else
+		{
+			DBG("Wrong format !");
+		}
+	}
+
+	LOG(tocs.size() << " Param TOCs Loaded");
+	paramTocsAreLoaded = true;
 }
 
 CFParamToc * CFParamToc::getParamToc(int crc)
@@ -105,6 +160,9 @@ CFParamToc * CFParamToc::addParamToc(int crc, int size)
 	if (result != nullptr) return result;
 
 	result = new CFParamToc(crc, size);
+	tocs.add(result);
+	tocCrcMap.set(crc, result);
+
 	return result;
 }
 
