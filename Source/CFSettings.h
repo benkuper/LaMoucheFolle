@@ -61,6 +61,7 @@ public:
 	juce_DeclareSingleton(CFSettings, true)
 
 	ControllableContainer setupCC;
+
 	BoolParameter * autoConnect;
 	BoolParameter * analyzeAfterConnect;
 	BoolParameter * calibAfterConnect;
@@ -68,8 +69,10 @@ public:
 	Point3DParameter * lpsBoxSize;
 
 	ControllableContainer flightCC;
+	BoolParameter * useThrustCommand;
 	FloatParameter * takeOffTime;
 	FloatParameter * takeOffMaxSpeed;
+	FloatParameter * takeOffMinSpeed;
 	Automation takeOffCurve;
 
 	PhysicsCC physicsCC;

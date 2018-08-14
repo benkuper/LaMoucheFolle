@@ -321,7 +321,7 @@ OSCArgument OSCController::varToArgument(const var & v)
 	else if (v.isInt64()) return OSCArgument((int)v);
 	else if (v.isDouble()) return OSCArgument((float)v);
 	else if (v.isString()) return OSCArgument(v.toString());
-	jassert(false);
+	//jassert(false);
 	return OSCArgument("error");
 }
 

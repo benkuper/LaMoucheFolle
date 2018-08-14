@@ -18,7 +18,9 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 
 	if (crtpConsoleResponse::match(ack)) {
 		type = CONSOLE;
-		data = ack.size == 5?"?":((crtpConsoleResponse*)ack.data)->text;
+		const char * t = ((crtpConsoleResponse*)ack.data)->text;
+		if (CharPointer_ASCII::isValidString(t, std::numeric_limits<int>::max())) data = String(t);
+		else data = "[Corrupt data]";
 	} else if (crtpLogGetInfoResponse::match(ack)) {
 		type = LOG_TOC_INFO;
 		crtpLogGetInfoResponse * r = (crtpLogGetInfoResponse *)ack.data;
@@ -144,7 +146,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		type = UNKNOWN;
 		
 		crtp* header = (crtp*)ack.data;
-		LOG("Unknown packet\nPort: " << (int)header->port << "\nChannel: " << (int)header->channel << "\nLen: " << (int)ack.size);
+		DBG("Unknown packet\nPort: " << (int)header->port << "\nChannel: " << (int)header->channel << "\nLen: " << (int)ack.size);
 		// for (size_t i = 1; i < result.size; ++i) {
 		//   std::cout << "    " << (int)result.data[i] << std::endl;
 		// }

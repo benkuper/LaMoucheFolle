@@ -203,10 +203,21 @@ void CFDrone::addTakeoffCommand()
 		return;
 	}
 
-	float velZ = CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
-	LOG("add takeof command with force " << velZ);
-
-	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, velZ), 0));
+	if(CFSettings::getInstance()->useThrustCommand->boolValue())
+	{
+		float minTakeOff = CFSettings::getInstance()->takeOffMinSpeed->floatValue();
+		float maxTakeOff = CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
+		float thrust = minTakeOff + CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * (maxTakeOff - minTakeOff);
+		
+		addCommand(CFCommand::createSetPoint(this, 0, 0, 0, thrust*10000));
+		LOG("add thrust takeoff command with thrust " << thrust);
+	} else
+	{
+		float velZ = CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
+		LOG("add velocity takeoff command with force " << velZ);
+		addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, velZ), 0));
+	}
+	
 }
 
 void CFDrone::addFlyingCommand()
@@ -797,6 +808,7 @@ void CFDrone::stateChanged()
 	case TAKING_OFF:
 	{
 		timeAtStartTakeOff = Time::getMillisecondCounter();
+		for (int i = 0; i < 20; i++) addCommand(CFCommand::createSetPoint(this,0, 0, 0, 0)); //unlock thrust commands
 		startTimer(TIMER_TAKEOFF);
 	}
 	break;
@@ -811,7 +823,7 @@ void CFDrone::stateChanged()
 	{
 		timeAtStartLanding = Time::getMillisecondCounter();
 		float h = CFSettings::getInstance()->zIsVertical->boolValue() ? realPosition->z : realPosition->y;
-		landingTime = jmax<float>(h * 2, 1);
+		landingTime = jmax<float>(h * 3, 1);
 
 		startTimer(TIMER_LANDING);
 	}

@@ -40,7 +40,7 @@ CFCommand * CFCommand::createRebootFirmware(CFDrone * d)
 }
 
 CFCommand * CFCommand::createSetPoint(CFDrone * d, float yaw, float pitch, float roll, float thrust) {
-	crtpSetpointRequest r(roll, pitch, yaw, thrust);
+	crtpSetpointRequest r(roll, pitch, yaw, (uint16_t)thrust);
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpSetpointRequest)), SETPOINT);
 }
 CFCommand * CFCommand::createVelocity(CFDrone * d, Vector3D<float> vel, float yaw) {

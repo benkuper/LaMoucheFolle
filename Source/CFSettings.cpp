@@ -31,9 +31,12 @@ CFSettings::CFSettings() :
 										Nodes are assumed to be positionned 0 left front ground > 1,2,3 clockwise on ground, 4 on top of 0 > 5,6,7 clockwise up");
 
 	addChildControllableContainer(&flightCC);
+	useThrustCommand = flightCC.addBoolParameter("Use thrust command", "Use thrust instead of velocity command for take off", false);
 	takeOffTime = flightCC.addFloatParameter("Takeoff Time", "Time to take off", 3, 0, 10);
 	takeOffMaxSpeed = flightCC.addFloatParameter("Takeoff Max Speed", "The vertical speed in m/s corresponding to the max curve value",1,0,6);
+	takeOffMinSpeed = flightCC.addFloatParameter("Takeoff Min Speed", "The min vertical speed in m/s corresponding to the min curve value (only with thrust command)",0.5f,0,6);
 	addChildControllableContainer(&takeOffCurve);
+	
 	takeOffCurve.showUIInEditor = true;
 	takeOffCurve.addItem(0, 1);
 	takeOffCurve.addItem(1, 0);
