@@ -151,7 +151,7 @@ void CFRadioManager::run()
 					try
 					{
 						uint8_t ch = droneId * 2;
-						uint64_t ad = 0xE7E7E7E700 + droneId;
+						uint64_t ad = 0xE7E7E7E700 + String(droneId).getHexValue32();
 
 						r->setChannel(ch);
 						r->setAddress(ad); 

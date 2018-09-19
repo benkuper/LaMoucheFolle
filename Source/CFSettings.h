@@ -67,6 +67,10 @@ public:
 	BoolParameter * calibAfterConnect;
 	BoolParameter * calibAfterAnalyze;
 	Point3DParameter * lpsBoxSize;
+	FloatParameter * lpsZOffset;
+
+	FloatParameter * minBattery;
+	FloatParameter * lowBatteryTime;
 
 	ControllableContainer flightCC;
 	BoolParameter * useThrustCommand;

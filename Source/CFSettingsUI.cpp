@@ -25,6 +25,8 @@ void PhysicsCCUI::paintOverChildren(Graphics & g)
 {
 	GenericControllableContainerEditor::paintOverChildren(g);
 
+	if (simRect.getWidth() == 0 || simRect.getHeight() == 0) return;
+
 	g.setColour(BG_COLOR);
 	g.fillRect(simRect);
 
@@ -44,6 +46,7 @@ void PhysicsCCUI::paintOverChildren(Graphics & g)
 		float ty = jmap<float>(i, minVal, maxVal, simRect.getBottom(), simRect.getY());
 		g.drawLine(simRect.getX(), ty, simRect.getRight(), ty);
 	}
+
 
 
 	g.setColour(GREEN_COLOR.withAlpha(.7f));

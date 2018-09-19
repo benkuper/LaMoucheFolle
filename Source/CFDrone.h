@@ -14,6 +14,9 @@
 #define LOG_POWER_ID 1
 #define LOG_CALIB_ID 2
 
+#define LOWBAT_ID		1000
+#define LOWBAT_BLINK_ID 1001 
+
 #include "CFCommand.h"
 #include "CFParam.h"
 #include "CFLog.h"
@@ -43,6 +46,7 @@ public:
 	
 	//Parameters
 	enum DroneState { POWERED_OFF, DISCONNECTED, CONNECTING, CALIBRATING, ANALYSIS, TAKING_OFF, FLYING, LANDING, WARNING, READY, ERROR };
+
 	enum TimerId { TIMER_PING, TIMER_TAKEOFF, TIMER_FLYING, TIMER_LANDING, TIMER_CALIBRATION, TIMER_MAX };
 	const float timerFreqs[TIMER_MAX]{1, 20, 50, 20, 30 };
 
@@ -56,6 +60,7 @@ public:
 
 	ControllableContainer controlsCC;
 	Trigger * connectTrigger;
+	Trigger * tocTrigger;
 	Trigger * calibrateTrigger;
 	Trigger * analyzeTrigger;
 	Trigger * takeOffTrigger;
@@ -68,6 +73,7 @@ public:
 	EnumParameter * state;
 	FloatParameter * linkQuality;
 	FloatParameter * batteryLevel;
+	FloatParameter * voltage;
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
 	BoolParameter * selfTestProblem;
@@ -202,7 +208,7 @@ public:
 struct BatteryBlock
 {
 	uint8 battery;
-	//uint8 lowBattery;
+	float voltage;
 	uint8 charging;
 } __attribute__((packed));
 

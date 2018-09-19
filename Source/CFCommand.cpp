@@ -78,7 +78,7 @@ CFCommand * CFCommand::createSetParam(CFDrone * d, StringRef name, var value) {
 	case CFParam::Type::Int16: { crtpParamWriteRequest<int16_t> r(p->definition.id, (int16_t)(int)value);  data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int16_t>));  }break;
 	case CFParam::Type::Uint32: { crtpParamWriteRequest<uint32_t> r(p->definition.id, (uint32_t)(int)value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<uint32_t>)); }break;
 	case CFParam::Type::Int32: { crtpParamWriteRequest<int32_t> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<int32_t>));  }break;
-	case CFParam::Type::Float: { crtpParamWriteRequest<float> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r), sizeof(crtpParamWriteRequest<float>);  }break;
+	case CFParam::Type::Float: { crtpParamWriteRequest<float> r(p->definition.id, value); data = Array<uint8>((uint8 *)&r, sizeof(crtpParamWriteRequest<float>));  }break;
 	default: DBG("Type not handled : " << (int)p->definition.type); return nullptr; break;
 	}
 
@@ -129,7 +129,7 @@ CFCommand * CFCommand::createRequestParamToc(CFDrone * d)
 
 CFCommand * CFCommand::createActivateSafeLink(CFDrone * d)
 {
-	return new CFCommand(d, Array<uint8>(Crazyradio::safeLinkPacket), ACTIVATE_SAFELINK);
+	return new CFCommand(d, Array<uint8>(Crazyradio::safeLinkPacket, sizeof(Crazyradio::safeLinkPacket)), ACTIVATE_SAFELINK);
 }
 
 CFCommand * CFCommand::createRequestLogToc(CFDrone * d)

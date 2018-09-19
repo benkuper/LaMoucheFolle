@@ -13,6 +13,7 @@
 #include "NodeManager.h"
 #include "CFDroneManager.h"
 #include <type_traits>
+#include "CFSettings.h"
 
 OSCController::OSCController(var params) :
 	Controller("OSC")
@@ -53,6 +54,12 @@ void OSCController::sendDroneFeedback(CFDrone * d, Controllable * c)
 	if (p != nullptr)
 	{
 		OSCMessage m("/drone-" + d->shortName + "/"+p->shortName);
+		/*
+		if (p->type == Controllable::COLOR)
+		{
+			m.addColour(OSCHelpers::getOSCColour(((ColorParameter *)p)->getColor()));
+
+		}else */
 		if (p->value.isArray())
 		{
 			for (int i = 0; i < p->value.size(); i++)
@@ -101,7 +108,14 @@ void OSCController::sendFullSetup()
 	sendOSC(m);
 	
 	OSCMessage m2("/nodes/setup");
-	for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
+	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+	Vector3D<float> boxSize = CFSettings::getInstance()->lpsBoxSize->getVector();
+	m2.addFloat32(boxSize.x);
+	m2.addFloat32(zIsVertical?boxSize.z:boxSize.y);
+	m2.addFloat32(zIsVertical?boxSize.y:boxSize.z);
+	m2.addFloat32(CFSettings::getInstance()->lpsZOffset->floatValue());
+
+	//for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
 	sendOSC(m2);
 	
 }

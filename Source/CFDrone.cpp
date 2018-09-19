@@ -43,7 +43,8 @@ CFDrone::CFDrone() :
 		->addOption("Flying", FLYING)->addOption("LANDING", LANDING)->addOption("Error", ERROR);
 	linkQuality = statusCC.addFloatParameter("Link Quality", "Quality of radio communication with the drone", 0, 0, 1);
 
-	batteryLevel = statusCC.addFloatParameter("BatteryLevel", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 1);
+	batteryLevel = statusCC.addFloatParameter("Battery Level", "Computed battery level of the drone. /!\\ When flying, there is a massive voltage drop !", 0, 0, 1);
+	voltage = statusCC.addFloatParameter("Voltage", "Voltage of the drone. /!\\ When flying, there is a massive voltage drop !", 4.2f, 2.9f, 4.2f);
 	charging = statusCC.addBoolParameter("Charging", "Is the drone charging", false);
 	lowBattery = statusCC.addBoolParameter("Low Battery", "Low battery", false);
 
@@ -68,6 +69,7 @@ CFDrone::CFDrone() :
 
 	addChildControllableContainer(&controlsCC);
 	connectTrigger = controlsCC.addTrigger("Connect", "Connect to the drone");
+	tocTrigger = controlsCC.addTrigger("Request TOC", "Request TOCs");
 	calibrateTrigger = controlsCC.addTrigger("Calibrate", "Reset the kalman filter");
 	takeOffTrigger = controlsCC.addTrigger("Take off", "Make the drone take off");
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
@@ -112,7 +114,7 @@ CFDrone::CFDrone() :
 
 	memset(qualityPackets, 0, maxQualityPackets * sizeof(bool));
 
-	
+
 	stateChanged(); //force powered_off take care
 }
 
@@ -142,7 +144,7 @@ CFCommand * CFDrone::getDefaultCommand()
 //This function is called multiple times and react differently depending on the current state
 void CFDrone::addConnectionCommands()
 {
-	
+
 	//Get param tocs
 	if (paramToc == nullptr || !paramToc->isInitialized())
 	{
@@ -167,10 +169,10 @@ void CFDrone::addConnectionCommands()
 
 	//Reset all logs
 	addCommand(CFCommand::createResetLogs(this));
-	
+
 	//Create a status log, low freq
-	addCommand(CFCommand::createAddLogBlock(this, LOG_POWER_ID, Array<String>("pm.batteryLevel",/*,{ "pm","lowBattery" }*/"pm.state")));
-	
+	addCommand(CFCommand::createAddLogBlock(this, LOG_POWER_ID, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
+
 	//Create a position/orientation log, high freq
 	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ")));
 
@@ -188,7 +190,7 @@ void CFDrone::addConnectionCommands()
 	//or pass to calibration until analysis is implemented
 
 	LOG("Initialized, now calibrating");
-	if(CFSettings::getInstance()->calibAfterConnect->boolValue()) state->setValueWithData(CALIBRATING);
+	if (CFSettings::getInstance()->calibAfterConnect->boolValue()) state->setValueWithData(CALIBRATING);
 	else state->setValueWithData(READY);
 }
 
@@ -203,13 +205,13 @@ void CFDrone::addTakeoffCommand()
 		return;
 	}
 
-	if(CFSettings::getInstance()->useThrustCommand->boolValue())
+	if (CFSettings::getInstance()->useThrustCommand->boolValue())
 	{
 		float minTakeOff = CFSettings::getInstance()->takeOffMinSpeed->floatValue();
 		float maxTakeOff = CFSettings::getInstance()->takeOffMaxSpeed->floatValue();
 		float thrust = minTakeOff + CFSettings::getInstance()->takeOffCurve.getValueForPosition(relTime) * (maxTakeOff - minTakeOff);
-		
-		addCommand(CFCommand::createSetPoint(this, 0, 0, 0, thrust*10000));
+
+		addCommand(CFCommand::createSetPoint(this, 0, 0, 0, thrust * 10000));
 		LOG("add thrust takeoff command with thrust " << thrust);
 	} else
 	{
@@ -217,13 +219,13 @@ void CFDrone::addTakeoffCommand()
 		LOG("add velocity takeoff command with force " << velZ);
 		addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, velZ), 0));
 	}
-	
+
 }
 
 void CFDrone::addFlyingCommand()
 {
-	
-	float deltaTime = (Time::getMillisecondCounter() - lastPhysicsUpdateTime) / 1000.0f;
+
+	double deltaTime = Time::getMillisecondCounter() / 1000.0 - lastPhysicsUpdateTime;
 
 	PhysicsCC::PhysicalState currentState = PhysicsCC::PhysicalState(targetPosition->getVector(), targetSpeed->getVector(), targetAcceleration->getVector());
 	PhysicsCC::PhysicalState desiredState = PhysicsCC::PhysicalState(desiredPosition->getVector(), desiredSpeed->getVector(), desiredAcceleration->getVector());
@@ -236,12 +238,13 @@ void CFDrone::addFlyingCommand()
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	Vector3D<float> targetPos(targetState.position.x, zIsVertical ? targetState.position.y : targetState.position.z, zIsVertical ? targetState.position.z : targetState.position.y);
 	addCommand(CFCommand::createPosition(this, targetPos, yaw->floatValue()));
+	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0;
 }
 
 void CFDrone::addLandingCommand()
 {
-	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, -1), 0)); 
-	if (Time::getMillisecondCounter() > timeAtStartLanding + landingTime) state->setValueWithData(READY);
+	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, -.75f), 0));
+	if (Time::getMillisecondCounter() > timeAtStartLanding + landingTime*1000) state->setValueWithData(READY);
 }
 
 void CFDrone::addParamCommand(String paramName, var value)
@@ -278,6 +281,9 @@ void CFDrone::addSetupNodesCommands()
 	Vector3D<float> pos = CFSettings::getInstance()->lpsBoxSize->getVector();
 	if (!zIsVertical) pos = Vector3D<float>(pos.x, pos.z, pos.y);
 
+	float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
+	pos.z += zOffset;
+
 	for (int i = 0; i < 8; i++)
 	{
 		addGetParamValueCommand("anchorpos.anchor" + String(i) + "x");
@@ -285,17 +291,17 @@ void CFDrone::addSetupNodesCommands()
 		addGetParamValueCommand("anchorpos.anchor" + String(i) + "z");
 	}
 
-	addCommand(CFCommand::createLPSNodePos(this, 0, -pos.x/2, -pos.y/2, 0));
+	addCommand(CFCommand::createLPSNodePos(this, 0, -pos.x / 2, -pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 1, -pos.x / 2, -pos.y / 2, pos.z));
 
-	addCommand(CFCommand::createLPSNodePos(this, 2, -pos.x/2, pos.y/2, 0));
+	addCommand(CFCommand::createLPSNodePos(this, 2, -pos.x / 2, pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 3, -pos.x / 2, pos.y / 2, pos.z));
 
-	addCommand(CFCommand::createLPSNodePos(this, 4, pos.x/2,  pos.y/2, 0));
+	addCommand(CFCommand::createLPSNodePos(this, 4, pos.x / 2, pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 5, pos.x / 2, pos.y / 2, pos.z));
 
-	addCommand(CFCommand::createLPSNodePos(this, 6, pos.x/2,  -pos.y/2, 0));
-	addCommand(CFCommand::createLPSNodePos(this, 7, pos.x/2,  -pos.y/2, pos.z));
+	addCommand(CFCommand::createLPSNodePos(this, 6, pos.x / 2, -pos.y / 2, zOffset));
+	addCommand(CFCommand::createLPSNodePos(this, 7, pos.x / 2, -pos.y / 2, pos.z));
 }
 
 
@@ -303,15 +309,17 @@ void CFDrone::syncToRealPosition()
 {
 	targetPosition->setVector(realPosition->getVector());
 	desiredPosition->setVector(realPosition->getVector());
+	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0;
 }
 
 void CFDrone::updateControls()
 {
 	DroneState s = state->getValueDataAsEnum<DroneState>();
 	connectTrigger->setEnabled(s == DISCONNECTED);
+	tocTrigger->setEnabled(s != POWERED_OFF && s != DISCONNECTED);
 	calibrateTrigger->setEnabled(s == READY || s == WARNING);
 	takeOffTrigger->setEnabled(s == READY);
-	landTrigger->setEnabled(s == FLYING);
+	landTrigger->setEnabled(s == TAKING_OFF ||  s == FLYING);
 	rebootTrigger->setEnabled(s != TAKING_OFF && s != FLYING && s != LANDING);
 	stopTrigger->setEnabled(s == READY || s == TAKING_OFF || s == FLYING || s == LANDING);
 	setupNodesTrigger->setEnabled(s != POWERED_OFF);
@@ -337,6 +345,7 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 
 	if (c == state) stateChanged();
 	else if (c == connectTrigger) state->setValueWithData(CONNECTING);
+	else if (c == tocTrigger) addConnectionCommands();
 	else if (c == calibrateTrigger) state->setValueWithData(CALIBRATING);
 	else if (c == rebootTrigger)
 	{
@@ -348,7 +357,7 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 		if (currentState == FLYING || currentState == TAKING_OFF || currentState == LANDING) state->setValueWithData(READY);
 	} else if (c == takeOffTrigger)
 	{
-		if (currentState == READY) state->setValueWithData(TAKING_OFF);
+		if (currentState == READY && !lowBattery->boolValue()) state->setValueWithData(TAKING_OFF);
 	} else if (c == landTrigger)
 	{
 		if (currentState == FLYING || currentState == TAKING_OFF) state->setValueWithData(LANDING);
@@ -357,12 +366,35 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 		if (currentState != POWERED_OFF) addSetupNodesCommands();
 	}
 
-	//controls
-	else if (c == color) addParamCommand("ring.fadeColor", (int64)color->getColor().getARGB());
-	else if (c == headlight) addParamCommand("ring.headlightEnable", headlight->boolValue());
-	else if (c == lightMode) addParamCommand("ring.effect", lightMode->getValueData());
-	else if (c == fadeTime) addParamCommand("ring.fadeTime", fadeTime->floatValue());
-	else if (c == stealthMode) addParamCommand("platform.stealthMode", stealthMode->boolValue());
+	//Battery
+	else if (c == lowBattery)
+	{
+		if (lowBattery->boolValue())
+		{
+			MultiTimer::startTimer(LOWBAT_BLINK_ID, 2000);
+			landTrigger->trigger();
+		} else
+		{
+			stopTimer(LOWBAT_BLINK_ID);
+		}
+	} else if (c == charging)
+	{
+		lowBattery->setValue(false);
+		if(charging->boolValue()) color->setColor(Colours::yellow.darker());
+		else color->setColor(Colours::black);
+	}
+
+	//controls authorized when battery ok
+
+	else if (!lowBattery->boolValue())
+	{
+		if (c == color) addParamCommand("ring.fadeColor", (int64)color->getColor().getARGB());
+		else if (c == headlight) addParamCommand("ring.headlightEnable", headlight->boolValue());
+		else if (c == lightMode) addParamCommand("ring.effect", lightMode->getValueData());
+		else if (c == fadeTime) addParamCommand("ring.fadeTime", fadeTime->floatValue());
+		else if (c == stealthMode) addParamCommand("platform.stealthMode", stealthMode->boolValue());
+	}
+
 }
 
 void CFDrone::noAckReceived()
@@ -396,7 +428,7 @@ void CFDrone::packetReceived(const CFPacket & packet)
 
 	case CFPacket::PARAM_TOC_INFO: paramTocReceived((int)packet.data.getProperty("crc", 0), (int)packet.data.getProperty("size", 0)); break;
 	case CFPacket::PARAM_TOC_ITEM: paramInfoReceived(
-		packet.data.getProperty("id",0),
+		packet.data.getProperty("id", 0),
 		packet.data.getProperty("group", "[notset]").toString(),
 		packet.data.getProperty("name", "[notset]").toString(),
 		(int)packet.data.getProperty("type", -1),
@@ -417,7 +449,7 @@ void CFDrone::packetReceived(const CFPacket & packet)
 		break;
 
 	case CFPacket::LOG_DATA:
-		logBlockReceived(packet.data.getProperty("blockId",-1), packet.data.getProperty("data",var()));
+		logBlockReceived(packet.data.getProperty("blockId", -1), packet.data.getProperty("data", var()));
 		break;
 
 	case CFPacket::PARAM_VALUE:
@@ -475,7 +507,7 @@ void CFDrone::paramTocReceived(int crc, int size)
 	}
 
 	paramToc = CFParamToc::addParamToc(crc, size);
-	
+
 	if (!paramToc->isInitialized())
 	{
 		DBG("Unknown toc received : CRC " << paramToc->crc << ", " << paramToc->numParams << " parameters");
@@ -497,7 +529,7 @@ void CFDrone::paramInfoReceived(int id, String group, String name, int type, boo
 	}
 
 	DBG("Param received [" << id << "] : " << group << "." << name << " (" << CFParam::getTypeString((CFParam::Type)type) << ") " << (readOnly ? "readOnly" : "") << ", length : " << length << ", sign :" << sign);
-	
+
 	if (paramToc == nullptr)
 	{
 		//Drone has previous commands to send, ignoring them
@@ -557,35 +589,38 @@ void CFDrone::paramValueReceived(int id, var value)
 
 		Vector3D<float> box = CFSettings::getInstance()->lpsBoxSize->getVector();
 		if (!CFSettings::getInstance()->zIsVertical->boolValue()) box = Vector3D<float>(box.x, box.z, box.y);
-		
+
+		float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
+		box.z += zOffset;
+
 		float checkVal = 0;
 
 		switch (coord)
 		{
-			case 'x':
-			{
-				checkVal = box.x / 2;
-				if (anchorId == 0 || anchorId == 1 || anchorId == 2 || anchorId == 3) checkVal = -checkVal;
-			}
-			break;
+		case 'x':
+		{
+			checkVal = box.x / 2;
+			if (anchorId == 0 || anchorId == 1 || anchorId == 2 || anchorId == 3) checkVal = -checkVal;
+		}
+		break;
 
-			case 'y':
-			{
-				checkVal = box.y / 2;
-				if (anchorId == 0 || anchorId == 1 || anchorId == 6 || anchorId == 7) checkVal = -checkVal;
-			}
-			break;
+		case 'y':
+		{
+			checkVal = box.y / 2;
+			if (anchorId == 0 || anchorId == 1 || anchorId == 6 || anchorId == 7) checkVal = -checkVal;
+		}
+		break;
 
-			case 'z':
-			{
-				checkVal = anchorId == 1 || anchorId == 3 || anchorId == 5 || anchorId == 7 ? box.z : 0;
-			}
-			break;
+		case 'z':
+		{
+			checkVal = anchorId == 1 || anchorId == 3 || anchorId == 5 || anchorId == 7 ? box.z : zOffset;
+		}
+		break;
 		}
 
 		bool inSync = fabsf(checkVal - (float)p->value) < .05f;
-		if (inSync) LOG("Anchor " << anchorId << " (" << coord << ") " << "ok");
-		else LOGWARNING("Not in sync : " << anchorId << " (" << coord << ")");
+		if (!inSync) LOGWARNING("Not in sync : " << anchorId << " (" << coord << ")");
+		//else LOG("Anchor " << anchorId << " (" << coord << ") " << "ok");
 
 	}
 }
@@ -598,27 +633,35 @@ void CFDrone::logTocReceived(int crc, int size)
 		return;
 	}
 
-	//HACK because log variable 163 does not exist
-	size = size - 1;
+	//HACK because log variable returns 252
+	size = 246;// size - 1;
 
 	logToc = CFLogToc::addLogToc(crc, size);
-	DBG("Log toc received : CRC " << logToc->crc << ", " << logToc->numVariables << " variables");
+	LOG("Log toc received : CRC " << logToc->crc << ", " << logToc->numVariables << " variables, is init ? " << (int)logToc->isInitialized());
 
 	if (!logToc->isInitialized())
 	{
-		currentLogVariableId = 0; //reset Parameter id before asking all the parameters
+		currentLogVariableId = logToc->variables.size(); //reset Parameter id before asking all the parameters
 
+		//HACK skip 165
+		if (currentLogVariableId == 164) currentLogVariableId++;
+
+		DBG("Add request log item id " << currentLogVariableId);
+		addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
+
+		String m = "missing : ";
 		for (int i = 0; i < logToc->numVariables; i++)
 		{
-			DBG("Add request log item id " << currentLogVariableId);
-			//addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
-			addCommand(CFCommand::createGetLogItemInfo(this, i));
+			if (logToc->getLogVariable(i) == nullptr) m += String(i) + ", ";
 		}
+		LOG("Missing variables are " << m);
 	} else
 	{
 		LOG("Found existing log TOC");
 		addConnectionCommands();
 	}
+
+
 }
 
 void CFDrone::logVariableInfoReceived(String group, String name, int type)
@@ -633,14 +676,14 @@ void CFDrone::logVariableInfoReceived(String group, String name, int type)
 	{
 		//Drone has log variable to send from previous session, ignoring
 		return;
-	}	
+	}
 
 	bool alreadyHasVariable = logToc->getLogVariableIdForName(group + "." + name) != -1;
 	if (!alreadyHasVariable)
 	{
 
 		DBG("Log Variable info received [" << currentLogVariableId << "] : " << group << "." << name << " (" << CFParam::getTypeString((CFParam::Type)type) << ") ");
-		
+
 		logToc->addVariableDef(group + "." + name, currentLogVariableId, (CFLogVariable::Type)type);
 		currentLogVariableId = logToc->variables.size();
 
@@ -657,11 +700,15 @@ void CFDrone::logVariableInfoReceived(String group, String name, int type)
 				return;
 			}
 			DBG("Add request for log item id " << currentLogVariableId);
-			for(int i=0;i<2;i++) addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId+i));
+			addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
 		}
 	} else
 	{
 		DBG("Already has variable " << group << "." << name << ", skipping");
+		currentLogVariableId++;
+		DBG("Cur variable log id : " << currentLogVariableId);
+		//DBG("Log toc is initialized ?" << (int)(logToc->isInitialized()) << " : " << logToc->numVariables << "< > " << logToc->variables.size());
+		addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
 	}
 }
 
@@ -686,6 +733,20 @@ void CFDrone::logBlockReceived(int blockId, var data)
 	{
 		BatteryBlock * bLog = (BatteryBlock *)data.getBinaryData()->getData();
 		batteryLevel->setValue(bLog->battery / 100.0f);
+		voltage->setValue(bLog->voltage);
+
+		if (voltage->floatValue() < CFSettings::getInstance()->minBattery->floatValue())
+		{
+			if (!lowBattery->boolValue() && !MultiTimer::isTimerRunning(LOWBAT_ID))
+			{
+				MultiTimer::startTimer(LOWBAT_ID, 1000.0f * CFSettings::getInstance()->lowBatteryTime->floatValue());
+				NLOG(niceName, "Entering Low battery check");
+			}
+		} else
+		{
+			stopTimer(LOWBAT_ID); 
+		}
+
 		charging->setValue(bLog->charging > 0);
 	}
 	break;
@@ -693,7 +754,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 	case LOG_CALIB_ID:
 	{
 		CalibBlock * cLog = (CalibBlock *)data.getBinaryData()->getData();
-		
+
 		DBG("Variance " << cLog->varianceX << ", " << cLog->varianceY << ", " << cLog->varianceZ);
 		uint64 t = Time::currentTimeMillis();
 		bool stab = /*data->varianceX > 0 && data->varianceY > 0 && data->varianceZ > 0 &&*/ cLog->varianceX < minConvergeDist && cLog->varianceY < minConvergeDist && cLog->varianceZ < minConvergeDist;
@@ -717,7 +778,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 			calibrationProgress->setValue(0);
 		}
 	}
-		break;
+	break;
 	}
 
 }
@@ -755,7 +816,8 @@ void CFDrone::stateChanged()
 	{
 	case POWERED_OFF:
 		safeLinkActive = false;
-		for (int i = 0; i<10; i++) addCommand(CFCommand::createActivateSafeLink(this));
+		lowBattery->setValue(false);
+		for (int i = 0; i < 10; i++) addCommand(CFCommand::createActivateSafeLink(this));
 		startTimer(TIMER_PING);
 		break;
 
@@ -768,7 +830,7 @@ void CFDrone::stateChanged()
 
 	case CONNECTING:
 	{
-		if(!safeLinkActive) for (int i = 0; i<10; i++) addCommand(CFCommand::createActivateSafeLink(this));
+		if (!safeLinkActive) for (int i = 0; i < 10; i++) addCommand(CFCommand::createActivateSafeLink(this));
 
 		currentParamRequestId = -1;
 		currentLogVariableId = -1;
@@ -783,6 +845,10 @@ void CFDrone::stateChanged()
 		timeAtStartCalib = Time::getMillisecondCounter();
 		timeAtStartConverge = 0;
 		lightMode->setValueWithData(DOUBLE_SPINNER);
+
+		//force those 2 to start as well if drone got disconnected
+		addCommand(CFCommand::createStartLog(this, LOG_POWER_ID, 5));
+		addCommand(CFCommand::createStartLog(this, LOG_POSITION_ID, 20));
 
 		addCommand(CFCommand::createStartLog(this, LOG_CALIB_ID, 20));
 
@@ -808,7 +874,7 @@ void CFDrone::stateChanged()
 	case TAKING_OFF:
 	{
 		timeAtStartTakeOff = Time::getMillisecondCounter();
-		for (int i = 0; i < 20; i++) addCommand(CFCommand::createSetPoint(this,0, 0, 0, 0)); //unlock thrust commands
+		for (int i = 0; i < 20; i++) addCommand(CFCommand::createSetPoint(this, 0, 0, 0, 0)); //unlock thrust commands
 		startTimer(TIMER_TAKEOFF);
 	}
 	break;
@@ -823,8 +889,8 @@ void CFDrone::stateChanged()
 	{
 		timeAtStartLanding = Time::getMillisecondCounter();
 		float h = CFSettings::getInstance()->zIsVertical->boolValue() ? realPosition->z : realPosition->y;
-		landingTime = jmax<float>(h * 3, 1);
-
+		landingTime = jmax<float>(h * 1.25f, 2);
+		NLOG(niceName, "Landing for " << landingTime << "seconds.");
 		startTimer(TIMER_LANDING);
 	}
 	break;
@@ -853,7 +919,7 @@ void CFDrone::startTimer(TimerId id)
 
 void CFDrone::timerCallback(int timerID)
 {
-	switch ((TimerId)timerID)
+	switch (timerID)
 	{
 
 	case TIMER_PING:
@@ -898,6 +964,20 @@ void CFDrone::timerCallback(int timerID)
 		}
 	}
 	break;
+
+	case LOWBAT_ID:
+		color->setColor(Colours::red);
+		fadeTime->setValue(1.5f);
+		headlight->setValue(false);
+		lowBattery->setValue(true);
+		stopTimer(LOWBAT_ID);
+		NLOGWARNING(niceName, "LOW BATTERY");
+		break;
+
+	case LOWBAT_BLINK_ID:
+		color->setColor(color->getColor() == Colours::black ? Colours::red.darker() : Colours::black);
+		addParamCommand("ring.fadeColor", (int64)color->getColor().getARGB());
+		break;
 
 	default:
 		//not handled
