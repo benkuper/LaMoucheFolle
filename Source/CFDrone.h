@@ -16,6 +16,8 @@
 
 #define LOWBAT_ID		1000
 #define LOWBAT_BLINK_ID 1001 
+#define AUTOCONNECT_ID  1002
+#define UPSIDE_DOWN_ID  1003
 
 #include "CFCommand.h"
 #include "CFParam.h"
@@ -68,6 +70,7 @@ public:
 	Trigger * stopTrigger;
 	Trigger * rebootTrigger;
 	Trigger * setupNodesTrigger;
+	Trigger * propCheckTrigger;
 
 	ControllableContainer statusCC;
 	EnumParameter * state;
@@ -89,8 +92,10 @@ public:
 	Point3DParameter * targetPosition;
 	Point3DParameter * targetSpeed;
 	Point3DParameter * targetAcceleration;
-	FloatParameter * yaw;
 	Point3DParameter * realPosition;
+	FloatParameter * targetYaw;
+	Point3DParameter * orientation;
+	BoolParameter * upsideDown;
 
 
 	ControllableContainer lightingCC;
@@ -131,9 +136,9 @@ public:
 
 	//Calibration
 	uint64 timeAtStartCalib;
-	const uint64 calibTimeout = 6000; //max 6s to calibrate
+	const uint64 calibTimeout = 3000; //3s of no stab is warning
 	const float minConvergeDist = .005f;
-	const uint64 minConvergeTime = 1000; //ms
+	const uint64 minConvergeTime = 1500; //ms
 	uint64 timeAtStartConverge;
 
 	//Procedures
@@ -217,6 +222,9 @@ struct PosBlock
 	float x;
 	float y;
 	float z;
+	float rx;
+	float ry;
+	float rz;
 } __attribute__((packed));
 
 

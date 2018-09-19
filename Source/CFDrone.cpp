@@ -76,6 +76,7 @@ CFDrone::CFDrone() :
 	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
 	setupNodesTrigger = controlsCC.addTrigger("Setup Nodes", "Send node positions");
+	propCheckTrigger = controlsCC.addTrigger("Propeller Check", "Check propellers. May be good to restart after");
 
 	addChildControllableContainer(&flightCC);
 	desiredPosition = flightCC.addPoint3DParameter("Desired Position", "The desired position for the drone. This is the one you setup");
@@ -90,8 +91,12 @@ CFDrone::CFDrone() :
 	targetSpeed->isControllableFeedbackOnly = true;
 	targetAcceleration->isControllableFeedbackOnly = true;
 
-	yaw = flightCC.addFloatParameter("Yaw", "The target horizontal rotation of the drone, 0 is aligned to X+", 0, 0, 360);
 	realPosition = flightCC.addPoint3DParameter("Real Position", "Real Position feedback from the drone");
+	
+	targetYaw = flightCC.addFloatParameter("Target Yaw", "Target horizontal orientation", 0, -180, 180);
+	orientation = flightCC.addPoint3DParameter("Orientation", "The target rotation of the drone, Y = 0 is aligned to X+");
+	orientation->setBounds(-90, -180, -180, 90, 180, 180);
+	upsideDown = flightCC.addBoolParameter("Upside Down", "Is the drone upside down ?", false);
 
 	addChildControllableContainer(&lightingCC);
 	lightMode = lightingCC.addEnumParameter("LightMode", "Led Preset");
@@ -174,7 +179,7 @@ void CFDrone::addConnectionCommands()
 	addCommand(CFCommand::createAddLogBlock(this, LOG_POWER_ID, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
 
 	//Create a position/orientation log, high freq
-	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ")));
+	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ","stabilizer.pitch","stabilizer.yaw","stabilizer.roll")));
 
 	//Create calib command but do not start it here
 	addCommand(CFCommand::createAddLogBlock(this, LOG_CALIB_ID, Array<String>("kalman.varPX", "kalman.varPY", "kalman.varPZ")));
@@ -182,6 +187,7 @@ void CFDrone::addConnectionCommands()
 
 	addCommand(CFCommand::createStartLog(this, LOG_POWER_ID, 5));
 	addCommand(CFCommand::createStartLog(this, LOG_POSITION_ID, 20));
+
 
 	//check self-test
 
@@ -224,7 +230,6 @@ void CFDrone::addTakeoffCommand()
 
 void CFDrone::addFlyingCommand()
 {
-
 	double deltaTime = Time::getMillisecondCounter() / 1000.0 - lastPhysicsUpdateTime;
 
 	PhysicsCC::PhysicalState currentState = PhysicsCC::PhysicalState(targetPosition->getVector(), targetSpeed->getVector(), targetAcceleration->getVector());
@@ -237,7 +242,7 @@ void CFDrone::addFlyingCommand()
 	//Invert Z and Y depending on zIsVertical option in Project Settings (if zIsVertical is not checked, then don't swap y and z because crazyflie consider z as vertical)
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	Vector3D<float> targetPos(targetState.position.x, zIsVertical ? targetState.position.y : targetState.position.z, zIsVertical ? targetState.position.z : targetState.position.y);
-	addCommand(CFCommand::createPosition(this, targetPos, yaw->floatValue()));
+	addCommand(CFCommand::createPosition(this, targetPos, targetYaw->floatValue()));
 	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0;
 }
 
@@ -357,13 +362,17 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 		if (currentState == FLYING || currentState == TAKING_OFF || currentState == LANDING) state->setValueWithData(READY);
 	} else if (c == takeOffTrigger)
 	{
-		if (currentState == READY && !lowBattery->boolValue()) state->setValueWithData(TAKING_OFF);
+		if (currentState == READY && !lowBattery->boolValue() && !upsideDown->boolValue()) state->setValueWithData(TAKING_OFF);
 	} else if (c == landTrigger)
 	{
 		if (currentState == FLYING || currentState == TAKING_OFF) state->setValueWithData(LANDING);
 	} else if (c == setupNodesTrigger)
 	{
 		if (currentState != POWERED_OFF) addSetupNodesCommands();
+	} else if (c == propCheckTrigger)
+	{
+		addParamCommand("health.startPropTest", 1);
+		addParamCommand("health.startPropTest", 0);
 	}
 
 	//Battery
@@ -382,6 +391,10 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 		lowBattery->setValue(false);
 		if(charging->boolValue()) color->setColor(Colours::yellow.darker());
 		else color->setColor(Colours::black);
+	} else if (c == upsideDown)
+	{
+		if(upsideDown->boolValue()) MultiTimer::startTimer(UPSIDE_DOWN_ID, 2000);
+		else if (MultiTimer::isTimerRunning(UPSIDE_DOWN_ID)) stopTimer(UPSIDE_DOWN_ID);
 	}
 
 	//controls authorized when battery ok
@@ -726,6 +739,8 @@ void CFDrone::logBlockReceived(int blockId, var data)
 		//Invert Z and Y depending on zIsVertical option in Project Settings (if zIsVertical is not checked, then swap y and z because crazyflie consider z as vertical, so invert to reflect y as vertical in real pos)
 		bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 		realPosition->setVector(pLog->x, zIsVertical ? pLog->y : pLog->z, zIsVertical ? pLog->z : pLog->y);
+		orientation->setVector(pLog->rx, pLog->ry, pLog->rz);
+		upsideDown->setValue(pLog->rz < -120 || pLog->rz > 120);
 	}
 	break;
 
@@ -756,12 +771,17 @@ void CFDrone::logBlockReceived(int blockId, var data)
 		CalibBlock * cLog = (CalibBlock *)data.getBinaryData()->getData();
 
 		DBG("Variance " << cLog->varianceX << ", " << cLog->varianceY << ", " << cLog->varianceZ);
-		uint64 t = Time::currentTimeMillis();
+		uint64 t = Time::getMillisecondCounter();
 		bool stab = /*data->varianceX > 0 && data->varianceY > 0 && data->varianceZ > 0 &&*/ cLog->varianceX < minConvergeDist && cLog->varianceY < minConvergeDist && cLog->varianceZ < minConvergeDist;
 		if (stab)
 		{
 
-			if (timeAtStartConverge == 0) timeAtStartConverge = t;
+			if (timeAtStartConverge == 0)
+			{
+				timeAtStartConverge = t;
+				timeAtStartCalib = t;
+			}
+
 			if (t > timeAtStartConverge + minConvergeTime)
 			{
 				NLOG(niceName, "Calibrated");
@@ -824,7 +844,7 @@ void CFDrone::stateChanged()
 	case DISCONNECTED:
 	{
 		//addCommand(CFCommand::createActivateSafeLink(this));
-		if (CFSettings::getInstanceWithoutCreating() != nullptr && CFSettings::getInstance()->autoConnect->boolValue()) state->setValueWithData(CONNECTING);
+		if (CFSettings::getInstanceWithoutCreating() != nullptr && CFSettings::getInstance()->autoConnect->boolValue()) MultiTimer::startTimer(AUTOCONNECT_ID, 2500);
 	}
 	break;
 
@@ -904,7 +924,6 @@ void CFDrone::stateChanged()
 		break;
 
 	}
-
 }
 
 void CFDrone::stopAllTimers()
@@ -977,6 +996,18 @@ void CFDrone::timerCallback(int timerID)
 	case LOWBAT_BLINK_ID:
 		color->setColor(color->getColor() == Colours::black ? Colours::red.darker() : Colours::black);
 		addParamCommand("ring.fadeColor", (int64)color->getColor().getARGB());
+		break;
+
+	case AUTOCONNECT_ID:
+		stopTimer(AUTOCONNECT_ID);
+		state->setValueWithData(CONNECTING);
+		break;
+
+	case UPSIDE_DOWN_ID:
+		stopTimer(UPSIDE_DOWN_ID);
+		addCommand(CFCommand::createStop(this));
+		state->setValueWithData(WARNING);
+		lightMode->setValueWithData(LightMode::OFF);
 		break;
 
 	default:

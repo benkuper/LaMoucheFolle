@@ -136,6 +136,7 @@ void OSCController::sendDroneSetup(const String & droneName)
 	sendDroneFeedback(d, d->targetPosition);
 	sendDroneFeedback(d, d->realPosition);
 	sendDroneFeedback(d, d->lowBattery);
+	sendDroneFeedback(d, d->orientation);
 	sendDroneFeedback(d, d->charging);
 	sendDroneFeedback(d, d->lightMode);
 	sendDroneFeedback(d, d->fadeTime);
