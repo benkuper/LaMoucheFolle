@@ -84,20 +84,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("length", r->length);
 		data.getDynamicObject()->setProperty("sign", r->sign);
 
-	} else if (crtpMemoryGetNumberResponse::match(ack)) {
-		type = MEMORY_NUMBER;
-		crtpMemoryGetNumberResponse * r = (crtpMemoryGetNumberResponse *)ack.data;
-		data = r->numberOfMemories;
-
-	} else if (crtpMemoryGetInfoResponse::match(ack)) {
-		type = MEMORY_INFO;
-		crtpMemoryGetInfoResponse * r = (crtpMemoryGetInfoResponse *)ack.data;
-		data = new DynamicObject();
-		data.getDynamicObject()->setProperty("address", (int64)r->memAddr);
-		data.getDynamicObject()->setProperty("size", (int32)r->memSize);
-		data.getDynamicObject()->setProperty("type", (int)r->memType);
-
-	} else if (crtpParamValueResponse::match(ack)) {
+	}  else if (crtpParamValueResponse::match(ack)) {
 		type = PARAM_VALUE;
 
 		crtpParamValueResponse * r = (crtpParamValueResponse *)ack.data;
@@ -140,7 +127,36 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		type = LPP_SHORT_PACKET;
 		crtpLppShortPacketResponse * r = (crtpLppShortPacketResponse *)ack.data;
 		data = var();
-		for(int i=0;i<12;i++) data.append(r->rest[i]);
+		for (int i = 0; i < 12; i++) data.append(r->rest[i]);
+
+	} else if (crtpMemoryGetNumberResponse::match(ack)) {
+		type = MEMORY_NUMBER;
+		crtpMemoryGetNumberResponse * r = (crtpMemoryGetNumberResponse *)ack.data;
+		data = r->numberOfMemories;
+	} else if (crtpMemoryGetInfoResponse::match(ack)) {
+		type = MEMORY_INFO;
+		crtpMemoryGetInfoResponse * r = (crtpMemoryGetInfoResponse *)ack.data;
+		data = new DynamicObject();
+		data.getDynamicObject()->setProperty("address", (int64)r->memAddr);
+		data.getDynamicObject()->setProperty("size", (int)r->memSize);
+		data.getDynamicObject()->setProperty("type", (int)r->memType);
+	} else if (crtpMemoryReadResponse::match(ack)) {
+		type = MEMORY_READ;
+		crtpMemoryReadResponse * r = (crtpMemoryReadResponse *)ack.data;
+		data = new DynamicObject();
+		data.getDynamicObject()->setProperty("memoryId", r->memId);
+		data.getDynamicObject()->setProperty("address", (int)r->memAddr);
+		data.getDynamicObject()->setProperty("status", r->status);
+		var dataData;
+		for (int i = 0; i < 24; i++) dataData.append(r->data[i]);
+		data.getDynamicObject()->setProperty("data", dataData);
+	}else if(crtpMemoryWriteResponse::match(ack)) {
+		type = MEMORY_WRITE;
+		crtpMemoryWriteResponse * r = (crtpMemoryWriteResponse *)ack.data;
+		data = new DynamicObject();
+		data.getDynamicObject()->setProperty("memoryId", r->memId);
+		data.getDynamicObject()->setProperty("address", (int)r->memAddr);
+		data.getDynamicObject()->setProperty("status", r->status);
 	} else
 	{
 		type = UNKNOWN;

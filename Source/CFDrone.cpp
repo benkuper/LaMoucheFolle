@@ -92,7 +92,7 @@ CFDrone::CFDrone() :
 	targetAcceleration->isControllableFeedbackOnly = true;
 
 	realPosition = flightCC.addPoint3DParameter("Real Position", "Real Position feedback from the drone");
-	
+
 	targetYaw = flightCC.addFloatParameter("Target Yaw", "Target horizontal orientation", 0, -180, 180);
 	orientation = flightCC.addPoint3DParameter("Orientation", "The target rotation of the drone, Y = 0 is aligned to X+");
 	orientation->setBounds(-90, -180, -180, 90, 180, 180);
@@ -179,7 +179,7 @@ void CFDrone::addConnectionCommands()
 	addCommand(CFCommand::createAddLogBlock(this, LOG_POWER_ID, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
 
 	//Create a position/orientation log, high freq
-	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ","stabilizer.pitch","stabilizer.yaw","stabilizer.roll")));
+	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ", "stabilizer.pitch", "stabilizer.yaw", "stabilizer.roll")));
 
 	//Create calib command but do not start it here
 	addCommand(CFCommand::createAddLogBlock(this, LOG_CALIB_ID, Array<String>("kalman.varPX", "kalman.varPY", "kalman.varPZ")));
@@ -248,8 +248,15 @@ void CFDrone::addFlyingCommand()
 
 void CFDrone::addLandingCommand()
 {
+	//Reset the yaw and turn the drone
+	targetYaw->setValue(0);
+	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+	Vector3D<float> p = targetPosition->getVector();
+	Vector3D<float> targetPos(p.x, zIsVertical ? p.y : p.z, zIsVertical ? p.z : p.y);
+	addCommand(CFCommand::createPosition(this, targetPos, 0));
+
 	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, -.75f), 0));
-	if (Time::getMillisecondCounter() > timeAtStartLanding + landingTime*1000) state->setValueWithData(READY);
+	if (Time::getMillisecondCounter() > timeAtStartLanding + landingTime * 1000) state->setValueWithData(READY);
 }
 
 void CFDrone::addParamCommand(String paramName, var value)
@@ -282,6 +289,9 @@ void CFDrone::addRebootCommand()
 
 void CFDrone::addSetupNodesCommands()
 {
+	addCommand(CFCommand::createGetMemoryNumber(this));
+
+	/*
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	Vector3D<float> pos = CFSettings::getInstance()->lpsBoxSize->getVector();
 	if (!zIsVertical) pos = Vector3D<float>(pos.x, pos.z, pos.y);
@@ -307,6 +317,7 @@ void CFDrone::addSetupNodesCommands()
 
 	addCommand(CFCommand::createLPSNodePos(this, 6, pos.x / 2, -pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 7, pos.x / 2, -pos.y / 2, pos.z));
+	*/
 }
 
 
@@ -324,7 +335,7 @@ void CFDrone::updateControls()
 	tocTrigger->setEnabled(s != POWERED_OFF && s != DISCONNECTED);
 	calibrateTrigger->setEnabled(s == READY || s == WARNING);
 	takeOffTrigger->setEnabled(s == READY);
-	landTrigger->setEnabled(s == TAKING_OFF ||  s == FLYING);
+	landTrigger->setEnabled(s == TAKING_OFF || s == FLYING);
 	rebootTrigger->setEnabled(s != TAKING_OFF && s != FLYING && s != LANDING);
 	stopTrigger->setEnabled(s == READY || s == TAKING_OFF || s == FLYING || s == LANDING);
 	setupNodesTrigger->setEnabled(s != POWERED_OFF);
@@ -389,11 +400,11 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 	} else if (c == charging)
 	{
 		lowBattery->setValue(false);
-		if(charging->boolValue()) color->setColor(Colours::yellow.darker());
+		if (charging->boolValue()) color->setColor(Colours::yellow.darker());
 		else color->setColor(Colours::black);
 	} else if (c == upsideDown)
 	{
-		if(upsideDown->boolValue()) MultiTimer::startTimer(UPSIDE_DOWN_ID, 2000);
+		if (upsideDown->boolValue()) MultiTimer::startTimer(UPSIDE_DOWN_ID, 2000);
 		else if (MultiTimer::isTimerRunning(UPSIDE_DOWN_ID)) stopTimer(UPSIDE_DOWN_ID);
 	}
 
@@ -477,6 +488,97 @@ void CFDrone::packetReceived(const CFPacket & packet)
 		//String s = "LPP Short Packet : ";
 		//for(int i=0;i<packet.data.size();i++) s += packet.data[i].toString() +", "; 
 		//LOG(s);
+	}
+	break;
+
+	case CFPacket::MEMORY_NUMBER:
+	{
+		int number = packet.data;
+		LOG("Got memory number " << number);
+		for (int i = 0; i < number; i++)
+		{
+			addCommand(CFCommand::createGetMemoryInfo(this, i));
+		}
+	}
+	break;
+
+	case CFPacket::MEMORY_INFO:
+	{
+		int addr = packet.data.getProperty("address", -1);
+		int size = packet.data.getProperty("size", -1);
+		crtpMemoryType type = (crtpMemoryType)(int)packet.data.getProperty("type", -1);
+		LOG("Got memory info " << addr << ", " << size << ", " << String::toHexString(type));
+
+		if (type == crtpMemoryType::LPS_ANCHOR)
+		{
+			DBG("LPS Anchor memory, try to read anchor list");
+			addCommand(CFCommand::createReadMemory(this, 0x13, 0x0, 1));
+			addCommand(CFCommand::createReadMemory(this, 0x13, 0x1000, 1));
+			addCommand(CFCommand::createReadMemory(this, 0x13, 0x2000, 13));
+			addCommand(CFCommand::createReadMemory(this, 0x13, 0x3000, 13));
+		}
+	}
+	break;
+
+	case CFPacket::MEMORY_READ:
+	{
+		int addr = packet.data.getProperty("address", -1);
+		int memoryId = packet.data.getProperty("memoryId", -1);
+		int status = packet.data.getProperty("status", -1);
+		LOG("Got memory read response 0x" << String::toHexString(addr) << ", 0x" << String::toHexString(memoryId) << ", " << status);
+		var data = packet.data.getProperty("data", var());
+		switch ((MemoryAddress)addr)
+		{
+		case ANCHOR_LIST:
+		{
+			LOG("Anchor list, " << data[0].toString() << " anchors");
+			String s = "ids :";
+			for (int i = 0; i < (int)data[0] && i < data.size()-1; i++)
+			{
+				s += data[i + 1].toString() + ", ";
+			}
+			LOG(s);
+		}
+		break;
+
+		case ACTIVE_ANCHOR_LIST:
+		{
+			LOG("Active nchor list, " << data[0].toString() << " anchors");
+			String s = "ids :";
+			for (int i = 0; i < (int)data[0] && i < data.size()-1; i++)
+			{
+				s += data[i + 1].toString() + ", ";
+			}
+			LOG(s);
+		}
+		break;
+		}
+
+		if (addr >= ANCHOR_DATA)
+		{
+			int anchorId = floor((addr - 0x2000) / 0x1000);
+			Array<uint8> bytes;
+			for (int i = 0; i < 13; i++) bytes.add((int)data[i]);
+			MemoryBlock b(bytes.getRawDataPointer(), bytes.size());
+			MemoryInputStream stream(b, false);
+			float x = stream.readFloat();
+			float y = stream.readFloat();
+			float z = stream.readFloat();
+			uint8 saved = stream.readByte();
+			LOG("Anchor data for anchor id " << anchorId << " : " << x << ", " << y << ", " << z << ", saved ? " << saved);
+			break;
+		}
+
+	}
+	break;
+
+	case CFPacket::MEMORY_WRITE:
+	{
+		int addr = packet.data.getProperty("address", -1);
+		int memoryId = packet.data.getProperty("memoryId", -1);
+		int status = packet.data.getProperty("status", -1);
+		LOG("Got memory write response " << addr << ", " << String::toHexString(memoryId) << ", " << status);
+
 	}
 	break;
 
@@ -759,7 +861,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 			}
 		} else
 		{
-			stopTimer(LOWBAT_ID); 
+			stopTimer(LOWBAT_ID);
 		}
 
 		charging->setValue(bLog->charging > 0);

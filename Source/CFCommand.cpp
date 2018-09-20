@@ -12,8 +12,8 @@
 #include "CFDrone.h"
 #include "CFParam.h"
 
-CFCommand::CFCommand(CFDrone * drone, Array<uint8> _data, Type type) : 
-	drone(drone), 
+CFCommand::CFCommand(CFDrone * drone, Array<uint8> _data, Type type) :
+	drone(drone),
 	data(_data),
 	type(type)
 {
@@ -26,7 +26,7 @@ CFCommand * CFCommand::createPing(CFDrone * d) {
 CFCommand * CFCommand::createStop(CFDrone * d)
 {
 	crtpStopRequest r;
-	return  new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpStopRequest)), STOP);
+	return  new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpStopRequest)), STOP);
 }
 
 CFCommand * CFCommand::createRebootInit(CFDrone * d)
@@ -141,13 +141,38 @@ CFCommand * CFCommand::createRequestLogToc(CFDrone * d)
 CFCommand * CFCommand::createGetLogItemInfo(CFDrone * d, int id)
 {
 	crtpLogGetItemRequest r(id);
-	return new CFCommand(d, Array<uint8>((uint8 *)&r,sizeof(crtpLogGetItemRequest)), GET_LOG_ITEM_INFO);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogGetItemRequest)), GET_LOG_ITEM_INFO);
 }
 
 CFCommand * CFCommand::createLPSNodePos(CFDrone * d, int nodeId, float x, float y, float z)
 {
 	crtpLppSetNodePosRequest r(nodeId, x, y, z);
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLppSetNodePosRequest)), LPS_NODE_POS_SET);
+}
+
+CFCommand * CFCommand::createGetMemoryNumber(CFDrone * d)
+{
+	crtpMemoryGetNumberRequest r;
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpMemoryGetNumberRequest)), GET_MEMORY_NUMBER);
+}
+
+CFCommand * CFCommand::createGetMemoryInfo(CFDrone * d, int memoryId)
+{
+	crtpMemoryGetInfoRequest r((uint8)memoryId);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpMemoryGetInfoRequest)), GET_MEMORY_INFO);
+}
+
+CFCommand * CFCommand::createReadMemory(CFDrone * d, int memoryId, int memAddress, int length)
+{
+	crtpMemoryReadRequest r((uint8)memoryId, memAddress, (uint8)length);
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpMemoryReadRequest)), READ_MEMORY);
+}
+
+CFCommand * CFCommand::createWriteMemory(CFDrone * d, int memoryId, int memAddress, Array<uint8> data)
+{
+	crtpMemoryWriteRequest r((uint8)memoryId, memAddress);
+	for (int i = 0; i < data.size() && i < 24; i++) r.data[i] = data[i];
+	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpMemoryWriteRequest)), WRITE_MEMORY);
 }
 
 CFCommand * CFCommand::createResetLogs(CFDrone * d)
@@ -160,7 +185,7 @@ CFCommand * CFCommand::createAddLogBlock(CFDrone * d, int logBlockId, Array<Stri
 {
 	crtpLogCreateBlockRequest r;
 	r.id = logBlockId;
-	
+
 	for (int i = 0; i < variableNames.size(); i++)
 	{
 		CFLogVariable * v = d->logToc->getLogVariable(variableNames[i]);

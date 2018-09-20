@@ -52,6 +52,8 @@ public:
 	enum TimerId { TIMER_PING, TIMER_TAKEOFF, TIMER_FLYING, TIMER_LANDING, TIMER_CALIBRATION, TIMER_MAX };
 	const float timerFreqs[TIMER_MAX]{1, 20, 50, 20, 30 };
 
+	enum MemoryAddress { ANCHOR_LIST = 0, ACTIVE_ANCHOR_LIST = 0x1000, ANCHOR_DATA = 0x2000 };
+
 	ControllableContainer radioCC;
 	BoolParameter * autoRadio;
 	BoolParameter * autoChannel;
