@@ -125,15 +125,6 @@
           <FILE id="rDBRGS" name="DroneUI.cpp" compile="1" resource="0" file="Source/DroneUI.cpp"/>
           <FILE id="YRiCse" name="DroneUI.h" compile="0" resource="0" file="Source/DroneUI.h"/>
         </GROUP>
-        <FILE id="bS7qqV" name="Drone.cpp" compile="1" resource="0" file="Source/Drone.cpp"/>
-        <FILE id="ZfzrbV" name="Drone.h" compile="0" resource="0" file="Source/Drone.h"/>
-        <FILE id="NSo4WJ" name="DroneOld1.cpp" compile="1" resource="0" file="Source/DroneOld1.cpp"/>
-        <FILE id="fIRSKg" name="DroneOld1.h" compile="0" resource="0" file="Source/DroneOld1.h"/>
-        <FILE id="kXFB9h" name="DroneOld2.cpp" compile="1" resource="0" file="Source/DroneOld2.cpp"/>
-        <FILE id="NnF2Xu" name="DroneOld2.h" compile="0" resource="0" file="Source/DroneOld2.h"/>
-        <FILE id="zEx8SH" name="DroneManager.cpp" compile="1" resource="0"
-              file="Source/DroneManager.cpp"/>
-        <FILE id="S5P6BY" name="DroneManager.h" compile="0" resource="0" file="Source/DroneManager.h"/>
       </GROUP>
       <GROUP id="{438C71F0-02C7-A1BD-7144-AEBB1A7809C1}" name="Node">
         <GROUP id="{E37156EE-F364-6FD5-1440-3A333CA5260C}" name="ui">

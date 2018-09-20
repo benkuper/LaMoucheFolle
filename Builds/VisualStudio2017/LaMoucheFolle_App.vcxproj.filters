@@ -463,18 +463,6 @@
     <ClCompile Include="..\..\Source\DroneUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Drone.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DroneOld1.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DroneOld2.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DroneManager.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp">
       <Filter>LaMoucheFolle\Source\Node\ui</Filter>
     </ClCompile>
@@ -2343,18 +2331,6 @@
     <ClInclude Include="..\..\Source\DroneUI.h">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Drone.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneOld1.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneOld2.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneManager.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\NodeManagerUI.h">
       <Filter>LaMoucheFolle\Source\Node\ui</Filter>
     </ClInclude>
@@ -2502,6 +2478,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_HeapBlock.h">
       <Filter>JUCE Modules\juce_core\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_HeavyweightLeakedObjectDetector.h">
+      <Filter>JUCE Modules\juce_core\memory</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_LeakedObjectDetector.h">
       <Filter>JUCE Modules\juce_core\memory</Filter>
     </ClInclude>
@@ -2554,6 +2533,9 @@
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_ClangBugWorkaround.h">
+      <Filter>JUCE Modules\juce_core\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_linux_IPAddress.h">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_osx_ObjCHelpers.h">

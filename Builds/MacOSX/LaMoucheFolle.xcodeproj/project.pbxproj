@@ -41,10 +41,6 @@
 		271D7B51D705DCAECB6D2CC2 = {isa = PBXBuildFile; fileRef = CBDB848B5EC4F18D369AAF52; };
 		05C83B4CCCF640ED88F457E5 = {isa = PBXBuildFile; fileRef = 3B8586D33636DD23122E81FA; };
 		17088932505971DFA8FC61B2 = {isa = PBXBuildFile; fileRef = F80350BC2B7017CB8A7381A9; };
-		EC140A07E9FD6D1C07B4381E = {isa = PBXBuildFile; fileRef = FA24C6905D2B6A89E5AABF52; };
-		CC7A8FD10809A97C41AEAFE4 = {isa = PBXBuildFile; fileRef = 6748DEF291990FB8345D208A; };
-		E4A7710A834ECA6AE5F4B909 = {isa = PBXBuildFile; fileRef = 9E34265620CAAD0BB4F72166; };
-		B677EE771299C66C4FF4DB08 = {isa = PBXBuildFile; fileRef = 9F148078CD4AA73A92A0F356; };
 		2C03A47DEA7336D80050AB9C = {isa = PBXBuildFile; fileRef = BA7C85773CB441FC7A95DA54; };
 		3F1A3229BEDFC430235C0114 = {isa = PBXBuildFile; fileRef = 94F050CA8D30F830A1A0AE9F; };
 		FFD5767BB17ACF62BE35F337 = {isa = PBXBuildFile; fileRef = 411144CD68520452E2A5669F; };
@@ -98,14 +94,12 @@
 		34E6ECE1AFBD99970BBF85C3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Crazyflie.cpp; path = "../../External/crazyflie_cpp/src/Crazyflie.cpp"; sourceTree = "SOURCE_ROOT"; };
 		352CE1F83AB7C8E480AD5C4D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Controller.cpp; path = ../../Source/Controller.cpp; sourceTree = "SOURCE_ROOT"; };
 		373BF99E60E7AB410D790504 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CFDroneManagerUI.h; path = ../../Source/CFDroneManagerUI.h; sourceTree = "SOURCE_ROOT"; };
-		39D785222A20EFF1C1638E09 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Drone.h; path = ../../Source/Drone.h; sourceTree = "SOURCE_ROOT"; };
 		3B8586D33636DD23122E81FA = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneManagerUI.cpp; path = ../../Source/DroneManagerUI.cpp; sourceTree = "SOURCE_ROOT"; };
 		3CBA55AF4193EE6B295441C4 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_core"; path = "~/JUCE/modules/juce_core"; sourceTree = "<absolute>"; };
 		3D332C17B795B4407DEFBD94 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RadialMenuItem.cpp; path = ../../Source/RadialMenuItem.cpp; sourceTree = "SOURCE_ROOT"; };
 		3F3799E772E631E40CEAD205 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RadialMenuItem.h; path = ../../Source/RadialMenuItem.h; sourceTree = "SOURCE_ROOT"; };
 		3F4BF606436C8AADE548E26A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_data_structures.mm"; path = "../../JuceLibraryCode/include_juce_data_structures.mm"; sourceTree = "SOURCE_ROOT"; };
 		3FF2C3F58F52F330522D0668 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_data_structures"; path = "~/JUCE/modules/juce_data_structures"; sourceTree = "<absolute>"; };
-		409799876341B754FB450F42 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneOld1.h; path = ../../Source/DroneOld1.h; sourceTree = "SOURCE_ROOT"; };
 		411144CD68520452E2A5669F = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = NodeManager.cpp; path = ../../Source/NodeManager.cpp; sourceTree = "SOURCE_ROOT"; };
 		43C51CCF24F41E6909D942F4 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OSCController.h; path = ../../Source/OSCController.h; sourceTree = "SOURCE_ROOT"; };
 		47849CE88A5B9BE0F0F28CCD = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_opengl.mm"; path = "../../JuceLibraryCode/include_juce_opengl.mm"; sourceTree = "SOURCE_ROOT"; };
@@ -117,7 +111,6 @@
 		5936C1DAE0E04FD1F5A70F29 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RadialMenu.cpp; path = ../../Source/RadialMenu.cpp; sourceTree = "SOURCE_ROOT"; };
 		5EDF53545DF461EDBA8114EB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CFSettingsUI.cpp; path = ../../Source/CFSettingsUI.cpp; sourceTree = "SOURCE_ROOT"; };
 		5F232DD202EF2835DA243EBC = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-App.plist"; path = "Info-App.plist"; sourceTree = "SOURCE_ROOT"; };
-		6748DEF291990FB8345D208A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneOld1.cpp; path = ../../Source/DroneOld1.cpp; sourceTree = "SOURCE_ROOT"; };
 		684F16855558E30082195BFB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CFPacket.cpp; path = ../../Source/CFPacket.cpp; sourceTree = "SOURCE_ROOT"; };
 		69CD15AFD85F9A05CE511D78 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = crtp.cpp; path = "../../External/crazyflie_cpp/src/crtp.cpp"; sourceTree = "SOURCE_ROOT"; };
 		71E77D81AEE4625510E21812 = {isa = PBXFileReference; lastKnownFileType = image.png; name = "drone_poweron.png"; path = "../../Resources/drone_poweron.png"; sourceTree = "SOURCE_ROOT"; };
@@ -137,16 +130,13 @@
 		8F2F70809051764AD87712CF = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData.cpp; path = ../../JuceLibraryCode/BinaryData.cpp; sourceTree = "SOURCE_ROOT"; };
 		9120D92029CEF26A49C8E201 = {isa = PBXFileReference; lastKnownFileType = image.png; name = "drone_ok.png"; path = "../../Resources/drone_ok.png"; sourceTree = "SOURCE_ROOT"; };
 		94F050CA8D30F830A1A0AE9F = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../../Source/Node.cpp; sourceTree = "SOURCE_ROOT"; };
-		95FA674EDFA646677449E419 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneOld2.h; path = ../../Source/DroneOld2.h; sourceTree = "SOURCE_ROOT"; };
 		97EF2F87DA49E3DAB2C6C43A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CFSettings.cpp; path = ../../Source/CFSettings.cpp; sourceTree = "SOURCE_ROOT"; };
 		98ADAC66C092CF36D1F31A40 = {isa = PBXFileReference; lastKnownFileType = image.png; name = parachute.png; path = ../../Resources/parachute.png; sourceTree = "SOURCE_ROOT"; };
 		996443E5A468AAFCF092DDCB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CFLog.cpp; path = ../../Source/CFLog.cpp; sourceTree = "SOURCE_ROOT"; };
 		9DD2833C173B85705A7EDD9A = {isa = PBXFileReference; lastKnownFileType = image.png; name = "drone_poweroff.png"; path = "../../Resources/drone_poweroff.png"; sourceTree = "SOURCE_ROOT"; };
 		9DF4B872B09E919C88C53DF6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ControllerUI.h; path = ../../Source/ControllerUI.h; sourceTree = "SOURCE_ROOT"; };
-		9E34265620CAAD0BB4F72166 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneOld2.cpp; path = ../../Source/DroneOld2.cpp; sourceTree = "SOURCE_ROOT"; };
 		9E9EA82576F55C5EE678D513 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../../Source/Controller.h; sourceTree = "SOURCE_ROOT"; };
 		9ECC8F634BA8DCCDAA97D27B = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaMoucheFolle.app; sourceTree = "BUILT_PRODUCTS_DIR"; };
-		9F148078CD4AA73A92A0F356 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneManager.cpp; path = ../../Source/DroneManager.cpp; sourceTree = "SOURCE_ROOT"; };
 		A088B559745E522246021678 = {isa = PBXFileReference; lastKnownFileType = image.png; name = "low_battery.png"; path = "../../Resources/low_battery.png"; sourceTree = "SOURCE_ROOT"; };
 		A45E5C57ED19BF8264EE6C92 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = "SOURCE_ROOT"; };
 		A5BCA8F7F874332CC728A7A2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CFSettingsUI.h; path = ../../Source/CFSettingsUI.h; sourceTree = "SOURCE_ROOT"; };
@@ -154,7 +144,6 @@
 		A99BF31DBC0546EF8BAB9E85 = {isa = PBXFileReference; lastKnownFileType = image.png; name = warning.png; path = ../../Resources/warning.png; sourceTree = "SOURCE_ROOT"; };
 		AE435B799FEFD1E7A132935C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CFAssetManager.h; path = ../../Source/CFAssetManager.h; sourceTree = "SOURCE_ROOT"; };
 		B2AF7445E8455C7BEA3E14B5 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = "SOURCE_ROOT"; };
-		B4BE8374C63DBFD6B2668221 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneManager.h; path = ../../Source/DroneManager.h; sourceTree = "SOURCE_ROOT"; };
 		B5F78A94FAB014A2DC3DDA1A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RadialMenu.h; path = ../../Source/RadialMenu.h; sourceTree = "SOURCE_ROOT"; };
 		B6ED0BCF5C033A2AB1D599CB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OSCController.cpp; path = ../../Source/OSCController.cpp; sourceTree = "SOURCE_ROOT"; };
 		BA7C85773CB441FC7A95DA54 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = NodeManagerUI.cpp; path = ../../Source/NodeManagerUI.cpp; sourceTree = "SOURCE_ROOT"; };
@@ -186,7 +175,6 @@
 		F651E04705F1374405AF156E = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = "SOURCE_ROOT"; };
 		F7BD64E507B5039604E28102 = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = "SOURCE_ROOT"; };
 		F80350BC2B7017CB8A7381A9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DroneUI.cpp; path = ../../Source/DroneUI.cpp; sourceTree = "SOURCE_ROOT"; };
-		FA24C6905D2B6A89E5AABF52 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Drone.cpp; path = ../../Source/Drone.cpp; sourceTree = "SOURCE_ROOT"; };
 		265E8F76B30F2A6321C5180B = {isa = PBXGroup; children = (
 					04EEF7BCCC918D4CF95C9757,
 					E80460153EDB77666340CA2A,
@@ -269,15 +257,7 @@
 					8EB68E81B578177694D8548F,
 					20C4E891B6D5AEB8E707A883,
 					C6AC025190C4A8DD7745DF61,
-					7BDE80A798925A6D703CF2E5,
-					FA24C6905D2B6A89E5AABF52,
-					39D785222A20EFF1C1638E09,
-					6748DEF291990FB8345D208A,
-					409799876341B754FB450F42,
-					9E34265620CAAD0BB4F72166,
-					95FA674EDFA646677449E419,
-					9F148078CD4AA73A92A0F356,
-					B4BE8374C63DBFD6B2668221, ); name = Drone; sourceTree = "<group>"; };
+					7BDE80A798925A6D703CF2E5, ); name = Drone; sourceTree = "<group>"; };
 		B86E8777F100D2FA062CC514 = {isa = PBXGroup; children = (
 					BA7C85773CB441FC7A95DA54,
 					CBC22A6721192315790D5B1C, ); name = ui; sourceTree = "<group>"; };
@@ -531,10 +511,6 @@
 					271D7B51D705DCAECB6D2CC2,
 					05C83B4CCCF640ED88F457E5,
 					17088932505971DFA8FC61B2,
-					EC140A07E9FD6D1C07B4381E,
-					CC7A8FD10809A97C41AEAFE4,
-					E4A7710A834ECA6AE5F4B909,
-					B677EE771299C66C4FF4DB08,
 					2C03A47DEA7336D80050AB9C,
 					3F1A3229BEDFC430235C0114,
 					FFD5767BB17ACF62BE35F337,

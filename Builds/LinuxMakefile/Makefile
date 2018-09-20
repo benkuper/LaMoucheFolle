@@ -94,10 +94,6 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o \
   $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o \
   $(JUCE_OBJDIR)/DroneUI_56dbee0d.o \
-  $(JUCE_OBJDIR)/Drone_7c6d2e79.o \
-  $(JUCE_OBJDIR)/DroneOld1_3512a283.o \
-  $(JUCE_OBJDIR)/DroneOld2_3520ba04.o \
-  $(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o \
   $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o \
   $(JUCE_OBJDIR)/Node_d45d218b.o \
   $(JUCE_OBJDIR)/NodeManager_42cb902c.o \
@@ -256,26 +252,6 @@ $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o: ../../Source/DroneManagerUI.cpp
 $(JUCE_OBJDIR)/DroneUI_56dbee0d.o: ../../Source/DroneUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneUI.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/Drone_7c6d2e79.o: ../../Source/Drone.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Drone.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DroneOld1_3512a283.o: ../../Source/DroneOld1.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DroneOld1.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DroneOld2_3520ba04.o: ../../Source/DroneOld2.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DroneOld2.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DroneManager_8a2dbb7e.o: ../../Source/DroneManager.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DroneManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o: ../../Source/NodeManagerUI.cpp

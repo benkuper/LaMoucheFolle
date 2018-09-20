@@ -8,7 +8,6 @@ Author:  Martin Hermant
 ==============================================================================
 */
 #include "CFEngine.h"
-#include "DroneManager.h"
 #include "ControllerManager.h"
 #include "NodeManager.h"
 #include "CFAssetManager.h"

@@ -186,10 +186,6 @@
     <ClCompile Include="..\..\Source\DroneManagerGridUI.cpp"/>
     <ClCompile Include="..\..\Source\DroneManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\DroneUI.cpp"/>
-    <ClCompile Include="..\..\Source\Drone.cpp"/>
-    <ClCompile Include="..\..\Source\DroneOld1.cpp"/>
-    <ClCompile Include="..\..\Source\DroneOld2.cpp"/>
-    <ClCompile Include="..\..\Source\DroneManager.cpp"/>
     <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
     <ClCompile Include="..\..\Source\Node.cpp"/>
     <ClCompile Include="..\..\Source\NodeManager.cpp"/>
@@ -1857,10 +1853,6 @@
     <ClInclude Include="..\..\Source\DroneManagerGridUI.h"/>
     <ClInclude Include="..\..\Source\DroneManagerUI.h"/>
     <ClInclude Include="..\..\Source\DroneUI.h"/>
-    <ClInclude Include="..\..\Source\Drone.h"/>
-    <ClInclude Include="..\..\Source\DroneOld1.h"/>
-    <ClInclude Include="..\..\Source\DroneOld2.h"/>
-    <ClInclude Include="..\..\Source\DroneManager.h"/>
     <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
     <ClInclude Include="..\..\Source\Node.h"/>
     <ClInclude Include="..\..\Source\NodeManager.h"/>
@@ -1910,6 +1902,7 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_ByteOrder.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_ContainerDeletePolicy.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_HeapBlock.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_HeavyweightLeakedObjectDetector.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_LeakedObjectDetector.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_Memory.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\memory\juce_MemoryBlock.h"/>
@@ -1928,6 +1921,7 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_JNIHelpers.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_BasicNativeHeaders.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_ClangBugWorkaround.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_linux_IPAddress.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_osx_ObjCHelpers.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_SharedCode.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_ComSmartPtr.h"/>
