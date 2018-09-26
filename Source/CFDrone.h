@@ -63,11 +63,13 @@ public:
 	StringParameter * address;
 
 	ControllableContainer controlsCC;
+	
 	Trigger * connectTrigger;
 	Trigger * tocTrigger;
 	Trigger * calibrateTrigger;
 	Trigger * analyzeTrigger;
 	Trigger * takeOffTrigger;
+	FloatParameter * takeOffHeight;
 	Trigger * landTrigger;
 	Trigger * stopTrigger;
 	Trigger * rebootTrigger;

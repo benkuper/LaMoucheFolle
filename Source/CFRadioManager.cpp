@@ -179,7 +179,7 @@ void CFRadioManager::run()
 
 					if (c->drone.wasObjectDeleted()) break;
 
-					packetIsValidated = processAck(c->drone, ack);
+					packetIsValidated = processAck(c, ack);
 					if (packetIsValidated)
 					{
 						numAcksReceivedSinceLastCheck++;
@@ -257,8 +257,10 @@ void CFRadioManager::setupRadios()
 	}
 }
 
-bool CFRadioManager::processAck(WeakReference<CFDrone> drone, ITransport::Ack &ack)
+bool CFRadioManager::processAck(CFCommand * command, ITransport::Ack &ack)
 {
+	WeakReference<CFDrone> drone = command->drone;
+
 	if (drone.wasObjectDeleted()) return false;
 		
 	if (!ack.ack)
@@ -294,8 +296,11 @@ bool CFRadioManager::processAck(WeakReference<CFDrone> drone, ITransport::Ack &a
 			drone->safeLinkActive = true;
 		} else
 		{
-			DBG("Safe link is disabled but packet has safelink");
-			drone->safeLinkActive = false;
+			if (command->type != CFCommand::REBOOT_FIRMWARE && command->type != CFCommand::REBOOT_INIT)
+			{
+				DBG("Safe link is enabled but packet has no safelink");
+			}
+			//drone->safeLinkActive = false;
 		}
 	}
 

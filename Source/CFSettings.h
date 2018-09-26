@@ -72,12 +72,15 @@ public:
 	FloatParameter * minBattery;
 	FloatParameter * lowBatteryTime;
 
+	EnumParameter * lpsMode;
+
 	ControllableContainer flightCC;
 	BoolParameter * useThrustCommand;
 	FloatParameter * takeOffTime;
 	FloatParameter * takeOffMaxSpeed;
 	FloatParameter * takeOffMinSpeed;
 	Automation takeOffCurve;
+	BoolParameter * disableYawCommand;
 
 	PhysicsCC physicsCC;
 

@@ -72,6 +72,7 @@ CFDrone::CFDrone() :
 	tocTrigger = controlsCC.addTrigger("Request TOC", "Request TOCs");
 	calibrateTrigger = controlsCC.addTrigger("Calibrate", "Reset the kalman filter");
 	takeOffTrigger = controlsCC.addTrigger("Take off", "Make the drone take off");
+	takeOffHeight = controlsCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1.5f, .5f, 3);
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
 	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
@@ -195,8 +196,15 @@ void CFDrone::addConnectionCommands()
 	//state->setValueWithData(ANALYSIS);
 	//or pass to calibration until analysis is implemented
 
-	LOG("Initialized, now calibrating");
-	if (CFSettings::getInstance()->calibAfterConnect->boolValue()) state->setValueWithData(CALIBRATING);
+	int lpsMode = (int)CFSettings::getInstance()->lpsMode->getValueData();
+	NLOG(niceName, "Set LPS Mode to " << (lpsMode == 0 ? "Auto" : "TDoA " + String(lpsMode)));
+	addParamCommand("loco.mode", lpsMode);
+
+	if (CFSettings::getInstance()->calibAfterConnect->boolValue())
+	{
+		NLOG(niceName, "Initialized, now calibrating");
+		state->setValueWithData(CALIBRATING);
+	}
 	else state->setValueWithData(READY);
 }
 
@@ -205,7 +213,11 @@ void CFDrone::addTakeoffCommand()
 	float t = (Time::getMillisecondCounter() - timeAtStartTakeOff) / 1000.0f;
 	float relTime = t / CFSettings::getInstance()->takeOffTime->floatValue();
 
-	if (relTime >= 1)
+	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+	float realHeight = zIsVertical ? realPosition->z : realPosition->y;
+	bool heightIsGood = Time::getMillisecondCounter() > timeAtStartLanding + 1 && realHeight >= takeOffHeight->floatValue();
+
+	if (relTime >= 1 || heightIsGood)
 	{
 		state->setValueWithData(FLYING);
 		return;
@@ -242,7 +254,7 @@ void CFDrone::addFlyingCommand()
 	//Invert Z and Y depending on zIsVertical option in Project Settings (if zIsVertical is not checked, then don't swap y and z because crazyflie consider z as vertical)
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	Vector3D<float> targetPos(targetState.position.x, zIsVertical ? targetState.position.y : targetState.position.z, zIsVertical ? targetState.position.z : targetState.position.y);
-	addCommand(CFCommand::createPosition(this, targetPos, targetYaw->floatValue()));
+	addCommand(CFCommand::createPosition(this, targetPos, CFSettings::getInstance()->disableYawCommand->boolValue()?0:targetYaw->floatValue()));
 	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0;
 }
 
@@ -256,7 +268,7 @@ void CFDrone::addLandingCommand()
 	addCommand(CFCommand::createPosition(this, targetPos, 0));
 
 	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, -.75f), 0));
-	if (Time::getMillisecondCounter() > timeAtStartLanding + landingTime * 1000) state->setValueWithData(READY);
+	if(Time::getMillisecondCounter() > timeAtStartLanding + landingTime * 1000) state->setValueWithData(READY);
 }
 
 void CFDrone::addParamCommand(String paramName, var value)
@@ -289,22 +301,23 @@ void CFDrone::addRebootCommand()
 
 void CFDrone::addSetupNodesCommands()
 {
-	addCommand(CFCommand::createGetMemoryNumber(this));
-
-	/*
+	//addCommand(CFCommand::createGetMemoryNumber(this));
+	
 	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
 	Vector3D<float> pos = CFSettings::getInstance()->lpsBoxSize->getVector();
 	if (!zIsVertical) pos = Vector3D<float>(pos.x, pos.z, pos.y);
 
 	float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
 	pos.z += zOffset;
-
+	
+	/*
 	for (int i = 0; i < 8; i++)
 	{
 		addGetParamValueCommand("anchorpos.anchor" + String(i) + "x");
 		addGetParamValueCommand("anchorpos.anchor" + String(i) + "y");
 		addGetParamValueCommand("anchorpos.anchor" + String(i) + "z");
 	}
+	*/
 
 	addCommand(CFCommand::createLPSNodePos(this, 0, -pos.x / 2, -pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 1, -pos.x / 2, -pos.y / 2, pos.z));
@@ -317,7 +330,7 @@ void CFDrone::addSetupNodesCommands()
 
 	addCommand(CFCommand::createLPSNodePos(this, 6, pos.x / 2, -pos.y / 2, zOffset));
 	addCommand(CFCommand::createLPSNodePos(this, 7, pos.x / 2, -pos.y / 2, pos.z));
-	*/
+	
 }
 
 
@@ -365,8 +378,8 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 	else if (c == calibrateTrigger) state->setValueWithData(CALIBRATING);
 	else if (c == rebootTrigger)
 	{
-		addRebootCommand();
 		state->setValueWithData(POWERED_OFF);
+		addRebootCommand();
 	} else if (c == stopTrigger)
 	{
 		addCommand(CFCommand::createStop(this));
@@ -990,6 +1003,8 @@ void CFDrone::stateChanged()
 		fadeTime->setValue(.5f);
 		color->setColor(Colours::black);
 		syncToRealPosition();
+
+		
 	}
 	break;
 
@@ -1003,6 +1018,10 @@ void CFDrone::stateChanged()
 
 	case FLYING:
 	{
+		Vector3D<float> target = realPosition->getVector();
+		target.y = takeOffHeight->floatValue();
+		targetPosition->setVector(target);
+		desiredPosition->setVector(target);
 		startTimer(TIMER_FLYING);
 	}
 	break;

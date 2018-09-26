@@ -36,5 +36,5 @@ public :
 
 	//
 	void setupRadios();
-	bool processAck(WeakReference<CFDrone> drone, ITransport::Ack &ack);	
+	bool processAck(CFCommand * command, ITransport::Ack &ack);	
 };
