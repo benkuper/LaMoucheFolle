@@ -23,7 +23,7 @@ CFSettings::CFSettings() :
 
 	addChildControllableContainer(&setupCC);
 	lpsMode = setupCC.addEnumParameter("LPS Mode", "The mode to set the drone at connect");
-	lpsMode->addOption("Auto", 0)->addOption("TDoA 2", 2)->addOption("TDoA 3", 3);
+	lpsMode->addOption("Do not set",-1)->addOption("Auto", 0)->addOption("TDoA 2", 2)->addOption("TDoA 3", 3);
 	autoConnect = setupCC.addBoolParameter("Auto connect", "If checked, detected drones will be automatically connected", false);
 	analyzeAfterConnect = setupCC.addBoolParameter("Analyze after connect", "If checked, a health check will be performed after each connection", false);
 	calibAfterConnect = setupCC.addBoolParameter("Calibrate after connect", "If checked and 'Analyze after connect' is unchecked, a calibration be performed after each connection", true);

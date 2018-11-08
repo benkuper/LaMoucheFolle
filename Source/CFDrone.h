@@ -97,6 +97,12 @@ public:
 	Point3DParameter * targetSpeed;
 	Point3DParameter * targetAcceleration;
 	Point3DParameter * realPosition;
+	Point3DParameter * positionDiff;
+	FloatParameter * positionNoise;
+	//testing
+	double lastRealPosTime;
+	Vector3D<float> lastRealPos;
+
 	FloatParameter * targetYaw;
 	Point3DParameter * orientation;
 	BoolParameter * upsideDown;

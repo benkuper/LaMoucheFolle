@@ -72,7 +72,7 @@ CFDrone::CFDrone() :
 	tocTrigger = controlsCC.addTrigger("Request TOC", "Request TOCs");
 	calibrateTrigger = controlsCC.addTrigger("Calibrate", "Reset the kalman filter");
 	takeOffTrigger = controlsCC.addTrigger("Take off", "Make the drone take off");
-	takeOffHeight = controlsCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1.5f, .5f, 3);
+	takeOffHeight = controlsCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1.5f, .5f, 5);
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
 	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
@@ -93,6 +93,9 @@ CFDrone::CFDrone() :
 	targetAcceleration->isControllableFeedbackOnly = true;
 
 	realPosition = flightCC.addPoint3DParameter("Real Position", "Real Position feedback from the drone");
+	positionDiff = flightCC.addPoint3DParameter("Position Diff", "Diff position");
+	positionDiff->setBounds(-5, -5, -5, 5, 5, 5);
+	positionNoise = flightCC.addFloatParameter("Position Noise", "Overall position noise",0,0,5);
 
 	targetYaw = flightCC.addFloatParameter("Target Yaw", "Target horizontal orientation", 0, -180, 180);
 	orientation = flightCC.addPoint3DParameter("Orientation", "The target rotation of the drone, Y = 0 is aligned to X+");
@@ -180,7 +183,7 @@ void CFDrone::addConnectionCommands()
 	addCommand(CFCommand::createAddLogBlock(this, LOG_POWER_ID, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
 
 	//Create a position/orientation log, high freq
-	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("kalman.stateX", "kalman.stateY", "kalman.stateZ", "stabilizer.pitch", "stabilizer.yaw", "stabilizer.roll")));
+	addCommand(CFCommand::createAddLogBlock(this, LOG_POSITION_ID, Array<String>("stateEstimate.x", "stateEstimate.y", "stateEstimate.z", "stabilizer.pitch", "stabilizer.yaw", "stabilizer.roll")));
 
 	//Create calib command but do not start it here
 	addCommand(CFCommand::createAddLogBlock(this, LOG_CALIB_ID, Array<String>("kalman.varPX", "kalman.varPY", "kalman.varPZ")));
@@ -197,8 +200,14 @@ void CFDrone::addConnectionCommands()
 	//or pass to calibration until analysis is implemented
 
 	int lpsMode = (int)CFSettings::getInstance()->lpsMode->getValueData();
-	NLOG(niceName, "Set LPS Mode to " << (lpsMode == 0 ? "Auto" : "TDoA " + String(lpsMode)));
-	addParamCommand("loco.mode", lpsMode);
+	if (lpsMode > -1)
+	{
+		NLOG(niceName, "Set LPS Mode to " << (lpsMode == 0 ? "Auto" : "TDoA " + String(lpsMode)));
+		addParamCommand("loco.mode", lpsMode);
+	} else
+	{
+		NLOG(niceName, "Not setting LPS Mode");
+	}
 
 	if (CFSettings::getInstance()->calibAfterConnect->boolValue())
 	{
@@ -397,6 +406,19 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer * cc, C
 	{
 		addParamCommand("health.startPropTest", 1);
 		addParamCommand("health.startPropTest", 0);
+	}
+
+	//Position testing
+	else if(c == realPosition)
+	{
+		double time = Time::getMillisecondCounterHiRes() / 1000.0;
+		double deltaTime = time - lastRealPosTime;
+
+		positionDiff->setVector((realPosition->getVector() - lastRealPos) / deltaTime);
+		positionNoise->setValue(positionDiff->getVector().length());
+
+		lastRealPosTime = time;
+		lastRealPos = realPosition->getVector();
 	}
 
 	//Battery
