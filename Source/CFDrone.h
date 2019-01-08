@@ -78,13 +78,16 @@ public:
 
 	ControllableContainer statusCC;
 	EnumParameter * state;
+	
 	FloatParameter * linkQuality;
 	FloatParameter * batteryLevel;
 	FloatParameter * voltage;
 	BoolParameter * charging;
 	BoolParameter * lowBattery;
+	
 	BoolParameter * selfTestProblem;
 	BoolParameter * batteryProblem;
+	
 	ControllableContainer decksCC;
 	HashMap<String, BoolParameter *> deckMap;
 	ControllableContainer wingsCC;
@@ -145,6 +148,7 @@ public:
 	String consoleBuffer;
 
 	//Calibration
+	bool isCalibrated;
 	uint64 timeAtStartCalib;
 	const uint64 calibTimeout = 3000; //3s of no stab is warning
 	const float minConvergeDist = .005f;

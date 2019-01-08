@@ -28,6 +28,7 @@ CFDrone::CFDrone() :
 	flightCC("Flight"),
 	lightingCC("Lights"),
 	lastPingTime(0),
+	isCalibrated(false),
 	timeAtStartTakeOff(0),
 	timeAtStartLanding(0),
 	timeAtStartConverge(0),
@@ -922,6 +923,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 			if (t > timeAtStartConverge + minConvergeTime)
 			{
 				NLOG(niceName, "Calibrated");
+				isCalibrated = true;
 				addCommand(CFCommand::createStopLog(this, LOG_CALIB_ID));
 				calibrationProgress->setValue(0);
 				state->setValueWithData(READY);
@@ -932,6 +934,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 		} else
 		{
 			timeAtStartConverge = 0;
+			isCalibrated = false; 
 			calibrationProgress->setValue(0);
 		}
 	}
@@ -997,6 +1000,8 @@ void CFDrone::stateChanged()
 
 	case CALIBRATING:
 	{
+		isCalibrated = false;
+
 		addParamCommand("kalman.resetEstimation", 1);
 		addParamCommand("kalman.resetEstimation", 0);
 		timeAtStartCalib = Time::getMillisecondCounter();

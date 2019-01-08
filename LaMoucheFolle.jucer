@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" displaySplashScreen="0" splashScreenColour="Dark"
-              projectType="guiapp" version="2.0.0a" bundleIdentifier="com.yourcompany.CrazyflieServer"
-              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.3.2"
-              companyCopyright="" reportAppUsage="0">
+<JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
+              version="2.0.1" bundleIdentifier="com.yourcompany.CrazyflieServer"
+              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.1"
+              companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
+      <FILE id="Si8lU0" name="badcalib.png" compile="0" resource="1" file="Resources/badcalib.png"/>
       <FILE id="MlOp5u" name="battery_problem.png" compile="0" resource="1"
             file="Resources/battery_problem.png"/>
       <FILE id="NpNwmy" name="calibrating.png" compile="0" resource="1" file="Resources/calibrating.png"/>
@@ -17,9 +18,13 @@
             file="Resources/default.cflayout"/>
       <FILE id="C8fhCI" name="disconnect_bt.png" compile="0" resource="1"
             file="Resources/disconnect_bt.png"/>
+      <FILE id="TlpkXq" name="drone_badcalib.png" compile="0" resource="1"
+            file="Resources/drone_badcalib.png"/>
       <FILE id="GqSyry" name="drone_connecting.png" compile="0" resource="1"
             file="Resources/drone_connecting.png"/>
       <FILE id="ERIrfO" name="drone_error.png" compile="0" resource="1" file="Resources/drone_error.png"/>
+      <FILE id="nhwBsX" name="drone_lowbattery.png" compile="0" resource="1"
+            file="Resources/drone_lowbattery.png"/>
       <FILE id="BBFjY5" name="drone_ok.png" compile="0" resource="1" file="Resources/drone_ok.png"/>
       <FILE id="YrIrXD" name="drone_poweroff.png" compile="0" resource="1"
             file="Resources/drone_poweroff.png"/>
@@ -34,6 +39,7 @@
       <FILE id="NU8nKu" name="low_battery.png" compile="0" resource="1" file="Resources/low_battery.png"/>
       <FILE id="e0gyln" name="parachute.png" compile="0" resource="1" file="Resources/parachute.png"/>
       <FILE id="YzaZPY" name="startup.png" compile="0" resource="1" file="Resources/startup.png"/>
+      <FILE id="cIS6za" name="upsidedown.png" compile="0" resource="1" file="Resources/upsidedown.png"/>
       <FILE id="VVhitE" name="warning.png" compile="0" resource="1" file="Resources/warning.png"/>
       <FILE id="d1wxi9" name="warning_red.png" compile="0" resource="1" file="Resources/warning_red.png"/>
     </GROUP>
@@ -221,11 +227,11 @@
     <VS2017 targetFolder="Builds/VisualStudio2017_CI" externalLibraries="libusb-1.0.lib"
             bigIcon="gOf6w2" smallIcon="gOf6w2">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="../../External/libusb/lib" binaryPath="Binaries/CI"/>
         <CONFIGURATION name="Debug" binaryPath="Binaries/CI" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib" isDebug="1" linkTimeOptimisation="0"
                        optimisation="1" debugInformationFormat="ProgramDatabase"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       libraryPath="../../External/libusb/lib" binaryPath="Binaries/CI"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_osc" path="../JUCE/modules"/>

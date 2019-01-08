@@ -38,7 +38,7 @@ OSCController::OSCController(var params) :
 	remotePort = addIntParameter("Remote port", "Port on which the remote host is listening to", 13001, 1024, 65535);
 
 	setupSender();
-
+	startTimerHz(1);
 	//Script
 }
 
@@ -118,6 +118,14 @@ void OSCController::sendFullSetup()
 	//for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
 	sendOSC(m2);
 	
+}
+
+void OSCController::sendPing()
+{
+	if (!enabled->boolValue()) return;
+
+	OSCMessage m("/lmf/ping");
+	sender.send(m);
 }
 
 void OSCController::sendDroneSetup(const String & droneName)
@@ -380,4 +388,9 @@ void OSCController::oscBundleReceived(const OSCBundle & bundle)
 	{
 		processMessage(m.getMessage());
 	}
+}
+
+void OSCController::timerCallback()
+{
+	sendPing();
 }

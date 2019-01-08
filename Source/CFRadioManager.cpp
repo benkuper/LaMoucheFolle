@@ -32,7 +32,15 @@ void CFRadioManager::run()
 	{
 		DBG("Start radios thread");
 		sleep(1000);
-		setupRadios();
+		try
+		{
+		 setupRadios();
+		}
+		catch(std::exception &e)
+		{
+			LOGWARNING("Error setting radio :" << e.what());
+		}
+
 		if (radios.size() == 0)
 		{
 			DBG("No radio connected !");
@@ -50,7 +58,7 @@ void CFRadioManager::run()
 		while (!threadShouldExit())
 		{
 
-			int64 curTime = Time::currentTimeMillis();
+			int64 curTime = Time::getApproximateMillisecondCounter();
 
 			if (curTime > lastRadioCheckTime + radioCheckTime)
 			{
@@ -58,7 +66,11 @@ void CFRadioManager::run()
 				lastRadioCheckTime = curTime;
 			}
 
-			if (numRadios == 0) continue;
+			if (numRadios == 0)
+			{
+				sleep(500);
+				continue;
+			}
 
 			OwnedArray<CFCommand> currentCommands;
 			
@@ -223,7 +235,8 @@ void CFRadioManager::run()
 	{
 		LOGERROR("Exception on radio thread : " << e.what());
 	}
-	DBG("End radio thread");
+
+	LOG("End radio thread");
 
 }
 
@@ -231,10 +244,13 @@ void CFRadioManager::run()
 
 void CFRadioManager::setupRadios()
 {
+
 	int newNumRadios = Crazyradio::numDevices();
+
+	//LOG("Checking radios, found " << newNumRadios); 
 	if (numRadios != newNumRadios)
 	{
-		DBG("Num radios has changed, clear and add all");
+		LOG("Num radios has changed, clear and add all");
 		radios.clear();
 		numRadios = newNumRadios;
 		for (int i = 0; i < numRadios; i++)
@@ -244,8 +260,6 @@ void CFRadioManager::setupRadios()
 			{
 				r->setMode(3);
 				DBG("Radio set to CHAD mode");
-
-				
 			} catch (std::runtime_error &e)
 			{
 				DBG("Radio not compatible with CHAD Mode, keeping normal mode : " << e.what());
@@ -253,7 +267,7 @@ void CFRadioManager::setupRadios()
 
 			radios.add(r);
 		}
-		DBG("Added " << numRadios << " radios");
+		LOG("Added " << numRadios << " radios");
 	}
 }
 

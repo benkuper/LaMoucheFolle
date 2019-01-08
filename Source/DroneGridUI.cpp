@@ -93,11 +93,14 @@ Image VizImages::getDroneStateImage(CFDrone * d)
 	case CFDrone::TAKING_OFF:
 	case CFDrone::FLYING:
 	case CFDrone::LANDING:
-		return ImageCache::getFromMemory(BinaryData::drone_ok_png, BinaryData::drone_ok_pngSize);
+	{
+		if (d->lowBattery->boolValue()) return ImageCache::getFromMemory(BinaryData::drone_lowbattery_png, BinaryData::drone_lowbattery_pngSize);
+		else return ImageCache::getFromMemory(BinaryData::drone_ok_png, BinaryData::drone_ok_pngSize);
+	}
+	break;
 
-	case CFDrone::WARNING:
-		return ImageCache::getFromMemory(BinaryData::drone_warning_png, BinaryData::drone_warning_pngSize);
-
+	case CFDrone::WARNING: return ImageCache::getFromMemory(BinaryData::drone_warning_png, BinaryData::drone_warning_pngSize);
+	
 	case CFDrone::ERROR:
 		return ImageCache::getFromMemory(BinaryData::drone_error_png, BinaryData::drone_error_pngSize);
 	}
@@ -116,10 +119,11 @@ Image VizImages::getDroneOverlayImage(CFDrone * d)
 	case CFDrone::ANALYSIS:
 		return ImageCache::getFromMemory(BinaryData::health_analysis_png, BinaryData::health_analysis_pngSize);
 
-
 	case CFDrone::WARNING:
-		if (d->batteryProblem->boolValue()) return ImageCache::getFromMemory(BinaryData::battery_problem_png, BinaryData::battery_problem_pngSize);
 		if (d->selfTestProblem->boolValue() /*|| !d->allDecksAreConnected()*/) return ImageCache::getFromMemory(BinaryData::config_problem_png, BinaryData::config_problem_pngSize);
+		if (d->batteryProblem->boolValue()) return ImageCache::getFromMemory(BinaryData::battery_problem_png, BinaryData::battery_problem_pngSize);
+		if (!d->isCalibrated) return ImageCache::getFromMemory(BinaryData::badcalib_png, BinaryData::badcalib_pngSize);
+		if(d->upsideDown->boolValue()) return ImageCache::getFromMemory(BinaryData::upsidedown_png, BinaryData::upsidedown_pngSize);
 		break;
 
 	case CFDrone::TAKING_OFF:

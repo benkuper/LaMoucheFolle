@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   badcalib_png;
+    const int            badcalib_pngSize = 9542;
+
     extern const char*   battery_problem_png;
     const int            battery_problem_pngSize = 6427;
 
@@ -24,16 +27,22 @@ namespace BinaryData
     const int            connect_bt_pngSize = 9077;
 
     extern const char*   default_cflayout;
-    const int            default_cflayoutSize = 1666;
+    const int            default_cflayoutSize = 1938;
 
     extern const char*   disconnect_bt_png;
     const int            disconnect_bt_pngSize = 12150;
+
+    extern const char*   drone_badcalib_png;
+    const int            drone_badcalib_pngSize = 19447;
 
     extern const char*   drone_connecting_png;
     const int            drone_connecting_pngSize = 15975;
 
     extern const char*   drone_error_png;
     const int            drone_error_pngSize = 15534;
+
+    extern const char*   drone_lowbattery_png;
+    const int            drone_lowbattery_pngSize = 15818;
 
     extern const char*   drone_ok_png;
     const int            drone_ok_pngSize = 15244;
@@ -65,6 +74,9 @@ namespace BinaryData
     extern const char*   startup_png;
     const int            startup_pngSize = 12436;
 
+    extern const char*   upsidedown_png;
+    const int            upsidedown_pngSize = 20068;
+
     extern const char*   warning_png;
     const int            warning_pngSize = 4699;
 
@@ -72,7 +84,7 @@ namespace BinaryData
     const int            warning_red_pngSize = 3997;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 21;
+    const int namedResourceListSize = 25;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

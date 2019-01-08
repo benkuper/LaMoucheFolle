@@ -15,8 +15,6 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{52287D9E-EBC3-5FCC-F438-CA57FAD79DFC}</ProjectGuid>
-    <PlatformToolset>v141</PlatformToolset>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"
@@ -25,7 +23,6 @@
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
-    <PlatformToolset>v141</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"
@@ -33,7 +30,6 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
     <PlatformToolset>v141</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -44,10 +40,6 @@
             Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
             Label="LocalAppDataPlatform"/>
   </ImportGroup>
-  <PropertyGroup Label="UserMacros">
-    <PlatformToolset>v141</PlatformToolset>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetExt>.exe</TargetExt>
@@ -61,8 +53,6 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">LaMoucheFolle</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(LibraryPath);../../External/libusb/lib</LibraryPath>
-    <PlatformToolset>v141</PlatformToolset>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -75,7 +65,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;D:\Softwares\JUCE\modules;..\..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=2.0.0a;JUCE_APP_VERSION_HEX=0x20000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=2.0.1;JUCE_APP_VERSION_HEX=0x20001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -124,7 +114,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;D:\Softwares\JUCE\modules;..\..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=2.0.0a;JUCE_APP_VERSION_HEX=0x20000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=2.0.1;JUCE_APP_VERSION_HEX=0x20001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -209,6 +199,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_NamedValueSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_OwnedArray.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_PropertySet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -285,6 +278,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Files.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_JNIHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Misc.cpp">
@@ -512,6 +508,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueWithDefault.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -531,6 +530,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_NetworkServiceDiscovery.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_ApplicationBase.cpp">
@@ -1652,7 +1654,7 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseItemEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemUI.cpp">
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\manager\BaseItem.cpp">
@@ -1740,6 +1742,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\settings\ui\GlobalSettingsEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.cpp">
@@ -1921,8 +1926,8 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_JNIHelpers.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_BasicNativeHeaders.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_ClangBugWorkaround.h"/>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_linux_IPAddress.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_osx_ObjCHelpers.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_IPAddress.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_SharedCode.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_win32_ComSmartPtr.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\network\juce_IPAddress.h"/>
@@ -2015,6 +2020,7 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_ConnectedChildProcess.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnection.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.h"/>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_NetworkServiceDiscovery.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_ApplicationBase.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_CallbackMessage.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_DeletedAtShutdown.h"/>
@@ -2308,6 +2314,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntStepperUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterUI.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterTextUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\TargetParameterUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\TripleSliderUI.h"/>
@@ -2378,7 +2385,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerShapeShifterUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerUI.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerViewUI.h"/>
-    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemUI.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericManagerEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\BaseItem.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\manager\BaseManager.h"/>
@@ -2400,6 +2407,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptManager.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptTarget.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\settings\ui\GlobalSettingsEditor.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\settings\ProjectSettings.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\GapGrabber.h"/>
@@ -2432,6 +2440,7 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\badcalib.png"/>
     <None Include="..\..\Resources\battery_problem.png"/>
     <None Include="..\..\Resources\calibrating.png"/>
     <None Include="..\..\Resources\charging.png"/>
@@ -2439,8 +2448,10 @@
     <None Include="..\..\Resources\connect_bt.png"/>
     <None Include="..\..\Resources\default.cflayout"/>
     <None Include="..\..\Resources\disconnect_bt.png"/>
+    <None Include="..\..\Resources\drone_badcalib.png"/>
     <None Include="..\..\Resources\drone_connecting.png"/>
     <None Include="..\..\Resources\drone_error.png"/>
+    <None Include="..\..\Resources\drone_lowbattery.png"/>
     <None Include="..\..\Resources\drone_ok.png"/>
     <None Include="..\..\Resources\drone_poweroff.png"/>
     <None Include="..\..\Resources\drone_poweron.png"/>
@@ -2451,8 +2462,10 @@
     <None Include="..\..\Resources\low_battery.png"/>
     <None Include="..\..\Resources\parachute.png"/>
     <None Include="..\..\Resources\startup.png"/>
+    <None Include="..\..\Resources\upsidedown.png"/>
     <None Include="..\..\Resources\warning.png"/>
     <None Include="..\..\Resources\warning_red.png"/>
+    <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\java\README.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
     <None Include="..\..\..\..\JUCE Modules\juce_organicui\resources\organicui_resources\JuceLibraryCode\ReadMe.txt"/>

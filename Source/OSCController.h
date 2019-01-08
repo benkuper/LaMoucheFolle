@@ -14,7 +14,8 @@
 
 class OSCController :
 	public Controller,
-	public OSCReceiver::Listener<OSCReceiver::RealtimeCallback>
+	public OSCReceiver::Listener<OSCReceiver::RealtimeCallback>,
+	public Timer
 {
 public:
 	OSCController(var params = var());
@@ -35,6 +36,7 @@ public:
 	void sendNodeFeedback(Node * d, Controllable * c) override;
 
 	void sendFullSetup() override;
+	void sendPing();
 	void sendDroneSetup(const String &droneName) override;
 	void sendNodeSetup(const String &nodeName) override;
 
@@ -64,5 +66,7 @@ public:
 	static OSCController * create(var params) { return new OSCController(params); }
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OSCController)
+
+	virtual void timerCallback() override;
 
 };

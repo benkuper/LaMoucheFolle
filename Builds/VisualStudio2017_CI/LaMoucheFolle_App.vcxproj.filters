@@ -65,6 +65,9 @@
     <Filter Include="JUCE Modules\juce_core\misc">
       <UniqueIdentifier>{09B91E68-1FF4-C7ED-9055-D4D96E66A0BA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JUCE Modules\juce_core\native\java">
+      <UniqueIdentifier>{30B3DA63-C1E4-F2EA-CEF0-8035D8CBFF64}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JUCE Modules\juce_core\native">
       <UniqueIdentifier>{4F24EEED-AA33-AC6C-9A39-72E71CF83EF0}</UniqueIdentifier>
     </Filter>
@@ -353,6 +356,9 @@
     <Filter Include="JUCE Modules\juce_organicui\script">
       <UniqueIdentifier>{180BD6DA-9455-5755-E8FE-27A04695CF02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JUCE Modules\juce_organicui\settings\ui">
+      <UniqueIdentifier>{D61E743A-2670-BFB7-3B65-E8D8FB84E1D0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JUCE Modules\juce_organicui\settings">
       <UniqueIdentifier>{3D156A4D-FAA0-EEBB-777D-15BD25FA69A0}</UniqueIdentifier>
     </Filter>
@@ -502,6 +508,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_NamedValueSet.cpp">
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_OwnedArray.cpp">
+      <Filter>JUCE Modules\juce_core\containers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\containers\juce_PropertySet.cpp">
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
@@ -578,6 +587,9 @@
       <Filter>JUCE Modules\juce_core\misc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Files.cpp">
+      <Filter>JUCE Modules\juce_core\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_JNIHelpers.cpp">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_android_Misc.cpp">
@@ -823,6 +835,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.cpp">
       <Filter>JUCE Modules\juce_data_structures\values</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\values\juce_ValueWithDefault.cpp">
+      <Filter>JUCE Modules\juce_data_structures\values</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
       <Filter>JUCE Modules\juce_data_structures</Filter>
     </ClCompile>
@@ -845,6 +860,9 @@
       <Filter>JUCE Modules\juce_events\interprocess</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.cpp">
+      <Filter>JUCE Modules\juce_events\interprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_NetworkServiceDiscovery.cpp">
       <Filter>JUCE Modules\juce_events\interprocess</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_ApplicationBase.cpp">
@@ -2029,7 +2047,7 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseItemEditor.cpp">
       <Filter>JUCE Modules\juce_organicui\manager\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemUI.cpp">
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemEditor.cpp">
       <Filter>JUCE Modules\juce_organicui\manager\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\BaseItem.cpp">
@@ -2157,6 +2175,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.cpp">
       <Filter>JUCE Modules\juce_organicui\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\settings\ui\GlobalSettingsEditor.cpp">
+      <Filter>JUCE Modules\juce_organicui\settings\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.cpp">
       <Filter>JUCE Modules\juce_organicui\settings</Filter>
@@ -2535,10 +2556,10 @@
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_ClangBugWorkaround.h">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_mac_linux_IPAddress.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_osx_ObjCHelpers.h">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_osx_ObjCHelpers.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_IPAddress.h">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\juce_posix_SharedCode.h">
@@ -2815,6 +2836,9 @@
       <Filter>JUCE Modules\juce_events\interprocess</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_InterprocessConnectionServer.h">
+      <Filter>JUCE Modules\juce_events\interprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\interprocess\juce_NetworkServiceDiscovery.h">
       <Filter>JUCE Modules\juce_events\interprocess</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_events\messages\juce_ApplicationBase.h">
@@ -3696,6 +3720,9 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterUI.h">
       <Filter>JUCE Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterTextUI.h">
+      <Filter>JUCE Modules\juce_organicui\controllable\parameter\ui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterUI.h">
       <Filter>JUCE Modules\juce_organicui\controllable\parameter\ui</Filter>
     </ClInclude>
@@ -3906,7 +3933,7 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerViewUI.h">
       <Filter>JUCE Modules\juce_organicui\manager\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemUI.h">
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemEditor.h">
       <Filter>JUCE Modules\juce_organicui\manager\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericManagerEditor.h">
@@ -3971,6 +3998,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\script\ScriptUtil.h">
       <Filter>JUCE Modules\juce_organicui\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\settings\ui\GlobalSettingsEditor.h">
+      <Filter>JUCE Modules\juce_organicui\settings\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\settings\GlobalSettings.h">
       <Filter>JUCE Modules\juce_organicui\settings</Filter>
@@ -4064,6 +4094,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Resources\badcalib.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\battery_problem.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
@@ -4085,10 +4118,16 @@
     <None Include="..\..\Resources\disconnect_bt.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
+    <None Include="..\..\Resources\drone_badcalib.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\drone_connecting.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\drone_error.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\Resources\drone_lowbattery.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\drone_ok.png">
@@ -4121,11 +4160,17 @@
     <None Include="..\..\Resources\startup.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
+    <None Include="..\..\Resources\upsidedown.png">
+      <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\warning.png">
       <Filter>LaMoucheFolle\Resources</Filter>
     </None>
     <None Include="..\..\Resources\warning_red.png">
       <Filter>LaMoucheFolle\Resources</Filter>
+    </None>
+    <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_core\native\java\README.txt">
+      <Filter>JUCE Modules\juce_core\native\java</Filter>
     </None>
     <None Include="..\..\..\..\..\..\..\Softwares\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt">
       <Filter>JUCE Modules\juce_graphics\image_formats\jpglib</Filter>

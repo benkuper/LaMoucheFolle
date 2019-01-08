@@ -32,8 +32,8 @@ void DroneManagerGridUI::resized()
 
 	if (itemsUI.size() > 0)
 	{
-		container.setBounds(getLocalBounds());
-		viewport.setBounds(getLocalBounds());
+		//container.setBounds(getLocalBounds());
+		//viewport.setBounds(getLocalBounds());
 	}
 
 	int numThumbs = itemsUI.size();

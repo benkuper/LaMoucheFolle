@@ -13,32 +13,48 @@
         "shifters": [
           {
             "type": 1,
-            "width": 636,
-            "height": 502,
-            "direction": 2,
+            "width": 1338,
+            "height": 997,
+            "direction": 1,
             "shifters": [
               {
                 "type": 0,
-                "width": 152,
-                "height": 549,
-                "currentContent": "Nodes",
+                "width": 508,
+                "height": 997,
+                "currentContent": "Logger",
                 "tabs": [
                   {
-                    "name": "Drones"
-                  },
-                  {
-                    "name": "Nodes"
+                    "name": "Logger"
                   }
                 ]
               },
               {
-                "type": 0,
-                "width": 201,
-                "height": 443,
-                "currentContent": "Controllers",
-                "tabs": [
+                "type": 1,
+                "width": 824,
+                "height": 997,
+                "direction": 2,
+                "shifters": [
                   {
-                    "name": "Controllers"
+                    "type": 0,
+                    "width": 824,
+                    "height": 885,
+                    "currentContent": "Drones Grid",
+                    "tabs": [
+                      {
+                        "name": "Drones Grid"
+                      }
+                    ]
+                  },
+                  {
+                    "type": 0,
+                    "width": 824,
+                    "height": 106,
+                    "currentContent": "Controllers",
+                    "tabs": [
+                      {
+                        "name": "Controllers"
+                      }
+                    ]
                   }
                 ]
               }
@@ -46,19 +62,8 @@
           },
           {
             "type": 0,
-            "width": 636,
-            "height": 502,
-            "currentContent": "Logger",
-            "tabs": [
-              {
-                "name": "Logger"
-              }
-            ]
-          },
-          {
-            "type": 0,
-            "width": 636,
-            "height": 819,
+            "width": 576,
+            "height": 997,
             "currentContent": "Inspector",
             "tabs": [
               {
