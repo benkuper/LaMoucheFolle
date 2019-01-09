@@ -14,8 +14,10 @@
 juce_ImplementSingleton(CFRadioManager);
 
 CFRadioManager::CFRadioManager() :
-	Thread("CFRadios")
+	Thread("CFRadios"),
+	shouldCheckRadios(true)
 {
+	startTimerHz(1);
 	startThread();
 }
 
@@ -31,25 +33,14 @@ void CFRadioManager::run()
 	try
 	{
 		DBG("Start radios thread");
-		sleep(1000);
-		try
-		{
-		 setupRadios();
-		}
-		catch(std::exception &e)
-		{
-			LOGWARNING("Error setting radio :" << e.what());
-		}
+		sleep(500);
 
-		if (radios.size() == 0)
-		{
-			DBG("No radio connected !");
-		}
+		
 
 
 		//stats
-		int64 lastRadioCheckTime = 0;
-		int64 lastPacketCheckTime = 0;
+		uint32 lastRadioCheckTime = 0;
+		uint32 lastPacketCheckTime = 0;
 		int numPacketsSentSinceLastCheck = 0;
 		int numAcksReceivedSinceLastCheck = 0;
 		int numPacketsLostSinceLastCheck = 0;
@@ -58,17 +49,17 @@ void CFRadioManager::run()
 		while (!threadShouldExit())
 		{
 
-			int64 curTime = Time::getApproximateMillisecondCounter();
+			//uint32 curTime = Time::getApproximateMillisecondCounter();
 
-			if (curTime > lastRadioCheckTime + radioCheckTime)
+			if (shouldCheckRadios)
 			{
 				setupRadios();
-				lastRadioCheckTime = curTime;
+				shouldCheckRadios = false;
 			}
 
 			if (numRadios == 0)
 			{
-				sleep(500);
+				sleep(100);
 				continue;
 			}
 
@@ -91,11 +82,15 @@ void CFRadioManager::run()
 				//Lock the drone commmandQueue
 				d->commandQueue.getLock().enter();
 
-				CFDrone::DroneState ds = d->state->getValueDataAsEnum<CFDrone::DroneState>();
 				
 				//If drone is reachable has no safelink yet, send the safelink
-				if (ds != CFDrone::POWERED_OFF && !d->safeLinkActive) d->addCommand(CFCommand::createActivateSafeLink(d));
-
+				if (!d->safeLinkActive)
+				{
+					CFDrone::DroneState ds = d->state->getValueDataAsEnum<CFDrone::DroneState>();
+					if (ds != CFDrone::POWERED_OFF) d->addCommand(CFCommand::createActivateSafeLink(d));
+				}
+				
+				
 				//If no command for this drone, add an empty packet, else, add all the commands
 				//TODO : implement smart command depending on drone's state : if powered off, send only 1 or 2 ping/sec to not clog the radio / if drone is flying, send position instead of ping
 
@@ -115,6 +110,7 @@ void CFRadioManager::run()
 				d->commandQueue.getLock().exit();
 			}
 
+			if (currentCommands.size() == 0) sleep(2);
 
 			int curRadio = 0;
 			for (auto &c : currentCommands)
@@ -209,6 +205,7 @@ void CFRadioManager::run()
 				curRadio = numRadios == 0 ? 0 : (curRadio + 1) % numRadios;
 			}
 
+			/*
 			if (curTime > lastPacketCheckTime + 1000) //check every second
 			{
 				packetsPerSeconds = numPacketsSentSinceLastCheck;
@@ -223,6 +220,7 @@ void CFRadioManager::run()
 
 				lastPacketCheckTime = curTime;
 			}
+			*/
 
 			//for debug
 			//sleep(100);
@@ -238,6 +236,11 @@ void CFRadioManager::run()
 
 	LOG("End radio thread");
 
+}
+
+void CFRadioManager::timerCallback()
+{
+	shouldCheckRadios = true;
 }
 
 //Threaded functions
@@ -267,7 +270,9 @@ void CFRadioManager::setupRadios()
 
 			radios.add(r);
 		}
+
 		LOG("Added " << numRadios << " radios");
+		sleep(200);
 	}
 }
 
