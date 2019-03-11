@@ -964,7 +964,6 @@ void CFDrone::stateChanged()
 {
 	DroneState s = state->getValueDataAsEnum<DroneState>();
 
-	NLOG(niceName, "State update : " << state->getValueKey());
 
 	updateControls();
 
