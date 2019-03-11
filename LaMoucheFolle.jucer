@@ -159,8 +159,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="libusb-1.0.lib"
-            windowsTargetPlatformVersion="10.0.16299.0" smallIcon="gOf6w2"
-            bigIcon="gOf6w2">
+            smallIcon="gOf6w2" bigIcon="gOf6w2">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="0" optimisation="3" targetName="LaMoucheFolle" debugInformationFormat="ProgramDatabase"
