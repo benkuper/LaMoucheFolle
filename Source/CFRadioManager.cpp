@@ -151,7 +151,7 @@ void CFRadioManager::run()
 				int lostCounter = 0;
 				bool packetIsValidated = false;
 				
-				int maxTries = ds != CFDrone::POWERED_OFF ? 10 : 1; //only ony try when pinging powered off drones
+				int maxTries = ds != CFDrone::POWERED_OFF ? 10 : 1; //only one try when pinging powered off drones
 
 				while (!packetIsValidated && lostCounter < maxTries && !threadShouldExit())
 				{

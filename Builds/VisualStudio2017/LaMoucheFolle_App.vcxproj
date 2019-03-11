@@ -1786,6 +1786,9 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\AssetManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\Grabber.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\LookAndFeelOO.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2365,6 +2368,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpBox.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\DebugHelpers.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\NetworkHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\OSCHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\QueuedNotifier.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\RegexFunctions.h"/>
@@ -2421,6 +2425,7 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\ShapeShifterPanelTab.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\shapeshifter\ShapeShifterWindow.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\AssetManager.h"/>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\Grabber.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\LookAndFeelOO.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\Style.h"/>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\undo\UndoMaster.h"/>

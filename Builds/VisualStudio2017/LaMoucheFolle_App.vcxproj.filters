@@ -2218,6 +2218,9 @@
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\AssetManager.cpp">
       <Filter>JUCE Modules\juce_organicui\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\Grabber.cpp">
+      <Filter>JUCE Modules\juce_organicui\ui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE Modules\juce_organicui\ui\LookAndFeelOO.cpp">
       <Filter>JUCE Modules\juce_organicui\ui</Filter>
     </ClCompile>
@@ -3873,6 +3876,9 @@
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\DebugHelpers.h">
       <Filter>JUCE Modules\juce_organicui\helpers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\NetworkHelpers.h">
+      <Filter>JUCE Modules\juce_organicui\helpers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\helpers\OSCHelpers.h">
       <Filter>JUCE Modules\juce_organicui\helpers</Filter>
     </ClInclude>
@@ -4039,6 +4045,9 @@
       <Filter>JUCE Modules\juce_organicui\ui\shapeshifter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\AssetManager.h">
+      <Filter>JUCE Modules\juce_organicui\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\Grabber.h">
       <Filter>JUCE Modules\juce_organicui\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE Modules\juce_organicui\ui\LookAndFeelOO.h">
