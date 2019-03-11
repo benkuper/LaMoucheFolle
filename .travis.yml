@@ -1,58 +1,31 @@
+language: cpp
+
+git:
+  depth: 1
+
+notifications:
+  email: false
+
 matrix:
   matrix: 
   include:
   - os: osx
     osx_image: xcode9.2
+    compiler: clang
   - os: linux
     dist: trusty
+    group: latest
     sudo: required
-env:
-  global:
-  - FTP_USER=u67889354-benjamin
-  - secure: VsFnLBcCo+huDKFv1j8PLl1R70GanRUJfFEkahWbdoZge21GOwcXKwCVaaRoO8qMLvoW8DLKdTLrWE/nFo3aJjFNbA1g4SeBZO2uY2o9E4mg2bEPHuzF3y9YCXtcFoz83qmcV9gXHUBdVzhFR7533n1dTReyV7emjPOoOFyue7vcI9+bWXocIWgJn6eAUb9XUsXM7Yzu45xnA4YNMD80KDASdJrwtGFfU5Fy+Yugoq1uwmqr/b6H3LZox1QnG2SSoZgNQxZtHS36mBfDT8ubpyO4+pZb7izIFvrjA6AkK8d1ytE3hTo5YHsFEQ0+3O140FF3Own0wkDCFS23H7lhhY6cjt2mKq4cD2V2bk0YgLvixDPvLrTsQsaSBXMtOyQrqnIy4EbwczBD6cjOqsSzaGK9x6J/1hAcob2Uq7ohiUHBVZaA2XkB/RV3cF2fa+pB8XTB6DNXai/0BsIChn1C9ofizP//KmFDuzoimQ7ioFvHQoEd62T3RXU4UCBtWHxpvQlkikQO+/gUUzxAEtCDYaLAhjcaOGHrACkFcPmC7+yUZULYk1DHvorvPEQu7KpwuIgZ36uZ/Nm4GmO5JR0HD/oe5q446o6Eg0QBGt732av2zhkGIX1HPaKqcC2XgjOQzLF+gdC9gGPL7pRn3fIgZG34/s+iJ84YIkVh4TQBOHE=
-after_success:
-- |
-  if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-    cd /home/travis/build/benkuper/LaMoucheFolle/Builds/LinuxMakefile/build
-    zip LaMoucheFolle-linux-x64-bleedingedge.zip LaMoucheFolle
-    curl --ftp-create-dirs -T LaMoucheFolle-linux-x64-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/download/lamouchefolle/
-  else
-    cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX/build/Release
-    ls
-    zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
-    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD ftp://ftp.kuperberg.fr/download/lamouchefolle/
-  fi 
-language: cpp
-git:
-  depth: 1
-notifications:
-  email: false
+    services: docker
+
 before_install:
 - |
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-    export DEBIAN_FRONTEND=noninteractive
-    echo ${HOME}
-    export HOME=/home/travis/build/benkuper
-    echo ${HOME}
-    sudo add-apt-repository ppa:webkit-team/ppa -y
-    sudo apt-get update --fix-missing
-    sudo apt-get update -qq
-    sudo apt-get install -qq clang libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev libxcomposite-dev mesa-common-dev libasound2-dev freeglut3-dev libcurl4-gnutls-dev+ libasound2-dev libjack-dev libbluetooth-dev libgtk-3-dev libwebkit2gtk-4.0-dev
-    sudo apt-get install -qq libusb-1.0-0-dev
-    pwd
-    ls -d */
     cd ..
     pwd
-    git clone --depth=1 --branch=develop-local https://github.com/benkuper/JUCE.git JUCE
-    mkdir "JUCE Modules"
-    cd "JUCE Modules"
-    git clone --depth=1 --branch=master https://github.com/benkuper/juce_organicui.git juce_organicui
-    cd ..
-    pwd
-    ls -d */
+    docker run -d --name ubuntu -v $(pwd):/benkuper ubuntu:latest tail -f /dev/null
+    docker ps
   else
-    brew update
-    brew install libusb
     gem install xcpretty
     gem install xcpretty-travis-formatter
     pwd
@@ -63,19 +36,61 @@ before_install:
     mkdir "JUCE Modules"
     cd "JUCE Modules"
     git clone --depth=1 --branch=master https://github.com/benkuper/juce_organicui.git juce_organicui
+    git clone --depth=1 --branch=master https://github.com/benkuper/juce_timeline.git juce_timeline
     cd ..
     pwd
     ls -d */
   fi
-compiler:
-- clang
-branches:
-  only:
-  - master
+install:
+- |
+  if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+    docker exec -t ubuntu bash -c "export DEBIAN_FRONTEND=noninteractive;
+    uname -a;
+    apt-get install software-properties-common
+    add-apt-repository ppa:webkit-team/ppa -y;
+    add-apt-repository -y ppa:ubuntu-toolchain-r/test;
+    apt-get update --fix-missing;
+    apt-get update -qq;
+    echo 'Installing GCC...';
+    apt-get install -y g++-7 gcc-7;
+    gcc -v;
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 90;
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90;
+    export CC=/usr/bin/gcc;
+    export CXX=/usr/bin/g++;
+    echo ${CC};
+    echo ${CXX};
+    apt-get install -qq git libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev libxcomposite-dev mesa-common-dev libasound2-dev freeglut3-dev libcurl4-gnutls-dev+ libasound2-dev libjack-dev libbluetooth-dev libgtk-3-dev libwebkit2gtk-4.0-dev > /dev/null;
+    cd ~;
+    pwd;
+    git clone --depth=1 --branch=develop-local https://github.com/benkuper/JUCE.git JUCE;
+    cd /benkuper;
+    mkdir 'JUCE Modules';
+    cd 'JUCE Modules';
+    git clone --depth=1 --branch=master https://github.com/benkuper/juce_organicui.git juce_organicui
+    git clone --depth=1 --branch=master https://github.com/benkuper/juce_sharedtexture.git juce_sharedtexture
+    git clone --depth=1 --branch=master https://github.com/benkuper/juce_timeline.git juce_timeline"
+  fi
 script:
+- |
+  if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+    docker exec -t ubuntu bash -c "gcc -v;
+    cd /benkuper/LaMoucheFolle/Builds/LinuxMakefile;
+    make -j 8 CONFIG=Release"
+  else
+    xcodebuild -project LaMoucheFolle/Builds/MacOSX_CI/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 | xcpretty -f `xcpretty-travis-formatter`
+  fi
+after_success:
 - |-
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-    make -j 8 CONFIG=Release -C "LaMoucheFolle/Builds/LinuxMakefile/"
+    mkdir export
+    cd export
+    docker cp ubuntu:/benkuper/LaMoucheFolle/Builds/LinuxMakefile/build/LaMoucheFolle .
+    zip -r LaMoucheFolle-linux-x64-bleedingedge.zip LaMoucheFolle
+    curl --verbose --progress-bar --ipv4 --connect-timeout 8 --max-time 120 --retry 128 --ftp-ssl --disable-epsv --ftp-pasv --ftp-create-dirs -T LaMoucheFolle-linux-x64-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD --insecure ftp://home403871847.1and1-data.host/lamouchefolle/
   else
-    xcodebuild -project LaMoucheFolle/Builds/MacOSX/LaMoucheFolle.xcodeproj -configuration Release -jobs 8 | xcpretty -f `xcpretty-travis-formatter`
+    cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX_CI/build/Release
+    ls
+    zip -r -y LaMoucheFolle-osx-bleedingedge.zip LaMoucheFolle.app
+    curl --ftp-create-dirs -T LaMoucheFolle-osx-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD --insecure ftp://home403871847.1and1-data.host/lamouchefolle/
   fi
