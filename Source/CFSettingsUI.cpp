@@ -140,25 +140,25 @@ void PhysicsCCUI::generateSim()
 		float tay = simRect.getBottom() - aPos * simRect.getHeight();
 		float tjy = simRect.getBottom() - jPos * simRect.getHeight();
 
-		if (!isnan(tPos) && !isinf(tPos))
+		if (!std::isnan(tPos) && !std::isinf(tPos))
 		{
 			if (i == 0) simPath.startNewSubPath(tx, tpy);
 			else simPath.lineTo(tx, tpy);
 		}
 
-		if (!isnan(sPos) && !isinf(sPos))
+		if (!std::isnan(sPos) && !std::isinf(sPos))
 		{
 			if (i == 0) speedPath.startNewSubPath(tx, tsy);
 			else speedPath.lineTo(tx, tsy);
 		}
 
-		if (!isnan(aPos) && !isinf(aPos))
+		if (!std::isnan(aPos) && !std::isinf(aPos))
 		{
 			if (i == 0) accPath.startNewSubPath(tx, tay);
 			else accPath.lineTo(tx, tay);
 		}
 
-		if (!isnan(jPos) && !isinf(jPos))
+		if (!std::isnan(jPos) && !std::isinf(jPos))
 		{
 			if (i == 0) jerkPath.startNewSubPath(tx, tjy);
 			else jerkPath.lineTo(tx, tjy);
