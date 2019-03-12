@@ -207,9 +207,9 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" externalLibraries="usb-1.0"
                 extraLinkerFlags="-Wl,-rpath,&quot;lib&quot;&#10;-Wl,--as-needed">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/include"
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="/usr/lib/x86_64-linux-gnu/"/>
-        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;/usr/include&#10;"
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="/usr/lib/x86_64-linux-gnu/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
