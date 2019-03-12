@@ -28,6 +28,7 @@ contents.xcworkspacedata
 .dirstamp
 profile
 **/MacOSX/build
+**/MacOSX_CI/build
 **/iOS/build
 **/Linux/build
 **/LinuxMakefile/build
@@ -73,3 +74,5 @@ Builds/LinuxMakefile/LaMoucheFolle-x86_64\.AppImage
 Builds/LinuxMakefile/LaMoucheFolle\.AppDir/usr/bin/LaMoucheFolle
 
 Builds/LinuxMakefile/LaMoucheFolle\.AppDir/\.DirIcon
+
+Package/LaMoucheFolle\.pkg
