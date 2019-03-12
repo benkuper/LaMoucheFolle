@@ -83,11 +83,17 @@ script:
 after_success:
 - |-
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-    mkdir export
-    cd export
-    docker cp ubuntu:/benkuper/LaMoucheFolle/Builds/LinuxMakefile/build/LaMoucheFolle .
-    zip -r LaMoucheFolle-linux-x64-bleedingedge.zip LaMoucheFolle
-    curl --verbose --progress-bar --ipv4 --connect-timeout 8 --max-time 120 --retry 128 --ftp-ssl --disable-epsv --ftp-pasv --ftp-create-dirs -T LaMoucheFolle-linux-x64-bleedingedge.zip -u $FTP_USER:$FTP_PASSWORD --insecure ftp://home403871847.1and1-data.host/lamouchefolle/
+    docker exec -t ubuntu bash -c "cd /benkuper/LaMoucheFolle/Builds/LinuxMakefile;
+    pwd
+    echo 'Downloading AppImageTool...';
+    wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage";
+    chmod a+x appimagetool-x86_64.AppImage;
+    echo 'Packaging AppImage...';
+    mkdir LaMoucheFolle.AppDir/usr/bin/;
+    cp build/LaMoucheFolle LaMoucheFolle.AppDir/usr/bin/;
+    ./appimagetool-x86_64.AppImage LaMoucheFolle.AppDir LaMoucheFolle-linux-x64-$SUFFIX.AppImage;
+    echo 'Uploading $SUFFIX ...';
+    curl -X POST -F 'appFile=@LaMoucheFolle-linux-x64-$SUFFIX.AppImage' -F 'pass=$UPLOAD_PASS' -F 'path=lamouchefolle' $UPLOAD_URL;"
   else
     cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX_CI/build/Release
     ls
