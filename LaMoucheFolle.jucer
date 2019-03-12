@@ -244,7 +244,7 @@
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <XCODE_MAC targetFolder="Builds/MacOSX_CI">
+    <XCODE_MAC targetFolder="Builds/MacOSX_CI" externalLibraries="usb-1.0">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include&#10;"
                        osxCompatibility="10.9 SDK" libraryPath="../../External/libusb/osx"/>
