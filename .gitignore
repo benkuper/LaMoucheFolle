@@ -71,3 +71,5 @@ Builds/LinuxMakefile/appimagetool-x86_64\.AppImage
 Builds/LinuxMakefile/LaMoucheFolle-x86_64\.AppImage
 
 Builds/LinuxMakefile/LaMoucheFolle\.AppDir/usr/bin/LaMoucheFolle
+
+Builds/LinuxMakefile/LaMoucheFolle\.AppDir/\.DirIcon
