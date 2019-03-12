@@ -23,7 +23,7 @@ before_install:
   if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
     cd ..
     pwd
-    docker run -d --name ubuntu -v $(pwd):/benkuper ubuntu:latest tail -f /dev/null
+    docker run -d --name ubuntu --privileged -v $(pwd):/benkuper ubuntu:latest tail -f /dev/null
     docker ps
   else
     gem install xcpretty
@@ -89,6 +89,7 @@ after_success:
     wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage";
     chmod a+x appimagetool-x86_64.AppImage;
     echo 'Packaging AppImage...';
+    mkdir LaMoucheFolle.AppDir/usr/;
     mkdir LaMoucheFolle.AppDir/usr/bin/;
     cp build/LaMoucheFolle LaMoucheFolle.AppDir/usr/bin/;
     ./appimagetool-x86_64.AppImage LaMoucheFolle.AppDir LaMoucheFolle-linux-x64-$SUFFIX.AppImage;
