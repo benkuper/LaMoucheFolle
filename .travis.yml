@@ -93,7 +93,7 @@ after_success:
     cp build/LaMoucheFolle LaMoucheFolle.AppDir/usr/bin/;
     ./appimagetool-x86_64.AppImage LaMoucheFolle.AppDir LaMoucheFolle-linux-x64-$SUFFIX.AppImage;
     echo 'Uploading $SUFFIX ...';
-    curl -X POST -F 'appFile=@LaMoucheFolle-linux-x64-$SUFFIX.AppImage' -F 'pass=$UPLOAD_PASS' -F 'path=lamouchefolle' $UPLOAD_URL;"
+    curl -X POST -F 'appFile=@LaMoucheFolle-linux-x64-$SUFFIX.AppImage' -F 'pass=$UPLOAD_PASS' -F 'path=lamouchefolle/' $UPLOAD_URL;"
   else
     cd /Users/travis/build/benkuper/LaMoucheFolle/Builds/MacOSX_CI/build/Release
     ls
