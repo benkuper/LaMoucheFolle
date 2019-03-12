@@ -208,9 +208,9 @@
                 extraLinkerFlags="-Wl,-rpath,&quot;lib&quot;&#10;-Wl,--as-needed">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="/usr/lib/x86_64-linux-gnu/"/>
+                       libraryPath="../../External/libusb/linux"/>
         <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="/usr/lib/x86_64-linux-gnu/"/>
+                       libraryPath="../../External/libusb/linux"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_osc" path="~/JUCE/modules"/>
