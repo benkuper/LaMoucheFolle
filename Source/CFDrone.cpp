@@ -73,7 +73,6 @@ CFDrone::CFDrone() :
 	tocTrigger = controlsCC.addTrigger("Request TOC", "Request TOCs");
 	calibrateTrigger = controlsCC.addTrigger("Calibrate", "Reset the kalman filter");
 	takeOffTrigger = controlsCC.addTrigger("Take off", "Make the drone take off");
-	takeOffHeight = controlsCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1.5f, .5f, 5);
 	rebootTrigger = controlsCC.addTrigger("Reboot", "Reboot the drone");
 	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
@@ -223,9 +222,7 @@ void CFDrone::addTakeoffCommand()
 	float t = (Time::getMillisecondCounter() - timeAtStartTakeOff) / 1000.0f;
 	float relTime = t / CFSettings::getInstance()->takeOffTime->floatValue();
 
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	float realHeight = zIsVertical ? realPosition->z : realPosition->y;
-	bool heightIsGood = Time::getMillisecondCounter() > timeAtStartLanding + 1 && realHeight >= takeOffHeight->floatValue();
+	bool heightIsGood = Time::getMillisecondCounter() > timeAtStartLanding + 1 && realPosition->y >= CFSettings::getInstance()->takeOffHeight->floatValue();
 
 	if (relTime >= 1 || heightIsGood)
 	{
@@ -262,8 +259,8 @@ void CFDrone::addFlyingCommand()
 	targetAcceleration->setVector(targetState.acceleration);
 
 	//Invert Z and Y depending on zIsVertical option in Project Settings (if zIsVertical is not checked, then don't swap y and z because crazyflie consider z as vertical)
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	Vector3D<float> targetPos(targetState.position.x, zIsVertical ? targetState.position.y : targetState.position.z, zIsVertical ? targetState.position.z : targetState.position.y);
+	
+	Vector3D<float> targetPos = CFSettings::toDroneVector(targetState.position);
 	addCommand(CFCommand::createPosition(this, targetPos, CFSettings::getInstance()->disableYawCommand->boolValue()?0:targetYaw->floatValue()));
 	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0;
 }
@@ -272,10 +269,8 @@ void CFDrone::addLandingCommand()
 {
 	//Reset the yaw and turn the drone
 	targetYaw->setValue(0);
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	Vector3D<float> p = targetPosition->getVector();
-	Vector3D<float> targetPos(p.x, zIsVertical ? p.y : p.z, zIsVertical ? p.z : p.y);
-	addCommand(CFCommand::createPosition(this, targetPos, 0));
+	Vector3D<float> p = CFSettings::toDroneVector(targetPosition->getVector());
+	addCommand(CFCommand::createPosition(this, p, 0));
 
 	addCommand(CFCommand::createVelocity(this, Vector3D<float>(0, 0, -.75f), 0));
 	if(Time::getMillisecondCounter() > timeAtStartLanding + landingTime * 1000) state->setValueWithData(READY);
@@ -313,9 +308,7 @@ void CFDrone::addSetupNodesCommands()
 {
 	//addCommand(CFCommand::createGetMemoryNumber(this));
 	
-	bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-	Vector3D<float> pos = CFSettings::getInstance()->lpsBoxSize->getVector();
-	if (!zIsVertical) pos = Vector3D<float>(pos.x, pos.z, pos.y);
+	Vector3D<float> pos = CFSettings::toDroneVector(CFSettings::getInstance()->lpsBoxSize->getVector());
 
 	float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
 	pos.z += zOffset;
@@ -488,7 +481,7 @@ void CFDrone::packetReceived(const CFPacket & packet)
 
 	case CFPacket::PARAM_TOC_INFO: paramTocReceived((int)packet.data.getProperty("crc", 0), (int)packet.data.getProperty("size", 0)); break;
 	case CFPacket::PARAM_TOC_ITEM: paramInfoReceived(
-		packet.data.getProperty("id", 0),
+		packet.data.getProperty("id", -1),
 		packet.data.getProperty("group", "[notset]").toString(),
 		packet.data.getProperty("name", "[notset]").toString(),
 		(int)packet.data.getProperty("type", -1),
@@ -499,6 +492,7 @@ void CFDrone::packetReceived(const CFPacket & packet)
 
 	case CFPacket::LOG_TOC_INFO: logTocReceived((int)packet.data.getProperty("crc", 0), (int)packet.data.getProperty("size", 0)); break;
 	case CFPacket::LOG_TOC_ITEM: logVariableInfoReceived(
+		packet.data.getProperty("id",-1),
 		packet.data.getProperty("group", "[notset]").toString(),
 		packet.data.getProperty("name", "[notset]").toString(),
 		(int)packet.data.getProperty("type", -1));
@@ -661,9 +655,18 @@ void CFDrone::paramTocReceived(int crc, int size)
 
 	if (!paramToc->isInitialized())
 	{
-		DBG("Unknown toc received : CRC " << paramToc->crc << ", " << paramToc->numParams << " parameters");
-		currentParamRequestId = 0; //reset Parameter id before asking all the parameters
-		addCommand(CFCommand::createGetParamInfo(this, currentParamRequestId));
+		LOG("Uninitialized toc received : CRC " << paramToc->crc << ", " << paramToc->numParams << " parameters, local = " << paramToc->params.size());
+
+		Array<uint8> missingIds = paramToc->getMissingIds();
+		String s = "Request missing parameter ids : ";
+		for (auto &id : missingIds)
+		{
+			s += String(id) + ",";
+			addCommand(CFCommand::createGetParamInfo(this, id));
+		}
+		s.dropLastCharacters(1);
+		LOG(s);
+		
 	} else
 	{
 		LOG("Found existing Param TOC");
@@ -673,9 +676,9 @@ void CFDrone::paramTocReceived(int crc, int size)
 
 void CFDrone::paramInfoReceived(int id, String group, String name, int type, bool readOnly, int length, int sign)
 {
-	if (currentParamRequestId == -1)
+	if (id == -1)
 	{
-		DBG("Received unexpected param info packet, probably from previous life");
+		LOGWARNING("Received unexpected param info packet, probably from previous life, id " << id);
 		return;
 	}
 
@@ -687,23 +690,27 @@ void CFDrone::paramInfoReceived(int id, String group, String name, int type, boo
 		return;
 	}
 
-	if (paramToc->params.size() <= id)
-	{
-		paramToc->addParamDef(group + "." + name, id, (CFParam::Type)type);
-		currentParamRequestId = id + 1;
+	jassert(id <= paramToc->numParams);
 
-		if (paramToc->isInitialized())
-		{
-			paramToc->save();
-			addConnectionCommands(); // go to the next connection step
-		} else
-		{
-			for (int i = 0; i < 2; i++) addCommand(CFCommand::createGetParamInfo(this, currentParamRequestId));
-		}
+	CFParam * param = paramToc->getParam(id);
+	if (param != nullptr)
+	{
+		//already exists
+		return;
+	}
+
+	LOG("Got new param " << id << " : " << name << ", toc is initialized ? " << paramToc->params.size() << " / " << paramToc->numParams);
+	paramToc->addParamDef(group + "." + name, id, (CFParam::Type)type);
+
+	if (paramToc->isInitialized())
+	{
+		paramToc->save();
+		addConnectionCommands(); // go to the next connection step
 	} else
 	{
-		//skip as it already exists
+		//for (int i = 0; i < 2; i++) addCommand(CFCommand::createGetParamInfo(this, currentParamRequestId));
 	}
+	
 }
 
 void CFDrone::paramValueReceived(int id, var value)
@@ -713,6 +720,7 @@ void CFDrone::paramValueReceived(int id, var value)
 		DBG("Param toc null, can't process param value message");
 		return;
 	}
+
 
 	CFParam * p = paramToc->getParam(id);
 	if (p == nullptr)
@@ -738,8 +746,7 @@ void CFDrone::paramValueReceived(int id, var value)
 		int anchorId = p->definition.localName.substring(6, 7).getIntValue();
 		char coord = p->definition.localName.getLastCharacter();
 
-		Vector3D<float> box = CFSettings::getInstance()->lpsBoxSize->getVector();
-		if (!CFSettings::getInstance()->zIsVertical->boolValue()) box = Vector3D<float>(box.x, box.z, box.y);
+		Vector3D<float> box = CFSettings::toDroneVector(CFSettings::getInstance()->lpsBoxSize->getVector());
 
 		float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
 		box.z += zOffset;
@@ -788,24 +795,20 @@ void CFDrone::logTocReceived(int crc, int size)
 	size = 246;// size - 1;
 
 	logToc = CFLogToc::addLogToc(crc, size);
-	LOG("Log toc received : CRC " << logToc->crc << ", " << logToc->numVariables << " variables, is init ? " << (int)logToc->isInitialized());
+	LOG("Log toc received : CRC " << logToc->crc << ", is init ? " << logToc->numVariables << " / " << logToc->variables.size());
 
 	if (!logToc->isInitialized())
 	{
-		currentLogVariableId = logToc->variables.size(); //reset Parameter id before asking all the parameters
-
-		//HACK skip 165
-		if (currentLogVariableId == 164) currentLogVariableId++;
-
-		DBG("Add request log item id " << currentLogVariableId);
-		addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
-
-		String m = "missing : ";
-		for (int i = 0; i < logToc->numVariables; i++)
+		
+		Array<uint8> missingIds = logToc->getMissingIds();
+		String s = "Request missing log ids : ";
+		for (auto &id : missingIds)
 		{
-			if (logToc->getLogVariable(i) == nullptr) m += String(i) + ", ";
+			s += String(id) + ",";
+			addCommand(CFCommand::createGetLogItemInfo(this, id));
 		}
-		LOG("Missing variables are " << m);
+		s.dropLastCharacters(1);
+		LOG(s);
 	} else
 	{
 		LOG("Found existing log TOC");
@@ -815,11 +818,11 @@ void CFDrone::logTocReceived(int crc, int size)
 
 }
 
-void CFDrone::logVariableInfoReceived(String group, String name, int type)
+void CFDrone::logVariableInfoReceived(int id, String group, String name, int type)
 {
-	if (currentLogVariableId == -1)
+	if (id == -1)
 	{
-		DBG("Received unexpected logVariable info packet, probably from previous life");
+		LOGWARNING("Received unexpected logVariable info packet, probably from previous life, id " << id);
 		return;
 	}
 
@@ -829,38 +832,34 @@ void CFDrone::logVariableInfoReceived(String group, String name, int type)
 		return;
 	}
 
-	bool alreadyHasVariable = logToc->getLogVariableIdForName(group + "." + name) != -1;
-	if (!alreadyHasVariable)
+	 CFLogVariable * v = logToc->getLogVariable(id);
+	 if (v != nullptr)
+	 {
+		 //Already exists
+		 return;
+	 }
+
+	LOG("Log Variable info received [" << id << "] : " << group << "." << name << " (" << CFParam::getTypeString((CFParam::Type)type) << ") ");
+
+	logToc->addVariableDef(group + "." + name, id, (CFLogVariable::Type)type);
+
+	if (logToc->isInitialized())
 	{
-
-		DBG("Log Variable info received [" << currentLogVariableId << "] : " << group << "." << name << " (" << CFParam::getTypeString((CFParam::Type)type) << ") ");
-
-		logToc->addVariableDef(group + "." + name, currentLogVariableId, (CFLogVariable::Type)type);
-		currentLogVariableId = logToc->variables.size();
-
-		DBG("Log toc is initialized ?" << (int)(logToc->isInitialized()) << " : " << logToc->numVariables << "< > " << logToc->variables.size());
-		if (logToc->isInitialized())
-		{
-			logToc->save();
-			addConnectionCommands(); // go to the next connection step
-		} else
-		{
-			if (currentLogVariableId >= logToc->numVariables)
-			{
-				DBG("Problem variableId should not be more");
-				return;
-			}
-			DBG("Add request for log item id " << currentLogVariableId);
-			addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
-		}
+		LOG("Log toc is initialized !" << (int)(logToc->isInitialized()) << " : " << logToc->numVariables << "< > " << logToc->variables.size());
+		logToc->save();
+		addConnectionCommands(); // go to the next connection step
 	} else
 	{
-		DBG("Already has variable " << group << "." << name << ", skipping");
-		currentLogVariableId++;
-		DBG("Cur variable log id : " << currentLogVariableId);
-		//DBG("Log toc is initialized ?" << (int)(logToc->isInitialized()) << " : " << logToc->numVariables << "< > " << logToc->variables.size());
+		/*if (currentLogVariableId >= logToc->numVariables)
+		{
+			DBG("Problem variableId should not be more");
+			return;
+		}
+		DBG("Add request for log item id " << currentLogVariableId);
 		addCommand(CFCommand::createGetLogItemInfo(this, currentLogVariableId));
+		*/
 	}
+	
 }
 
 void CFDrone::logBlockReceived(int blockId, var data)
@@ -875,8 +874,8 @@ void CFDrone::logBlockReceived(int blockId, var data)
 		PosBlock * pLog = (PosBlock *)data.getBinaryData()->getData();
 
 		//Invert Z and Y depending on zIsVertical option in Project Settings (if zIsVertical is not checked, then swap y and z because crazyflie consider z as vertical, so invert to reflect y as vertical in real pos)
-		bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
-		realPosition->setVector(pLog->x, zIsVertical ? pLog->y : pLog->z, zIsVertical ? pLog->z : pLog->y);
+		//bool zIsVertical = CFSettings::getInstance()->zIsVertical->boolValue();
+		realPosition->setVector(CFSettings::toLMFVector(Vector3D<float>(pLog->x, pLog->y, pLog->z)));
 		orientation->setVector(pLog->rx, pLog->ry, pLog->rz);
 		upsideDown->setValue(pLog->rz < -120 || pLog->rz > 120);
 	}
@@ -964,9 +963,7 @@ void CFDrone::stateChanged()
 {
 	DroneState s = state->getValueDataAsEnum<DroneState>();
 
-
 	updateControls();
-
 	stopAllTimers();
 
 	if (!enabled->boolValue()) return;
@@ -991,8 +988,6 @@ void CFDrone::stateChanged()
 	{
 		if (!safeLinkActive) for (int i = 0; i < 10; i++) addCommand(CFCommand::createActivateSafeLink(this));
 
-		currentParamRequestId = -1;
-		currentLogVariableId = -1;
 		addConnectionCommands();
 	}
 	break;
@@ -1045,7 +1040,7 @@ void CFDrone::stateChanged()
 	case FLYING:
 	{
 		Vector3D<float> target = realPosition->getVector();
-		target.y = takeOffHeight->floatValue();
+		target.y = CFSettings::getInstance()->takeOffHeight->floatValue();
 		targetPosition->setVector(target);
 		desiredPosition->setVector(target);
 		startTimer(TIMER_FLYING);
@@ -1055,8 +1050,10 @@ void CFDrone::stateChanged()
 	case LANDING:
 	{
 		timeAtStartLanding = Time::getMillisecondCounter();
-		float h = CFSettings::getInstance()->zIsVertical->boolValue() ? realPosition->z : realPosition->y;
-		landingTime = jmax<float>(h * 1.25f, 2);
+		
+		float droneH = CFSettings::toDroneVector(realPosition->getVector()).z;
+
+		landingTime = jmax<float>(droneH * 1.25f, 2);
 		NLOG(niceName, "Landing for " << landingTime << "seconds.");
 		startTimer(TIMER_LANDING);
 	}

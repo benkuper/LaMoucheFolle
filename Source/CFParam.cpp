@@ -109,6 +109,13 @@ CFParam * CFParamToc::getParam(uint8 id)
 	return nullptr;
 }
 
+Array<uint8> CFParamToc::getMissingIds()
+{
+	Array<uint8> result;
+	for (int i = 0; i < numParams; i++) if (!paramIdsMap.contains(i)) result.add(i);
+	return result;
+}
+
 void CFParamToc::loadParamTocs()
 {
 

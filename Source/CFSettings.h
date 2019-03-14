@@ -75,6 +75,7 @@ public:
 	EnumParameter * lpsMode;
 
 	ControllableContainer flightCC;
+	FloatParameter * takeOffHeight;
 	BoolParameter * useThrustCommand;
 	FloatParameter * takeOffTime;
 	FloatParameter * takeOffMaxSpeed;
@@ -85,8 +86,17 @@ public:
 	PhysicsCC physicsCC;
 
 	ControllableContainer miscCC;
-	BoolParameter * zIsVertical;
+	
+	EnumParameter * units;
+	EnumParameter * leftRightAxis;
+	EnumParameter * downUpAxis;
+	EnumParameter * frontBackAxis;
+	BoolParameter * invertLeftRight;
+	BoolParameter * invertFrontBack;
 
+	
+	static Vector3D<float> toDroneVector(Vector3D<float> lmfVector, bool convertAxis = true, bool convertUnit = true);
+	static Vector3D<float> toLMFVector(Vector3D<float> droneVector, bool convertAxis = true, bool convertUnit = true);
 };
 
 

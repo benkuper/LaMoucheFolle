@@ -84,6 +84,8 @@ public:
 	CFLogVariable * getLogVariable(const String &name);
 	CFLogVariable * getLogVariable(uint8 id);
 
+	Array<uint8> getMissingIds();
+
 	bool isInitialized();
 
 	static OwnedArray<CFLogToc> tocs;

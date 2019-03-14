@@ -60,6 +60,24 @@ void DroneGridUI::updateUI()
 	repaint();
 }
 
+void DroneGridUI::mouseDown(const MouseEvent & e)
+{
+	BaseItemMinimalUI::mouseDown(e);
+	if (e.mods.isShiftDown())
+	{
+		item->takeOffTrigger->trigger();
+	}
+	else if (e.mods.isCommandDown())
+	{
+		item->landTrigger->trigger();
+	}
+	else if (e.mods.isAltDown())
+	{
+		item->stopTrigger->trigger();
+	}
+
+}
+
 void DroneGridUI::controllableFeedbackUpdateInternal(Controllable * c)
 {
 	if (c == item->state || c == item->calibrationProgress || c == item->analysisProgress) updateUI();

@@ -38,6 +38,7 @@ CFSettings::CFSettings() :
 
 	addChildControllableContainer(&flightCC);
 	flightCC.saveAndLoadRecursiveData = true;
+	takeOffHeight = flightCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1.5f, .5f, 20);
 	useThrustCommand = flightCC.addBoolParameter("Use thrust command", "Use thrust instead of velocity command for take off", false);
 	takeOffTime = flightCC.addFloatParameter("Takeoff Time", "Time to take off", 3, 0, 10);
 	takeOffMaxSpeed = flightCC.addFloatParameter("Takeoff Max Speed", "The vertical speed in m/s corresponding to the max curve value", 1, 0, 6);
@@ -55,11 +56,72 @@ CFSettings::CFSettings() :
 	flightCC.addChildControllableContainer(&physicsCC);
 
 	addChildControllableContainer(&miscCC);
-	zIsVertical = miscCC.addBoolParameter("Z is vertical", "If checked, will use z as vertical axis", false);
+	units = miscCC.addEnumParameter("Units", "Cheese eater or Uncle sam ?");
+	units->addOption("Chease Eater", 1)->addOption("Uncle Sam", 3.28f);
+
+	leftRightAxis = miscCC.addEnumParameter("Left-Right axis", "This decides which variable to use for left to right.");
+	leftRightAxis->addOption("X", 0)->addOption("Y", 1)->addOption("Z", 2);
+	
+	downUpAxis = miscCC.addEnumParameter("Down-Up axis", "This decides which variable to use for down to up.");
+	downUpAxis->addOption("X", 0)->addOption("Y", 1)->addOption("Z", 2);
+	downUpAxis->setValueWithKey("Y");
+
+	frontBackAxis = miscCC.addEnumParameter("Front-Back axis", "This decides which variable to use for left to right.");
+	frontBackAxis->addOption("X", 0)->addOption("Y", 1)->addOption("Z", 2);
+	frontBackAxis->setValueWithKey("Z");
+
+	invertLeftRight = miscCC.addBoolParameter("Invert Left-Right", "If checked, this will positive value will be left.",false);
+	invertFrontBack = miscCC.addBoolParameter("Invert Front-Back", "If checked, this will positive value will be left.", false);
 }
 
 CFSettings::~CFSettings()
 {
+}
+
+Vector3D<float> CFSettings::toDroneVector(Vector3D<float> lmfVector, bool convertAxis, bool convertUnits)
+{
+	if (getInstanceWithoutCreating() == nullptr) return Vector3D<float>();
+	CFSettings * s = getInstance();
+
+
+	Vector3D<float> result(lmfVector.x, lmfVector.y, lmfVector.z);
+	
+	if (convertAxis)
+	{
+	
+		const float lmfValues[3]{ lmfVector.x  * (s->invertLeftRight->boolValue() ? -1 : 1), lmfVector.y, lmfVector.z * (s->invertFrontBack->boolValue() ? -1 : 1) };
+		result = Vector3D<float>(
+			lmfValues[s->leftRightAxis->intValue()],
+			lmfValues[s->frontBackAxis->intValue()],
+			lmfValues[s->downUpAxis->intValue()]
+			);
+	};
+
+	if (convertUnits) result /= s->units->floatValue();
+	return result;
+}
+
+Vector3D<float> CFSettings::toLMFVector(Vector3D<float> droneVector, bool convertAxis, bool convertUnits)
+{
+	if (getInstanceWithoutCreating() == nullptr) return Vector3D<float>();
+	CFSettings * s = getInstance();
+
+	Vector3D<float> result(droneVector.x, droneVector.y, droneVector.z);
+	
+	if (convertAxis)
+	{
+		//Drone is X right and Z vertical, so it should be in this order : left-right / front-back / down-up
+		float lmfValues[3];
+		lmfValues[s->leftRightAxis->intValue()] = droneVector.x;
+		lmfValues[s->downUpAxis->intValue()] = droneVector.z;
+		lmfValues[s->frontBackAxis->intValue()] = droneVector.y;
+
+		//Drone is X right and Z vertical, so it should be in this order : left-right / front-back / down-up
+		result = Vector3D<float>(lmfValues[0] * (s->invertLeftRight->boolValue() ? -1 : 1), lmfValues[1], lmfValues[2] * (s->invertFrontBack->boolValue() ? -1 : 1));
+	}
+
+	if (convertUnits) result *= s->units->floatValue();
+	return result;
 }
 
 PhysicsCC::PhysicsCC() :

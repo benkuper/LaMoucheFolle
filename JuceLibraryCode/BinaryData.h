@@ -27,7 +27,7 @@ namespace BinaryData
     const int            connect_bt_pngSize = 9077;
 
     extern const char*   default_cflayout;
-    const int            default_cflayoutSize = 1860;
+    const int            default_cflayoutSize = 1938;
 
     extern const char*   disconnect_bt_png;
     const int            disconnect_bt_pngSize = 12150;

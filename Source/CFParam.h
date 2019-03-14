@@ -95,6 +95,8 @@ public:
 	CFParam * getParam(const String &name);
 	CFParam * getParam(uint8 id);
 
+	Array<uint8> getMissingIds();
+
 	static OwnedArray<CFParamToc> tocs;
 	static HashMap<int, CFParamToc *> tocCrcMap;
 	static bool paramTocsAreLoaded;

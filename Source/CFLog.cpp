@@ -28,10 +28,16 @@ bool CFLogToc::isInitialized()
 
 void CFLogToc::addVariableDef(const String & name, uint8 id, CFLogVariable::Type type)
 {
-	if (getLogVariable(name) != nullptr)
+	if (getLogVariable(id) != nullptr)
 	{
 		DBG("WEIRD : LogVariable " << name << " already exists in this TOC");
 		return;
+	}
+
+	CFLogVariable * v = getLogVariable(name);
+	if(v != nullptr)
+	{
+		LOGWARNING("Variable with same name but different id exists ! " << name << " with id " << v->definition.id);
 	}
 
 	CFLogVariable * p = new CFLogVariable(CFLogVariable::Definition(name, type, id));
@@ -99,6 +105,13 @@ CFLogVariable * CFLogToc::getLogVariable(uint8 id)
 {
 	if (variableIdsMap.contains(id)) return variableIdsMap[id];
 	return nullptr;
+}
+
+Array<uint8> CFLogToc::getMissingIds()
+{
+	Array<uint8> result;
+	for (int i = 0; i < numVariables; i++) if (!variableIdsMap.contains(i)) result.add(i);
+	return result;
 }
 
 

@@ -36,6 +36,7 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data = new DynamicObject();
 		String groupName = String(&r->text[0]);
 		String variableName = String(&r->text[groupName.length() + 1]);
+		data.getDynamicObject()->setProperty("id", r->request.id);
 		data.getDynamicObject()->setProperty("group", groupName);
 		data.getDynamicObject()->setProperty("name", variableName);
 		data.getDynamicObject()->setProperty("type", r->type);

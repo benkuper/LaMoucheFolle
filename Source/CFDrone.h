@@ -39,9 +39,9 @@ public:
 	
 	IntParameter * droneId;
 
-	enum DeckId { BCLEDRING, BCQI, BCBUZZER, BCBIGQUAD, BCDWM, BCUSD, BCZRANGER, BCFLOW, BCOA, BCMULTIRANGER, BCMOCAP, BCZRANGER2, BCFLOW2, DECKID_MAX };
-	const String deckIds[DECKID_MAX] { "bcLedRing","bcQi","bcBuzzer","bcBigQuad","bcDWM1000","bcUSD","bcZRanger","bcFlow","bcOA","bcMultiranger","bcMocap","bcZRanger2","bcFlow2" };
-	const String deckNames[DECKID_MAX] { "LED-Ring", "Qi charger", "Buzzer", "Big quad", "UWB LPS", "Micro - SD", "Z - Ranger", "Flow", "Obstacle Avoidance", "Multi - ranger", "Mocap marker deck", "Z - Ranger v2", "Flow V2" };
+	enum DeckId { BCLEDRING, BCQI, BCBUZZER, BCBIGQUAD, BCDWM, BCUSD, BCZRANGER, BCFLOW, BCOA, BCMULTIRANGER, BCMOCAP, BCZRANGER2, BCFLOW2, BCRRZR, BCGTGPS, BCCPPM, DECKID_MAX };
+	const String deckIds[DECKID_MAX] { "bcLedRing","bcQi","bcBuzzer","bcBigQuad","bcDWM1000","bcUSD","bcZRanger","bcFlow","bcOA","bcMultiranger","bcMocap","bcZRanger2","bcFlow2", "bcRZR", "bcGTGPS", "bcCPPM" };
+	const String deckNames[DECKID_MAX] { "LED-Ring", "Qi charger", "Buzzer", "Big quad", "UWB LPS", "Micro - SD", "Z - Ranger", "Flow", "Obstacle Avoidance", "Multi - ranger", "Mocap marker deck", "Z - Ranger v2", "Flow V2", "RZR", "GTGPS", "CPPM"};
 
 	enum LightMode { OFF, WHITE_SPINNER, COLOR_SPINNER, TILT_EFFECT, BRIGHTNESS, COLOR_SPINNER2, DOUBLE_SPINNER, SOLID_COLOR, FACTORY_TEST, BATTERY_STATUS, BOAT_LIGHTS, ALERT, GRAVITY, MEMORY, FADE_COLOR, LIGHTMODE_MAX};
 	const String lightModeNames[LIGHTMODE_MAX] { "Off","White spinner","Color spinner","Tilt effect","Brightness","Color spinner2","Double spinner","Solid color","Factory test","Battery status","Boat lights","Alert","Gravity","Memory","Fade Color" };
@@ -120,11 +120,9 @@ public:
 
 	//Parameters
 	CFParamToc * paramToc;
-	int currentParamRequestId; //to keep track when gathering all the parameters
 
 	//Logs
 	CFLogToc * logToc;
-	int currentLogVariableId; //to keep track when gathering all the log variables
 
 	//Analysis and Calib feedfback
 	FloatParameter * calibrationProgress;
@@ -200,7 +198,7 @@ public:
 	virtual void paramInfoReceived(int id, String group, String name, int type, bool readOnly, int length, int sign);
 	virtual void paramValueReceived(int id, var value);
 	virtual void logTocReceived(int crc, int size);
-	virtual void logVariableInfoReceived(String group, String name, int type);
+	virtual void logVariableInfoReceived(int id, String group, String name, int type);
 	virtual void logBlockReceived(int blockId, var data);
 
 	void updateQualityPackets(bool val);
