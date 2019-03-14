@@ -125,9 +125,9 @@ after_success:
     echo 'Uploading $SUFFIX ...';
     curl -X POST -F 'appFile=@LaMoucheFolle-linux-x64-$SUFFIX.AppImage' -F 'pass=$UPLOAD_PASS' -F 'path=lamouchefolle/' $UPLOAD_URL;"
   else
-    cd /Users/travis/build/benkuper/CrazyDance/Package
+    cd /Users/travis/build/benkuper/LaMoucheFolle/Package
     ls
     packagesbuild LaMoucheFolle.pkgproj
     mv LaMoucheFolle.pkg LaMoucheFolle-osx-$SUFFIX.pkg
-    curl -T LaMoucheFolle-osx-$SUFFIX.pkg -u $FTP_USER:$FTP_PASSWORD --insecure ftp://ftp.kuperberg.fr/lamouchefolle
+    curl -v -T LaMoucheFolle-osx-$SUFFIX.pkg -u $FTP_USER:$FTP_PASSWORD --insecure ftp://ftp.kuperberg.fr/lamouchefolle/
   fi
