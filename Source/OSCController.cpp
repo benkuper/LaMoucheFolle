@@ -265,8 +265,9 @@ void OSCController::handleSetControllableValue(Controllable * c, const OSCMessag
 		break;
 
 	case Controllable::COLOR:
-		if (msg.size() >= 4) ((ColorParameter *)c)->setColor(getColorArg(msg[0], msg[1], msg[2], msg[3]));
-		if (msg.size() >= 3) ((ColorParameter *)c)->setColor(getColorArg(msg[0],msg[1],msg[2]));
+		if (msg.size() == 1) ((ColorParameter *)c)->setColor(OSCHelpers::getColourFromOSC(msg[0].getColour()));
+		else if (msg.size() >= 4) ((ColorParameter *)c)->setColor(getColorArg(msg[0], msg[1], msg[2], msg[3]));
+		else if (msg.size() >= 3) ((ColorParameter *)c)->setColor(getColorArg(msg[0],msg[1],msg[2]));
 		break;
 	
 	case Controllable::ENUM:
