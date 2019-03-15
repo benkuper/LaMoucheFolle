@@ -1021,7 +1021,7 @@ void CFDrone::stateChanged()
 	case READY:
 	{
 		lightMode->setValueWithData(FADE_COLOR);
-		fadeTime->setValue(.5f);
+		fadeTime->setValue(fadeTime->floatValue(), false, true);
 		color->setColor(Colours::black);
 		syncToRealPosition();
 
