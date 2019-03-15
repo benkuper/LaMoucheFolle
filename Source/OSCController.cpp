@@ -33,13 +33,14 @@ OSCController::OSCController(var params) :
 
 
 	//Send
+	enableSend = addBoolParameter("Enable Send", "If checked, this will send out all the data from the drones", false);
 	useLocal = addBoolParameter("Local", "Send to Local IP (127.0.0.1). Allow to quickly switch between local and remote IP.", true);
 	remoteHost = addStringParameter("Remote Host", "Remote Host to send to.", "127.0.0.1");
 	remotePort = addIntParameter("Remote port", "Port on which the remote host is listening to", 13001, 1024, 65535);
 
-	setupSender();
 	startTimerHz(1);
 	//Script
+	sender.connect("0.0.0.0", 1024);
 }
 
 
@@ -349,16 +350,9 @@ OSCArgument OSCController::varToArgument(const var & v)
 }
 
 
-
-void OSCController::setupSender()
-{
-	String targetHost = useLocal->boolValue() ? "127.0.0.1" : remoteHost->stringValue();
-	sender.connect(targetHost, remotePort->intValue());
-}
-
 void OSCController::sendOSC(const OSCMessage & msg)
 {
-	if (!enabled->boolValue()) return;
+	if (!enabled->boolValue() || !enableSend->boolValue()) return;
 
 	if (logOutgoingData->boolValue())
 	{
@@ -370,7 +364,9 @@ void OSCController::sendOSC(const OSCMessage & msg)
 	}
 
 	outTrigger->trigger();
-	sender.send(msg);
+	String targetHost = useLocal->boolValue() ? "127.0.0.1" : remoteHost->stringValue();
+	sender.sendToIPAddress(targetHost, remotePort->intValue(),msg);
+
 }
 
 

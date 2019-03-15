@@ -31,6 +31,7 @@ public:
 	StringParameter * remoteHost;
 	IntParameter * remotePort;
 	OSCSender sender;
+	BoolParameter * enableSend;
 
 	void sendDroneFeedback(CFDrone * d, Controllable * c) override;
 	void sendNodeFeedback(Node * d, Controllable * c) override;
@@ -54,7 +55,6 @@ public:
 	OSCArgument varToArgument(const var &v);
 
 	//SEND
-	void setupSender();
 	void sendOSC(const OSCMessage &msg);
 
 	
