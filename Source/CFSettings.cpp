@@ -29,12 +29,14 @@ CFSettings::CFSettings() :
 	calibAfterConnect = setupCC.addBoolParameter("Calibrate after connect", "If checked and 'Analyze after connect' is unchecked, a calibration be performed after each connection", true);
 	calibAfterAnalyze = setupCC.addBoolParameter("Calibrate after Analysis", "If checked, a calibration will be trigger after each analysis", true);
 
-	minBattery = setupCC.addFloatParameter("Min Battery", "Minimum amount after which drone will be in low battery mode", 3.4f, 3, 4.2f);
-	lowBatteryTime = setupCC.addFloatParameter("Low Battery Threshold", "Time to consider low battery after battery level is below the minimum", .1f, 0, 10);
+	minBattery = setupCC.addFloatParameter("Min Battery", "Minimum amount after which drone will be in low battery mode", 3.3f, 3, 4.2f);
+	lowBatteryTime = setupCC.addFloatParameter("Low Battery Threshold", "Time to consider low battery after battery level is below the minimum", 4.f, 0, 10);
 
 	lpsBoxSize = addPoint3DParameter("LPS Box Size", "Size of the box enclosed by the LPS Nodes. Origin is floor center.\n \
 										Nodes are assumed to be positionned 0 left front ground > 1,2,3 clockwise on ground, 4 on top of 0 > 5,6,7 clockwise up");
-	lpsZOffset = addFloatParameter("LPS Vertical Offset", "Vertical height from ground for the floor anchors", 0);
+	lpsBoxSize->setVector(4, 3, 4);
+
+	lpsGroundHeight = addFloatParameter("LPS Ground Height", "Vertical height from ground for the floor anchors. Does not affect box size", 0);
 
 	addChildControllableContainer(&flightCC);
 	flightCC.saveAndLoadRecursiveData = true;

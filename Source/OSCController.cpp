@@ -113,7 +113,7 @@ void OSCController::sendFullSetup()
 	m2.addFloat32(boxSize.x);
 	m2.addFloat32(boxSize.y);
 	m2.addFloat32(boxSize.z);
-	m2.addFloat32(CFSettings::getInstance()->lpsZOffset->floatValue());
+	m2.addFloat32(CFSettings::getInstance()->lpsGroundHeight->floatValue());
 
 	//for (Node * n : NodeManager::getInstance()->items) m2.addString(n->shortName);
 	sendOSC(m2);

@@ -144,6 +144,7 @@ public:
 
 	//Console
 	String consoleBuffer;
+	String lastMessage;
 
 	//Calibration
 	bool isCalibrated;

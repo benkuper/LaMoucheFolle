@@ -67,7 +67,7 @@ public:
 	BoolParameter * calibAfterConnect;
 	BoolParameter * calibAfterAnalyze;
 	Point3DParameter * lpsBoxSize;
-	FloatParameter * lpsZOffset;
+	FloatParameter * lpsGroundHeight;
 
 	FloatParameter * minBattery;
 	FloatParameter * lowBatteryTime;

@@ -37,7 +37,7 @@ void DroneManagerGridUI::resized()
 	}
 
 	int numThumbs = itemsUI.size();
-	int numThumbPerLine = jmin(r.getWidth() / (thumbSize + gap), numThumbs);
+	int numThumbPerLine = jmax(jmin(numThumbs, r.getWidth() / (thumbSize + gap)),1);
 	int numLines = ceil(numThumbs*1.f / numThumbPerLine);
 
 	r.setHeight(numLines * (thumbSize + gap) - gap);
@@ -49,7 +49,7 @@ void DroneManagerGridUI::resized()
 
 	for (auto &mui : itemsUI)
 	{
-		if (index % numThumbPerLine == 0)
+		if (index % numThumbPerLine == 0) 
 		{
 
 			int numThumbsInThisLine = jmin(numThumbs - index, numThumbPerLine);

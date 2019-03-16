@@ -307,33 +307,32 @@ void CFDrone::addRebootCommand()
 void CFDrone::addSetupNodesCommands()
 {
 	//addCommand(CFCommand::createGetMemoryNumber(this));
-	
-	Vector3D<float> pos = CFSettings::toDroneVector(CFSettings::getInstance()->lpsBoxSize->getVector());
 
-	float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
-	pos.z += zOffset;
-	
-	/*
+
+	Vector3D<float> box = CFSettings::getInstance()->lpsBoxSize->getVector();
+
+	float groundHeight = CFSettings::getInstance()->lpsGroundHeight->floatValue();
+
+	Vector3D<float> anchors[]{
+	{1,0,-1},
+	{1,1,-1},
+
+	{-1,0,-1},
+	{-1,1,-1},
+
+	{-1,0,1},
+	{-1,1,1},
+
+	{1,0,1},
+	{1,1,1}
+	};
+
 	for (int i = 0; i < 8; i++)
 	{
-		addGetParamValueCommand("anchorpos.anchor" + String(i) + "x");
-		addGetParamValueCommand("anchorpos.anchor" + String(i) + "y");
-		addGetParamValueCommand("anchorpos.anchor" + String(i) + "z");
+		Vector3D<float> droneNodePos = CFSettings::toDroneVector(Vector3D<float>(anchors[i].x*box.x / 2, groundHeight + box.y*anchors[i].y, anchors[i].z *box.z / 2));
+		LOG("Set anchor " << i << " (drone space) " << droneNodePos.x << ", " << droneNodePos.y << ", " << droneNodePos.z);
+		//addCommand(CFCommand::createLPSNodePos(this, i, droneNodePos.x, droneNodePos.y, droneNodePos.z));
 	}
-	*/
-
-	addCommand(CFCommand::createLPSNodePos(this, 0, -pos.x / 2, -pos.y / 2, zOffset));
-	addCommand(CFCommand::createLPSNodePos(this, 1, -pos.x / 2, -pos.y / 2, pos.z));
-
-	addCommand(CFCommand::createLPSNodePos(this, 2, -pos.x / 2, pos.y / 2, zOffset));
-	addCommand(CFCommand::createLPSNodePos(this, 3, -pos.x / 2, pos.y / 2, pos.z));
-
-	addCommand(CFCommand::createLPSNodePos(this, 4, pos.x / 2, pos.y / 2, zOffset));
-	addCommand(CFCommand::createLPSNodePos(this, 5, pos.x / 2, pos.y / 2, pos.z));
-
-	addCommand(CFCommand::createLPSNodePos(this, 6, pos.x / 2, -pos.y / 2, zOffset));
-	addCommand(CFCommand::createLPSNodePos(this, 7, pos.x / 2, -pos.y / 2, pos.z));
-	
 }
 
 
@@ -621,21 +620,50 @@ void CFDrone::packetReceived(const CFPacket & packet)
 
 void CFDrone::consolePacketReceived(const String &msg)
 {
-	if (msg.containsChar('\n'))
-	{
-		consoleBuffer << msg.substring(0, msg.indexOfChar('\n'));
+	String chars;
+	chars += (char)5;
+	chars += (char)21;
+	chars += (char)31;
 
-		String lowerCase = consoleBuffer.toLowerCase();
-		if (lowerCase.contains("error") || lowerCase.contains("fail")) NLOGERROR(niceName, consoleBuffer);
-		else if (lowerCase.contains("warning")) NLOGWARNING(niceName, consoleBuffer);
+	String m = msg.removeCharacters(chars);
+
+	if (m.indexOfChar('\n') > -1)
+	{
+		consoleBuffer += m.substring(0, m.indexOfChar('\n'));
+		String lc = consoleBuffer.toLowerCase();
+		if(lc.contains("fail")) NLOGERROR(niceName,consoleBuffer);
+		else if (lc.contains("warning")) NLOGWARNING(niceName, consoleBuffer);
 		else NLOG(niceName, consoleBuffer);
-		consoleBuffer.clear();
-	} else
-	{
-		String c = msg.substring(0, msg.indexOfChar((char)1));
-		consoleBuffer << c;
-
+		consoleBuffer = "";
 	}
+	else
+	{
+		consoleBuffer += m;
+	}
+
+	//LOG("Console : " << msg << "/" << (int)(msg.toRawUTF8()[msg.length() - 2]) << "/" << (int)(msg.toRawUTF8()[msg.length() - 1]));
+
+	/*
+	if(consoleBuffer)
+	DBG(msg << " <> " << lastMessage << " / " << msg.length() << " / " << (int)lastMessage.contains(msg) << " / " << (int)msg.contains("\n"));
+
+	if (lastMessage.contains(msg))
+	{
+		DBG("DOUBLE MESSAGE");
+		return;
+	}
+
+	consoleBuffer += msg;
+
+	int index = -1;
+	while (consoleBuffer.indexOf("\n") > -1)
+	{
+		index = consoleBuffer.indexOf("\n");
+		lastMessage = consoleBuffer.substring(0, index);
+		//NLOG(niceName, lastMessage);
+		consoleBuffer = consoleBuffer.substring(index + 1);
+	}
+	*/
 }
 
 void CFDrone::rssiAckReceived(uint8_t)
@@ -748,7 +776,7 @@ void CFDrone::paramValueReceived(int id, var value)
 
 		Vector3D<float> box = CFSettings::toDroneVector(CFSettings::getInstance()->lpsBoxSize->getVector());
 
-		float zOffset = CFSettings::getInstance()->lpsZOffset->floatValue();
+		float zOffset = CFSettings::getInstance()->lpsGroundHeight->floatValue();
 		box.z += zOffset;
 
 		float checkVal = 0;
@@ -907,7 +935,7 @@ void CFDrone::logBlockReceived(int blockId, var data)
 	{
 		CalibBlock * cLog = (CalibBlock *)data.getBinaryData()->getData();
 
-		DBG("Variance " << cLog->varianceX << ", " << cLog->varianceY << ", " << cLog->varianceZ);
+	//	DBG("Variance " << cLog->varianceX << ", " << cLog->varianceY << ", " << cLog->varianceZ);
 		uint64 t = Time::getMillisecondCounter();
 		bool stab = /*data->varianceX > 0 && data->varianceY > 0 && data->varianceZ > 0 &&*/ cLog->varianceX < minConvergeDist && cLog->varianceY < minConvergeDist && cLog->varianceZ < minConvergeDist;
 		if (stab)
