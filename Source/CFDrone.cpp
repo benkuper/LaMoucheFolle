@@ -77,6 +77,8 @@ CFDrone::CFDrone() :
 	stopTrigger = controlsCC.addTrigger("Stop", "Stop the drone");
 	landTrigger = controlsCC.addTrigger("Land", "Land the drone");
 	setupNodesTrigger = controlsCC.addTrigger("Setup Nodes", "Send node positions");
+	setupNodesTrigger->hideInEditor = true;
+
 	propCheckTrigger = controlsCC.addTrigger("Propeller Check", "Check propellers. May be good to restart after");
 
 	addChildControllableContainer(&flightCC);

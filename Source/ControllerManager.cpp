@@ -48,7 +48,7 @@ void ControllerManager::sendNodeFeedback(Node * n, Controllable * c)
 
 void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, Controllable * c)
 {
-	if (dynamic_cast<Controller *>(c->parentContainer))
+	if (dynamic_cast<Controller *>(c->parentContainer.get()))
 	{
 		return;
 	}
@@ -64,7 +64,7 @@ void ControllerManager::controllableFeedbackUpdate(ControllableContainer * cc, C
 		//DBG("Not found for " << c->getControlAddress());
 	}
 
-	Node * n = dynamic_cast<Node *>(c->parentContainer);
+	Node * n = dynamic_cast<Node *>(c->parentContainer.get());
 	if (n != nullptr)
 	{
 		if (c == n->id || c == n->position)
