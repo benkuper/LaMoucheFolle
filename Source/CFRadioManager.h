@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #pragma once
 
 #include "JuceHeader.h"
@@ -42,3 +43,4 @@ public :
 	void setupRadios();
 	bool processAck(CFCommand * command, ITransport::Ack &ack);	
 };
+*/

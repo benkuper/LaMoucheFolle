@@ -32,7 +32,7 @@ void DroneGridUI::paint(Graphics & g)
 	switch (s)
 	{
 	case CFDrone::CALIBRATING: progress = item->calibrationProgress->floatValue(); break;
-	case CFDrone::ANALYSIS: progress = item->analysisProgress->floatValue(); break;
+	case CFDrone::HEALTH_CHECK: progress = item->analysisProgress->floatValue(); break;
 	}
 
 	if (progress > 0)
@@ -96,15 +96,13 @@ Image VizImages::getDroneStateImage(CFDrone * d)
 	switch (s)
 	{
 
-	case CFDrone::POWERED_OFF:
+	//case CFDrone::POWERED_OFF:
+	//	
+	case CFDrone::DISCONNECTED:
 		return ImageCache::getFromMemory(BinaryData::drone_poweroff_png, BinaryData::drone_poweroff_pngSize);
 
-	case CFDrone::DISCONNECTED:
-		return ImageCache::getFromMemory(BinaryData::drone_poweron_png, BinaryData::drone_poweron_pngSize);
-
-	case CFDrone::CONNECTING:
 	case CFDrone::CALIBRATING:
-	case CFDrone::ANALYSIS:
+	case CFDrone::HEALTH_CHECK:
 		return ImageCache::getFromMemory(BinaryData::drone_connecting_png, BinaryData::drone_connecting_pngSize);
 
 	case CFDrone::READY:
@@ -134,7 +132,7 @@ Image VizImages::getDroneOverlayImage(CFDrone * d)
 	case CFDrone::CALIBRATING:
 		return ImageCache::getFromMemory(BinaryData::calibrating_png, BinaryData::calibrating_pngSize);
 
-	case CFDrone::ANALYSIS:
+	case CFDrone::HEALTH_CHECK:
 		return ImageCache::getFromMemory(BinaryData::health_analysis_png, BinaryData::health_analysis_pngSize);
 
 	case CFDrone::WARNING:

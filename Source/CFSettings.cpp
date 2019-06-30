@@ -59,7 +59,7 @@ CFSettings::CFSettings() :
 
 	addChildControllableContainer(&miscCC);
 	units = miscCC.addEnumParameter("Units", "Cheese eater or Uncle sam ?");
-	units->addOption("Chease Eater", 1)->addOption("Uncle Sam", 3.28f);
+	units->addOption("Cheese Eater", 1)->addOption("Uncle Sam", 3.28f);
 
 	leftRightAxis = miscCC.addEnumParameter("Left-Right axis", "This decides which variable to use for left to right.");
 	leftRightAxis->addOption("X", 0)->addOption("Y", 1)->addOption("Z", 2);

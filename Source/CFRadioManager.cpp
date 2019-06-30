@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "CFRadioManager.h"
 #include "CFDroneManager.h"
 
@@ -205,22 +206,22 @@ void CFRadioManager::run()
 				curRadio = numRadios == 0 ? 0 : (curRadio + 1) % numRadios;
 			}
 
-			/*
-			if (curTime > lastPacketCheckTime + 1000) //check every second
-			{
-				packetsPerSeconds = numPacketsSentSinceLastCheck;
-				 
-				//float ratio = numAcksReceivedSinceLastCheck * 1.0f / numPacketsSentSinceLastCheck;
-				//if(packetsPerSeconds > 0) LOG("Stats : " << packetsPerSeconds << " packets/s, " << maxLostCounter << " max packets retries, ratio : " << ratio);
-				
-				numPacketsSentSinceLastCheck = 0;
-				numAcksReceivedSinceLastCheck = 0;
-				numPacketsLostSinceLastCheck = 0; 
-				maxLostCounter = 0;
+			
+			//if (curTime > lastPacketCheckTime + 1000) //check every second
+			//{
+			//	packetsPerSeconds = numPacketsSentSinceLastCheck;
+			//	 
+			//	//float ratio = numAcksReceivedSinceLastCheck * 1.0f / numPacketsSentSinceLastCheck;
+			//	//if(packetsPerSeconds > 0) LOG("Stats : " << packetsPerSeconds << " packets/s, " << maxLostCounter << " max packets retries, ratio : " << ratio);
+			//	
+			//	numPacketsSentSinceLastCheck = 0;
+			//	numAcksReceivedSinceLastCheck = 0;
+			//	numPacketsLostSinceLastCheck = 0; 
+			//	maxLostCounter = 0;
 
-				lastPacketCheckTime = curTime;
-			}
-			*/
+			//	lastPacketCheckTime = curTime;
+			//}
+			
 
 			//for debug
 			//sleep(100);
@@ -327,3 +328,5 @@ bool CFRadioManager::processAck(CFCommand * command, ITransport::Ack &ack)
 	
 	return true;
 }
+
+*/

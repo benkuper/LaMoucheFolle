@@ -9,8 +9,8 @@ CFApplication::~CFApplication()
 
 void CFApplication::initialiseInternal(const String &)
 {
-	engine = new CFEngine();
-	mainComponent = new MainContentComponent();
+	engine.reset(new CFEngine());
+	mainComponent.reset(new MainContentComponent());
 
 	ProjectSettings::getInstance()->addChildControllableContainer(CFSettings::getInstance());
 }

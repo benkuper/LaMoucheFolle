@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "CFCommand.h"
 #include "CFDrone.h"
 #include "CFParam.h"
@@ -213,3 +214,4 @@ CFCommand * CFCommand::createStopLog(CFDrone * d, int logBlockId)
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpLogStopRequest)), STOP_LOG);
 }
 
+*/

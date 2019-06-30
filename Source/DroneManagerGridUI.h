@@ -24,16 +24,16 @@ public:
 	const int headerHeight = 20;
 	const int headerGap = 2;
 
-	ScopedPointer<TriggerButtonUI> disableAllBT;
-	ScopedPointer<TriggerButtonUI> enableAllBT;
-	ScopedPointer<TriggerButtonUI> connectSelectedBT;
-	ScopedPointer<TriggerButtonUI> disableNotFlyingsBT;
-	ScopedPointer<TriggerButtonUI> connectAllBT;
-	ScopedPointer<TriggerButtonUI> connectAllNCBT;
-	ScopedPointer<TriggerButtonUI> resetKalmanBT;
-	ScopedPointer<TriggerButtonUI> takeOffAllBT;
-	ScopedPointer<TriggerButtonUI> landAllBT;
-	ScopedPointer<TriggerButtonUI> unlockAllBT;
+	std::unique_ptr<TriggerButtonUI> disableAllBT;
+	std::unique_ptr<TriggerButtonUI> enableAllBT;
+	std::unique_ptr<TriggerButtonUI> connectSelectedBT;
+	std::unique_ptr<TriggerButtonUI> disableNotFlyingsBT;
+	std::unique_ptr<TriggerButtonUI> connectAllBT;
+	std::unique_ptr<TriggerButtonUI> connectAllNCBT;
+	std::unique_ptr<TriggerButtonUI> resetKalmanBT;
+	std::unique_ptr<TriggerButtonUI> takeOffAllBT;
+	std::unique_ptr<TriggerButtonUI> landAllBT;
+	std::unique_ptr<TriggerButtonUI> unlockAllBT;
 
 	void resized() override;
 

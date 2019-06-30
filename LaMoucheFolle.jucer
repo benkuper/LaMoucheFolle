@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
-              version="2.0.1" bundleIdentifier="com.yourcompany.CrazyflieServer"
+              version="3.0.1" bundleIdentifier="com.yourcompany.CrazyflieServer"
               includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.3"
               companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
@@ -100,17 +100,21 @@
         <FILE id="v1WClu" name="CFDrone.cpp" compile="1" resource="0" file="Source/CFDrone.cpp"/>
         <FILE id="reTW7S" name="CFDrone.h" compile="0" resource="0" file="Source/CFDrone.h"/>
         <GROUP id="{F31E5103-CB6C-1971-7AFC-CAC042C7CB31}" name="Radio">
-          <FILE id="AMfNIQ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
           <FILE id="AJZRuv" name="CFRadioManager.cpp" compile="1" resource="0"
                 file="Source/CFRadioManager.cpp"/>
           <FILE id="k4Rbdz" name="CFRadioManager.h" compile="0" resource="0"
                 file="Source/CFRadioManager.h"/>
         </GROUP>
         <GROUP id="{77275532-ADD8-8C02-BA57-05DEE9880E94}" name="lib">
+          <FILE id="AMfNIQ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
           <FILE id="b01uYW" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
           <FILE id="Q9WwVQ" name="CrazyflieUSB.cpp" compile="1" resource="0"
                 file="External/crazyflie_cpp/src/CrazyflieUSB.cpp"/>
           <FILE id="BA69Mr" name="crtp.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/crtp.cpp"/>
+          <FILE id="ULEu8o" name="crtpBootloader.h" compile="0" resource="0"
+                file="External/crazyflie_cpp/src/crtpBootloader.h"/>
+          <FILE id="k9NQqT" name="crtpNRF51.h" compile="0" resource="0" file="External/crazyflie_cpp/src/crtpNRF51.h"/>
+          <FILE id="yaP052" name="ITransport.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/ITransport.cpp"/>
           <FILE id="hkRkiz" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
         </GROUP>
         <GROUP id="{C84648B2-96C6-5450-6DEB-C0930E840EA9}" name="ui">
@@ -158,30 +162,26 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="libusb-1.0.lib"
+    <VS2019 targetFolder="Builds/VisualStudio2019" externalLibraries="libusb-1.0.lib"
             smallIcon="gOf6w2" bigIcon="gOf6w2">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="LaMoucheFolle" debugInformationFormat="ProgramDatabase"
-                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
+                       binaryPath="Binaries/Debug" libraryPath="../../External/libusb/lib"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
                        libraryPath="../../External/libusb/lib" binaryPath="Binaries"/>
-        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" isDebug="1"
-                       optimisation="1" targetName="LaMoucheFolle" headerPath="../../External/crazyflie_cpp/include/crazyflie_cpp&#10;../../External/libusb/include"
-                       libraryPath="../../External/libusb/lib" debugInformationFormat="ProgramDatabase"
-                       binaryPath="Binaries/Debug"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="D:/Softwares/JUCE/modules"/>
-        <MODULEPATH id="juce_organicui" path="../../JUCE Modules"/>
-        <MODULEPATH id="juce_osc" path="D:/Softwares/JUCE/modules"/>
+        <MODULEPATH id="juce_osc"/>
+        <MODULEPATH id="juce_organicui"/>
+        <MODULEPATH id="juce_opengl"/>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_core"/>
       </MODULEPATHS>
-    </VS2017>
+    </VS2019>
     <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="usb-1.0" smallIcon="gOf6w2"
                bigIcon="gOf6w2">
       <CONFIGURATIONS>

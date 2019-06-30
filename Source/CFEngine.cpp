@@ -13,9 +13,6 @@ Author:  Martin Hermant
 #include "CFAssetManager.h"
 
 #include "CFDroneManager.h"
-#include "CFRadioManager.h"
-#include "CFParam.h"
-#include "CFLog.h"
 
 CFEngine::CFEngine() :
 	Engine("LaMoucheFolle", ".mouche")
@@ -23,7 +20,7 @@ CFEngine::CFEngine() :
 	//init here
 	Engine::mainEngine = this;
 	
-	CFRadioManager::getInstance();
+	//CFRadioManager::getInstance();
 
 	addChildControllableContainer(CFDroneManager::getInstance());
 	addChildControllableContainer(ControllerManager::getInstance());
@@ -35,10 +32,10 @@ CFEngine::~CFEngine()
 	//Application-end cleanup, nothing should be recreated after this
 
 	//delete singletons here
-	CFRadioManager::deleteInstance();
+	//CFRadioManager::deleteInstance();
 	CFDroneManager::deleteInstance(); 
-	CFParamToc::tocs.clear();
-	CFLogToc::tocs.clear();
+	//CFParamToc::tocs.clear();
+	//CFLogToc::tocs.clear();
 
 	ControllerManager::deleteInstance();
 	CFDroneManager::deleteInstance();

@@ -20,12 +20,10 @@ OSCController::OSCController(var params) :
 {
 	localPort = addIntParameter("Local Port", "Local Port to bind to receive OSC Messages", 13000, 1024, 65535);
 	localPort->hideInOutliner = true;
-	localPort->isTargettable = false;
 
 	isConnected = addBoolParameter("Is Connected", "Is the receiver bound the the local port", false);
 	isConnected->isControllableFeedbackOnly = true;
 	isConnected->hideInOutliner = true;
-	isConnected->isTargettable = false;
 	isConnected->isSavable = false;
 
 	receiver.addListener(this);

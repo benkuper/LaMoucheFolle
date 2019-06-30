@@ -101,13 +101,13 @@
 			isa = PBXBuildFile;
 			fileRef = ED4B73265C0050BA1D84A2FD;
 		};
-		22F3FA43F882CB7E3A2DCDF3 = {
-			isa = PBXBuildFile;
-			fileRef = 2D39D2EC94D3A4A24086EC1F;
-		};
 		A7B634AC1C530DC47F18FEBE = {
 			isa = PBXBuildFile;
 			fileRef = 1EF0A328E86F0B4179641DC5;
+		};
+		22F3FA43F882CB7E3A2DCDF3 = {
+			isa = PBXBuildFile;
+			fileRef = 2D39D2EC94D3A4A24086EC1F;
 		};
 		1741E8A4AC797CAE799BCC8B = {
 			isa = PBXBuildFile;
@@ -120,6 +120,10 @@
 		5A7A300A66AAF5760A9EFAD4 = {
 			isa = PBXBuildFile;
 			fileRef = 69CD15AFD85F9A05CE511D78;
+		};
+		95FFBA2368804047A7BA7CE2 = {
+			isa = PBXBuildFile;
+			fileRef = 859883897A9751E87148D351;
 		};
 		524900B0AC9DA5D435A3F48D = {
 			isa = PBXBuildFile;
@@ -212,6 +216,10 @@
 		64ABA8379D2D22574E42627A = {
 			isa = PBXBuildFile;
 			fileRef = A90FE53C52440444493B27A9;
+		};
+		0FC02FB2F95C604A306F2D6A = {
+			isa = PBXBuildFile;
+			fileRef = 4627CF69AF942289AB80B9F0;
 		};
 		3FE47CD83047A07F5E4E4A74 = {
 			isa = PBXBuildFile;
@@ -525,6 +533,13 @@
 			path = ../../Source/OSCController.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		4627CF69AF942289AB80B9F0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = "include_juce_organicui2.cpp";
+			path = "../../JuceLibraryCode/include_juce_organicui2.cpp";
+			sourceTree = "SOURCE_ROOT";
+		};
 		47849CE88A5B9BE0F0F28CCD = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -684,6 +699,13 @@
 			lastKnownFileType = file.icns;
 			name = Icon.icns;
 			path = Icon.icns;
+			sourceTree = "SOURCE_ROOT";
+		};
+		859883897A9751E87148D351 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ITransport.cpp;
+			path = "../../External/crazyflie_cpp/src/ITransport.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
 		867704C7541BE119C0854C0B = {
@@ -861,6 +883,13 @@
 			path = ../../Source/NodeManagerUI.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		BB319A818B8B76192DE301D8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = crtpNRF51.h;
+			path = "../../External/crazyflie_cpp/src/crtpNRF51.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		BD0B097E1743608C15CF25BC = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -985,6 +1014,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = MainComponent.cpp;
 			path = ../../Source/MainComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		E4B8DAA0692C357A9F456D7C = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = crtpBootloader.h;
+			path = "../../External/crazyflie_cpp/src/crtpBootloader.h";
 			sourceTree = "SOURCE_ROOT";
 		};
 		E7335D66C63BAD929E8F5927 = {
@@ -1147,7 +1183,6 @@
 		20C4E891B6D5AEB8E707A883 = {
 			isa = PBXGroup;
 			children = (
-				2D39D2EC94D3A4A24086EC1F,
 				1EF0A328E86F0B4179641DC5,
 				C31351E51394FCE08A1265A3,
 			);
@@ -1157,9 +1192,13 @@
 		C6AC025190C4A8DD7745DF61 = {
 			isa = PBXGroup;
 			children = (
+				2D39D2EC94D3A4A24086EC1F,
 				34E6ECE1AFBD99970BBF85C3,
 				54AA7A54EB6D23030D2E15C1,
 				69CD15AFD85F9A05CE511D78,
+				E4B8DAA0692C357A9F456D7C,
+				BB319A818B8B76192DE301D8,
+				859883897A9751E87148D351,
 				C3A9FC606582CB33B6E5F630,
 			);
 			name = lib;
@@ -1286,6 +1325,7 @@
 				4803A9E9F3306C8EF39807D9,
 				47849CE88A5B9BE0F0F28CCD,
 				A90FE53C52440444493B27A9,
+				4627CF69AF942289AB80B9F0,
 				060B33AD1C6B7ECC8418B30A,
 				A45E5C57ED19BF8264EE6C92,
 			);
@@ -1351,8 +1391,8 @@
 					"_NDEBUG=1",
 					"NDEBUG=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=2.0.1",
-					"JUCE_APP_VERSION_HEX=0x20001",
+					"JUCE_APP_VERSION=3.0.1",
+					"JUCE_APP_VERSION_HEX=0x30001",
 					"JucePlugin_Build_VST=0",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=0",
@@ -1403,8 +1443,8 @@
 					"_DEBUG=1",
 					"DEBUG=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=2.0.1",
-					"JUCE_APP_VERSION_HEX=0x20001",
+					"JUCE_APP_VERSION=3.0.1",
+					"JUCE_APP_VERSION_HEX=0x30001",
 					"JucePlugin_Build_VST=0",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=0",
@@ -1578,11 +1618,12 @@
 				8C02EBDA9F34413151BF0880,
 				575D92C036D63782F2ED0184,
 				38B95CB1F2736881AEF085BA,
-				22F3FA43F882CB7E3A2DCDF3,
 				A7B634AC1C530DC47F18FEBE,
+				22F3FA43F882CB7E3A2DCDF3,
 				1741E8A4AC797CAE799BCC8B,
 				D0ED9F6E31488870F3A092F3,
 				5A7A300A66AAF5760A9EFAD4,
+				95FFBA2368804047A7BA7CE2,
 				524900B0AC9DA5D435A3F48D,
 				18ADB703682594FF63E6E7B7,
 				60BB03A3FB22E9DF08032934,
@@ -1606,6 +1647,7 @@
 				7FFAE439A74757A8D32F476A,
 				3C7057A5C489065ACD7B0AF6,
 				64ABA8379D2D22574E42627A,
+				0FC02FB2F95C604A306F2D6A,
 				3FE47CD83047A07F5E4E4A74,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

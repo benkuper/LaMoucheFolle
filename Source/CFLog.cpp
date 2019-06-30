@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "CFLog.h"
 
 OwnedArray<CFLogToc> CFLogToc::tocs;
@@ -180,3 +181,4 @@ CFLogVariable::CFLogVariable(Definition def, var value) :
 CFLogVariable::~CFLogVariable()
 {
 }
+*/

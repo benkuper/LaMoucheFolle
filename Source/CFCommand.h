@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #pragma once
 
 #include "JuceHeader.h"
@@ -53,3 +54,5 @@ public:
 
 	String getTypeString() const { return typeStrings[type]; }
 };
+
+*/

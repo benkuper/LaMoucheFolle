@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #pragma once
 
 #include "JuceHeader.h"
@@ -97,3 +98,4 @@ public:
 	static CFLogToc * addLogToc(int crc, int size);
 
 };
+*/

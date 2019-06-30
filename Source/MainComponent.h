@@ -6,8 +6,7 @@ This file was auto-generated!
 ==============================================================================
 */
 
-#ifndef MAINCOMPONENT_H_INCLUDED
-#define MAINCOMPONENT_H_INCLUDED
+#pragma once
 
 #include "JuceHeader.h"
 
@@ -26,4 +25,3 @@ public:
 	MainContentComponent();
 	~MainContentComponent() {}
 };
-#endif  // MAINCOMPONENT_H_INCLUDED

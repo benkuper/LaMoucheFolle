@@ -9,14 +9,14 @@
 */
 
 #include "CFDroneManager.h"
-#include "CFLog.h"
+//#include "CFLog.h"
 juce_ImplementSingleton(CFDroneManager)
 
 CFDroneManager::CFDroneManager() :
 	BaseManager("CF Drones") 
 {
-	CFParamToc::loadParamTocs();
-	CFLogToc::loadLogTocs();
+	//CFParamToc::loadParamTocs();
+	//CFLogToc::loadLogTocs();
 }
 
 CFDroneManager::~CFDroneManager() {}

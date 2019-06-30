@@ -14,13 +14,13 @@
 ControllerUI::ControllerUI(Controller * c) :
 	BaseItemUI(c)
 {
-	inActivityUI = c->inTrigger->createImageUI(AssetManager::getInstance()->getInImage());
+	inActivityUI.reset(c->inTrigger->createImageUI(AssetManager::getInstance()->getInImage()));
 	inActivityUI->showLabel = false;
-	addAndMakeVisible(inActivityUI);
+	addAndMakeVisible(inActivityUI.get());
 
-	outActivityUI = c->outTrigger->createImageUI(AssetManager::getInstance()->getOutImage());
+	outActivityUI.reset(c->outTrigger->createImageUI(AssetManager::getInstance()->getOutImage()));
 	outActivityUI->showLabel = false;
-	addAndMakeVisible(outActivityUI);
+	addAndMakeVisible(outActivityUI.get());
 }
 
 ControllerUI::~ControllerUI()

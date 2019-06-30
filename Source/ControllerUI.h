@@ -19,8 +19,8 @@ public:
 	ControllerUI(Controller * c);
 	~ControllerUI();
 
-	ScopedPointer<TriggerImageUI> inActivityUI;
-	ScopedPointer<TriggerImageUI> outActivityUI;
+	std::unique_ptr<TriggerImageUI> inActivityUI;
+	std::unique_ptr<TriggerImageUI> outActivityUI;
 
 	void resizedInternalHeader(Rectangle<int> &r) override;
 

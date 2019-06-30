@@ -92,11 +92,11 @@
 #endif
 
 #ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
- //#define JUCE_CATCH_UNHANDLED_EXCEPTIONS 1
+ //#define JUCE_CATCH_UNHANDLED_EXCEPTIONS 0
 #endif
 
 #ifndef    JUCE_ALLOW_STATIC_NULL_VARIABLES
- //#define JUCE_ALLOW_STATIC_NULL_VARIABLES 1
+ //#define JUCE_ALLOW_STATIC_NULL_VARIABLES 0
 #endif
 
 #ifndef    JUCE_STRICT_REFCOUNTEDPOINTER
@@ -165,6 +165,20 @@
 
 #ifndef    JUCE_ENABLE_LIVE_CONSTANT_EDITOR
  //#define JUCE_ENABLE_LIVE_CONSTANT_EDITOR 0
+#endif
+
+//==============================================================================
+// juce_organicui flags:
+
+#ifndef    ORGANICUI_USE_SERVUS
+ //#define ORGANICUI_USE_SERVUS 0
+#endif
+
+//==============================================================================
+// juce_osc flags:
+
+#ifndef    JUCE_ALLOW_SPECIAL_CHARS_IN_ADDRESS
+ //#define JUCE_ALLOW_SPECIAL_CHARS_IN_ADDRESS 0
 #endif
 
 //==============================================================================

@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "CFParam.h"
 
 OwnedArray<CFParamToc> CFParamToc::tocs;
@@ -190,3 +191,4 @@ CFParam::CFParam(Definition def, var value) :
 CFParam::~CFParam()
 {
 }
+*/

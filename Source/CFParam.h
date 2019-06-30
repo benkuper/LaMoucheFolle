@@ -8,6 +8,8 @@
   ==============================================================================
 */
 
+
+/*
 #pragma once
 #include "JuceHeader.h"
 #include "crtp.h"
@@ -105,3 +107,5 @@ public:
 	static CFParamToc * getParamToc(int crc);
 	static CFParamToc * addParamToc(int crc, int size);
 };
+
+*/

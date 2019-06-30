@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+/*
 #include "CFPacket.h"
 #include "CFParam.h"
 #include "CFDrone.h" 
@@ -56,14 +57,14 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 		data.getDynamicObject()->setProperty("blockId", r->blockId);
 		data.getDynamicObject()->setProperty("data",var(r->data,26));
 
-		/*
-				auto iter = m_logBlockCb.find(r->blockId);
-				if (iter != m_logBlockCb.end()) {
-					iter->second(r, result.size - 5);
-				} else {
-					m_logger.warning("Received unrequested data for block: " + std::to_string((int)r->blockId));
-				}
-				*/
+		//
+		//		auto iter = m_logBlockCb.find(r->blockId);
+		//		if (iter != m_logBlockCb.end()) {
+		//			iter->second(r, result.size - 5);
+		//		} else {
+		//			m_logger.warning("Received unrequested data for block: " + std::to_string((int)r->blockId));
+		//		}
+				
 	} else if (crtpParamTocGetInfoResponse::match(ack)) {
 		type = PARAM_TOC_INFO;
 		crtpParamTocGetInfoResponse * r = (crtpParamTocGetInfoResponse *)ack.data;
@@ -174,3 +175,5 @@ CFPacket::CFPacket(CFDrone * drone, const ITransport::Ack & ack)
 CFPacket::~CFPacket()
 {
 }
+
+*/

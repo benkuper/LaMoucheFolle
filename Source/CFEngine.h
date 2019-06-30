@@ -8,9 +8,7 @@ Author:  Martin Hermant
 ==============================================================================
 */
 
-#ifndef CHATAIGNEENGINE_H_INCLUDED
-#define CHATAIGNEENGINE_H_INCLUDED
-
+#pragma once
 
 #include "JuceHeader.h"
 
@@ -30,4 +28,3 @@ public:
 	String getMinimumRequiredFileVersion() override;
 };
 
-#endif
