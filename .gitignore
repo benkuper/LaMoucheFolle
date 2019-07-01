@@ -24,14 +24,9 @@ xcuserdata
 contents.xcworkspacedata
 .DS_Store
 .svn
-.deps
-.dirstamp
 profile
 **/MacOSX/build
-**/MacOSX_CI/build
 **/iOS/build
-**/Linux/build
-**/LinuxMakefile/build
 **/VisualStudio2005/Debug
 **/VisualStudio2005/Release
 **/VisualStudio2008/Debug
@@ -40,41 +35,41 @@ profile
 **/VisualStudio2010/Release
 **/VisualStudio2012/Debug
 **/VisualStudio2012/Release
-**/VisualStudio2013/Win32
+**/VisualStudio2013/Debug
+**/VisualStudio2013/Release
 **/VisualStudio2013/x64
-**/VisualStudio2015/Win32
+**/VisualStudio2015/Debug
+**/VisualStudio2015/Release
 **/VisualStudio2015/x64
-**/VisualStudio2017/Win32
 **/VisualStudio2017/x64
-**/VisualStudio2019
-**/Builds/x64
-**/.vs
+**/VisualStudio2019/x64
+**/Android/bin
+**/Android/libs
+**/Android/gen
+**/Android/obj
 **/CodeBlocks/bin
 **/CodeBlocks/obj
 **/CodeBlocks/*.depend
 **/CodeBlocks/*.layout
-**/Builds/Android/.gradle
-**/Builds/Android/local.properties
-**/Builds/Android/app/build
-**/Builds/Android/app/.externalNativeBuild
-**/Builds/Android/lib/build
-**/Builds/Android/lib/.externalNativeBuild
-**/doxygen/doc
-**/doxygen/build
+**/Builds/AndroidStudio
+doxygen/doc
 extras/Projucer/JUCECompileEngine.dylib
+Binaries/App/Chataigne-x64_Debug.exe
+Binaries/
+Builds/LinuxMakeFile/build
+travis_enc.txt
+site/
 
+Builds/CodeBlocksLinux/Chataigne\.cbp
 
-Binaries
-Builds
+Builds/VisualStudio2017/\.vs/
+Builds/VisualStudio2019/\.vs/
 
-*.tmp
+Chataigne-win-x64-bleedingedge\.exe
 
-Builds/LinuxMakefile/appimagetool-x86_64\.AppImage
+Builds/VisualStudio2017_Win7/
+*.exe
 
-Builds/LinuxMakefile/LaMoucheFolle-x86_64\.AppImage
+*.AppImage
 
-Builds/LinuxMakefile/LaMoucheFolle\.AppDir/usr/bin/LaMoucheFolle
-
-Builds/LinuxMakefile/LaMoucheFolle\.AppDir/\.DirIcon
-
-Package/LaMoucheFolle\.pkg
+Builds/LinuxMakefile/Chataigne\.AppDir/usr/bin/
