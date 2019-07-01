@@ -46,6 +46,7 @@ profile
 **/VisualStudio2015/x64
 **/VisualStudio2017/Win32
 **/VisualStudio2017/x64
+**/VisualStudio2019
 **/Builds/x64
 **/.vs
 **/CodeBlocks/bin
@@ -64,6 +65,7 @@ extras/Projucer/JUCECompileEngine.dylib
 
 
 Binaries
+Builds
 
 *.tmp
 
