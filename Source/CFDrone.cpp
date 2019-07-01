@@ -14,8 +14,6 @@
 CFDrone::CFDrone() :
 	BaseItem("CFDrone"),
 	Thread("Drone"),
-	//paramToc(nullptr),
-	//logToc(nullptr),
 	safeLinkActive(false),
 	safeLinkDownFlag(false),
 	safeLinkUpFlag(false),
@@ -187,6 +185,7 @@ void CFDrone::setupDrone()
 
 		cf->requestParamToc();
 		cf->requestLogToc();
+		cf->requestMemoryToc();
 
 		cf->logReset();
 
@@ -198,6 +197,34 @@ void CFDrone::setupDrone()
 		batteryBlock->start(20);
 		posBlock->start(5);
 
+		Crazyflie::LighthouseBSGeometry bs1;
+		Crazyflie::LighthouseBSGeometry bs2;
+		cf->getLighthouseGeometries(bs1, bs2);
+
+		Vector3D<float> bs1Pos(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
+		Vector3D<float> bs2Pos(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
+
+		LOG("Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+
+		Vector3D<float> bs1Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs1Origin->getVector());
+		Vector3D<float> bs2Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs2Origin->getVector());
+		
+		bs1.origin[0] = CFSettings::getInstance()->bs1Origin->x;
+		bs1.origin[1] = CFSettings::getInstance()->bs1Origin->y;
+		bs1.origin[2] = CFSettings::getInstance()->bs1Origin->z;
+
+		bs2.origin[0] = CFSettings::getInstance()->bs2Origin->x;
+		bs2.origin[1] = CFSettings::getInstance()->bs2Origin->y;
+		bs2.origin[2] = CFSettings::getInstance()->bs2Origin->z;
+		
+		cf->setLighthouseGeometries(bs1, bs2);
+
+
+		cf->getLighthouseGeometries(bs1, bs2);
+		bs1Pos = Vector3D<float>(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
+		bs2Pos = Vector3D<float>(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
+
+		LOG("Lighthouse after SET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
 
 		LOG("Drone is set up with URI : " << uri);
 		DBG("Exit lock here");
@@ -671,12 +698,6 @@ String CFDrone::getURI() const
 	String droneAddress = "E7E7E7E7" + String::formatted("%02d", droneId->intValue());
 	return "radio://" + String(targetRadio) + "/" + String(targetChannel) + "/2M/" + droneAddress;
 }
-
-
-
-
-
-
 
 
 /* ----------------- LEGACY ----------------- */

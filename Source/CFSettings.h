@@ -74,6 +74,18 @@ public:
 
 	EnumParameter * lpsMode;
 
+	ControllableContainer lighthouseCC;
+
+	Point3DParameter* bs1Origin;
+	Point3DParameter* bs1MatRow1; 
+	Point3DParameter* bs1MatRow2; 
+	Point3DParameter* bs1MatRow3; 
+
+	Point3DParameter* bs2Origin;
+	Point3DParameter* bs2MatRow1;
+	Point3DParameter* bs2MatRow2;
+	Point3DParameter* bs2MatRow3;
+
 	ControllableContainer flightCC;
 	FloatParameter * takeOffHeight;
 	BoolParameter * useThrustCommand;

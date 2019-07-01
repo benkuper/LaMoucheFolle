@@ -172,6 +172,9 @@ public:
 	double timeAtStartHealthCheck;
 	float landingTime;
 
+	//Lighthouse
+	Crazyflie::MemoryTocEntry lighthouseMemoryEntry;
+
 	//Physics
 	double lastPhysicsUpdateTime;
 

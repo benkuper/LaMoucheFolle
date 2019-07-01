@@ -15,6 +15,7 @@ juce_ImplementSingleton(CFSettings)
 
 CFSettings::CFSettings() :
 	ControllableContainer("Crazyflie settings"),
+	lighthouseCC("Lighthouse"),
 	flightCC("Flight"),
 	miscCC("Miscellaneous"),
 	setupCC("Setup")
@@ -37,6 +38,20 @@ CFSettings::CFSettings() :
 	lpsBoxSize->setVector(4, 3, 4);
 
 	lpsGroundHeight = addFloatParameter("LPS Ground Height", "Vertical height from ground for the floor anchors. Does not affect box size", 0);
+
+
+	bs1Origin = lighthouseCC.addPoint3DParameter("BS1 Origin", "BS1");
+	bs1MatRow1 = lighthouseCC.addPoint3DParameter("BS1 Row1", "BS1");
+	bs1MatRow2 = lighthouseCC.addPoint3DParameter("BS1 Row2", "BS1");
+	bs1MatRow3 = lighthouseCC.addPoint3DParameter("BS1 Row3", "BS1");
+
+	bs2Origin = lighthouseCC.addPoint3DParameter("BS2 Origin", "BS2");
+	bs2MatRow1 = lighthouseCC.addPoint3DParameter("BS2 Row1", "BS2");
+	bs2MatRow2 = lighthouseCC.addPoint3DParameter("BS2 Row2", "BS2");
+	bs2MatRow3 = lighthouseCC.addPoint3DParameter("BS2 Row3", "BS2");
+
+	addChildControllableContainer(&lighthouseCC);
+
 
 	addChildControllableContainer(&flightCC);
 	flightCC.saveAndLoadRecursiveData = true;
