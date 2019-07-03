@@ -72,4 +72,7 @@ Builds/VisualStudio2017_Win7/
 
 *.AppImage
 
-Builds/*
+
+Builds/VisualStudio2019/
+
+Builds/MacOSX/
