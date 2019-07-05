@@ -197,6 +197,10 @@ void CFDrone::setupDrone()
 		batteryBlock->start(20);
 		posBlock->start(5);
 
+
+		NLOG(niceName, "Enable high level commander");
+		setParam("commander", "enHighLevel", 1);
+
 		Crazyflie::LighthouseBSGeometry bs1;
 		Crazyflie::LighthouseBSGeometry bs2;
 		cf->getLighthouseGeometries(bs1, bs2);
@@ -204,7 +208,7 @@ void CFDrone::setupDrone()
 		Vector3D<float> bs1Pos(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
 		Vector3D<float> bs2Pos(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
 
-		LOG("Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+		NLOG(niceName, "Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
 
 		Vector3D<float> bs1Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs1Origin->getVector());
 		Vector3D<float> bs2Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs2Origin->getVector());
@@ -224,9 +228,11 @@ void CFDrone::setupDrone()
 		bs1Pos = Vector3D<float>(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
 		bs2Pos = Vector3D<float>(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
 
-		LOG("Lighthouse after SET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+		NLOG(niceName, "Lighthouse after SET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
 
-		LOG("Drone is set up with URI : " << uri);
+		
+
+		NLOG(niceName, "Drone is set up with URI : " << uri);
 		DBG("Exit lock here");
 		//droneLock.exit();
 		state->setValueWithData(READY);
@@ -357,6 +363,7 @@ void CFDrone::onControllableFeedbackUpdateInternal(ControllableContainer* cc, Co
 	else if (c == landTrigger)
 	{
 		timeAtStartLanding = Time::getMillisecondCounter() / 1000.0;
+		landingTime = jlimit<float>(2, 10, CFSettings::toLMFVector(realPosition->getVector()).y * 2);
 		if (currentState == FLYING || currentState == TAKING_OFF) state->setValueWithData(LANDING);
 	}
 	else if (c == propCheckTrigger)
@@ -563,9 +570,13 @@ void CFDrone::stateChanged()
 	break;
 
 	case LANDING:
+	{
 		timeAtStartLanding = Time::getMillisecondCounter() / 1000.0;
-		landingTime = jlimit<float>(2, 10, CFSettings::toLMFVector(realPosition->getVector()).y * 2);
-		break;
+		float h = CFSettings::toLMFVector(realPosition->getVector()).y;
+		landingTime = jlimit<float>(2, 4, h*2);
+		cf->land(h, landingTime);
+	}
+	break;
 
 	case WARNING:
 		lightMode->setValueWithData(BOAT_LIGHTS);
@@ -614,8 +625,11 @@ void CFDrone::run()
 
 			case LANDING:
 			{
-				LOG(Time::getMillisecondCounter() / 1000.0 << ", " << timeAtStartLanding << ", " << landingTime);
-				if (Time::getMillisecondCounter() / 1000.0 - timeAtStartLanding > landingTime) state->setValueWithData(READY);
+				if (Time::getMillisecondCounter() / 1000.0 - timeAtStartLanding > landingTime)
+				{
+					//cf->stop();
+					state->setValueWithData(READY);
+				}
 			}
 			break;
 
