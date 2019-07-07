@@ -41,14 +41,10 @@ CFSettings::CFSettings() :
 
 
 	bs1Origin = lighthouseCC.addPoint3DParameter("BS1 Origin", "BS1");
-	bs1MatRow1 = lighthouseCC.addPoint3DParameter("BS1 Row1", "BS1");
-	bs1MatRow2 = lighthouseCC.addPoint3DParameter("BS1 Row2", "BS1");
-	bs1MatRow3 = lighthouseCC.addPoint3DParameter("BS1 Row3", "BS1");
+	for (int i = 0; i < 3; i++) bs1MatRows.add(lighthouseCC.addPoint3DParameter("BS1 Row "+String(i+1), ""));
 
 	bs2Origin = lighthouseCC.addPoint3DParameter("BS2 Origin", "BS2");
-	bs2MatRow1 = lighthouseCC.addPoint3DParameter("BS2 Row1", "BS2");
-	bs2MatRow2 = lighthouseCC.addPoint3DParameter("BS2 Row2", "BS2");
-	bs2MatRow3 = lighthouseCC.addPoint3DParameter("BS2 Row3", "BS2");
+	for (int i = 0; i < 3; i++) bs2MatRows.add(lighthouseCC.addPoint3DParameter("BS2 Row " + String(i + 1), ""));
 
 	addChildControllableContainer(&lighthouseCC);
 

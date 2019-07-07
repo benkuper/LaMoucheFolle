@@ -210,16 +210,23 @@ void CFDrone::setupDrone()
 
 		NLOG(niceName, "Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
 
-		Vector3D<float> bs1Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs1Origin->getVector());
-		Vector3D<float> bs2Origin = CFSettings::getInstance()->toDroneVector(CFSettings::getInstance()->bs2Origin->getVector());
+		Vector3D<float> bs1Origin = CFSettings::getInstance()->bs1Origin->getVector();
+		Vector3D<float> bs2Origin = CFSettings::getInstance()->bs2Origin->getVector();
 		
-		bs1.origin[0] = CFSettings::getInstance()->bs1Origin->x;
-		bs1.origin[1] = CFSettings::getInstance()->bs1Origin->y;
-		bs1.origin[2] = CFSettings::getInstance()->bs1Origin->z;
+		
 
-		bs2.origin[0] = CFSettings::getInstance()->bs2Origin->x;
-		bs2.origin[1] = CFSettings::getInstance()->bs2Origin->y;
-		bs2.origin[2] = CFSettings::getInstance()->bs2Origin->z;
+		for (int i = 0; i < 3; i++)
+		{
+			bs1.origin[i] = CFSettings::getInstance()->bs1Origin->value[i];
+			bs2.origin[i] = CFSettings::getInstance()->bs2Origin->value[i];
+
+			for (int j = 0; j < 3; j++)
+			{
+				bs1.matrix[i][j] = CFSettings::getInstance()->bs1MatRows[i]->value[j];
+				bs2.matrix[i][j] = CFSettings::getInstance()->bs2MatRows[i]->value[j];
+			}
+		}
+		
 		
 		cf->setLighthouseGeometries(bs1, bs2);
 
