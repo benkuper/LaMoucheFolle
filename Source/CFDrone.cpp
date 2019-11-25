@@ -229,9 +229,8 @@ void CFDrone::setupDrone()
 		
 		
 		cf->setLighthouseGeometries(bs1, bs2);
-
-
 		cf->getLighthouseGeometries(bs1, bs2);
+
 		bs1Pos = Vector3D<float>(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
 		bs2Pos = Vector3D<float>(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
 

@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
               version="3.0.1" bundleIdentifier="com.yourcompany.CrazyflieServer"
-              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.3"
+              includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.5"
               companyCopyright="">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">

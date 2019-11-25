@@ -1409,13 +1409,10 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\easing\Easing.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ui\PlayableParameterAutomationEditor.cpp">
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ui\ParameterAutomationEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ParameterAutomation.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ParameterAutomationManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\automation\recorder\ui\AutomationRecorderEditor.cpp">
@@ -1452,6 +1449,45 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\comment\CommentManager.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardCCItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardControllableItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardTriggerItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardCCItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardControllableItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardTriggerItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\dashboard\ui\DashboardParameterItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\dashboard\DashboardParameterItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorManagerEditor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorManagerUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\GradientColor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\GradientColorManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\BetterStepper.cpp">
@@ -1580,16 +1616,19 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\controllable\Trigger.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardGroupItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardItemManagerUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardItemUI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardManagerUI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardManagerView.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardTargetItemUI.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardUI.cpp">
@@ -1613,9 +1652,6 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardTargetItem.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\engine\Engine.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1628,7 +1664,19 @@
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\helpers\crypto\hmac\HMAC_SHA1.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\helpers\crypto\hmac\SHA1.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\helpers\StringUtil.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\inspectable\dashboard\ui\DashboardInspectableItemUI.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\inspectable\dashboard\DashboardInspectableItem.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableContentComponent.cpp">
@@ -1665,9 +1713,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\BaseItem.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\Factory.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE Modules\juce_organicui\manager\GenericControllableItem.cpp">
@@ -2320,9 +2365,8 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\app\OrganicMainComponent.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\easing\ui\EasingUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\easing\Easing.h"/>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ui\PlayableParameterAutomationEditor.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ui\ParameterAutomationEditor.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ParameterAutomation.h"/>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\parameter\ParameterAutomationManager.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\recorder\ui\AutomationRecorderEditor.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\recorder\AutomationRecorder.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\automation\ui\AutomationEditor.h"/>
@@ -2335,6 +2379,19 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\comment\ui\CommentUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\comment\Comment.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\comment\CommentManager.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardCCItemUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardControllableItemUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\ui\DashboardTriggerItemUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardCCItem.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardControllableItem.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\dashboard\DashboardTriggerItem.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\dashboard\ui\DashboardParameterItemUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\dashboard\DashboardParameterItem.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorManagerEditor.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorManagerUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\ui\GradientColorUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\GradientColor.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\gradient\GradientColorManager.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\BetterStepper.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\BoolImageToggleUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\BoolToggleUI.h"/>
@@ -2349,7 +2406,6 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\IntStepperUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterEditor.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\ParameterUI.h"/>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterTextUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\StringParameterUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\TargetParameterUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\parameter\ui\TripleSliderUI.h"/>
@@ -2380,10 +2436,11 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\ControllableHelpers.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\ControllableUtil.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\controllable\Trigger.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardGroupItemUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardItemManagerUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardItemUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardManagerUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardManagerView.h"/>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardTargetItemUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\ui\DashboardUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\Dashboard.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardGroupItem.h"/>
@@ -2392,11 +2449,12 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardItemManager.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardItemProvider.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardManager.h"/>
-    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\dashboard\DashboardTargetItem.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\engine\Engine.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\engine\EngineListener.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\help\HelpBox.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\help\HelpPanel.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\crypto\hmac\HMAC_SHA1.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\crypto\hmac\SHA1.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\DebugHelpers.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\NetworkHelpers.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\OSCHelpers.h"/>
@@ -2404,6 +2462,8 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\RegexFunctions.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\StringUtil.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\helpers\WakeOnLan.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\inspectable\dashboard\ui\DashboardInspectableItemUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\inspectable\dashboard\DashboardInspectableItem.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableContentComponent.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableEditor.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\inspectable\ui\InspectableSelector.h"/>
@@ -2418,6 +2478,7 @@
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseItemUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerShapeShifterUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerUI.h"/>
+    <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerViewMiniPane.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\BaseManagerViewUI.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericControllableItemEditor.h"/>
     <ClInclude Include="..\..\..\JUCE Modules\juce_organicui\manager\ui\GenericManagerEditor.h"/>
