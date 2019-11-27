@@ -65,7 +65,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;../../Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2017_78A57A61=1;JUCE_APP_VERSION=3.0.1;JUCE_APP_VERSION_HEX=0x30001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -111,7 +111,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\JUCE\modules;..\..\..\JUCE Modules;../../External/crazyflie_cpp/include/crazyflie_cpp;../../External/libusb/include;../../Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2017_78A57A61=1;JUCE_APP_VERSION=3.0.1;JUCE_APP_VERSION_HEX=0x30001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -150,39 +150,34 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\RadialMenu.cpp"/>
-    <ClCompile Include="..\..\Source\RadialMenuItem.cpp"/>
-    <ClCompile Include="..\..\Source\RadialMenuTarget.cpp"/>
-    <ClCompile Include="..\..\Source\CFAssetManager.cpp"/>
-    <ClCompile Include="..\..\Source\ControllerManagerUI.cpp"/>
-    <ClCompile Include="..\..\Source\ControllerUI.cpp"/>
-    <ClCompile Include="..\..\Source\OSCController.cpp"/>
-    <ClCompile Include="..\..\Source\Controller.cpp"/>
-    <ClCompile Include="..\..\Source\ControllerManager.cpp"/>
-    <ClCompile Include="..\..\Source\CFPacket.cpp"/>
-    <ClCompile Include="..\..\Source\CFLog.cpp"/>
-    <ClCompile Include="..\..\Source\CFParam.cpp"/>
-    <ClCompile Include="..\..\Source\CFCommand.cpp"/>
-    <ClCompile Include="..\..\Source\CFDroneManager.cpp"/>
-    <ClCompile Include="..\..\Source\CFDrone.cpp"/>
-    <ClCompile Include="..\..\Source\CFRadioManager.cpp"/>
-    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
+    <ClCompile Include="..\..\Source\Radio\CFCommand.cpp"/>
+    <ClCompile Include="..\..\Source\Radio\CFLog.cpp"/>
+    <ClCompile Include="..\..\Source\Radio\CFPacket.cpp"/>
+    <ClCompile Include="..\..\Source\Radio\CFParam.cpp"/>
+    <ClCompile Include="..\..\Source\Radio\CFRadioManager.cpp"/>
+    <ClCompile Include="..\..\Source\Controller\ui\ControllerManagerUI.cpp"/>
+    <ClCompile Include="..\..\Source\Controller\ui\ControllerUI.cpp"/>
+    <ClCompile Include="..\..\Source\Controller\Controller.cpp"/>
+    <ClCompile Include="..\..\Source\Controller\ControllerManager.cpp"/>
+    <ClCompile Include="..\..\Source\Controller\OSCController.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp"/>
+    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\ITransport.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp"/>
-    <ClCompile Include="..\..\Source\CFDroneManagerUI.cpp"/>
-    <ClCompile Include="..\..\Source\DroneGridUI.cpp"/>
-    <ClCompile Include="..\..\Source\DroneManagerGridUI.cpp"/>
-    <ClCompile Include="..\..\Source\DroneManagerUI.cpp"/>
-    <ClCompile Include="..\..\Source\DroneUI.cpp"/>
-    <ClCompile Include="..\..\Source\NodeManagerUI.cpp"/>
-    <ClCompile Include="..\..\Source\Node.cpp"/>
-    <ClCompile Include="..\..\Source\NodeManager.cpp"/>
-    <ClCompile Include="..\..\Source\CFSettingsUI.cpp"/>
-    <ClCompile Include="..\..\Source\CFSettings.cpp"/>
-    <ClCompile Include="..\..\Source\CFEngine.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\Drone2DViewUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\DroneGridUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\DroneManagerGridUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\DroneManagerUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\ui\DroneUI.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\Drone.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\DroneManager.cpp"/>
+    <ClCompile Include="..\..\Source\Engine\ui\CFSettingsUI.cpp"/>
+    <ClCompile Include="..\..\Source\Engine\CFEngine.cpp"/>
+    <ClCompile Include="..\..\Source\Engine\CFSettings.cpp"/>
+    <ClCompile Include="..\..\Source\UI\CFAssetManager.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\..\JUCE\modules\juce_core\containers\juce_AbstractFifo.cpp">
@@ -1908,35 +1903,29 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_osc.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\RadialMenu.h"/>
-    <ClInclude Include="..\..\Source\RadialMenuItem.h"/>
-    <ClInclude Include="..\..\Source\RadialMenuTarget.h"/>
-    <ClInclude Include="..\..\Source\CFAssetManager.h"/>
-    <ClInclude Include="..\..\Source\ControllerManagerUI.h"/>
-    <ClInclude Include="..\..\Source\ControllerUI.h"/>
-    <ClInclude Include="..\..\Source\OSCController.h"/>
-    <ClInclude Include="..\..\Source\Controller.h"/>
-    <ClInclude Include="..\..\Source\ControllerManager.h"/>
-    <ClInclude Include="..\..\Source\CFPacket.h"/>
-    <ClInclude Include="..\..\Source\CFLog.h"/>
-    <ClInclude Include="..\..\Source\CFParam.h"/>
-    <ClInclude Include="..\..\Source\CFCommand.h"/>
-    <ClInclude Include="..\..\Source\CFDroneManager.h"/>
-    <ClInclude Include="..\..\Source\CFDrone.h"/>
-    <ClInclude Include="..\..\Source\CFRadioManager.h"/>
-    <ClInclude Include="..\..\External\crazyflie_cpp\src\crtpBootloader.h"/>
-    <ClInclude Include="..\..\External\crazyflie_cpp\src\crtpNRF51.h"/>
-    <ClInclude Include="..\..\Source\CFDroneManagerUI.h"/>
-    <ClInclude Include="..\..\Source\DroneGridUI.h"/>
-    <ClInclude Include="..\..\Source\DroneManagerGridUI.h"/>
-    <ClInclude Include="..\..\Source\DroneManagerUI.h"/>
-    <ClInclude Include="..\..\Source\DroneUI.h"/>
-    <ClInclude Include="..\..\Source\NodeManagerUI.h"/>
-    <ClInclude Include="..\..\Source\Node.h"/>
-    <ClInclude Include="..\..\Source\NodeManager.h"/>
-    <ClInclude Include="..\..\Source\CFSettingsUI.h"/>
-    <ClInclude Include="..\..\Source\CFSettings.h"/>
-    <ClInclude Include="..\..\Source\CFEngine.h"/>
+    <ClInclude Include="..\..\Source\Radio\CFCommand.h"/>
+    <ClInclude Include="..\..\Source\Radio\CFLog.h"/>
+    <ClInclude Include="..\..\Source\Radio\CFPacket.h"/>
+    <ClInclude Include="..\..\Source\Radio\CFParam.h"/>
+    <ClInclude Include="..\..\Source\Radio\CFRadioManager.h"/>
+    <ClInclude Include="..\..\Source\Controller\ui\ControllerManagerUI.h"/>
+    <ClInclude Include="..\..\Source\Controller\ui\ControllerUI.h"/>
+    <ClInclude Include="..\..\Source\Controller\Controller.h"/>
+    <ClInclude Include="..\..\Source\Controller\ControllerManager.h"/>
+    <ClInclude Include="..\..\Source\Controller\OSCController.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneGridUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneManagerGridUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneManagerUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneUI.h"/>
+    <ClInclude Include="..\..\Source\Drone\Drone.h"/>
+    <ClInclude Include="..\..\Source\Drone\DroneDefs.h"/>
+    <ClInclude Include="..\..\Source\Drone\DroneManager.h"/>
+    <ClInclude Include="..\..\Source\Engine\ui\CFSettingsUI.h"/>
+    <ClInclude Include="..\..\Source\Engine\CFEngine.h"/>
+    <ClInclude Include="..\..\Source\Engine\CFSettings.h"/>
+    <ClInclude Include="..\..\Source\UI\CFAssetManager.h"/>
     <ClInclude Include="..\..\Source\Main.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\..\JUCE\modules\juce_core\containers\juce_AbstractFifo.h"/>

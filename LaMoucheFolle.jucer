@@ -3,7 +3,7 @@
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
               version="3.0.1" bundleIdentifier="com.yourcompany.CrazyflieServer"
               includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.5"
-              companyCopyright="">
+              companyCopyright="" headerPath="../../Source">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
       <FILE id="Si8lU0" name="badcalib.png" compile="0" resource="1" file="Resources/badcalib.png"/>
@@ -44,121 +44,100 @@
       <FILE id="d1wxi9" name="warning_red.png" compile="0" resource="1" file="Resources/warning_red.png"/>
     </GROUP>
     <GROUP id="{3CD3B0F3-7DF3-7A2A-99FB-EBEB655CF279}" name="Source">
-      <GROUP id="{D5B51078-2236-A806-5222-9BD3CD544FD6}" name="RadialMenu">
-        <FILE id="PJlSrA" name="RadialMenu.cpp" compile="1" resource="0" file="Source/RadialMenu.cpp"/>
-        <FILE id="lXPLjt" name="RadialMenu.h" compile="0" resource="0" file="Source/RadialMenu.h"/>
-        <FILE id="rMt2u3" name="RadialMenuItem.cpp" compile="1" resource="0"
-              file="Source/RadialMenuItem.cpp"/>
-        <FILE id="DJkdpC" name="RadialMenuItem.h" compile="0" resource="0"
-              file="Source/RadialMenuItem.h"/>
-        <FILE id="jCZncj" name="RadialMenuTarget.cpp" compile="1" resource="0"
-              file="Source/RadialMenuTarget.cpp"/>
-        <FILE id="FOvxc9" name="RadialMenuTarget.h" compile="0" resource="0"
-              file="Source/RadialMenuTarget.h"/>
+      <GROUP id="{A888B81A-01E6-1B7F-1AA7-48DECC0BCB59}" name="Radio">
+        <FILE id="rRZKDt" name="CFCommand.cpp" compile="1" resource="0" file="Source/Radio/CFCommand.cpp"/>
+        <FILE id="pTxNaa" name="CFCommand.h" compile="0" resource="0" file="Source/Radio/CFCommand.h"/>
+        <FILE id="ROg3GA" name="CFLog.cpp" compile="1" resource="0" file="Source/Radio/CFLog.cpp"/>
+        <FILE id="qjLpoG" name="CFLog.h" compile="0" resource="0" file="Source/Radio/CFLog.h"/>
+        <FILE id="gcK3HM" name="CFPacket.cpp" compile="1" resource="0" file="Source/Radio/CFPacket.cpp"/>
+        <FILE id="mvnngt" name="CFPacket.h" compile="0" resource="0" file="Source/Radio/CFPacket.h"/>
+        <FILE id="ktPyPY" name="CFParam.cpp" compile="1" resource="0" file="Source/Radio/CFParam.cpp"/>
+        <FILE id="cPlbIR" name="CFParam.h" compile="0" resource="0" file="Source/Radio/CFParam.h"/>
+        <FILE id="rdeuj4" name="CFRadioManager.cpp" compile="1" resource="0"
+              file="Source/Radio/CFRadioManager.cpp"/>
+        <FILE id="ECyVUt" name="CFRadioManager.h" compile="0" resource="0"
+              file="Source/Radio/CFRadioManager.h"/>
       </GROUP>
-      <GROUP id="{A8BE1CB2-75F5-2B6E-ECAC-7D5DB8BAFD0C}" name="UI">
-        <FILE id="AkJ8y6" name="CFAssetManager.cpp" compile="1" resource="0"
-              file="Source/CFAssetManager.cpp"/>
-        <FILE id="r0bRKf" name="CFAssetManager.h" compile="0" resource="0"
-              file="Source/CFAssetManager.h"/>
+      <GROUP id="{852716CC-C70D-EDC3-7661-F18B306683F5}" name="Controller">
+        <GROUP id="{E2B39845-2DFA-79E9-A42E-E51C18AC4CB5}" name="ui">
+          <FILE id="Uq5eJ4" name="ControllerManagerUI.cpp" compile="1" resource="0"
+                file="Source/Controller/ui/ControllerManagerUI.cpp"/>
+          <FILE id="ZH5le7" name="ControllerManagerUI.h" compile="0" resource="0"
+                file="Source/Controller/ui/ControllerManagerUI.h"/>
+          <FILE id="sQhSBP" name="ControllerUI.cpp" compile="1" resource="0"
+                file="Source/Controller/ui/ControllerUI.cpp"/>
+          <FILE id="TAoWz5" name="ControllerUI.h" compile="0" resource="0" file="Source/Controller/ui/ControllerUI.h"/>
+        </GROUP>
+        <FILE id="A7E8ds" name="Controller.cpp" compile="1" resource="0" file="Source/Controller/Controller.cpp"/>
+        <FILE id="JjaLGj" name="Controller.h" compile="0" resource="0" file="Source/Controller/Controller.h"/>
+        <FILE id="zaiIke" name="ControllerManager.cpp" compile="1" resource="0"
+              file="Source/Controller/ControllerManager.cpp"/>
+        <FILE id="HYUS4i" name="ControllerManager.h" compile="0" resource="0"
+              file="Source/Controller/ControllerManager.h"/>
+        <FILE id="Bok61Q" name="OSCController.cpp" compile="1" resource="0"
+              file="Source/Controller/OSCController.cpp"/>
+        <FILE id="yJIldV" name="OSCController.h" compile="0" resource="0" file="Source/Controller/OSCController.h"/>
       </GROUP>
-      <GROUP id="{A888B81A-01E6-1B7F-1AA7-48DECC0BCB59}" name="Controller">
-        <GROUP id="{F2A21364-CE85-9D67-B2AF-B1DD92469D27}" name="ui">
-          <FILE id="luwJze" name="ControllerManagerUI.cpp" compile="1" resource="0"
-                file="Source/ControllerManagerUI.cpp"/>
-          <FILE id="OGYx6k" name="ControllerManagerUI.h" compile="0" resource="0"
-                file="Source/ControllerManagerUI.h"/>
-          <FILE id="JtAo3c" name="ControllerUI.cpp" compile="1" resource="0"
-                file="Source/ControllerUI.cpp"/>
-          <FILE id="xNAUTJ" name="ControllerUI.h" compile="0" resource="0" file="Source/ControllerUI.h"/>
-        </GROUP>
-        <GROUP id="{783AB4AC-A40D-D057-CB86-3EA37968E337}" name="OSCController">
-          <FILE id="WViXTX" name="OSCController.cpp" compile="1" resource="0"
-                file="Source/OSCController.cpp"/>
-          <FILE id="uPT4SA" name="OSCController.h" compile="0" resource="0" file="Source/OSCController.h"/>
-        </GROUP>
-        <FILE id="jENlgQ" name="Controller.cpp" compile="1" resource="0" file="Source/Controller.cpp"/>
-        <FILE id="emiLqX" name="Controller.h" compile="0" resource="0" file="Source/Controller.h"/>
-        <FILE id="QsQrH2" name="ControllerManager.cpp" compile="1" resource="0"
-              file="Source/ControllerManager.cpp"/>
-        <FILE id="cwVvy5" name="ControllerManager.h" compile="0" resource="0"
-              file="Source/ControllerManager.h"/>
-      </GROUP>
-      <GROUP id="{75C9A9BA-C218-9773-C3F8-D548D3A71D6A}" name="Drone">
-        <FILE id="voMEFR" name="CFPacket.cpp" compile="1" resource="0" file="Source/CFPacket.cpp"/>
-        <FILE id="T5nCjR" name="CFPacket.h" compile="0" resource="0" file="Source/CFPacket.h"/>
-        <FILE id="ZrfVS9" name="CFLog.cpp" compile="1" resource="0" file="Source/CFLog.cpp"/>
-        <FILE id="LWIoK2" name="CFLog.h" compile="0" resource="0" file="Source/CFLog.h"/>
-        <FILE id="dNyrPJ" name="CFParam.cpp" compile="1" resource="0" file="Source/CFParam.cpp"/>
-        <FILE id="B8Kyv7" name="CFParam.h" compile="0" resource="0" file="Source/CFParam.h"/>
-        <FILE id="NjaOeZ" name="CFCommand.cpp" compile="1" resource="0" file="Source/CFCommand.cpp"/>
-        <FILE id="SuWhHG" name="CFCommand.h" compile="0" resource="0" file="Source/CFCommand.h"/>
-        <FILE id="fyUhbs" name="CFDroneManager.cpp" compile="1" resource="0"
-              file="Source/CFDroneManager.cpp"/>
-        <FILE id="Flv6iL" name="CFDroneManager.h" compile="0" resource="0"
-              file="Source/CFDroneManager.h"/>
-        <FILE id="v1WClu" name="CFDrone.cpp" compile="1" resource="0" file="Source/CFDrone.cpp"/>
-        <FILE id="reTW7S" name="CFDrone.h" compile="0" resource="0" file="Source/CFDrone.h"/>
-        <GROUP id="{F31E5103-CB6C-1971-7AFC-CAC042C7CB31}" name="Radio">
-          <FILE id="AJZRuv" name="CFRadioManager.cpp" compile="1" resource="0"
-                file="Source/CFRadioManager.cpp"/>
-          <FILE id="k4Rbdz" name="CFRadioManager.h" compile="0" resource="0"
-                file="Source/CFRadioManager.h"/>
-        </GROUP>
-        <GROUP id="{77275532-ADD8-8C02-BA57-05DEE9880E94}" name="lib">
-          <FILE id="AMfNIQ" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
-          <FILE id="b01uYW" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
-          <FILE id="Q9WwVQ" name="CrazyflieUSB.cpp" compile="1" resource="0"
+      <GROUP id="{BBF24E96-8FC9-E9F0-84F3-13032376D763}" name="Drone">
+        <GROUP id="{7B4E58AE-9805-44B6-DD88-713EECEF8E97}" name="crazyflie_cpp">
+          <FILE id="wiEcoC" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
+          <FILE id="LcliLt" name="CrazyflieUSB.cpp" compile="1" resource="0"
                 file="External/crazyflie_cpp/src/CrazyflieUSB.cpp"/>
-          <FILE id="BA69Mr" name="crtp.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/crtp.cpp"/>
-          <FILE id="ULEu8o" name="crtpBootloader.h" compile="0" resource="0"
-                file="External/crazyflie_cpp/src/crtpBootloader.h"/>
-          <FILE id="k9NQqT" name="crtpNRF51.h" compile="0" resource="0" file="External/crazyflie_cpp/src/crtpNRF51.h"/>
-          <FILE id="yaP052" name="ITransport.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/ITransport.cpp"/>
-          <FILE id="hkRkiz" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
+          <FILE id="C40IDx" name="Crazyradio.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyradio.cpp"/>
+          <FILE id="yHob0x" name="crtp.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/crtp.cpp"/>
+          <FILE id="oVe5NM" name="ITransport.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/ITransport.cpp"/>
+          <FILE id="WwGEiu" name="USBDevice.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/USBDevice.cpp"/>
         </GROUP>
-        <GROUP id="{C84648B2-96C6-5450-6DEB-C0930E840EA9}" name="ui">
-          <FILE id="r6Dj5v" name="CFDroneManagerUI.cpp" compile="1" resource="0"
-                file="Source/CFDroneManagerUI.cpp"/>
-          <FILE id="P6OJyM" name="CFDroneManagerUI.h" compile="0" resource="0"
-                file="Source/CFDroneManagerUI.h"/>
-          <FILE id="BDjGkD" name="DroneGridUI.cpp" compile="1" resource="0" file="Source/DroneGridUI.cpp"/>
-          <FILE id="lwNTtt" name="DroneGridUI.h" compile="0" resource="0" file="Source/DroneGridUI.h"/>
-          <FILE id="gz7AnS" name="DroneManagerGridUI.cpp" compile="1" resource="0"
-                file="Source/DroneManagerGridUI.cpp"/>
-          <FILE id="FnOwHs" name="DroneManagerGridUI.h" compile="0" resource="0"
-                file="Source/DroneManagerGridUI.h"/>
-          <FILE id="no5dla" name="DroneManagerUI.cpp" compile="1" resource="0"
-                file="Source/DroneManagerUI.cpp"/>
-          <FILE id="thCe0A" name="DroneManagerUI.h" compile="0" resource="0"
-                file="Source/DroneManagerUI.h"/>
-          <FILE id="rDBRGS" name="DroneUI.cpp" compile="1" resource="0" file="Source/DroneUI.cpp"/>
-          <FILE id="YRiCse" name="DroneUI.h" compile="0" resource="0" file="Source/DroneUI.h"/>
+        <GROUP id="{844813E2-056F-5D6E-0DCB-237BAAEA9194}" name="ui">
+          <FILE id="ELuLYs" name="Drone2DViewManagerUI.cpp" compile="1" resource="0"
+                file="Source/Drone/ui/Drone2DViewManagerUI.cpp"/>
+          <FILE id="vWm3Ff" name="Drone2DViewManagerUI.h" compile="0" resource="0"
+                file="Source/Drone/ui/Drone2DViewManagerUI.h"/>
+          <FILE id="QYWrfY" name="Drone2DViewUI.cpp" compile="1" resource="0"
+                file="Source/Drone/ui/Drone2DViewUI.cpp"/>
+          <FILE id="qd3IfX" name="Drone2DViewUI.h" compile="0" resource="0" file="Source/Drone/ui/Drone2DViewUI.h"/>
+          <FILE id="fqhtse" name="DroneGridUI.cpp" compile="1" resource="0" file="Source/Drone/ui/DroneGridUI.cpp"/>
+          <FILE id="GooraS" name="DroneGridUI.h" compile="0" resource="0" file="Source/Drone/ui/DroneGridUI.h"/>
+          <FILE id="QuJaEf" name="DroneManagerGridUI.cpp" compile="1" resource="0"
+                file="Source/Drone/ui/DroneManagerGridUI.cpp"/>
+          <FILE id="hIBYVQ" name="DroneManagerGridUI.h" compile="0" resource="0"
+                file="Source/Drone/ui/DroneManagerGridUI.h"/>
+          <FILE id="SBzpXF" name="DroneManagerUI.cpp" compile="1" resource="0"
+                file="Source/Drone/ui/DroneManagerUI.cpp"/>
+          <FILE id="daHkla" name="DroneManagerUI.h" compile="0" resource="0"
+                file="Source/Drone/ui/DroneManagerUI.h"/>
+          <FILE id="pyxRXp" name="DroneUI.cpp" compile="1" resource="0" file="Source/Drone/ui/DroneUI.cpp"/>
+          <FILE id="e5Vzrk" name="DroneUI.h" compile="0" resource="0" file="Source/Drone/ui/DroneUI.h"/>
         </GROUP>
+        <FILE id="xu70hy" name="Drone.cpp" compile="1" resource="0" file="Source/Drone/Drone.cpp"/>
+        <FILE id="bHB5vG" name="Drone.h" compile="0" resource="0" file="Source/Drone/Drone.h"/>
+        <FILE id="MTPxpP" name="DroneDefs.h" compile="0" resource="0" file="Source/Drone/DroneDefs.h"/>
+        <FILE id="bPLT54" name="DroneManager.cpp" compile="1" resource="0"
+              file="Source/Drone/DroneManager.cpp"/>
+        <FILE id="Lx1e88" name="DroneManager.h" compile="0" resource="0" file="Source/Drone/DroneManager.h"/>
       </GROUP>
-      <GROUP id="{438C71F0-02C7-A1BD-7144-AEBB1A7809C1}" name="Node">
-        <GROUP id="{E37156EE-F364-6FD5-1440-3A333CA5260C}" name="ui">
-          <FILE id="qE0Ykf" name="NodeManagerUI.cpp" compile="1" resource="0"
-                file="Source/NodeManagerUI.cpp"/>
-          <FILE id="rwbGN6" name="NodeManagerUI.h" compile="0" resource="0" file="Source/NodeManagerUI.h"/>
+      <GROUP id="{83B28F06-8F6C-C7FD-36A7-F9EE5455AEBA}" name="Engine">
+        <GROUP id="{FBD2B2B1-BD1B-5461-A7CD-36884E6EDBE5}" name="ui">
+          <FILE id="sOwOdn" name="CFSettingsUI.cpp" compile="1" resource="0"
+                file="Source/Engine/ui/CFSettingsUI.cpp"/>
+          <FILE id="MletOD" name="CFSettingsUI.h" compile="0" resource="0" file="Source/Engine/ui/CFSettingsUI.h"/>
         </GROUP>
-        <FILE id="NtqQG6" name="Node.cpp" compile="1" resource="0" file="Source/Node.cpp"/>
-        <FILE id="h3o7Hp" name="Node.h" compile="0" resource="0" file="Source/Node.h"/>
-        <FILE id="wN00ee" name="NodeManager.cpp" compile="1" resource="0" file="Source/NodeManager.cpp"/>
-        <FILE id="fRQWps" name="NodeManager.h" compile="0" resource="0" file="Source/NodeManager.h"/>
+        <FILE id="MBUYOj" name="CFEngine.cpp" compile="1" resource="0" file="Source/Engine/CFEngine.cpp"/>
+        <FILE id="PEDn9n" name="CFEngine.h" compile="0" resource="0" file="Source/Engine/CFEngine.h"/>
+        <FILE id="DljB1P" name="CFSettings.cpp" compile="1" resource="0" file="Source/Engine/CFSettings.cpp"/>
+        <FILE id="v1tvtj" name="CFSettings.h" compile="0" resource="0" file="Source/Engine/CFSettings.h"/>
       </GROUP>
-      <FILE id="IGyjqY" name="CFSettingsUI.cpp" compile="1" resource="0"
-            file="Source/CFSettingsUI.cpp"/>
-      <FILE id="B5cW7C" name="CFSettingsUI.h" compile="0" resource="0" file="Source/CFSettingsUI.h"/>
-      <FILE id="mRhVWY" name="CFSettings.cpp" compile="1" resource="0" file="Source/CFSettings.cpp"/>
-      <FILE id="zk6yQP" name="CFSettings.h" compile="0" resource="0" file="Source/CFSettings.h"/>
-      <FILE id="Tz6prv" name="CFEngine.cpp" compile="1" resource="0" file="Source/CFEngine.cpp"/>
-      <FILE id="OatsKs" name="CFEngine.h" compile="0" resource="0" file="Source/CFEngine.h"/>
-      <FILE id="NCQFXy" name="Main.h" compile="0" resource="0" file="Source/Main.h"/>
-      <FILE id="U9bppq" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="ixZ7D1" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="HCWHV1" name="MainComponent.cpp" compile="1" resource="0"
+      <GROUP id="{61831BD6-B795-37C5-A156-019224CC0A9F}" name="UI">
+        <FILE id="IqNEOD" name="CFAssetManager.cpp" compile="1" resource="0"
+              file="Source/UI/CFAssetManager.cpp"/>
+        <FILE id="Oamxqb" name="CFAssetManager.h" compile="0" resource="0"
+              file="Source/UI/CFAssetManager.h"/>
+      </GROUP>
+      <FILE id="DTkYJp" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="fo3SYa" name="Main.h" compile="0" resource="0" file="Source/Main.h"/>
+      <FILE id="ScMNfX" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="ENCeh3" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

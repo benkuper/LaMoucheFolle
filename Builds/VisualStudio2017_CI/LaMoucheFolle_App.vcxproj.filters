@@ -5,26 +5,17 @@
     <Filter Include="LaMoucheFolle\Resources">
       <UniqueIdentifier>{9AAA5D1D-443E-6A1E-D93A-52631601B4D1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LaMoucheFolle\Source\RadialMenu">
-      <UniqueIdentifier>{283ADC34-3E54-DFF6-B8F6-D3D825EBF886}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LaMoucheFolle\Source\UI">
-      <UniqueIdentifier>{7666CA69-6836-31A9-C5BC-2A17E17A544B}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Radio">
+      <UniqueIdentifier>{27722FBC-6C70-416E-D83F-444E2DFC865D}</UniqueIdentifier>
     </Filter>
     <Filter Include="LaMoucheFolle\Source\Controller\ui">
       <UniqueIdentifier>{4CDA688A-AE10-0B0D-48FB-C9C3EE276D7A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LaMoucheFolle\Source\Controller\OSCController">
-      <UniqueIdentifier>{1045BD0F-0861-6887-D932-818F2E623EA1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LaMoucheFolle\Source\Controller">
       <UniqueIdentifier>{0827AADF-B6E5-2A73-7751-AEF88B69FA9A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LaMoucheFolle\Source\Drone\Radio">
-      <UniqueIdentifier>{2871D274-CD54-6E06-7A37-1E08094D9847}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LaMoucheFolle\Source\Drone\lib">
-      <UniqueIdentifier>{65F0665A-7C6E-C6D1-7CCD-3D2B2DF7C56C}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Drone\crazyflie_cpp">
+      <UniqueIdentifier>{D021A765-71A2-701A-A344-135B99EF0061}</UniqueIdentifier>
     </Filter>
     <Filter Include="LaMoucheFolle\Source\Drone\ui">
       <UniqueIdentifier>{6C87EFF4-B427-26ED-5ECF-432AAA994D57}</UniqueIdentifier>
@@ -32,11 +23,14 @@
     <Filter Include="LaMoucheFolle\Source\Drone">
       <UniqueIdentifier>{6C7D0C96-4B1B-BFF7-0F86-4426B3252305}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LaMoucheFolle\Source\Node\ui">
-      <UniqueIdentifier>{2ECB842F-6A19-4481-C2A6-DF35363CBAD4}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Engine\ui">
+      <UniqueIdentifier>{8A505FBB-FCDC-8E71-2B59-1ACDEDDA72F1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LaMoucheFolle\Source\Node">
-      <UniqueIdentifier>{92ABD2BB-D2CE-D3A0-0373-BBB863E02F1A}</UniqueIdentifier>
+    <Filter Include="LaMoucheFolle\Source\Engine">
+      <UniqueIdentifier>{C6884140-82E2-8988-CF98-2D38E36270FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LaMoucheFolle\Source\UI">
+      <UniqueIdentifier>{7666CA69-6836-31A9-C5BC-2A17E17A544B}</UniqueIdentifier>
     </Filter>
     <Filter Include="LaMoucheFolle\Source">
       <UniqueIdentifier>{B3EFACE3-7D53-2728-B244-CF3B3E2D8D73}</UniqueIdentifier>
@@ -436,104 +430,89 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\RadialMenu.cpp">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClCompile Include="..\..\Source\Radio\CFCommand.cpp">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\RadialMenuItem.cpp">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClCompile Include="..\..\Source\Radio\CFLog.cpp">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\RadialMenuTarget.cpp">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClCompile Include="..\..\Source\Radio\CFPacket.cpp">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFAssetManager.cpp">
-      <Filter>LaMoucheFolle\Source\UI</Filter>
+    <ClCompile Include="..\..\Source\Radio\CFParam.cpp">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ControllerManagerUI.cpp">
+    <ClCompile Include="..\..\Source\Radio\CFRadioManager.cpp">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Controller\ui\ControllerManagerUI.cpp">
       <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ControllerUI.cpp">
+    <ClCompile Include="..\..\Source\Controller\ui\ControllerUI.cpp">
       <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OSCController.cpp">
-      <Filter>LaMoucheFolle\Source\Controller\OSCController</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Controller.cpp">
+    <ClCompile Include="..\..\Source\Controller\Controller.cpp">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ControllerManager.cpp">
+    <ClCompile Include="..\..\Source\Controller\ControllerManager.cpp">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFPacket.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFLog.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFParam.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFCommand.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFDroneManager.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFDrone.cpp">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CFRadioManager.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\Radio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+    <ClCompile Include="..\..\Source\Controller\OSCController.cpp">
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\crtp.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\ITransport.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\USBDevice.cpp">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
+      <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFDroneManagerUI.cpp">
+    <ClCompile Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DroneGridUI.cpp">
+    <ClCompile Include="..\..\Source\Drone\ui\Drone2DViewUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DroneManagerGridUI.cpp">
+    <ClCompile Include="..\..\Source\Drone\ui\DroneGridUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DroneManagerUI.cpp">
+    <ClCompile Include="..\..\Source\Drone\ui\DroneManagerGridUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DroneUI.cpp">
+    <ClCompile Include="..\..\Source\Drone\ui\DroneManagerUI.cpp">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\NodeManagerUI.cpp">
-      <Filter>LaMoucheFolle\Source\Node\ui</Filter>
+    <ClCompile Include="..\..\Source\Drone\ui\DroneUI.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Node.cpp">
-      <Filter>LaMoucheFolle\Source\Node</Filter>
+    <ClCompile Include="..\..\Source\Drone\Drone.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\NodeManager.cpp">
-      <Filter>LaMoucheFolle\Source\Node</Filter>
+    <ClCompile Include="..\..\Source\Drone\DroneManager.cpp">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFSettingsUI.cpp">
-      <Filter>LaMoucheFolle\Source</Filter>
+    <ClCompile Include="..\..\Source\Engine\ui\CFSettingsUI.cpp">
+      <Filter>LaMoucheFolle\Source\Engine\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFSettings.cpp">
-      <Filter>LaMoucheFolle\Source</Filter>
+    <ClCompile Include="..\..\Source\Engine\CFEngine.cpp">
+      <Filter>LaMoucheFolle\Source\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CFEngine.cpp">
-      <Filter>LaMoucheFolle\Source</Filter>
+    <ClCompile Include="..\..\Source\Engine\CFSettings.cpp">
+      <Filter>LaMoucheFolle\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\CFAssetManager.cpp">
+      <Filter>LaMoucheFolle\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>LaMoucheFolle\Source</Filter>
@@ -2409,92 +2388,74 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\RadialMenu.h">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClInclude Include="..\..\Source\Radio\CFCommand.h">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\RadialMenuItem.h">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClInclude Include="..\..\Source\Radio\CFLog.h">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\RadialMenuTarget.h">
-      <Filter>LaMoucheFolle\Source\RadialMenu</Filter>
+    <ClInclude Include="..\..\Source\Radio\CFPacket.h">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CFAssetManager.h">
+    <ClInclude Include="..\..\Source\Radio\CFParam.h">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Radio\CFRadioManager.h">
+      <Filter>LaMoucheFolle\Source\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller\ui\ControllerManagerUI.h">
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller\ui\ControllerUI.h">
+      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller\Controller.h">
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller\ControllerManager.h">
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controller\OSCController.h">
+      <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneGridUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneManagerGridUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneManagerUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\ui\DroneUI.h">
+      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\Drone.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\DroneDefs.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\DroneManager.h">
+      <Filter>LaMoucheFolle\Source\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\ui\CFSettingsUI.h">
+      <Filter>LaMoucheFolle\Source\Engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\CFEngine.h">
+      <Filter>LaMoucheFolle\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\CFSettings.h">
+      <Filter>LaMoucheFolle\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\CFAssetManager.h">
       <Filter>LaMoucheFolle\Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\ControllerManagerUI.h">
-      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\ControllerUI.h">
-      <Filter>LaMoucheFolle\Source\Controller\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\OSCController.h">
-      <Filter>LaMoucheFolle\Source\Controller\OSCController</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Controller.h">
-      <Filter>LaMoucheFolle\Source\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\ControllerManager.h">
-      <Filter>LaMoucheFolle\Source\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFPacket.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFLog.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFParam.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFCommand.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFDroneManager.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFDrone.h">
-      <Filter>LaMoucheFolle\Source\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFRadioManager.h">
-      <Filter>LaMoucheFolle\Source\Drone\Radio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\crazyflie_cpp\src\crtpBootloader.h">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\crazyflie_cpp\src\crtpNRF51.h">
-      <Filter>LaMoucheFolle\Source\Drone\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFDroneManagerUI.h">
-      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneGridUI.h">
-      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneManagerGridUI.h">
-      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneManagerUI.h">
-      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DroneUI.h">
-      <Filter>LaMoucheFolle\Source\Drone\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\NodeManagerUI.h">
-      <Filter>LaMoucheFolle\Source\Node\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Node.h">
-      <Filter>LaMoucheFolle\Source\Node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\NodeManager.h">
-      <Filter>LaMoucheFolle\Source\Node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFSettingsUI.h">
-      <Filter>LaMoucheFolle\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFSettings.h">
-      <Filter>LaMoucheFolle\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CFEngine.h">
-      <Filter>LaMoucheFolle\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Main.h">
       <Filter>LaMoucheFolle\Source</Filter>

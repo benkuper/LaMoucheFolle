@@ -14,8 +14,8 @@ It contains the basic startup code for a Juce application.
 #pragma warning(disable:4244 4100 4305)
 
 #include "MainComponent.h"
-#include "CFEngine.h"
-#include "CFSettings.h"
+#include "Engine/CFEngine.h"
+#include "Engine/CFSettings.h"
 
 
 //==============================================================================

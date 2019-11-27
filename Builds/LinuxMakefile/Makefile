@@ -35,7 +35,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=3.0.1 -DJUCE_APP_VERSION_HEX=0x30001 $(shell pkg-config --cflags x11 xinerama xext freetype2 webkit2gtk-4.0 gtk+-x11-3.0 libcurl) -pthread -I../../JuceLibraryCode -I$(HOME)/JUCE/modules -I../../../JUCE\ Modules -I../../External/crazyflie_cpp/include/crazyflie_cpp -I../../External/libusb/include $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=3.0.1 -DJUCE_APP_VERSION_HEX=0x30001 $(shell pkg-config --cflags x11 xinerama xext freetype2 webkit2gtk-4.0 gtk+-x11-3.0 libcurl) -pthread -I../../JuceLibraryCode -I$(HOME)/JUCE/modules -I../../../JUCE\ Modules -I../../External/crazyflie_cpp/include/crazyflie_cpp -I../../External/libusb/include -I../../Source $(CPPFLAGS)
   JUCE_CPPFLAGS_APP := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_Unity=0
   JUCE_TARGET_APP := LaMoucheFolle
 
@@ -56,7 +56,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=3.0.1 -DJUCE_APP_VERSION_HEX=0x30001 $(shell pkg-config --cflags x11 xinerama xext freetype2 webkit2gtk-4.0 gtk+-x11-3.0 libcurl) -pthread -I../../JuceLibraryCode -I$(HOME)/JUCE/modules -I../../../JUCE\ Modules -I../../External/crazyflie_cpp/include/crazyflie_cpp -I../../External/libusb/include $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=3.0.1 -DJUCE_APP_VERSION_HEX=0x30001 $(shell pkg-config --cflags x11 xinerama xext freetype2 webkit2gtk-4.0 gtk+-x11-3.0 libcurl) -pthread -I../../JuceLibraryCode -I$(HOME)/JUCE/modules -I../../../JUCE\ Modules -I../../External/crazyflie_cpp/include/crazyflie_cpp -I../../External/libusb/include -I../../Source $(CPPFLAGS)
   JUCE_CPPFLAGS_APP := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_Unity=0
   JUCE_TARGET_APP := LaMoucheFolle
 
@@ -68,39 +68,34 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
-  $(JUCE_OBJDIR)/RadialMenu_baba22a7.o \
-  $(JUCE_OBJDIR)/RadialMenuItem_1b3af75a.o \
-  $(JUCE_OBJDIR)/RadialMenuTarget_1e240258.o \
-  $(JUCE_OBJDIR)/CFAssetManager_eb1f6e09.o \
-  $(JUCE_OBJDIR)/ControllerManagerUI_7e8032a6.o \
-  $(JUCE_OBJDIR)/ControllerUI_991c0fb9.o \
-  $(JUCE_OBJDIR)/OSCController_303f61dc.o \
-  $(JUCE_OBJDIR)/Controller_2961cb25.o \
-  $(JUCE_OBJDIR)/ControllerManager_255bc552.o \
-  $(JUCE_OBJDIR)/CFPacket_b8d3b3b4.o \
-  $(JUCE_OBJDIR)/CFLog_d3cbf6e2.o \
-  $(JUCE_OBJDIR)/CFParam_50c5896b.o \
-  $(JUCE_OBJDIR)/CFCommand_ed833ae9.o \
-  $(JUCE_OBJDIR)/CFDroneManager_9db500e1.o \
-  $(JUCE_OBJDIR)/CFDrone_ba8fe276.o \
-  $(JUCE_OBJDIR)/CFRadioManager_ebf6c01e.o \
-  $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
+  $(JUCE_OBJDIR)/CFCommand_9bfabeb5.o \
+  $(JUCE_OBJDIR)/CFLog_1ed540ae.o \
+  $(JUCE_OBJDIR)/CFPacket_c6b68668.o \
+  $(JUCE_OBJDIR)/CFParam_fea39037.o \
+  $(JUCE_OBJDIR)/CFRadioManager_96d5bbd2.o \
+  $(JUCE_OBJDIR)/ControllerManagerUI_6471495e.o \
+  $(JUCE_OBJDIR)/ControllerUI_fd169801.o \
+  $(JUCE_OBJDIR)/Controller_5be1e7f0.o \
+  $(JUCE_OBJDIR)/ControllerManager_2352be27.o \
+  $(JUCE_OBJDIR)/OSCController_fad60d31.o \
   $(JUCE_OBJDIR)/Crazyflie_54967be1.o \
   $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o \
+  $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
   $(JUCE_OBJDIR)/crtp_66d3a667.o \
   $(JUCE_OBJDIR)/ITransport_8db4805c.o \
   $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o \
-  $(JUCE_OBJDIR)/CFDroneManagerUI_4578c675.o \
-  $(JUCE_OBJDIR)/DroneGridUI_e48746f3.o \
-  $(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o \
-  $(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o \
-  $(JUCE_OBJDIR)/DroneUI_56dbee0d.o \
-  $(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o \
-  $(JUCE_OBJDIR)/Node_d45d218b.o \
-  $(JUCE_OBJDIR)/NodeManager_42cb902c.o \
-  $(JUCE_OBJDIR)/CFSettingsUI_b1164e23.o \
-  $(JUCE_OBJDIR)/CFSettings_70cc9c0f.o \
-  $(JUCE_OBJDIR)/CFEngine_565f46e.o \
+  $(JUCE_OBJDIR)/Drone2DViewManagerUI_4ee999b7.o \
+  $(JUCE_OBJDIR)/Drone2DViewUI_4b7709c8.o \
+  $(JUCE_OBJDIR)/DroneGridUI_b59fd7.o \
+  $(JUCE_OBJDIR)/DroneManagerGridUI_d973dad4.o \
+  $(JUCE_OBJDIR)/DroneManagerUI_6c279a6e.o \
+  $(JUCE_OBJDIR)/DroneUI_73c258f1.o \
+  $(JUCE_OBJDIR)/Drone_725b9322.o \
+  $(JUCE_OBJDIR)/DroneManager_35ad76b5.o \
+  $(JUCE_OBJDIR)/CFSettingsUI_cead2811.o \
+  $(JUCE_OBJDIR)/CFEngine_20346513.o \
+  $(JUCE_OBJDIR)/CFSettings_11c17774.o \
+  $(JUCE_OBJDIR)/CFAssetManager_b5488f7c.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
   $(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
@@ -128,89 +123,54 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
 
-$(JUCE_OBJDIR)/RadialMenu_baba22a7.o: ../../Source/RadialMenu.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling RadialMenu.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/RadialMenuItem_1b3af75a.o: ../../Source/RadialMenuItem.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling RadialMenuItem.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/RadialMenuTarget_1e240258.o: ../../Source/RadialMenuTarget.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling RadialMenuTarget.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFAssetManager_eb1f6e09.o: ../../Source/CFAssetManager.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFAssetManager.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/ControllerManagerUI_7e8032a6.o: ../../Source/ControllerManagerUI.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling ControllerManagerUI.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/ControllerUI_991c0fb9.o: ../../Source/ControllerUI.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling ControllerUI.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/OSCController_303f61dc.o: ../../Source/OSCController.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OSCController.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/Controller_2961cb25.o: ../../Source/Controller.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Controller.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/ControllerManager_255bc552.o: ../../Source/ControllerManager.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling ControllerManager.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFPacket_b8d3b3b4.o: ../../Source/CFPacket.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFPacket.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFLog_d3cbf6e2.o: ../../Source/CFLog.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFLog.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFParam_50c5896b.o: ../../Source/CFParam.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFParam.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFCommand_ed833ae9.o: ../../Source/CFCommand.cpp
+$(JUCE_OBJDIR)/CFCommand_9bfabeb5.o: ../../Source/Radio/CFCommand.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CFCommand.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFDroneManager_9db500e1.o: ../../Source/CFDroneManager.cpp
+$(JUCE_OBJDIR)/CFLog_1ed540ae.o: ../../Source/Radio/CFLog.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFDroneManager.cpp"
+	@echo "Compiling CFLog.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFDrone_ba8fe276.o: ../../Source/CFDrone.cpp
+$(JUCE_OBJDIR)/CFPacket_c6b68668.o: ../../Source/Radio/CFPacket.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFDrone.cpp"
+	@echo "Compiling CFPacket.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFRadioManager_ebf6c01e.o: ../../Source/CFRadioManager.cpp
+$(JUCE_OBJDIR)/CFParam_fea39037.o: ../../Source/Radio/CFParam.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFParam.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFRadioManager_96d5bbd2.o: ../../Source/Radio/CFRadioManager.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CFRadioManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/Crazyradio_bc9130a6.o: ../../External/crazyflie_cpp/src/Crazyradio.cpp
+$(JUCE_OBJDIR)/ControllerManagerUI_6471495e.o: ../../Source/Controller/ui/ControllerManagerUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Crazyradio.cpp"
+	@echo "Compiling ControllerManagerUI.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/ControllerUI_fd169801.o: ../../Source/Controller/ui/ControllerUI.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling ControllerUI.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Controller_5be1e7f0.o: ../../Source/Controller/Controller.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Controller.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/ControllerManager_2352be27.o: ../../Source/Controller/ControllerManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling ControllerManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/OSCController_fad60d31.o: ../../Source/Controller/OSCController.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling OSCController.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Crazyflie_54967be1.o: ../../External/crazyflie_cpp/src/Crazyflie.cpp
@@ -221,6 +181,11 @@ $(JUCE_OBJDIR)/Crazyflie_54967be1.o: ../../External/crazyflie_cpp/src/Crazyflie.
 $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o: ../../External/crazyflie_cpp/src/CrazyflieUSB.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CrazyflieUSB.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Crazyradio_bc9130a6.o: ../../External/crazyflie_cpp/src/Crazyradio.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Crazyradio.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/crtp_66d3a667.o: ../../External/crazyflie_cpp/src/crtp.cpp
@@ -238,59 +203,64 @@ $(JUCE_OBJDIR)/USBDevice_dbe4c4e8.o: ../../External/crazyflie_cpp/src/USBDevice.
 	@echo "Compiling USBDevice.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFDroneManagerUI_4578c675.o: ../../Source/CFDroneManagerUI.cpp
+$(JUCE_OBJDIR)/Drone2DViewManagerUI_4ee999b7.o: ../../Source/Drone/ui/Drone2DViewManagerUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFDroneManagerUI.cpp"
+	@echo "Compiling Drone2DViewManagerUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/DroneGridUI_e48746f3.o: ../../Source/DroneGridUI.cpp
+$(JUCE_OBJDIR)/Drone2DViewUI_4b7709c8.o: ../../Source/Drone/ui/Drone2DViewUI.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Drone2DViewUI.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DroneGridUI_b59fd7.o: ../../Source/Drone/ui/DroneGridUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneGridUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/DroneManagerGridUI_79693c38.o: ../../Source/DroneManagerGridUI.cpp
+$(JUCE_OBJDIR)/DroneManagerGridUI_d973dad4.o: ../../Source/Drone/ui/DroneManagerGridUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneManagerGridUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/DroneManagerUI_f6ad4dd2.o: ../../Source/DroneManagerUI.cpp
+$(JUCE_OBJDIR)/DroneManagerUI_6c279a6e.o: ../../Source/Drone/ui/DroneManagerUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneManagerUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/DroneUI_56dbee0d.o: ../../Source/DroneUI.cpp
+$(JUCE_OBJDIR)/DroneUI_73c258f1.o: ../../Source/Drone/ui/DroneUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DroneUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/NodeManagerUI_ff28af00.o: ../../Source/NodeManagerUI.cpp
+$(JUCE_OBJDIR)/Drone_725b9322.o: ../../Source/Drone/Drone.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling NodeManagerUI.cpp"
+	@echo "Compiling Drone.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/Node_d45d218b.o: ../../Source/Node.cpp
+$(JUCE_OBJDIR)/DroneManager_35ad76b5.o: ../../Source/Drone/DroneManager.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Node.cpp"
+	@echo "Compiling DroneManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/NodeManager_42cb902c.o: ../../Source/NodeManager.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling NodeManager.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/CFSettingsUI_b1164e23.o: ../../Source/CFSettingsUI.cpp
+$(JUCE_OBJDIR)/CFSettingsUI_cead2811.o: ../../Source/Engine/ui/CFSettingsUI.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CFSettingsUI.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFSettings_70cc9c0f.o: ../../Source/CFSettings.cpp
+$(JUCE_OBJDIR)/CFEngine_20346513.o: ../../Source/Engine/CFEngine.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CFEngine.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/CFSettings_11c17774.o: ../../Source/Engine/CFSettings.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CFSettings.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/CFEngine_565f46e.o: ../../Source/CFEngine.cpp
+$(JUCE_OBJDIR)/CFAssetManager_b5488f7c.o: ../../Source/UI/CFAssetManager.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling CFEngine.cpp"
+	@echo "Compiling CFAssetManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
