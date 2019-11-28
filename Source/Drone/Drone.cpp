@@ -20,6 +20,7 @@ Drone::Drone() :
 	infoCC("Infos"),
 	controlCC("Controls"),
 	flightCC("Flight"),
+	lightsCC("Lights"),
 	logToc(nullptr),
 	paramToc(nullptr)
 {
@@ -58,14 +59,6 @@ Drone::Drone() :
 	targetYaw = flightCC.addFloatParameter("Target Yaw", "The target horizontal rotation to send to the drone", 0, 0, 1);
 	targetYaw->isSavable = false;
 	
-	/*
-	targetPosition = flightCC.addPoint3DParameter("Target Position", "The target position to send to the drone");
-	targetPosition->hideInEditor = true;
-	targetSpeed = flightCC.addPoint3DParameter("Target Speed", "The target position to send to the drone");
-	targetSpeed->hideInEditor = true;
-	targetAcceleration = flightCC.addPoint3DParameter("Target Speed", "The target position to send to the drone");
-	targetAcceleration->hideInEditor = true;
-	*/
 
 	realPosition = flightCC.addPoint3DParameter("Real Position", "The tracked position sent from the drone");
 	realPosition->setControllableFeedbackOnly(true);
@@ -76,12 +69,17 @@ Drone::Drone() :
 
 	addChildControllableContainer(&flightCC);
 
-	/*
-	consoleCallbackFunc = std::bind(&Drone::consoleCallback, this, std::placeholders::_1);
-	linkQualityCallbackFunc = std::bind(&Drone::linkQualityCallback, this, std::placeholders::_1);
-	posBlockCallback = std::bind(&Drone::positionCallback, this, std::placeholders::_1, std::placeholders::_2);
-	batteryBlockCallback = std::bind(&Drone::batteryCallback, this, std::placeholders::_1, std::placeholders::_2);
-	*/
+	lightMode = lightsCC.addEnumParameter("LightMode", "Led Preset");
+	for (int i = 0; i < LIGHTMODE_MAX; i++) lightMode->addOption(lightModeNames[i], (LightMode)i);
+
+	color = lightsCC.addColorParameter("Light Color", "The color of the led ring. Only works in fade color mode", Colours::black);
+	fadeTime = lightsCC.addFloatParameter("Fade time", "The time to fade from one color to another", .5f, 0, 10);
+	color->isSavable = false;
+	headlight = lightsCC.addBoolParameter("Headlight", "Headlight", false);
+	headlight->isSavable = false;
+	stealthMode = lightsCC.addBoolParameter("Stealth Mode", "When in stealthMode, the system leds are off", false);
+	addChildControllableContainer(&lightsCC);
+
 
 	viewUISize->setPoint(50, 50);
 
@@ -127,8 +125,6 @@ void Drone::onContainerParameterChangedInternal(Parameter* p)
 
 void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Controllable* c)
 {
-	
-
 	if (!enabled->boolValue()) return;
 
 	if (c == id)
@@ -137,7 +133,7 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 		disconnect();
 	}
 
-	if (c == takeOffTrigger) takeOff();
+	else if (c == takeOffTrigger) takeOff();
 	else if (c == landTrigger) land();
 	else if (c == stopTrigger) stop();
 	else if (c == rebootTrigger) reboot();
@@ -148,6 +144,12 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 		if(state->getValueDataAsEnum<State>() == FLYING) setPosition(desiredPosition->getVector(), targetYaw->floatValue()* float_Pi*2, flightSmoothing->floatValue());
 		viewUIPosition->setPoint(desiredPosition->getVector().x*100, -desiredPosition->getVector().z*100);
 	}
+
+	else if (c == color) setParam("ring.fadeColor", (int64)color->getColor().getARGB());
+	else if (c == headlight) setParam("ring.headlightEnable", headlight->boolValue());
+	else if (c == lightMode) setParam("ring.effect", lightMode->getValueData());
+	else if (c == fadeTime) setParam("ring.fadeTime", fadeTime->floatValue());
+	else if (c == stealthMode) setParam("platform.stealthMode", stealthMode->boolValue());
 }
 
 void Drone::ping()
@@ -607,24 +609,6 @@ void Drone::consolePacketReceived(const String &data)
 	}
 }
 
-/*
-void Drone::linkQualityCallback(float quality)
-{
-	linkQuality->setValue(quality);
-}
-
-void Drone::batteryCallback(uint32, BatteryBlock* data)
-{
-	battery->setValue(data->battery / 100);
-}
-
-void Drone::positionCallback(uint32, PosBlock* data)
-{
-	realPosition->setVector(CFSettings::toLMFVector(Vector3D<float>(data->x, data->y, data->z)));
-	realRotation->setVector(CFSettings::toLMFVector(Vector3D<float>(data->rx, data->ry, data->rz)));
-}
-*/
-
 void Drone::run()
 {
 	while (!threadShouldExit())
@@ -654,7 +638,6 @@ void Drone::run()
 				break;
 
 			case FLYING:
-				//runFlying();
 				break;
 
 			case WARNING:
@@ -678,21 +661,6 @@ void Drone::run()
 	NLOGERROR(niceName, "Exit thread");
 }
 
-void Drone::runFlying()
-{
-	/*double deltaTime = Time::getMillisecondCounter() / 1000.0 - lastPhysicsUpdateTime;
-
-	PhysicsCC::PhysicalState currentState = PhysicsCC::PhysicalState(targetPosition->getVector(), targetSpeed->getVector(), targetAcceleration->getVector());
-	PhysicsCC::PhysicalState desiredState = PhysicsCC::PhysicalState(desiredPosition->getVector(), desiredSpeed->getVector(), desiredAcceleration->getVector());
-	PhysicsCC::PhysicalState targetState = CFSettings::getInstance()->physicsCC.processPhysics(deltaTime, currentState, desiredState);
-	targetPosition->setVector(targetState.position);
-	targetSpeed->setVector(targetState.speed);
-	targetAcceleration->setVector(targetState.acceleration);
-
-	setPosition(targetPosition->getVector(), targetYaw->floatValue(), flightSmoothing->floatValue());
-	lastPhysicsUpdateTime = Time::getMillisecondCounter() / 1000.0f;
-	*/
-}
 
 void Drone::timerCallback()
 {

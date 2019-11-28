@@ -30,6 +30,9 @@ public:
 	enum State { DISCONNECTED, CONNECTING, READY, WARNING, TAKING_OFF, FLYING, LANDING, STATE_MAX };
 	const String stateNames[STATE_MAX] { "Disconnected", "Connecting", "Ready", "Warning", "Taking off", "Flying", "Landing" };
 	
+	enum LightMode { OFF, WHITE_SPINNER, COLOR_SPINNER, TILT_EFFECT, BRIGHTNESS, COLOR_SPINNER2, DOUBLE_SPINNER, SOLID_COLOR, FACTORY_TEST, BATTERY_STATUS, BOAT_LIGHTS, ALERT, GRAVITY, MEMORY, FADE_COLOR, LIGHTMODE_MAX };
+	const String lightModeNames[LIGHTMODE_MAX]{ "Off","White spinner","Color spinner","Tilt effect","Brightness","Color spinner2","Double spinner","Solid color","Factory test","Battery status","Boat lights","Alert","Gravity","Memory","Fade Color" };
+
 	ControllableContainer infoCC;
 	IntParameter* id;
 	EnumParameter* state;
@@ -48,11 +51,15 @@ public:
 	Point3DParameter* desiredSpeed;
 	Point3DParameter* desiredAcceleration;
 
-	Point3DParameter* targetPosition;
-	Point3DParameter* targetSpeed;
-	Point3DParameter* targetAcceleration;
-
-
+	
+	
+	
+	ControllableContainer lightsCC;
+	EnumParameter* lightMode;
+	ColorParameter* color;
+	FloatParameter* fadeTime;
+	BoolParameter* headlight;
+	BoolParameter* stealthMode;
 
 	Point3DParameter* realPosition;
 	Point3DParameter* realRotation;
@@ -122,7 +129,6 @@ public:
 	void logDataReceived(int blockId, var data);
 
 	void run() override;
-	void runFlying();
 
 	void timerCallback() override;
 
