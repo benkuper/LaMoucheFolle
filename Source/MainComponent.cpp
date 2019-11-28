@@ -8,9 +8,9 @@ This file was auto-generated!
 
 #include "MainComponent.h"
 
-#include "Drone/UI/DroneManagerUI.h"
-#include "Drone/UI/DroneManagerGridUI.h"
-#include "Drone/UI/Drone2DViewManagerUI.h"
+#include "Drone/ui/DroneManagerUI.h"
+#include "Drone/ui/DroneManagerGridUI.h"
+#include "Drone/ui/Drone2DViewManagerUI.h"
 #include "controller/ui/ControllerManagerUI.h"
 //#include "NodeManagerUI.h"
 
