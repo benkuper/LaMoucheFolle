@@ -23,10 +23,14 @@ public:
 	Image droneImage;
 	Image overlayImage;
 
+	float yAtMouseDown;
+
 	void paint(Graphics& g);
 	void updateUI();
 
 	void mouseDown(const MouseEvent& e) override;
+	void mouseDrag(const MouseEvent& e) override;
+
 
 	void controllableFeedbackUpdateInternal(Controllable* c) override;
 	void containerChildAddressChangedAsync(ControllableContainer*) override;

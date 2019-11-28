@@ -33,8 +33,8 @@ void CFRadioManager::run()
 {
 	try
 	{
-		DBG("Start radios thread");
-		sleep(500);
+		sleep(1000);
+		LOG("Start radio thread");
 
 		//stats
 		//uint32 lastRadioCheckTime = 0;
@@ -320,7 +320,7 @@ bool CFRadioManager::processAck(CFCommand * command, ITransport::Ack &ack)
 		if ((ack.data[0] & 0x04) != (drone->safeLinkDownFlag << 2))
 		{
 			//drone->safeLinkDownFlag = !drone->safeLinkDownFlag;
-			LOGWARNING("Safe link check failed");
+			//LOGWARNING("Safe link check failed");
 			return false;
 		} else
 		{

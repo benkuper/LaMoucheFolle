@@ -48,7 +48,7 @@ Drone::Drone() :
 	rebootTrigger = controlCC.addTrigger("Reboot", "Reboot");
 	addChildControllableContainer(&controlCC);
 
-	flightSmoothing = flightCC.addFloatParameter("Flight Smoothing", "Time it takes when setting position", 1, 0);
+	flightSmoothing = flightCC.addFloatParameter("Flight Smoothing", "Time it takes when setting position", 0, 0);
 	desiredPosition = flightCC.addPoint3DParameter("Desired Position", "The target position to send to the drone");
 	desiredSpeed = flightCC.addPoint3DParameter("Desired Speed", "The target position to send to the drone");
 	desiredSpeed->hideInEditor = true;

@@ -54,19 +54,38 @@ void Drone2DViewUI::updateUI()
 void Drone2DViewUI::mouseDown(const MouseEvent& e)
 {
 	BaseItemMinimalUI::mouseDown(e);
-	if (e.mods.isShiftDown())
+	if (e.mods.isLeftButtonDown())
 	{
-		item->takeOffTrigger->trigger();
+		if (e.mods.isShiftDown())
+		{
+			item->takeOffTrigger->trigger();
+		}
+		else if (e.mods.isCommandDown())
+		{
+			item->landTrigger->trigger();
+		}
+		else if (e.mods.isAltDown())
+		{
+			item->stopTrigger->trigger();
+		}
+
 	}
-	else if (e.mods.isCommandDown())
+	else if (e.mods.isRightButtonDown())
 	{
-		item->landTrigger->trigger();
+		yAtMouseDown = item->desiredPosition->y;
 	}
-	else if (e.mods.isAltDown())
+	
+
+}
+
+void Drone2DViewUI::mouseDrag(const MouseEvent& e)
+{
+	if (e.mods.isRightButtonDown())
 	{
-		item->stopTrigger->trigger();
+		item->desiredPosition->setVector(item->desiredPosition->x, yAtMouseDown - e.getDistanceFromDragStartY() / 100.0f, item->desiredPosition->z);
 	}
 
+	BaseItemMinimalUI::mouseDrag(e);
 }
 
 void Drone2DViewUI::controllableFeedbackUpdateInternal(Controllable* c)
