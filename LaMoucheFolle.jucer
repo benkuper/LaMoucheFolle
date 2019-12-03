@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
-              version="3.0.2" bundleIdentifier="com.yourcompany.CrazyflieServer"
+              version="3.0.2b" bundleIdentifier="com.yourcompany.CrazyflieServer"
               includeBinaryInAppConfig="1" cppLanguageStandard="11" jucerVersion="5.4.5"
               companyCopyright="" headerPath="../../Source">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
