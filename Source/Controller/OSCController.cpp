@@ -62,9 +62,10 @@ void OSCController::sendDroneFeedback(Drone * d, Controllable * c)
 		}else 
 		if (p->value.isArray())
 		{
-			for (int i = 0; i < p->value.size(); i++)
+			var values = var(p->value);
+			for (int i = 0; i < values.size(); i++)
 			{
-				m.addArgument(varToArgument(p->value[i]));
+				m.addArgument(varToArgument(values[i]));
 			}
 		}
 		else
@@ -369,7 +370,15 @@ void OSCController::sendOSC(const OSCMessage & msg)
 
 	outTrigger->trigger();
 	String targetHost = useLocal->boolValue() ? "127.0.0.1" : remoteHost->stringValue();
-	sender.sendToIPAddress(targetHost, remotePort->intValue(),msg);
+
+	try
+	{
+		sender.sendToIPAddress(targetHost, remotePort->intValue(), msg);
+	}
+	catch (std::exception e)
+	{
+		LOGERROR("Send OSC Error : " << e.what());
+	}
 
 }
 

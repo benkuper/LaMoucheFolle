@@ -44,16 +44,15 @@ public:
 	Trigger* landTrigger;
 	Trigger* stopTrigger;
 	Trigger* rebootTrigger;
+	Trigger* offTrigger;
+	Trigger* onTrigger;
 	
 	ControllableContainer flightCC;
-	FloatParameter* flightSmoothing;
+	//FloatParameter* flightSmoothing;
 	Point3DParameter* desiredPosition;
 	Point3DParameter* desiredSpeed;
 	Point3DParameter* desiredAcceleration;
 
-	
-	
-	
 	ControllableContainer lightsCC;
 	EnumParameter* lightMode;
 	ColorParameter* color;
@@ -63,13 +62,18 @@ public:
 
 	Point3DParameter* realPosition;
 	Point3DParameter* realRotation;
+	BoolParameter * enableYawLookAt;
+	Point2DParameter* yawLookAt;
 	FloatParameter* targetYaw;
+	
 
 	String consoleBuffer;
 
 	//Drone data
 	CFParamToc* paramToc;
 	CFLogToc* logToc;
+
+	ControllableContainer decksCC;
 
 	double lastPhysicsUpdateTime;
 
@@ -84,6 +88,8 @@ public:
 	void land();
 	void stop();
 	void reboot();
+	void setSystemPower(bool power);
+	void setSystemLed(bool isOn);
 
 	void setParam(StringRef name, var value);
 	void setPosition(Vector3D<float> position, float yaw,  float time); // expected Y axis as UP
@@ -98,6 +104,8 @@ public:
 	Array<CFCommand *, CriticalSection> uniqueCommands;
 	Array<CFCommand *, CriticalSection> commands;
 	
+	void updateCustomDecks();
+
 	void addCommand (CFCommand * command, bool force = false);
 	void addUniqueCommand(CFCommand * command);
 
@@ -111,6 +119,8 @@ public:
 
 	String getURI() const;
 
+	void sendPosition();
+	float getDesiredYaw();
 
 	//Events
 	void noAckReceived();
@@ -131,6 +141,9 @@ public:
 	void run() override;
 
 	void timerCallback() override;
+
+	var getJSONData() override;
+	void loadJSONDataInternal(var data) override;
 
 	String getTypeString() const override { return "Drone"; }
 

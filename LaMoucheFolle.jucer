@@ -79,6 +79,18 @@
         <FILE id="yJIldV" name="OSCController.h" compile="0" resource="0" file="Source/Controller/OSCController.h"/>
       </GROUP>
       <GROUP id="{BBF24E96-8FC9-E9F0-84F3-13032376D763}" name="Drone">
+        <GROUP id="{C07DF88F-2342-2ADB-9105-25D1573441CB}" name="Deck">
+          <FILE id="V3CHsV" name="Deck.cpp" compile="1" resource="0" file="Source/Drone/Deck/Deck.cpp"/>
+          <FILE id="VBiXVf" name="Deck.h" compile="0" resource="0" file="Source/Drone/Deck/Deck.h"/>
+          <FILE id="PmP0lS" name="DeckManager.cpp" compile="1" resource="0" file="Source/Drone/Deck/DeckManager.cpp"/>
+          <FILE id="eyTekW" name="DeckManager.h" compile="0" resource="0" file="Source/Drone/Deck/DeckManager.h"/>
+          <FILE id="mFowWm" name="DeckParam.cpp" compile="1" resource="0" file="Source/Drone/Deck/DeckParam.cpp"/>
+          <FILE id="gdMuQm" name="DeckParam.h" compile="0" resource="0" file="Source/Drone/Deck/DeckParam.h"/>
+          <FILE id="V3mhqt" name="DeckParamManager.cpp" compile="1" resource="0"
+                file="Source/Drone/Deck/DeckParamManager.cpp"/>
+          <FILE id="fYFjXy" name="DeckParamManager.h" compile="0" resource="0"
+                file="Source/Drone/Deck/DeckParamManager.h"/>
+        </GROUP>
         <GROUP id="{7B4E58AE-9805-44B6-DD88-713EECEF8E97}" name="crazyflie_cpp">
           <FILE id="wiEcoC" name="Crazyflie.cpp" compile="1" resource="0" file="External/crazyflie_cpp/src/Crazyflie.cpp"/>
           <FILE id="LcliLt" name="CrazyflieUSB.cpp" compile="1" resource="0"

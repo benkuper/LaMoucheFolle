@@ -33,7 +33,15 @@ void Drone2DViewUI::paint(Graphics& g)
 	g.addTransform(t);
 	if (droneImage.getWidth() > 0) g.drawImage(droneImage, getLocalBounds().toFloat());
 	if (overlayImage.getWidth() > 0) g.drawImage(overlayImage, getLocalBounds().reduced(20).toFloat());
+	g.setColour(YELLOW_COLOR);
 	g.addTransform(t.inverted());
+
+
+	t = AffineTransform().translated(-centre).rotated(-item->getDesiredYaw()).translated(centre);
+	g.addTransform(t);
+	g.drawLine(centre.x, centre.y, centre.x + getWidth() / 2, centre.y, 2);
+	g.addTransform(t.inverted());
+
 
 	Rectangle<float> tr = getLocalBounds().reduced(20, 0).withHeight(14).toFloat();
 	g.setColour(BG_COLOR.brighter().withAlpha(.6f));

@@ -10,7 +10,7 @@
 
 #pragma once
 #include "JuceHeader.h"
-
+#include "Drone/Deck/DeckManager.h"
 
 class PhysicsCC :
 	public ControllableContainer
@@ -45,6 +45,8 @@ public:
 	//Viz
 	FloatParameter * simTime;
 	Automation testMotion;
+
+
 
 	void onContainerParameterChanged(Parameter * p) override;
 
@@ -92,7 +94,7 @@ public:
 	//Automation takeOffCurve;
 	BoolParameter * disableYawCommand;
 
-	PhysicsCC physicsCC;
+	//PhysicsCC physicsCC;
 
 	ControllableContainer conversionCC;
 	
@@ -100,7 +102,12 @@ public:
 	EnumParameter * leftRightAxis;
 	EnumParameter * downUpAxis;
 	EnumParameter * frontBackAxis;
+
+	DeckManager deckManager;
 	
+	var getJSONData() override;
+	void loadJSONDataInternal(var data) override;
+
 	static Vector3D<float> toDroneVector(Vector3D<float> lmfVector, bool convertAxis = true, bool convertUnit = true);
 	static Vector3D<float> toLMFVector(Vector3D<float> droneVector, bool convertAxis = true, bool convertUnit = true);
 };

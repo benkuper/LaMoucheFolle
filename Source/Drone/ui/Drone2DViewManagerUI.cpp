@@ -13,7 +13,7 @@
 DroneManager2DViewUI::DroneManager2DViewUI(const String& name, DroneManager* manager) :
 	BaseManagerShapeShifterViewUI(name, manager)
 {
-	
+	centerUIAroundPosition = true;
 	updatePositionOnDragMove = true;
 	addExistingItems();
 }

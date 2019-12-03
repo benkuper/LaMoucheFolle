@@ -21,35 +21,34 @@ Drone::Drone() :
 	controlCC("Controls"),
 	flightCC("Flight"),
 	lightsCC("Lights"),
+	decksCC("Custom Decks"),
 	logToc(nullptr),
 	paramToc(nullptr)
 {
 
 	itemDataType = "Drone";
 
-	saveAndLoadRecursiveData = true;
 	nameCanBeChangedByUser = false;
 
 	id = infoCC.addIntParameter("ID", "ID of the drone, determining address and channel", 0, 0, 50);
 	state = infoCC.addEnumParameter("State", "State of the drone");
 	for (int i = 0; i < STATE_MAX; i++) state->addOption(stateNames[i], (State)i);
 	state->setControllableFeedbackOnly(true);
-	state->isSavable = false;
 	battery = infoCC.addFloatParameter("Battery", "Normalized battery level", 0);
 	battery->setControllableFeedbackOnly(true);
-	battery->isSavable = false;
 	linkQuality = infoCC.addFloatParameter("Link Quality", "Radio link qualiry", 0, 0, 1);
 	linkQuality->setControllableFeedbackOnly(true);
-	linkQuality->isSavable = false;
 	addChildControllableContainer(&infoCC);
 
 	takeOffTrigger = controlCC.addTrigger("Take off", "Take off");
 	landTrigger = controlCC.addTrigger("Land","Land");
 	stopTrigger = controlCC.addTrigger("Stop", "Stop");
 	rebootTrigger = controlCC.addTrigger("Reboot", "Reboot");
+	onTrigger = controlCC.addTrigger("System On", "ON");
+	offTrigger = controlCC.addTrigger("System Off", "OFF");
 	addChildControllableContainer(&controlCC);
 
-	flightSmoothing = flightCC.addFloatParameter("Flight Smoothing", "Time it takes when setting position", 0, 0);
+	//flightSmoothing = flightCC.addFloatParameter("Flight Smoothing", "Time it takes when setting position", 0, 0);
 	desiredPosition = flightCC.addPoint3DParameter("Desired Position", "The target position to send to the drone");
 	desiredSpeed = flightCC.addPoint3DParameter("Desired Speed", "The target position to send to the drone");
 	desiredSpeed->hideInEditor = true;
@@ -57,29 +56,29 @@ Drone::Drone() :
 	desiredAcceleration->hideInEditor = true; 
 	
 	targetYaw = flightCC.addFloatParameter("Target Yaw", "The target horizontal rotation to send to the drone", 0, 0, 1);
-	targetYaw->isSavable = false;
 	
+	enableYawLookAt = flightCC.addBoolParameter("LookAt Mode", "The target horizontal rotation to send to the drone", false);
+	yawLookAt = flightCC.addPoint2DParameter("LookAt Position", "The target horizontal rotation to send to the drone");
 
 	realPosition = flightCC.addPoint3DParameter("Real Position", "The tracked position sent from the drone");
 	realPosition->setControllableFeedbackOnly(true);
-	realPosition->isSavable = false;
 	realRotation = flightCC.addPoint3DParameter("Real Rotation", "The tracked rotation sent from the drone");
 	realRotation->setControllableFeedbackOnly(true);
-	realRotation->isSavable = false;
 
 	addChildControllableContainer(&flightCC);
 
 	lightMode = lightsCC.addEnumParameter("LightMode", "Led Preset");
 	for (int i = 0; i < LIGHTMODE_MAX; i++) lightMode->addOption(lightModeNames[i], (LightMode)i);
+	lightMode->setValueWithData(FADE_COLOR);
 
 	color = lightsCC.addColorParameter("Light Color", "The color of the led ring. Only works in fade color mode", Colours::black);
-	fadeTime = lightsCC.addFloatParameter("Fade time", "The time to fade from one color to another", .5f, 0, 10);
-	color->isSavable = false;
+	fadeTime = lightsCC.addFloatParameter("Fade time", "The time to fade from one color to another", .1f, 0, 10);
 	headlight = lightsCC.addBoolParameter("Headlight", "Headlight", false);
-	headlight->isSavable = false;
 	stealthMode = lightsCC.addBoolParameter("Stealth Mode", "When in stealthMode, the system leds are off", false);
 	addChildControllableContainer(&lightsCC);
 
+	updateCustomDecks();
+	addChildControllableContainer(&decksCC);
 
 	viewUISize->setPoint(50, 50);
 
@@ -137,12 +136,13 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 	else if (c == landTrigger) land();
 	else if (c == stopTrigger) stop();
 	else if (c == rebootTrigger) reboot();
+	else if (c == onTrigger) setSystemPower(false);
+	else if (c == offTrigger) setSystemPower(true);
 
-	else if (c == desiredPosition || c == targetYaw)
+	else if (c == desiredPosition || c == targetYaw || c == enableYawLookAt ||c == yawLookAt)
 	{
 		//float distFromRealPos = (desiredPosition->getVector() - realPosition->getVector()).length();
-		if(state->getValueDataAsEnum<State>() == FLYING) setPosition(desiredPosition->getVector(), targetYaw->floatValue()* float_Pi*2, flightSmoothing->floatValue());
-		viewUIPosition->setPoint(desiredPosition->getVector().x*100, -desiredPosition->getVector().z*100);
+		sendPosition();
 	}
 
 	else if (c == color) setParam("ring.fadeColor", (int64)color->getColor().getARGB());
@@ -150,6 +150,21 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 	else if (c == lightMode) setParam("ring.effect", lightMode->getValueData());
 	else if (c == fadeTime) setParam("ring.fadeTime", fadeTime->floatValue());
 	else if (c == stealthMode) setParam("platform.stealthMode", stealthMode->boolValue());
+
+	else if (c->parentContainer->parentContainer == &decksCC)
+	{
+		Parameter* p = dynamic_cast<Parameter*>(c);
+		if (p != nullptr)
+		{
+			switch (p->type)
+			{
+			case Controllable::COLOR: setParam(c->niceName, (int64)((ColorParameter*)p)->getColor().getARGB());
+			case Controllable::FLOAT: setParam(c->niceName, p->floatValue());
+			case Controllable::INT: setParam(c->niceName, p->intValue());
+			case Controllable::BOOL: setParam(c->niceName, p->boolValue());
+			}
+		}
+	}
 }
 
 void Drone::ping()
@@ -225,7 +240,24 @@ void Drone::reboot()
 	}
 
 	addCommand(CFCommand::createRebootInit(this));
+	addCommand(CFCommand::createRebootFirmware(this));
 	state->setValueWithData(DISCONNECTED);
+}
+
+void Drone::setSystemPower(bool power)
+{
+	if (power)
+	{
+		addCommand(CFCommand::createSystemOn(this));
+		state->setValueWithData(DISCONNECTED);
+	}
+	else addCommand(CFCommand::createSystemOff(this));
+
+}
+
+void Drone::setSystemLed(bool isOn)
+{
+	addCommand(CFCommand::createSystemLed(this, isOn));
 }
 
 void Drone::setParam(StringRef name, var value)
@@ -236,7 +268,16 @@ void Drone::setParam(StringRef name, var value)
 		NLOGWARNING(niceName, "Drone is not connected, not sending stop");
 		return;
 	}
-
+	if (paramToc == nullptr)
+	{
+		NLOGWARNING(niceName, "Param TOC is not initialized yet.");
+		return;
+	}
+	else if(paramToc->getParamIdForName(name) == -1)
+	{
+		NLOGWARNING(niceName, "Parameter " << name << "doesn't exist !");
+		return;
+	}
 	addUniqueCommand(CFCommand::createSetParam(this, String(name), value));
 }
 
@@ -257,6 +298,24 @@ bool Drone::isFlying()
 {
 	State s = state->getValueDataAsEnum<State>();
 	return s == TAKING_OFF || s == FLYING || s == LANDING;
+}
+
+void Drone::updateCustomDecks()
+{
+	decksCC.clear();
+
+	for (auto& dc : CFSettings::getInstance()->deckManager.items)
+	{
+		ControllableContainer* dcc = new ControllableContainer(dc->niceName);
+		for (auto& dcp : dc->paramManager.items)
+		{
+			Parameter* c = ControllableFactory::createParameterFrom((Parameter*)(dcp->controllable));
+			c->setNiceName(dcp->niceName);
+			dcc->addParameter(c);
+		}
+
+		decksCC.addChildControllableContainer(dcc, true);
+	}
 }
 
 void Drone::addCommand(CFCommand * command, bool force)
@@ -396,14 +455,21 @@ void Drone::setupDrone()
 	NLOG(niceName, "Use Mellinger controller");
 	setParam("stabilizer.controller", 2); //0 = auto, 1 = pid, 2 = mellinger
 
+
+	NLOG(niceName, "Set light deck");
+	setParam("ring.fadeColor", (int64)color->getColor().getARGB());
+	setParam("ring.headlightEnable", headlight->boolValue());
+	setParam("ring.effect", lightMode->getValueData());
+	setParam("ring.fadeTime", fadeTime->floatValue());
+
 	// LOG BLOCKS
 	NLOG(niceName, "Registering logs...");
 	addCommand(CFCommand::createResetLogs(this));
 
-	addCommand(CFCommand::createAddLogBlock(this, 0, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
+	addCommand(CFCommand::createAddLogBlock(this, 2, Array<String>("pm.batteryLevel", "pm.vbat", "pm.state")));
 	addCommand(CFCommand::createAddLogBlock(this, 1, Array<String>("stateEstimate.x", "stateEstimate.y", "stateEstimate.z", "stabilizer.pitch", "stabilizer.yaw","stabilizer.roll")));
 	
-	addCommand(CFCommand::createStartLog(this, 0, 5));
+	addCommand(CFCommand::createStartLog(this, 2, 5));
 	addCommand(CFCommand::createStartLog(this, 1, 20));
 
 
@@ -474,6 +540,28 @@ String Drone::getURI() const
 	return "radio://" + String(targetRadio) + "/" + String(targetChannel) + "/2M/" + droneAddress;
 }
 
+void Drone::sendPosition()
+{
+	float tYaw = getDesiredYaw();
+	setPosition(desiredPosition->getVector(), tYaw, 0);// flightSmoothing->floatValue());
+	viewUIPosition->setPoint(desiredPosition->getVector().x * 100, -desiredPosition->getVector().z * 100);
+}
+
+float Drone::getDesiredYaw()
+{
+	float tYaw = targetYaw->floatValue() * float_Pi * 2;
+
+	if (enableYawLookAt->boolValue())
+	{
+		Point<float> posXZ(desiredPosition->x, desiredPosition->z);
+		Point<float> lookAtXZ = yawLookAt->getPoint();
+		float lookAtYaw = posXZ.getAngleToPoint(lookAtXZ) - float_Pi / 2;
+		tYaw += lookAtYaw;
+	}
+
+	return tYaw;
+}
+
 void Drone::noAckReceived()
 {
 	const int maxTimeoutPackets = 100;
@@ -525,8 +613,16 @@ void Drone::packetReceived(CFPacket * packet)
 		logDataReceived(packet->data.getProperty("blockId", -1), packet->data.getProperty("data", var()));
 		break;
 
+	case CFPacket::LOG_CONTROL:
+		DBG("Got log control here");
+		break;
+
+	case CFPacket::PARAM_VALUE:
+		DBG("Got Param value : " << packet->data.getProperty("name","[notset]").toString() << " : " << packet->data.getProperty("value","[notset]").toString());
+		break;
+
 	default:
-		LOG("Not handled : " << packet->getTypeString());
+		//LOG("Not handled : " << packet->getTypeString());
 		break;
 	}
 }
@@ -583,6 +679,7 @@ void Drone::logDataReceived(int blockId, var data)
 	case 0:
 	{
 		BatteryBlock* bLog = (BatteryBlock*)data.getBinaryData()->getData();
+		DBG("Battery : " << bLog->battery << ", " << bLog->voltage << ", " << bLog->charging);
 		battery->setValue(bLog->battery);
 	}
 		break;
@@ -627,6 +724,11 @@ void Drone::run()
 		}
 		
 		
+		if (state->getValueDataAsEnum<State>() == FLYING)
+		{
+			sendPosition();
+		}
+
 		while (!threadShouldExit())
 		{
 			State s = state->getValueDataAsEnum<State>();
@@ -682,4 +784,19 @@ void Drone::timerCallback()
 	}
 	
 	stopTimer();
+}
+
+var Drone::getJSONData()
+{
+	var data = BaseItem::getJSONData();
+	data.getDynamicObject()->setProperty("droneId", id->intValue());
+	return data;
+}
+
+void Drone::loadJSONDataInternal(var data)
+{
+	BaseItem::loadJSONDataInternal(data);
+	id->setValue(data.getProperty("droneId", id->intValue()));
+
+	updateCustomDecks();
 }

@@ -77,6 +77,22 @@
 			isa = PBXBuildFile;
 			fileRef = 32AE2CF59A46DF36CCD3F703;
 		};
+		8F9DFE5FD3828833A491617C = {
+			isa = PBXBuildFile;
+			fileRef = 5BE8FEB08CFCB25E548AD53B;
+		};
+		5DE78757E3902A43417C5B9A = {
+			isa = PBXBuildFile;
+			fileRef = DF3E27C1F35E665246429F87;
+		};
+		CC7324685CB642050D6D1B99 = {
+			isa = PBXBuildFile;
+			fileRef = B6CB1999C3D41F21213FDA33;
+		};
+		E8B023AB59C726B9638289A4 = {
+			isa = PBXBuildFile;
+			fileRef = 1A4AFDD0CF8786815D481931;
+		};
 		1741E8A4AC797CAE799BCC8B = {
 			isa = PBXBuildFile;
 			fileRef = 34E6ECE1AFBD99970BBF85C3;
@@ -292,6 +308,13 @@
 			path = LaMoucheFolle.entitlements;
 			sourceTree = "SOURCE_ROOT";
 		};
+		1A4AFDD0CF8786815D481931 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DeckParamManager.cpp;
+			path = ../../Source/Drone/Deck/DeckParamManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		1AB985901D87B36A0B043C5F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -397,6 +420,13 @@
 			path = "../../External/crazyflie_cpp/src/Crazyflie.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		3A9EBC15CE88D40C9CB8D739 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DeckParamManager.h;
+			path = ../../Source/Drone/Deck/DeckParamManager.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		3CBA55AF4193EE6B295441C4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -493,6 +523,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = Drone2DViewManagerUI.h;
 			path = ../../Source/Drone/ui/Drone2DViewManagerUI.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		5BE8FEB08CFCB25E548AD53B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = Deck.cpp;
+			path = ../../Source/Drone/Deck/Deck.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		5E1AEFE9A3875B419C614CFA = {
@@ -656,6 +693,13 @@
 			path = ../../JuceLibraryCode/BinaryData.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		8F9994AA1771AB0B7A07F757 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Deck.h;
+			path = ../../Source/Drone/Deck/Deck.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		9120D92029CEF26A49C8E201 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.png;
@@ -768,11 +812,25 @@
 			path = ../../Source/Radio/CFRadioManager.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		B6CB1999C3D41F21213FDA33 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DeckParam.cpp;
+			path = ../../Source/Drone/Deck/DeckParam.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		B6CD4D3934F596FB1752E6D8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = DroneManagerGridUI.h;
 			path = ../../Source/Drone/ui/DroneManagerGridUI.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		B7FD40B459B543C81DBF68C9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DeckParam.h;
+			path = ../../Source/Drone/Deck/DeckParam.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		B98D77C7B0C936566730CBA0 = {
@@ -894,6 +952,13 @@
 			path = "../../Resources/config_problem.png";
 			sourceTree = "SOURCE_ROOT";
 		};
+		DF3E27C1F35E665246429F87 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DeckManager.cpp;
+			path = ../../Source/Drone/Deck/DeckManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		E28343F6035A889D1D2B04BE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -985,6 +1050,13 @@
 			path = RecentFilesMenuTemplate.nib;
 			sourceTree = "SOURCE_ROOT";
 		};
+		F7E64D952529C763666C6B3D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DeckManager.h;
+			path = ../../Source/Drone/Deck/DeckManager.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		FD49FBE15C930BDBF44DCC9E = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -1066,6 +1138,21 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		D0647511C459DE6F95C9895B = {
+			isa = PBXGroup;
+			children = (
+				5BE8FEB08CFCB25E548AD53B,
+				8F9994AA1771AB0B7A07F757,
+				DF3E27C1F35E665246429F87,
+				F7E64D952529C763666C6B3D,
+				B6CB1999C3D41F21213FDA33,
+				B7FD40B459B543C81DBF68C9,
+				1A4AFDD0CF8786815D481931,
+				3A9EBC15CE88D40C9CB8D739,
+			);
+			name = Deck;
+			sourceTree = "<group>";
+		};
 		4D346EB32A61A770300679FB = {
 			isa = PBXGroup;
 			children = (
@@ -1101,6 +1188,7 @@
 		BDBEA04606C3AC09FEE72F73 = {
 			isa = PBXGroup;
 			children = (
+				D0647511C459DE6F95C9895B,
 				4D346EB32A61A770300679FB,
 				2B9E3769676E0E5A5AE2D4C8,
 				FD49FBE15C930BDBF44DCC9E,
@@ -1388,6 +1476,10 @@
 				18B4AF302E2D445F1BFE79D5,
 				FA378B999BC35242AC821892,
 				4303507603D1A28B7D4E311E,
+				8F9DFE5FD3828833A491617C,
+				5DE78757E3902A43417C5B9A,
+				CC7324685CB642050D6D1B99,
+				E8B023AB59C726B9638289A4,
 				1741E8A4AC797CAE799BCC8B,
 				D0ED9F6E31488870F3A092F3,
 				22F3FA43F882CB7E3A2DCDF3,

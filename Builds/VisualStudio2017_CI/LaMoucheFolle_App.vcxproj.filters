@@ -14,6 +14,9 @@
     <Filter Include="LaMoucheFolle\Source\Controller">
       <UniqueIdentifier>{0827AADF-B6E5-2A73-7751-AEF88B69FA9A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LaMoucheFolle\Source\Drone\Deck">
+      <UniqueIdentifier>{E9347FF5-039E-DFBC-E27A-B8A8109C4AF8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="LaMoucheFolle\Source\Drone\crazyflie_cpp">
       <UniqueIdentifier>{D021A765-71A2-701A-A344-135B99EF0061}</UniqueIdentifier>
     </Filter>
@@ -459,6 +462,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Controller\OSCController.cpp">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drone\Deck\Deck.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckManager.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckParam.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckParamManager.cpp">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp">
       <Filter>LaMoucheFolle\Source\Drone\crazyflie_cpp</Filter>
@@ -2417,6 +2432,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Controller\OSCController.h">
       <Filter>LaMoucheFolle\Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\Deck\Deck.h">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckManager.h">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckParam.h">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckParamManager.h">
+      <Filter>LaMoucheFolle\Source\Drone\Deck</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.h">
       <Filter>LaMoucheFolle\Source\Drone\ui</Filter>

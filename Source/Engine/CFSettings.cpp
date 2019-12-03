@@ -20,8 +20,6 @@ CFSettings::CFSettings() :
 	conversionCC("Conversion"),
 	setupCC("Setup")
 {
-	saveAndLoadRecursiveData = true;
-
 	addChildControllableContainer(&setupCC);
 	//lpsMode = setupCC.addEnumParameter("LPS Mode", "The mode to set the drone at connect");
 	//lpsMode->addOption("Do not set",-1)->addOption("Auto", 0)->addOption("TDoA 2", 2)->addOption("TDoA 3", 3);
@@ -40,6 +38,7 @@ CFSettings::CFSettings() :
 	//lpsGroundHeight = addFloatParameter("LPS Ground Height", "Vertical height from ground for the floor anchors. Does not affect box size", 0);
 
 
+	
 	bs1Origin = lighthouseCC.addPoint3DParameter("BS1 Origin", "BS1");
 	for (int i = 0; i < 3; i++) bs1MatRows.add(lighthouseCC.addPoint3DParameter("BS1 Row "+String(i+1), ""));
 
@@ -51,12 +50,12 @@ CFSettings::CFSettings() :
 
 	addChildControllableContainer(&flightCC);
 	flightCC.saveAndLoadRecursiveData = true;
-	takeOffHeight = flightCC.addFloatParameter("TakeOff Height", "Height to take off the drone", 1, .5f, 20);
-	takeOffTime = flightCC.addFloatParameter("Takeoff Time", "Time to take off, in seconds", 2);
+	takeOffHeight = flightCC.addFloatParameter("TakeOff Height", "Height to take off the drone", .5, 0, 3);
+	takeOffTime = flightCC.addFloatParameter("Takeoff Time", "Time to take off, in seconds", 2,0);
 
 	disableYawCommand = flightCC.addBoolParameter("Disable Yaw Commands", "If enabled, the drones won't receive any yaw command, and position command will be set to yaw = 0", false);
 
-	flightCC.addChildControllableContainer(&physicsCC);
+	//flightCC.addChildControllableContainer(&physicsCC);
 
 	addChildControllableContainer(&conversionCC);
 	units = conversionCC.addEnumParameter("Units", "Cheese eater or Uncle sam ?");
@@ -72,10 +71,32 @@ CFSettings::CFSettings() :
 	frontBackAxis = conversionCC.addEnumParameter("Front-Back axis", "This decides which variable to use for left to right.");
 	frontBackAxis->addOption("X", 0)->addOption("Y", 1)->addOption("Z", 2);
 	frontBackAxis->setValueWithKey("Z");
+
+	addChildControllableContainer(&deckManager);
 }
 
 CFSettings::~CFSettings()
 {
+}
+
+var CFSettings::getJSONData()
+{
+	var data = ControllableContainer::getJSONData();
+	data.getDynamicObject()->setProperty("setup", setupCC.getJSONData());
+	data.getDynamicObject()->setProperty("lighthouse", lighthouseCC.getJSONData());
+	data.getDynamicObject()->setProperty("flight", flightCC.getJSONData());
+	data.getDynamicObject()->setProperty("conversion", conversionCC.getJSONData());
+	data.getDynamicObject()->setProperty("decks", deckManager.getJSONData());
+	return data;
+}
+
+void CFSettings::loadJSONDataInternal(var data)
+{
+	setupCC.loadJSONData(data.getProperty("setup",var()));
+	lighthouseCC.loadJSONData(data.getProperty("lighthouse",var()));
+	flightCC.loadJSONData(data.getProperty("flight",var()));
+	conversionCC.loadJSONData(data.getProperty("conversion", var()));
+	deckManager.loadJSONData(data.getProperty("decks", var()));
 }
 
 Vector3D<float> CFSettings::toDroneVector(Vector3D<float> lmfVector, bool convertAxis, bool convertUnits)

@@ -160,6 +160,10 @@
     <ClCompile Include="..\..\Source\Controller\Controller.cpp"/>
     <ClCompile Include="..\..\Source\Controller\ControllerManager.cpp"/>
     <ClCompile Include="..\..\Source\Controller\OSCController.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\Deck\Deck.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckManager.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckParam.cpp"/>
+    <ClCompile Include="..\..\Source\Drone\Deck\DeckParamManager.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyflie.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\CrazyflieUSB.cpp"/>
     <ClCompile Include="..\..\External\crazyflie_cpp\src\Crazyradio.cpp"/>
@@ -1913,6 +1917,10 @@
     <ClInclude Include="..\..\Source\Controller\Controller.h"/>
     <ClInclude Include="..\..\Source\Controller\ControllerManager.h"/>
     <ClInclude Include="..\..\Source\Controller\OSCController.h"/>
+    <ClInclude Include="..\..\Source\Drone\Deck\Deck.h"/>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckManager.h"/>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckParam.h"/>
+    <ClInclude Include="..\..\Source\Drone\Deck\DeckParamManager.h"/>
     <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewManagerUI.h"/>
     <ClInclude Include="..\..\Source\Drone\ui\Drone2DViewUI.h"/>
     <ClInclude Include="..\..\Source\Drone\ui\DroneGridUI.h"/>

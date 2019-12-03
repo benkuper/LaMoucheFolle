@@ -40,6 +40,21 @@ CFCommand * CFCommand::createRebootFirmware(Drone * d)
 	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0xF0, (uint8)0x01), REBOOT_FIRMWARE);
 }
 
+CFCommand* CFCommand::createSystemOff(Drone* d)
+{
+	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0x03), SYSTEM_OFF);
+}
+
+CFCommand* CFCommand::createSystemOn(Drone* d)
+{
+	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0x02), SYSTEM_ON);
+}
+
+CFCommand* CFCommand::createSystemLed(Drone* d, bool isOn)
+{
+	return new CFCommand(d, Array<uint8>((uint8)0xFF, (uint8)0xFE, (uint8)0xF0, (uint8)(isOn?0x05:0x06)), SYSTEM_LED);
+}
+
 CFCommand * CFCommand::createSetPoint(Drone * d, float yaw, float pitch, float roll, float thrust) {
 	crtpSetpointRequest r(roll, pitch, yaw, (uint16_t)thrust);
 	return new CFCommand(d, Array<uint8>((uint8 *)&r, sizeof(crtpSetpointRequest)), SETPOINT);

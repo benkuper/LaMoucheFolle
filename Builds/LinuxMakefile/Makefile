@@ -78,6 +78,10 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/Controller_5be1e7f0.o \
   $(JUCE_OBJDIR)/ControllerManager_2352be27.o \
   $(JUCE_OBJDIR)/OSCController_fad60d31.o \
+  $(JUCE_OBJDIR)/Deck_a4f6f479.o \
+  $(JUCE_OBJDIR)/DeckManager_8e39357e.o \
+  $(JUCE_OBJDIR)/DeckParam_695a855e.o \
+  $(JUCE_OBJDIR)/DeckParamManager_3a20c8f9.o \
   $(JUCE_OBJDIR)/Crazyflie_54967be1.o \
   $(JUCE_OBJDIR)/CrazyflieUSB_851ab16d.o \
   $(JUCE_OBJDIR)/Crazyradio_bc9130a6.o \
@@ -171,6 +175,26 @@ $(JUCE_OBJDIR)/ControllerManager_2352be27.o: ../../Source/Controller/ControllerM
 $(JUCE_OBJDIR)/OSCController_fad60d31.o: ../../Source/Controller/OSCController.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling OSCController.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Deck_a4f6f479.o: ../../Source/Drone/Deck/Deck.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Deck.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DeckManager_8e39357e.o: ../../Source/Drone/Deck/DeckManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DeckManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DeckParam_695a855e.o: ../../Source/Drone/Deck/DeckParam.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DeckParam.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DeckParamManager_3a20c8f9.o: ../../Source/Drone/Deck/DeckParamManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DeckParamManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Crazyflie_54967be1.o: ../../External/crazyflie_cpp/src/Crazyflie.cpp
