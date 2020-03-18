@@ -10,6 +10,7 @@
 
 #include "CFSettings.h"
 #include "ui/CFSettingsUI.h"
+#include "Drone/Drone.h"
 
 juce_ImplementSingleton(CFSettings)
 
@@ -38,6 +39,10 @@ CFSettings::CFSettings() :
 	//lpsGroundHeight = addFloatParameter("LPS Ground Height", "Vertical height from ground for the floor anchors. Does not affect box size", 0);
 
 
+	flightController = addEnumParameter("Flight Controller", "Controller used for flying.");
+	for (int i = 0; i < CONTROLLER_MAX; i++) flightController->addOption(controllerNames[i], (FlightController)i);
+
+	copyBSFromClipboard = lighthouseCC.addTrigger("Copy from clipboard","Copy from clipboard");
 	
 	bs1Origin = lighthouseCC.addPoint3DParameter("BS1 Origin", "BS1");
 	for (int i = 0; i < 3; i++) bs1MatRows.add(lighthouseCC.addPoint3DParameter("BS1 Row "+String(i+1), ""));
@@ -47,6 +52,8 @@ CFSettings::CFSettings() :
 
 	addChildControllableContainer(&lighthouseCC);
 	lighthouseCC.enabled->setValue(false);
+
+
 
 	addChildControllableContainer(&flightCC);
 	flightCC.saveAndLoadRecursiveData = true;
@@ -77,6 +84,45 @@ CFSettings::CFSettings() :
 
 CFSettings::~CFSettings()
 {
+}
+
+void CFSettings::copyBSMatricesFromClipboard()
+{
+	String s = SystemClipboard::getTextFromClipboard();
+	var data = JSON::parse(s);
+	if (!data.isArray())
+	{
+		LOGWARNING("Data is not an array");
+		return;
+	}
+
+	if (data.size() < 2)
+	{
+		LOGWARNING("Data needs at least 2 entries");
+		return;
+	}
+
+	var o1 = data[0].getProperty("origin",var());
+	bs1Origin->setVector(o1[0], o1[1], o1[2]);
+	var o2 = data[1].getProperty("origin", var());
+	bs2Origin->setVector(o2[0], o2[1], o2[2]);
+
+	var mat1 = data[0].getProperty("mat", var());
+	var mat2 = data[1].getProperty("mat", var());
+	for (int i = 0; i < 3; i++)
+	{
+		bs1MatRows[i]->setVector(mat1[i][0], mat1[i][1], mat1[i][2]);
+		bs2MatRows[i]->setVector(mat2[i][0], mat2[i][1], mat2[i][2]);
+	}
+	
+}
+
+void CFSettings::controllableFeedbackUpdate(ControllableContainer* cc, Controllable* c)
+{
+	if (c == copyBSFromClipboard)
+	{
+		copyBSMatricesFromClipboard();
+	}
 }
 
 var CFSettings::getJSONData()

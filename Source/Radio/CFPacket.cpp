@@ -143,6 +143,7 @@ CFPacket::CFPacket(Drone * drone, const ITransport::Ack & ack)
 		type = MEMORY_INFO;
 		crtpMemoryGetInfoResponse * r = (crtpMemoryGetInfoResponse *)ack.data;
 		data = new DynamicObject();
+		data.getDynamicObject()->setProperty("id", r->request.memId);
 		data.getDynamicObject()->setProperty("address", (int64)r->memAddr);
 		data.getDynamicObject()->setProperty("size", (int)r->memSize);
 		data.getDynamicObject()->setProperty("type", (int)r->memType);

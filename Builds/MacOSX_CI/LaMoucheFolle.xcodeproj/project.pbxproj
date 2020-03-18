@@ -45,6 +45,10 @@
 			isa = PBXBuildFile;
 			fileRef = D5F6EC25A6C0CA097BFFC5C3;
 		};
+		DAB84F99C7F87A3BEA48EADC = {
+			isa = PBXBuildFile;
+			fileRef = 3AB643DAA54AACB9AABF2EAC;
+		};
 		DC0C6B463E74F938FFA47D58 = {
 			isa = PBXBuildFile;
 			fileRef = 622B8CEBB12A5EF5167B413B;
@@ -301,13 +305,6 @@
 			path = "../../Resources/connect_bt.png";
 			sourceTree = "SOURCE_ROOT";
 		};
-		1829EA2CDE891E100478F2C4 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.xml;
-			name = LaMoucheFolle.entitlements;
-			path = LaMoucheFolle.entitlements;
-			sourceTree = "SOURCE_ROOT";
-		};
 		1A4AFDD0CF8786815D481931 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -425,6 +422,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = DeckParamManager.h;
 			path = ../../Source/Drone/Deck/DeckParamManager.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		3AB643DAA54AACB9AABF2EAC = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = CFMemory.cpp;
+			path = ../../Source/Radio/CFMemory.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		3CBA55AF4193EE6B295441C4 = {
@@ -595,6 +599,13 @@
 			path = "../../Resources/drone_poweron.png";
 			sourceTree = "SOURCE_ROOT";
 		};
+		71EBE49A55EB6EA178EFB91D = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_organicui";
+			path = "../../Modules/juce_organicui";
+			sourceTree = "SOURCE_ROOT";
+		};
 		744F339C7B6646ECED1AE5E4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.png;
@@ -740,6 +751,13 @@
 			lastKnownFileType = image.png;
 			name = "low_battery.png";
 			path = "../../Resources/low_battery.png";
+			sourceTree = "SOURCE_ROOT";
+		};
+		A22AC34A4ECA9B9F0C052CCA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = CFMemory.h;
+			path = ../../Source/Radio/CFMemory.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A45E5C57ED19BF8264EE6C92 = {
@@ -895,13 +913,6 @@
 			name = "juce_graphics";
 			path = "~/JUCE/modules/juce_graphics";
 			sourceTree = "<absolute>";
-		};
-		CFA9734E95A17D7CF054BBFE = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_organicui";
-			path = "../../../JUCE Modules/juce_organicui";
-			sourceTree = "SOURCE_ROOT";
 		};
 		D41A2881CBAF09545E5A513B = {
 			isa = PBXFileReference;
@@ -1103,6 +1114,8 @@
 				5E1AEFE9A3875B419C614CFA,
 				D5F6EC25A6C0CA097BFFC5C3,
 				4FD5ABE3706926C6232BF4F4,
+				3AB643DAA54AACB9AABF2EAC,
+				A22AC34A4ECA9B9F0C052CCA,
 				622B8CEBB12A5EF5167B413B,
 				AE846CE436EABEA9E0544C6F,
 				2111E0EDE345FEDD582B5221,
@@ -1265,7 +1278,7 @@
 				2B60B8723C59F16360F87EFB,
 				7CEBA6BF09EDF44BC790D542,
 				20623FAE2B18AA0A4AAD6639,
-				CFA9734E95A17D7CF054BBFE,
+				71EBE49A55EB6EA178EFB91D,
 				BECDA89E42EBF18B0164BF2D,
 			);
 			name = "JUCE Modules";
@@ -1338,7 +1351,7 @@
 		F1E39951951B5B1176E199E7 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1367,7 +1380,7 @@
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
 					"$(HOME)/JUCE/modules",
-					"\"../../../JUCE Modules\"",
+					"../../Modules",
 					"../../External/crazyflie_cpp/include/crazyflie_cpp",
 					"../../External/libusb/include",
 					"../../Source",
@@ -1383,7 +1396,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lusb-1.0";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.CrazyflieServer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benkuper.LaMoucheFolle;
 				PRODUCT_NAME = "LaMoucheFolle";
 				USE_HEADERMAP = NO;
 			};
@@ -1429,6 +1442,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "LaMoucheFolle";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1468,6 +1482,7 @@
 			files = (
 				C04C5A17BD33DB90C7AA424D,
 				F84ECE188177A519DA5429E2,
+				DAB84F99C7F87A3BEA48EADC,
 				DC0C6B463E74F938FFA47D58,
 				03032D7C31ABB2A3E0BCF6E1,
 				59FA0B40E2083D3534A57474,

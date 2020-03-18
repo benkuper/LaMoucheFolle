@@ -37,6 +37,7 @@ DroneManagerGridUI::~DroneManagerGridUI()
 void DroneManagerGridUI::resizedInternalHeader(Rectangle<int>& r)
 {
 	Rectangle<int> hr = r.removeFromTop(headerHeight);
+	BaseManagerShapeShifterUI::resizedInternalHeader(hr);
 
 	thumbSizeUI->setBounds(hr.removeFromRight(100).reduced(1));
 	r.removeFromRight(2);
@@ -46,6 +47,7 @@ void DroneManagerGridUI::resizedInternalHeader(Rectangle<int>& r)
 	landAllBT->setBounds(hr.removeFromLeft(100).reduced(1));
 
 	r.removeFromTop(headerGap);
+
 }
 
 void DroneManagerGridUI::placeItems(Rectangle<int> &r)

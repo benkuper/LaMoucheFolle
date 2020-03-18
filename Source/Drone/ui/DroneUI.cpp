@@ -21,6 +21,7 @@ DroneUI::~DroneUI()
 
 void DroneUI::paint(Graphics& g)
 {
+	BaseItemUI::paint(g);
 	g.setColour(getColorForState());
 	g.fillEllipse(statusRect.toFloat());
 }

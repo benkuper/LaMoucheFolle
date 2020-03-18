@@ -31,6 +31,13 @@ void DroneManager::addItemInternal(Drone* d, var data)
 	if(data.isVoid()) d->id->setValue(getFirstAvailableID(d));
 }
 
+
+void DroneManager::onContainerTriggerTriggered(Trigger* t)
+{
+	if (t == takeOffAll) for (auto& i : items) i->takeOffTrigger->trigger();
+	else if (t == landAll) for (auto& i : items) i->landTrigger->trigger();
+}
+
 void DroneManager::onControllableFeedbackUpdate(ControllableContainer* cc, Controllable* c)
 {
 	Drone * d = ControllableUtil::findParentAs<Drone>(c);

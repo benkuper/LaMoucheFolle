@@ -18,41 +18,71 @@
             "direction": 1,
             "shifters": [
               {
-                "type": 0,
-                "width": 508,
-                "height": 997,
-                "currentContent": "Logger",
-                "tabs": [
-                  {
-                    "name": "Logger"
-                  }
-                ]
-              },
-              {
                 "type": 1,
-                "width": 824,
+                "width": 446,
                 "height": 997,
                 "direction": 2,
                 "shifters": [
                   {
                     "type": 0,
-                    "width": 824,
-                    "height": 885,
-                    "currentContent": "Drones Grid",
+                    "width": 446,
+                    "height": 211,
+                    "currentContent": "Drone List",
                     "tabs": [
                       {
-                        "name": "Drones Grid"
+                        "name": "Drone List"
                       }
                     ]
                   },
                   {
                     "type": 0,
-                    "width": 824,
-                    "height": 106,
+                    "width": 446,
+                    "height": 726,
+                    "currentContent": "Logger",
+                    "tabs": [
+                      {
+                        "name": "Logger"
+                      }
+                    ]
+                  },
+                  {
+                    "type": 0,
+                    "width": 446,
+                    "height": 48,
                     "currentContent": "Controllers",
                     "tabs": [
                       {
                         "name": "Controllers"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": 1,
+                "width": 886,
+                "height": 997,
+                "direction": 2,
+                "shifters": [
+                  {
+                    "type": 0,
+                    "width": 886,
+                    "height": 634,
+                    "currentContent": "Drone Grid",
+                    "tabs": [
+                      {
+                        "name": "Drone Grid"
+                      }
+                    ]
+                  },
+                  {
+                    "type": 0,
+                    "width": 886,
+                    "height": 357,
+                    "currentContent": "Drone 2D View",
+                    "tabs": [
+                      {
+                        "name": "Drone 2D View"
                       }
                     ]
                   }

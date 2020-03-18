@@ -26,6 +26,7 @@ public:
 
 	void addItemInternal(Drone* d, var data) override;
 
+	void onContainerTriggerTriggered(Trigger * t) override;
 	void onControllableFeedbackUpdate(ControllableContainer* cc, Controllable* c) override;
 	int getFirstAvailableID(Drone* exclude = nullptr);
 	Drone* getDroneWithID(int id, Drone * exclude = nullptr);

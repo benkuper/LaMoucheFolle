@@ -33,6 +33,7 @@ public:
 	enum LightMode { OFF, WHITE_SPINNER, COLOR_SPINNER, TILT_EFFECT, BRIGHTNESS, COLOR_SPINNER2, DOUBLE_SPINNER, SOLID_COLOR, FACTORY_TEST, BATTERY_STATUS, BOAT_LIGHTS, ALERT, GRAVITY, MEMORY, FADE_COLOR, LIGHTMODE_MAX };
 	const String lightModeNames[LIGHTMODE_MAX]{ "Off","White spinner","Color spinner","Tilt effect","Brightness","Color spinner2","Double spinner","Solid color","Factory test","Battery status","Boat lights","Alert","Gravity","Memory","Fade Color" };
 
+	
 	ControllableContainer infoCC;
 	IntParameter* id;
 	EnumParameter* state;
@@ -52,6 +53,16 @@ public:
 	Point3DParameter* desiredPosition;
 	Point3DParameter* desiredSpeed;
 	Point3DParameter* desiredAcceleration;
+	
+
+	EnablingControllableContainer pidCC;
+	FloatParameter* attitude_rollPitch_Kp;
+	FloatParameter* attitude_rollPitch_Ki;
+	FloatParameter* attitude_rollPitch_Kd;
+	FloatParameter* rate_rollPitch_Kp;
+	FloatParameter* rate_rollPitch_Ki;
+	FloatParameter* rate_rollPitch_Kd;
+
 
 	ControllableContainer lightsCC;
 	EnumParameter* lightMode;
@@ -73,13 +84,19 @@ public:
 	CFParamToc* paramToc;
 	CFLogToc* logToc;
 
+	int numMemories;
+	int curMemoryId;
+	Array<Crazyflie::MemoryTocEntry>  memories;
+	int lhMemoryId;
+	int curLHMemoryAddress;
+	Array<uint8> lhMemoryData;
+
 	ControllableContainer decksCC;
 
 	double lastPhysicsUpdateTime;
 
 	//Lighthouse
-	//sCrazyflie::MemoryTocEntry lighthouseMemoryEntry;
-
+	
 	void onContainerParameterChangedInternal(Parameter* c) override;
 	void onControllableFeedbackUpdateInternal(ControllableContainer * cc, Controllable * c) override;
 
@@ -137,6 +154,10 @@ public:
 	void logVariableInfoReceived(int id, String group, String name, int type);
 
 	void logDataReceived(int blockId, var data);
+
+	void memoryInfoReceived(uint64 memoryAddress, Crazyflie::MemoryType type, int size);
+	void memoryReadReceived(int id, uint64 memoryAddress, int status, var data);
+	void memoryWriteReceived(int id,uint64 memoryAddress, int status);
 
 	void run() override;
 

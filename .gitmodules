@@ -1,3 +1,6 @@
 [submodule "External/crazyflie_cpp"]
 	path = External/crazyflie_cpp
 	url = https://github.com/benkuper/crazyflie_cpp
+[submodule "Modules/juce_organicui"]
+	path = Modules/juce_organicui
+	url = http://github.com/benkuper/juce_organicui

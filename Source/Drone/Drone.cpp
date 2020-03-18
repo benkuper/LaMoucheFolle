@@ -23,7 +23,11 @@ Drone::Drone() :
 	lightsCC("Lights"),
 	decksCC("Custom Decks"),
 	logToc(nullptr),
-	paramToc(nullptr)
+	paramToc(nullptr),
+	numMemories(0),
+	lhMemoryId(0),
+	curMemoryId(0),
+	pidCC("PID Override")
 {
 
 	itemDataType = "Drone";
@@ -55,7 +59,7 @@ Drone::Drone() :
 	desiredAcceleration = flightCC.addPoint3DParameter("Desired Speed", "The target position to send to the drone");
 	desiredAcceleration->hideInEditor = true; 
 	
-	targetYaw = flightCC.addFloatParameter("Target Yaw", "The target horizontal rotation to send to the drone", 0, 0, 1);
+	targetYaw = flightCC.addFloatParameter("Target Yaw", "The target horizontal rotation to send to the drone", 0, -1, 1);
 	
 	enableYawLookAt = flightCC.addBoolParameter("LookAt Mode", "The target horizontal rotation to send to the drone", false);
 	yawLookAt = flightCC.addPoint2DParameter("LookAt Position", "The target horizontal rotation to send to the drone");
@@ -64,6 +68,16 @@ Drone::Drone() :
 	realPosition->setControllableFeedbackOnly(true);
 	realRotation = flightCC.addPoint3DParameter("Real Rotation", "The tracked rotation sent from the drone");
 	realRotation->setControllableFeedbackOnly(true);
+	
+	pidCC.enabled->setValue(false);
+	attitude_rollPitch_Kp = pidCC.addFloatParameter("Attitude RollPitch Kp", "P of attitude roll and pitch value", 3, 0);
+	attitude_rollPitch_Ki = pidCC.addFloatParameter("Attitude RollPitch Ki", "I of attitude roll and pitch value", 6, 0);
+	attitude_rollPitch_Kd = pidCC.addFloatParameter("Attitude RollPitch Kd", "D of attitude roll and pitch value", 0, 0);
+	rate_rollPitch_Kp = pidCC.addFloatParameter("Attitude RollPitch Kp", "P of rate roll and pitch value", 250, 0);
+	rate_rollPitch_Ki = pidCC.addFloatParameter("Attitude RollPitch Ki", "I of rate roll and pitch value", 500, 0);
+	rate_rollPitch_Kd = pidCC.addFloatParameter("Attitude RollPitch Kd", "D of rate roll and pitch value", 2.5f, 0);
+
+	flightCC.addChildControllableContainer(&pidCC);
 
 	addChildControllableContainer(&flightCC);
 
@@ -144,6 +158,13 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 		//float distFromRealPos = (desiredPosition->getVector() - realPosition->getVector()).length();
 		sendPosition();
 	}
+	else if (c == realPosition)
+	{
+		if (state->getValueDataAsEnum<State>() == READY && !isFlying())
+		{
+			desiredPosition->setVector(realPosition->getVector());
+		}
+	}
 
 	else if (c == color) setParam("ring.fadeColor", (int64)color->getColor().getARGB());
 	else if (c == headlight) setParam("ring.headlightEnable", headlight->boolValue());
@@ -162,6 +183,44 @@ void Drone::onControllableFeedbackUpdateInternal(ControllableContainer*, Control
 			case Controllable::FLOAT: setParam(c->niceName, p->floatValue());
 			case Controllable::INT: setParam(c->niceName, p->intValue());
 			case Controllable::BOOL: setParam(c->niceName, p->boolValue());
+			}
+		}
+	}
+	else if (c->parentContainer == &pidCC)
+	{
+		if (pidCC.enabled->boolValue())
+		{
+
+			FloatParameter* p = (FloatParameter*)c;
+
+			if (c == attitude_rollPitch_Kp)
+			{
+				setParam("pid_attitude.pitch_kp", p->floatValue());
+				setParam("pid_attitude.roll_kp", p->floatValue());
+			}else if(c == attitude_rollPitch_Ki)
+			{
+				setParam("pid_attitude.pitch_ki", p->floatValue());
+				setParam("pid_attitude.roll_ki", p->floatValue());
+			}
+			else if (c == attitude_rollPitch_Kd)
+			{
+				setParam("pid_attitude.pitch_kd", p->floatValue());
+				setParam("pid_attitude.roll_kd", p->floatValue());
+			}
+			else if (c == rate_rollPitch_Kp)
+			{
+				setParam("pid_rate.pitch_kp", p->floatValue());
+				setParam("pid_rate.roll_kp", p->floatValue());
+			}
+			else if (c == rate_rollPitch_Ki)
+			{
+				setParam("pid_rate.pitch_ki", p->floatValue());
+				setParam("pid_rate.roll_ki", p->floatValue());
+			}
+			else if (c == rate_rollPitch_Kd)
+			{
+				setParam("pid_rate.pitch_kd", p->floatValue());
+				setParam("pid_rate.roll_kd", p->floatValue());
 			}
 		}
 	}
@@ -449,12 +508,61 @@ void Drone::setupDrone()
 	NLOG(niceName, "Log variables are synchronized and saved");
 
 
+	NLOG(niceName, "Getting memory info...");
+
+	addCommand(CFCommand::createGetMemoryNumber(this));
+
+	while (numMemories == 0)
+	{
+		if (threadShouldExit() || state->getValueDataAsEnum<State>() != CONNECTING) return;
+
+		ping();
+		sleep(2);
+	}
+
+	NLOG(niceName,"Found " << numMemories << ", getting infos");
+
+	memories.clear();
+
+	int lastMemoryId = -1;
+	while (memories.size() < numMemories)
+	{
+		if (threadShouldExit() || state->getValueDataAsEnum<State>() != CONNECTING) return;
+		if (lastMemoryId != curMemoryId)
+		{
+			LOG("Requesting info for id : " << curMemoryId);
+			addCommand(CFCommand::createGetMemoryInfo(this, curMemoryId));
+			lastMemoryId = curMemoryId;
+		}
+		else
+		{
+			ping();
+			sleep(2);
+		}
+	}
+
 	NLOG(niceName, "Enable high level commander");
 	setParam("commander.enHighLevel", 1);
 
-	NLOG(niceName, "Use Mellinger controller");
-	setParam("stabilizer.controller", 2); //0 = auto, 1 = pid, 2 = mellinger
+	int controllerId = CFSettings::getInstance()->flightController->getValueDataAsEnum<CFSettings::FlightController>();
+	NLOG(niceName, "Use " << CFSettings::getInstance()->controllerNames[(int)controllerId] << " controller");
+	setParam("stabilizer.controller", controllerId); //0 = auto, 1 = pid, 2 = mellinger
 
+	if (controllerId == 1 && pidCC.enabled->boolValue()) // pid
+	{
+		setParam("pid_attitude.pitch_kp", attitude_rollPitch_Kp->floatValue());
+		setParam("pid_attitude.roll_kp", attitude_rollPitch_Kp->floatValue());
+		setParam("pid_attitude.pitch_ki", attitude_rollPitch_Ki->floatValue());
+		setParam("pid_attitude.roll_ki", attitude_rollPitch_Ki->floatValue());
+		setParam("pid_attitude.pitch_kd", attitude_rollPitch_Kd->floatValue());
+		setParam("pid_attitude.roll_kd", attitude_rollPitch_Kd->floatValue());
+		setParam("pid_rate.pitch_kp", rate_rollPitch_Kp->floatValue());
+		setParam("pid_rate.roll_kp", rate_rollPitch_Kp->floatValue());
+		setParam("pid_rate.pitch_ki", rate_rollPitch_Kp->floatValue());
+		setParam("pid_rate.roll_ki", rate_rollPitch_Kp->floatValue());
+		setParam("pid_rate.pitch_kd", rate_rollPitch_Kp->floatValue());
+		setParam("pid_rate.roll_kd", rate_rollPitch_Kp->floatValue());
+	}
 
 	NLOG(niceName, "Set light deck");
 	setParam("ring.fadeColor", (int64)color->getColor().getARGB());
@@ -501,10 +609,10 @@ void Drone::setLighthouseSetup()
 	Crazyflie::LighthouseBSGeometry bs2;
 	//cf->getLighthouseGeometries(bs1, bs2);
 
-	Vector3D<float> bs1Pos(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
-	Vector3D<float> bs2Pos(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
+	//Vector3D<float> bs1Pos(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
+	//Vector3D<float> bs2Pos(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
 
-	NLOG(niceName, "Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+	//NLOG(niceName, "Lighthouse GET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
 
 
 	Vector3D<float> bs1Origin = CFSettings::getInstance()->bs1Origin->getVector();
@@ -523,13 +631,69 @@ void Drone::setLighthouseSetup()
 	}
 
 
-	//cf->setLighthouseGeometries(bs1, bs2);
-	//cf->getLighthouseGeometries(bs1, bs2);
+	//Set geometry
+	uint8_t data[96]; // 2 bs struct
+	memcpy(data, reinterpret_cast<const uint8_t*>(&bs1), sizeof(Crazyflie::LighthouseBSGeometry));
+	memcpy(data + sizeof(Crazyflie::LighthouseBSGeometry), reinterpret_cast<const uint8_t*>(&bs2), sizeof(Crazyflie::LighthouseBSGeometry));
+	
+	Array<uint8_t> dataArray;
+	dataArray.addArray(data, 96);
 
-	bs1Pos = Vector3D<float>(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
-	bs2Pos = Vector3D<float>(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
+	int lastMemAddress = -1;
+	curLHMemoryAddress = 0;
+	while(dataArray.size() > 0)
+	{
+		if (lastMemAddress != curLHMemoryAddress)
+		{
+			//LOG("Add write command at address : " << curLHMemoryAddress);
+			addCommand(CFCommand::createWriteMemory(this, lhMemoryId, curLHMemoryAddress, dataArray));
+			dataArray.removeRange(0, 24);
+			lastMemAddress = curLHMemoryAddress;
+		}
+		else
+		{
+			ping();
+			sleep(2);
+		}
+	}
 
-	NLOG(niceName, "Lighthouse after SET geometries : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+	
+	lhMemoryData.clear();
+	lastMemAddress = -1;
+	curLHMemoryAddress = 0;
+	while (curLHMemoryAddress < 96)
+	{
+		if (lastMemAddress != curLHMemoryAddress)
+		{
+			//LOG("Add read command at address : " << curLHMemoryAddress);
+			addCommand(CFCommand::createReadMemory(this, lhMemoryId, curLHMemoryAddress, jmin(24, 96 - curLHMemoryAddress)));
+			dataArray.removeRange(0, 24);
+			lastMemAddress = curLHMemoryAddress;
+		}
+		else
+		{
+			ping();
+			sleep(2);
+		}
+	}
+
+
+	int bsDataLen = sizeof(Crazyflie::LighthouseBSGeometry);
+	memcpy(&bs1, lhMemoryData.getRawDataPointer(), bsDataLen);
+	memcpy(&bs2, lhMemoryData.getRawDataPointer() + bsDataLen, bsDataLen);
+
+	
+	Vector3D<float> bs1Pos = Vector3D<float>(bs1.origin[0], bs1.origin[1], bs1.origin[2]);
+	Vector3D<float> bs2Pos = Vector3D<float>(bs2.origin[0], bs2.origin[1], bs2.origin[2]);
+
+	NLOG(niceName, "Lighthouse positions check : " << bs1Pos.x << ", " << bs1Pos.y << ", " << bs1Pos.z << " / " << bs2Pos.x << ", " << bs2Pos.y << ", " << bs2Pos.z);
+	/*for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			LOG(" > " << bs1.matrix[i][j]);
+		}
+	}*/
 }
 
 String Drone::getURI() const
@@ -621,8 +785,24 @@ void Drone::packetReceived(CFPacket * packet)
 		DBG("Got Param value : " << packet->data.getProperty("name","[notset]").toString() << " : " << packet->data.getProperty("value","[notset]").toString());
 		break;
 
+	case CFPacket::MEMORY_NUMBER:
+		numMemories = (int)packet->data;
+		break;
+
+	case CFPacket::MEMORY_INFO:
+		memoryInfoReceived((uint64)(int64)packet->data.getProperty("address",0), (Crazyflie::MemoryType)(int)packet->data.getProperty("type",0), packet->data.getProperty("size", 0));
+		break;
+
+	case CFPacket::MEMORY_READ:
+		memoryReadReceived((int)packet->data.getProperty("memoryId", -1), (uint64)(int64)packet->data.getProperty("address", 0), (int)packet->data.getProperty("status", -1), packet->data.getProperty("data",var()));
+		break;
+
+	case CFPacket::MEMORY_WRITE:
+		memoryWriteReceived((int)packet->data.getProperty("memoryId", -1), (uint64)(int64)packet->data.getProperty("address", 0), (int)packet->data.getProperty("status", -1));
+		break;
+
 	default:
-		//LOG("Not handled : " << packet->getTypeString());
+		LOG("Not handled : " << packet->getTypeString());
 		break;
 	}
 }
@@ -691,6 +871,42 @@ void Drone::logDataReceived(int blockId, var data)
 		realRotation->setVector(CFSettings::toLMFVector(Vector3D<float>(pLog->rx, pLog->ry, pLog->rz)));
 	}
 		break;
+	}
+}
+
+void Drone::memoryInfoReceived(uint64 memoryAddress, Crazyflie::MemoryType type, int size)
+{
+	memories.add({ (uint16_t)curMemoryId, type, (uint32_t)size, memoryAddress });
+	if (type == Crazyflie::MemoryTypeLH)
+	{
+		lhMemoryId = curMemoryId;
+		//lhMemoryAddress = memoryAddress;
+		LOG("Found LH Memory : " << lhMemoryId);
+	}
+
+	curMemoryId++;
+}
+
+void Drone::memoryReadReceived(int _id, uint64 memoryAddress, int status, var data)
+{
+	//LOG("Read received : " << id << ", " << memoryAddress << " : " << status << " > " << data.size());
+	if (_id == lhMemoryId)
+	{
+		curLHMemoryAddress += data.size();
+	}
+
+	for (int i = 0; i < data.size(); i++)
+	{
+		lhMemoryData.add((int)data[i]);
+	}
+}
+
+void Drone::memoryWriteReceived(int id, uint64 memoryAddress, int status)
+{
+	//LOG("Write received : " << id << ", " << memoryAddress << " : " << status);
+	if (id == lhMemoryId)
+	{
+		curLHMemoryAddress += 24;
 	}
 }
 

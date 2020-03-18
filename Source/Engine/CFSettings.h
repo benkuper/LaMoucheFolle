@@ -46,8 +46,6 @@ public:
 	FloatParameter * simTime;
 	Automation testMotion;
 
-
-
 	void onContainerParameterChanged(Parameter * p) override;
 
 	PhysicalState processPhysics(float deltaTime, const PhysicalState &currentState, const PhysicalState &desiredState) const;
@@ -77,8 +75,14 @@ public:
 	//FloatParameter * lowBatteryTime;
 
 	//EnumParameter * lpsMode;
+	
+	enum FlightController { AUTO, PID, MELLINGER, CONTROLLER_MAX };
+	const String controllerNames[CONTROLLER_MAX]{ "Auto", "PID","Mellinger" };
+
+	EnumParameter* flightController;
 
 	EnablingControllableContainer lighthouseCC;
+	Trigger* copyBSFromClipboard;
 	Point3DParameter* bs1Origin;	
 	Array<Point3DParameter*> bs1MatRows;
 	Point3DParameter* bs2Origin;
@@ -104,7 +108,11 @@ public:
 	EnumParameter * frontBackAxis;
 
 	DeckManager deckManager;
+
+	void copyBSMatricesFromClipboard();
 	
+	void controllableFeedbackUpdate(ControllableContainer* cc, Controllable* c) override;
+
 	var getJSONData() override;
 	void loadJSONDataInternal(var data) override;
 
