@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="xMMPVq" name="LaMoucheFolle" splashScreenColour="Dark" projectType="guiapp"
-              version="3.0.2b" bundleIdentifier="com.benkuper.LaMoucheFolle"
+              version="3.0.2b2" bundleIdentifier="com.benkuper.LaMoucheFolle"
               jucerVersion="5.4.7" companyCopyright="" headerPath="../../Source">
   <MAINGROUP id="S3Pdmt" name="LaMoucheFolle">
     <GROUP id="{7958DE81-0266-CB28-C906-81A529BE547D}" name="Resources">
